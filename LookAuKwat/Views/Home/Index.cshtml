@@ -1,21 +1,22 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-<section class="col-sm-8">
-    <ul class="nav nav-pills">
-        <li class="active"><a href="#search" data-toggle="tab">Recherche</a></li>
-        <li class="active"><a href="#ask" data-toggle="tab">Demande</a></li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane active fade in" id="search">
-            <div id="searchJob">
-                Future recherche
+    <section>
+        <ul class="nav nav-pills">
+            <li class="active"><a href="#search" data-toggle="tab">Offres</a></li>
+            <li ><a href="#ask" data-toggle="tab">Demandes</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active fade in" id="search">
+                <div id="searchJob">
+                    Future Offres
+                </div>
+            </div>
+            <div class="tab-pane fade " id="ask">
+                <div id="askJob">
+                    future demande
+                </div>
             </div>
         </div>
-        <div class="tab-pane fade " id="ask">
-            <div id="askJob">
-                future demande
-            </div>
-        </div>
-    </div>
-</section>
+
+    </section>

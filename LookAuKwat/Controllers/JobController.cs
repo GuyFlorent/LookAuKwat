@@ -30,10 +30,13 @@ namespace LookAuKwat.Controllers
         {
             return View();
         }
-
+        public ActionResult AddJobs_PartialView()
+        {
+            return PartialView();
+        }
 
         [HttpPost]
-        public async Task<ActionResult> Index(JobViewModel job, ImageProcduct userImage)
+        public async Task<ActionResult> AddJobs_PartialView(JobViewModel job, ImageProcduct userImage)
         {
             Job model = new Job()
             {

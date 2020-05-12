@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+
 namespace LookAuKwat.ViewModel
 {
     public class JobViewModel
@@ -19,7 +20,6 @@ namespace LookAuKwat.ViewModel
         public string TypeContract { get; set; }
         public string ActivitySector { get; set; }
         public string Category { get; set; }
-       
-       
+
     }
 }
