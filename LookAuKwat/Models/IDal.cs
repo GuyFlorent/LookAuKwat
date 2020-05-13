@@ -11,6 +11,6 @@ namespace LookAuKwat.Models
         List<ApplicationUser> GetUsersList();
         ApplicationUser GetUserByStrId(string id);
         //Work Category
-        void AddJob(Job job);
+        void AddJob(Job job, string lat, string lon);
     }
 }

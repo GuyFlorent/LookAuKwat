@@ -20,6 +20,6 @@ namespace LookAuKwat.ViewModel
         public string TypeContract { get; set; }
         public string ActivitySector { get; set; }
         public string Category { get; set; }
-
+        public ImageModelView Imageproduct { get; set; }
     }
 }

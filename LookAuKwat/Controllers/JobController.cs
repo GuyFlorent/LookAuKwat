@@ -36,7 +36,7 @@ namespace LookAuKwat.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddJobs_PartialView(JobViewModel job, ImageProcduct userImage)
+        public async Task<ActionResult> AddJobs_PartialView(JobViewModel job, ImageModelView userImage)
         {
             Job model = new Job()
             {
@@ -48,8 +48,9 @@ namespace LookAuKwat.Controllers
             Price = job.Price,
             Street = job.Street,
             ActivitySector = job.ActivitySector,
-            DateAdd = job.DateAdd,
+            DateAdd = DateTime.Now,
             SearchOrAskJob = job.SearchOrAskJob,
+            
             
         };
            
@@ -77,11 +78,9 @@ namespace LookAuKwat.Controllers
 
                         List<ImageProcduct> images = ImageAdd(userImage);
                         model.Images = images;
-                        model.Coordinate.Lat = latt;
-                        model.Coordinate.Lon = lonn;
                         model.User = user;
-                        model.Category.CategoryName = job.Category;
-                        dal.AddJob(model);
+                        model.Category = new Category { CategoryName = "Emploi" };
+                        dal.AddJob(model,latt,lonn);
 
                         //if (userImage.ImageFile != null)
                         //{
@@ -101,49 +100,70 @@ namespace LookAuKwat.Controllers
                     }
 
             }
-            return View(model);
+            return View(job);
         }
 
 
-        private List<ImageProcduct> ImageAdd(ImageProcduct userImage)
+        private List<ImageProcduct> ImageAdd(ImageModelView userImage)
         {
+            
             List<ImageProcduct> liste = new List<ImageProcduct>();
             foreach (var image in userImage.ImageFile)
             {
 
-            if (image != null && image.ContentLength > 0)
-            {
-               
+                if (image != null && image.ContentLength > 0)
+                {
 
-            //Save image name path
-            string FileName = Path.GetFileNameWithoutExtension(image.FileName);
 
-            // save extension of image
-            string FileExtension = Path.GetExtension(image.FileName);
+                    //Save image name path
+                    string FileName = Path.GetFileNameWithoutExtension(image.FileName);
 
-            //Add a curent date to attached file name
-            FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + FileName + FileExtension;
+                    // save extension of image
+                    string FileExtension = Path.GetExtension(image.FileName);
 
-            //Get upload path from web.config
-            // string UploadPath = ConfigurationManager.AppSettings["UserImagePath"].ToString();
+                    //Add a curent date to attached file name
+                    FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + FileName + FileExtension;
 
-            //Create complete path to store in server
-            var path = Server.MapPath("~/UserImages/");
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-            userImage.Image = $"/UserImages/{FileName}";
-                    liste.Add(userImage);
-            FileName = Path.Combine(path, FileName);
+                    //Get upload path from web.config
+                    // string UploadPath = ConfigurationManager.AppSettings["UserImagePath"].ToString();
 
-            image.SaveAs(FileName);
-           
+                    //Create complete path to store in server
+                    var path = Server.MapPath("~/UserImages/");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    userImage.Image = $"/UserImages/{FileName}";
+                    ImageProcduct picture = new ImageProcduct
+                    {
+                        Image = userImage.Image,
+                        id = Guid.NewGuid(),
+                        
+                    };
+                    liste.Add(picture);
+                    FileName = Path.Combine(path, FileName);
+
+                    image.SaveAs(FileName);
+
                 }
-                
+
             }
             return liste;
 
+        }
+
+        public async Task<JsonResult> ShowAddress(string term, string town)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                var fullAddress = $"{term + "," + town + "," + "Cameroun" }";
+                
+                    var response2 = await httpClient.GetAsync("https://api.opencagedata.com/geocode/v1/json?q=" + fullAddress + "&key=a196040df44a4a41a471173aed07635c");
+                    var data = await response2.Content.ReadAsStringAsync();
+
+                    return Json(data, JsonRequestBehavior.AllowGet);
+                
+            }
         }
 
 

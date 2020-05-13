@@ -7,9 +7,10 @@ namespace LookAuKwat.Models
 {
     public class ImageProcduct
     { 
-        public int id { get; set; }
+        public Guid id { get; set; }
         public string Image { get; set; }
-        public List <HttpPostedFileBase> ImageFile { get; set; }
+       // public List <HttpPostedFileBase> ImageFile { get; set; }
+        public int ProductId { get; set; }
         public Product Product { get; set; }
     }
 }

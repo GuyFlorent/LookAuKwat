@@ -9,7 +9,7 @@ namespace LookAuKwat.Models
     {
         public int id { get; set; }
         public string CategoryName { get; set; }
-        public string SubCategoryName { get; set; }
+       
 
     }
 }

@@ -28,27 +28,27 @@ namespace LookAuKwat.Models
             return dbb.Users.ToList();
         }
 
-        public void AddJob(Job job)
+        public void AddJob(Job job, string lat, string lon)
         {
            
             
             Category category = new Category
             {
                 CategoryName = job.Category.CategoryName,
-                SubCategoryName = job.Category.SubCategoryName
+                
             };
 
-            dbb.Categories.Add(category);
+           // dbb.Categories.Add(category);
             job.Category = category;
 
             ProductCoordinate coordinate = new ProductCoordinate
             {
-                Lat = job.Coordinate.Lat,
-                Lon = job.Coordinate.Lon
+                Lat = lat,
+                Lon = lon
 
             };
-              dbb.ProductCoordinates.Add(coordinate);
-            job.Category = category;
+             // dbb.ProductCoordinates.Add(coordinate);
+            job.Coordinate = coordinate;
 
             dbb.Jobs.Add(job);
             dbb.SaveChanges();
