@@ -38,6 +38,27 @@
     </div>
 </section>
 
+<section>
+    <div class="col-md-12">
+        <div class="row" style="height:7px">
+            <div class="row alert alert-success js-alert hidden" role="alert">
+                Initiative ajouter avec success dans la liste !
+            </div>
+            <div class="row alert alert-success js-alert-Edit-Initiative hidden" role="alert">
+                Initiative Modifier avec success dans la liste !
+            </div>
+            <div class="row alert alert-danger js-alert-delete-Initiative hidden" role="alert">
+                Initiative supprimer avec success dans la liste !
+            </div>
+        </div>
+        <br />
+
+        @{
+            Html.RenderAction("GetListProductByUser_PartialView", "User");
+        }
+    </div>
+</section>
+
 <script type="text/javascript">
     $(function () {
         $("select.Addcategory").change(function () {

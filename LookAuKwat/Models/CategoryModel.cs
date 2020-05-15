@@ -5,10 +5,11 @@ using System.Web;
 
 namespace LookAuKwat.Models
 {
-    public class ProductCoordinate
+    public class CategoryModel
     {
         public int id { get; set; }
-        public string Lat { get; set; }
-        public string Lon { get; set; }
+        public string CategoryName { get; set; }
+       
+
     }
 }

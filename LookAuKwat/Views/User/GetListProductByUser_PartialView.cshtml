@@ -1,0 +1,309 @@
+﻿@model IEnumerable<LookAuKwat.Models.ProductModel>
+
+
+
+
+
+@foreach (var item in Model)
+{
+
+    @*<div id="MyModalDelete_@item.id" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title">Supprimer<span id="eventTitle"></span></h2>
+                </div>
+                <div class="modal-body">
+
+                    @{
+                        Html.RenderAction("deleteInitiative_PartialView", "Initiative", new { id = item.id });
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+    <div id="MyModalDetail_@item.id" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title">Détails<span id="eventTitle"></span></h2>
+                </div>
+                <div class="modal-body">
+                  @{  if (@item.Category.CategoryName == "Emploi")
+                      {
+                   
+                        Html.RenderAction("JobDetails_PartialView", "Initiative", new { initiative = item });
+                    
+                            }
+                        }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="MyModalEdit_@item.id" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Modifier<span id="eventTitle"></span></h3>
+                </div>
+                <div class="modal-body">
+                  @{  if (@item.Category.CategoryName == "Emploi")
+                      {
+                    
+                        Html.RenderAction("EditJob_PartialView", "Job", new { events = item });
+                    
+                            }
+                        }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+<div class="panel-primary " id="ProductAdd">
+
+
+    <div class="panel-heading">
+        <h3 class="panel-title">Historique personelle</h3>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-condensed">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Town)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Street)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateAdd)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SearchOrAskJob)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SearchOrAskJob)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Images)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Town)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Street)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateAdd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SearchOrAskJob)
+                    </td>
+                    <td>
+                        @if (item.Images.Count() == 0)
+                        {
+                            <span>Aucune image</span>
+                        }
+                        else
+                        {
+                            <span>@item.Images.Count() Image(s)</span>
+                        }
+                    </td>
+                    <td>
+                        <a id="btnModalEdit_@item.id" class="btn btn-success" title="Modifier"><span class="glyphicon glyphicon-edit"></span></a>
+
+                        <a id="btnModalDetails_@item.id" class="btn btn-info" title="Détails"><span class="glyphicon glyphicon-eye-open"></span></a>
+
+
+                        <a id="btnModalDelete_@item.id" class="btn btn-danger" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+     $(function () {
+
+
+                 $.ajax({
+                    type: "POST",
+                     url: '/Product/listProductReturnJson',
+                    success: function (data) {
+                        //var result = JSON.stringify(data);
+                        $.each(data, function (i, data) {
+                            //for initiative events
+                            //var btnDeleteInitiative = $('#btnModalDeleteInitiative_' + data.IdEvent);
+                            //var modaDeleteInitiative = $('#MyModalDeleteInitiative_' + data.IdEvent);
+
+                            //$(btnDeleteInitiative).click(function () {
+
+                            //    $(modaDeleteInitiative).modal();
+
+                            //});
+                            //for product details
+                            var btnDetailProduct = $('#btnModalDetails_' + data.id);
+                            var modaDetailProduct = $('#MyModalEdit_' + data.id);
+                            var btnEditIni = $('#btnEditProductDetail_' + data.id);
+                            $(btnDetailProduct).click(function () {
+
+                                $(modaDetailProduct).modal();
+
+                            });
+                            $(btnEditIni).click(function () {
+                                $(modaDetailProduct).modal('hide');
+                               // $(modaEditmodaDetailInitiative).modal(); //apres
+                                $(modaDetailProduct).on('hidden.bs.modal', function () {
+                                       // Load up a new modal...
+                                    $(modaEditmodaProduct).modal('show')
+})
+                            });
+
+                            //for product Edit
+                            var btnEditmodaProduct = $('#btnModalEdit_' + data.id);
+                            var modaEditmodaProduct = $('#MyModalEdit_' + data.id);
+                            $(btnEditmodaProduct).click(function () {
+
+                                $(modaEditmodaProduct).modal();
+                            });
+
+                            //var countri = $('.Country_' + data.IdEvent);
+                            var town = $('#Town_' + data.IdEvent);
+                            //var zipcode = $('.ZipCode_' + data.IdEvent);
+                            var address = $('#Street' + data.IdEvent);
+
+                             $(address).autocomplete({
+                                source: function (request, response) {
+                                    $.ajax({
+                                        type: "POST",
+                                        url: '@Url.Action("ShowAddress", "User")',
+                                        dataType: "json",
+                                        headers: {
+                                            //"api-key": searchServiceApiKey,
+                                            "Content-Type": "application/json"
+                                        },
+                                        data: JSON.stringify({
+                                            top: 5,
+
+                                           // country: countri.val(),
+                                            town: town.val(),
+                                           // zipcode: zipcode.val(),
+                                            term: request.term
+                                        }),
+                                        success: function (data) {
+                                            if (data && data.length > 0) {
+                                                var parsedDate = $.parseJSON(data);
+          
+                                                    response((parsedDate["results"]).map(feature => feature["formatted"]));
+                                                
+                                            }
+                                        }
+                                    });
+                                },
+                                minLength: 3,
+                                position: {
+                                    //my: "left top",
+                                    //at: "left-23 bottom+10"
+                                    my: "left top",
+                                    at: "left-3 bottom+0",
+                                    of: address
+                                },
+                                 appendTo: modaEditmodaProduct
+                            });
+                            var btneditvalid = $('#btnFormEditJob_' + data.id);
+                            var Support =  $('.suppor_' + data.IdEvent);
+                            $(btneditvalid).click(function () {
+                               
+                                var y = town.val();
+                               
+                                var u = address.val();
+                              
+                                var descrip = $('.Description_' + data.id).val();
+
+                                if ( y !== ""  && u !== "") {
+                                    if (descrip.length >= 3 && descrip.length <= 1000) {
+                                        $(modaEditmodaProduct).modal('hide');
+                                        $(".js-alert-Edit-Initiative").removeClass('hidden').delay(5000).queue(function () {
+                                            $(this).addClass('hidden').dequeue();
+                                        })
+                                    }
+                                     if (descrip == "") {
+                                         $(modaEditmodaProduct).modal('hide');
+                                        $(".js-alert-Edit-Initiative").removeClass('hidden').delay(5000).queue(function () {
+                                            $(this).addClass('hidden').dequeue();
+                                        })
+                                    }
+                                }
+
+                            });
+
+                            //var btnDeleteIni = $('#btnDeleteInitiativeAjax_' + data.IdEvent);
+
+                            //$(btnDeleteIni).click(function () {
+                            //    $(modaDeleteInitiative).modal('hide');
+                            //        $(".js-alert-delete-Initiative").removeClass('hidden').delay(5000).queue(function () {
+                            //            $(this).addClass('hidden').dequeue();
+                            //        })
+                            //});
+
+                            //var FileEditImage = $('#FileEditInitia_' + data.IdEvent);
+                            //var FormEditImage = $('.EditImagInitiativ_' + data.IdEvent);
+
+                            //$(FileEditImage).on("change", function () {
+                            //    $(FormEditImage).submit();
+                            //});
+
+
+                        })
+                    },
+                    error: function (xhr) {
+                        console.log(xhr.responseText);
+                        alert("Une erreur est survenu  !");
+                    }
+                });
+</script>

@@ -171,20 +171,22 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\ApartmentRental.cs" />
-    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\ApartmentRentalModel.cs" />
+    <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\Dal.cs" />
     <Compile Include="Models\IDal.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ImageProcduct.cs" />
-    <Compile Include="Models\Job.cs" />
+    <Compile Include="Models\ImageProcductModel.cs" />
+    <Compile Include="Models\JobModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Product.cs" />
-    <Compile Include="Models\ProductCoordinate.cs" />
+    <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\ProductCoordinateModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\ImageModelView.cs" />
@@ -250,9 +252,13 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Job\AddJobs_PartialView.cshtml" />
+    <Content Include="Views\User\GetListProductByUser_PartialView.cshtml" />
+    <Content Include="Views\Job\EditJob_PartialView.cshtml" />
+    <Content Include="Views\Job\JobDetails_PartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

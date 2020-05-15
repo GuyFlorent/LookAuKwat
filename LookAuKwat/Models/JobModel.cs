@@ -5,7 +5,7 @@ using System.Web;
 
 namespace LookAuKwat.Models
 {
-    public class Job : Product
+    public class JobModel : ProductModel
     {
         public string TypeContract { get; set; }
         public string ActivitySector { get; set; }

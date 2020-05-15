@@ -21,12 +21,12 @@ namespace LookAuKwat.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Product> Products { get; set; }
-        public DbSet<ProductCoordinate> ProductCoordinates { get; set; }
-        public DbSet<Job> Jobs { get; set; }
-        public DbSet<ImageProcduct> Images { get; set; }
-        public DbSet<ApartmentRental> ApartmentRentals { get; set; }
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<ProductModel> Products { get; set; }
+        public DbSet<ProductCoordinateModel> ProductCoordinates { get; set; }
+        public DbSet<JobModel> Jobs { get; set; }
+        public DbSet<ImageProcductModel> Images { get; set; }
+        public DbSet<ApartmentRentalModel> ApartmentRentals { get; set; }
+        public DbSet<CategoryModel> Categories { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

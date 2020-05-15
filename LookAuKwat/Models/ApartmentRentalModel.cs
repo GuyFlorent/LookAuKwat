@@ -5,7 +5,7 @@ using System.Web;
 
 namespace LookAuKwat.Models
 {
-    public class ApartmentRental : Product
+    public class ApartmentRentalModel : ProductModel
     {
         public double ApartSurface { get; set; }
         public double RoomNumber { get; set; }

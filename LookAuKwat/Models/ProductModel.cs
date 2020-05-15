@@ -5,7 +5,7 @@ using System.Web;
 
 namespace LookAuKwat.Models
 {
-    public class Product
+    public class ProductModel
     {
         public int id { get; set; }
         public string Title { get; set; }
@@ -15,9 +15,9 @@ namespace LookAuKwat.Models
         public decimal Price { get; set; }
         public DateTime DateAdd { get; set; }
         public string SearchOrAskJob { get; set; }
-        public virtual Category Category { get; set; }
+        public virtual CategoryModel Category { get; set; }
         public virtual ApplicationUser User { get; set; }
-        public virtual ProductCoordinate Coordinate { get; set; }
-        public virtual List<ImageProcduct>  Images { get; set; }
+        public virtual ProductCoordinateModel Coordinate { get; set; }
+        public virtual List<ImageProcductModel>  Images { get; set; }
     }
 }
