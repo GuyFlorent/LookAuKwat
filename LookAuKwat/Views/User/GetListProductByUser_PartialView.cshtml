@@ -39,7 +39,7 @@
                   @{  if (@item.Category.CategoryName == "Emploi")
                       {
                    
-                        Html.RenderAction("JobDetails_PartialView", "Initiative", new { initiative = item });
+                        Html.RenderAction("JobDetails_PartialView", "Job", new { model = item });
                     
                             }
                         }
@@ -62,7 +62,7 @@
                   @{  if (@item.Category.CategoryName == "Emploi")
                       {
                     
-                        Html.RenderAction("EditJob_PartialView", "Job", new { events = item });
+                        Html.RenderAction("EditJob_PartialView", "Job", new { job = item });
                     
                             }
                         }
@@ -97,9 +97,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Town)
                 </th>
-                <th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.Street)
-                </th>
+                </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.Price)
                 </th>
@@ -113,7 +113,7 @@
                     @Html.DisplayNameFor(model => model.SearchOrAskJob)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Images)
+                   Nombre d'images
                 </th>
                 <th></th>
             </tr>
@@ -130,9 +130,9 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Town)
                     </td>
-                    <td>
+                    @*<td>
                         @Html.DisplayFor(modelItem => item.Street)
-                    </td>
+                    </td>*@
                     <td>
                         @Html.DisplayFor(modelItem => item.Price)
                     </td>
@@ -168,142 +168,167 @@
 </div>
 
 <script type="text/javascript">
-     $(function () {
+    $(function () {
 
+        $('.deleteItem').click(function (e) {
+           e.preventDefault();
+           var $ctrl = $(this);
+           if (confirm('Voulez vous vraiment supprimer cette annonce?')) {
+               $.ajax({
+                   url: '@Url.Action("DeleteImage","Product")',
+                   type: 'POST',
+                   data: { id: $(this).data('id') }
+               }).done(function (data) {
+                   if (data.Result == "OK") {
+                       $ctrl.closest('li').remove();
+                   }
+                   else if (data.Result.Message) {
+                       alert(data.Result.Message);
+                   }
+               }).fail(function () {
+                   alert("Une erreur c'est produite !.");
+               })
 
-                 $.ajax({
-                    type: "POST",
-                     url: '/Product/listProductReturnJson',
-                    success: function (data) {
-                        //var result = JSON.stringify(data);
-                        $.each(data, function (i, data) {
-                            //for initiative events
-                            //var btnDeleteInitiative = $('#btnModalDeleteInitiative_' + data.IdEvent);
-                            //var modaDeleteInitiative = $('#MyModalDeleteInitiative_' + data.IdEvent);
+           }
+       });
 
-                            //$(btnDeleteInitiative).click(function () {
+        $.ajax({
+            type: "POST",
+            url: '/Product/listProductReturnJson',
+            success: function (data1) {
+                //var result = JSON.stringify(data);
+                console.log(data1);
+                $.each(data1, function (i, data) {
+                    //for initiative events
+                    //var btnDeleteInitiative = $('#btnModalDeleteInitiative_' + data.IdEvent);
+                    //var modaDeleteInitiative = $('#MyModalDeleteInitiative_' + data.IdEvent);
 
-                            //    $(modaDeleteInitiative).modal();
+                    //$(btnDeleteInitiative).click(function () {
 
-                            //});
-                            //for product details
-                            var btnDetailProduct = $('#btnModalDetails_' + data.id);
-                            var modaDetailProduct = $('#MyModalEdit_' + data.id);
-                            var btnEditIni = $('#btnEditProductDetail_' + data.id);
-                            $(btnDetailProduct).click(function () {
+                    //    $(modaDeleteInitiative).modal();
 
-                                $(modaDetailProduct).modal();
+                    //});
+                    //for product details
+                    var btnDetailProduct = $('#btnModalDetails_' + data);
+                    var modaDetailProduct = $('#MyModalDetail_' + data);
+                    var btnEditIni = $('#btnEditProductDetail_' + data);
+                    console.log(btnDetailProduct);
+                    console.log(modaDetailProduct);
+                    $(btnDetailProduct).click(function () {
 
-                            });
-                            $(btnEditIni).click(function () {
-                                $(modaDetailProduct).modal('hide');
-                               // $(modaEditmodaDetailInitiative).modal(); //apres
-                                $(modaDetailProduct).on('hidden.bs.modal', function () {
-                                       // Load up a new modal...
-                                    $(modaEditmodaProduct).modal('show')
-})
-                            });
+                        $(modaDetailProduct).modal();
 
-                            //for product Edit
-                            var btnEditmodaProduct = $('#btnModalEdit_' + data.id);
-                            var modaEditmodaProduct = $('#MyModalEdit_' + data.id);
-                            $(btnEditmodaProduct).click(function () {
+                    });
+                    $(btnEditIni).click(function () {
+                        $(modaDetailProduct).modal('hide');
+                        // $(modaEditmodaDetailInitiative).modal(); //apres
+                        $(modaDetailProduct).on('hidden.bs.modal', function () {
+                            // Load up a new modal...
+                            $(modaEditmodaProduct).modal('show')
+                        })
+                    });
 
-                                $(modaEditmodaProduct).modal();
-                            });
+                    //for product Edit
+                    var btnEditmodaProduct = $('#btnModalEdit_' + data);
+                    var modaEditmodaProduct = $('#MyModalEdit_' + data);
+                    $(btnEditmodaProduct).click(function () {
 
-                            //var countri = $('.Country_' + data.IdEvent);
-                            var town = $('#Town_' + data.IdEvent);
-                            //var zipcode = $('.ZipCode_' + data.IdEvent);
-                            var address = $('#Street' + data.IdEvent);
+                        $(modaEditmodaProduct).modal();
+                    });
 
-                             $(address).autocomplete({
-                                source: function (request, response) {
-                                    $.ajax({
-                                        type: "POST",
-                                        url: '@Url.Action("ShowAddress", "User")',
-                                        dataType: "json",
-                                        headers: {
-                                            //"api-key": searchServiceApiKey,
-                                            "Content-Type": "application/json"
-                                        },
-                                        data: JSON.stringify({
-                                            top: 5,
+                    //var countri = $('.Country_' + data.IdEvent);
+                    var town = $('.Town_' + data);
+                    //var zipcode = $('.ZipCode_' + data.IdEvent);
+                    var address = $('.Street_' + data);
 
-                                           // country: countri.val(),
-                                            town: town.val(),
-                                           // zipcode: zipcode.val(),
-                                            term: request.term
-                                        }),
-                                        success: function (data) {
-                                            if (data && data.length > 0) {
-                                                var parsedDate = $.parseJSON(data);
-          
-                                                    response((parsedDate["results"]).map(feature => feature["formatted"]));
-                                                
-                                            }
-                                        }
-                                    });
+                    $(address).autocomplete({
+                        source: function (request, response) {
+                            $.ajax({
+                                type: "POST",
+                                url: '@Url.Action("ShowAddress", "Job")',
+                                dataType: "json",
+                                headers: {
+                                    //"api-key": searchServiceApiKey,
+                                    "Content-Type": "application/json"
                                 },
-                                minLength: 3,
-                                position: {
-                                    //my: "left top",
-                                    //at: "left-23 bottom+10"
-                                    my: "left top",
-                                    at: "left-3 bottom+0",
-                                    of: address
-                                },
-                                 appendTo: modaEditmodaProduct
-                            });
-                            var btneditvalid = $('#btnFormEditJob_' + data.id);
-                            var Support =  $('.suppor_' + data.IdEvent);
-                            $(btneditvalid).click(function () {
-                               
-                                var y = town.val();
-                               
-                                var u = address.val();
-                              
-                                var descrip = $('.Description_' + data.id).val();
+                                data: JSON.stringify({
+                                    top: 5,
 
-                                if ( y !== ""  && u !== "") {
-                                    if (descrip.length >= 3 && descrip.length <= 1000) {
-                                        $(modaEditmodaProduct).modal('hide');
-                                        $(".js-alert-Edit-Initiative").removeClass('hidden').delay(5000).queue(function () {
-                                            $(this).addClass('hidden').dequeue();
-                                        })
-                                    }
-                                     if (descrip == "") {
-                                         $(modaEditmodaProduct).modal('hide');
-                                        $(".js-alert-Edit-Initiative").removeClass('hidden').delay(5000).queue(function () {
-                                            $(this).addClass('hidden').dequeue();
-                                        })
+                                    // country: countri.val(),
+                                    town: town.val(),
+                                    // zipcode: zipcode.val(),
+                                    term: request.term
+                                }),
+                                success: function (data) {
+                                    if (data && data.length > 0) {
+                                        var parsedDate = $.parseJSON(data);
+
+                                        response((parsedDate["results"]).map(feature => feature["formatted"]));
+
                                     }
                                 }
-
                             });
+                        },
+                        minLength: 3,
+                        position: {
+                            //my: "left top",
+                            //at: "left-23 bottom+10"
+                            my: "left top",
+                            at: "left-3 bottom+0",
+                            of: address
+                        },
+                        appendTo: modaEditmodaProduct
+                    });
+                    var btneditvalid = $('#btnFormEditJob_' + data);
+                    // var Support =  $('.suppor_' + data.IdEvent);
+                    $(btneditvalid).click(function () {
 
-                            //var btnDeleteIni = $('#btnDeleteInitiativeAjax_' + data.IdEvent);
+                        var y = town.val();
 
-                            //$(btnDeleteIni).click(function () {
-                            //    $(modaDeleteInitiative).modal('hide');
-                            //        $(".js-alert-delete-Initiative").removeClass('hidden').delay(5000).queue(function () {
-                            //            $(this).addClass('hidden').dequeue();
-                            //        })
-                            //});
+                        var u = address.val();
 
-                            //var FileEditImage = $('#FileEditInitia_' + data.IdEvent);
-                            //var FormEditImage = $('.EditImagInitiativ_' + data.IdEvent);
+                        var descrip = $('.Description_' + data).val();
 
-                            //$(FileEditImage).on("change", function () {
-                            //    $(FormEditImage).submit();
-                            //});
+                        if (y !== "" && u !== "") {
+                            if (descrip.length >= 3 && descrip.length <= 1000) {
+                                $(modaEditmodaProduct).modal('hide');
+                                $(".js-alert-Edit-Initiative").removeClass('hidden').delay(5000).queue(function () {
+                                    $(this).addClass('hidden').dequeue();
+                                })
+                            }
+                            if (descrip == "") {
+                                $(modaEditmodaProduct).modal('hide');
+                                $(".js-alert-Edit-Initiative").removeClass('hidden').delay(5000).queue(function () {
+                                    $(this).addClass('hidden').dequeue();
+                                })
+                            }
+                        }
+
+                    });
+
+                    //var btnDeleteIni = $('#btnDeleteInitiativeAjax_' + data.IdEvent);
+
+                    //$(btnDeleteIni).click(function () {
+                    //    $(modaDeleteInitiative).modal('hide');
+                    //        $(".js-alert-delete-Initiative").removeClass('hidden').delay(5000).queue(function () {
+                    //            $(this).addClass('hidden').dequeue();
+                    //        })
+                    //});
+
+                    //var FileEditImage = $('#FileEditInitia_' + data.IdEvent);
+                    //var FormEditImage = $('.EditImagInitiativ_' + data.IdEvent);
+
+                    //$(FileEditImage).on("change", function () {
+                    //    $(FormEditImage).submit();
+                    //});
 
 
-                        })
-                    },
-                    error: function (xhr) {
-                        console.log(xhr.responseText);
-                        alert("Une erreur est survenu  !");
-                    }
-                });
+                })
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+                alert("Une erreur est survenu  !");
+            }
+        });
+    });
 </script>

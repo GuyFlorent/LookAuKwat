@@ -116,16 +116,46 @@ namespace LookAuKwat.Models
 
         public void EditJob(JobModel job, string lat, string lon)
         {
-           foreach(var image in job.Images)
-            {
-                dbb.Entry(image).State = EntityState.Added;
-            }
+           //foreach(var image in job.Images)
+           // {
+           //     var img = dbb.Images.Where(s => s.ProductId == job.id);
+           //     foreach(var im in img)
+           //     {
+           //         im.Image = image.Image;
+           //     }
+                
+           // }
             ProductCoordinateModel coor = dbb.ProductCoordinates.Find(job.id);
             coor.Lat = lat;
             coor.Lon = lon;
-            job.Coordinate = coor;
-            dbb.Entry(job).State = EntityState.Added;
+
+            CategoryModel cate = dbb.Categories.FirstOrDefault(s => s.CategoryName == job.Category.CategoryName);
+
+            JobModel model = dbb.Jobs.FirstOrDefault(s => s.id == job.id);
+            model.Title = job.Title;
+            model.SearchOrAskJob = job.SearchOrAskJob;
+            model.Price = job.Price;
+            model.Street = job.Street;
+            model.Town = job.Town;
+            model.Coordinate = coor;
+            model.User = job.User;
+            model.TypeContract = job.TypeContract;
+            model.DateAdd = job.DateAdd;
+            model.Category = cate;
+            model.Images = job.Images;
+            
             dbb.SaveChanges();
+        }
+
+        public void DeleteImage(ImageProcductModel image)
+        {
+            dbb.Images.Remove(image);
+            dbb.SaveChanges();
+        }
+
+        public List<ImageProcductModel> GetImageList()
+        {
+            return dbb.Images.ToList();
         }
     }
 }

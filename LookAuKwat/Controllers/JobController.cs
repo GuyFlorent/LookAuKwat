@@ -94,7 +94,7 @@ namespace LookAuKwat.Controllers
                         //    dal.AddJob(model, image, userId, latt, lonn);
                         //}
 
-                        return RedirectToAction("ListUserInitiative_PartialView");
+                        return RedirectToAction("GetListProductByUser_PartialView","User");
                         }
 
 
@@ -115,19 +115,19 @@ namespace LookAuKwat.Controllers
             {
                 return HttpNotFound();
             }
-            JobViewModel model = new JobViewModel()
+            JobEditViewModel model = new JobEditViewModel()
             {
                 id = job.id,
-                Title = job.Title,
-                Description = job.Description,
-                TypeContract = job.TypeContract,
-                Town = job.Town,
-                Price = job.Price,
-                Street = job.Street,
-                ActivitySector = job.ActivitySector,
-                DateAdd = DateTime.Now,
-                SearchOrAskJob = job.SearchOrAskJob,
-
+                TitleJob = job.Title,
+                DescriptionJob = job.Description,
+                TypeContractJob = job.TypeContract,
+                TownJob = job.Town,
+                PriceJob = job.Price,
+                StreetJob = job.Street,
+                ActivitySectorJob = job.ActivitySector,
+                DateAddJob = DateTime.Now,
+                SearchOrAskJobJob = job.SearchOrAskJob,
+                listeImageJob = job.Images
 
             };
 
@@ -135,21 +135,21 @@ namespace LookAuKwat.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> EditJob(JobViewModel job, ImageModelView userImage)
+        public async Task<ActionResult> EditJob(JobEditViewModel job, ImageModelView userImage)
         {
             JobModel model = new JobModel()
             {
                 id = job.id,
-                Title = job.Title,
-                Description = job.Description,
-                TypeContract = job.TypeContract,
-                Town = job.Town,
-                Price = job.Price,
-                Street = job.Street,
-                ActivitySector = job.ActivitySector,
+                Title = job.TitleJob,
+                Description = job.DescriptionJob,
+                TypeContract = job.TypeContractJob,
+                Town = job.TownJob,
+                Price = job.PriceJob,
+                Street = job.StreetJob,
+                ActivitySector = job.ActivitySectorJob,
                 DateAdd = DateTime.Now,
-                SearchOrAskJob = job.SearchOrAskJob,
-
+                SearchOrAskJob = job.SearchOrAskJobJob,
+                
 
             };
 
@@ -174,11 +174,11 @@ namespace LookAuKwat.Controllers
                         var latt = (string)joo["results"][0]["geometry"]["lat"];
                         var lonn = (string)joo["results"][0]["geometry"]["lng"];
 
-                        List<ImageProcductModel> images = EditAdd(userImage,model);
+                        List<ImageProcductModel> images = ImageEdit(userImage,model);
 
                         model.Images = images;
-                        //model.User = user;
-                        //model.Category = new CategoryModel { CategoryName = "Emploi" };
+                        model.User = user;
+                        model.Category = new CategoryModel { CategoryName = "Emploi" };
                         dal.EditJob(model, latt, lonn);
 
                         //if (userImage.ImageFile != null)
@@ -192,7 +192,7 @@ namespace LookAuKwat.Controllers
                         //    dal.AddJob(model, image, userId, latt, lonn);
                         //}
 
-                        return RedirectToAction("ListUserInitiative_PartialView");
+                        return RedirectToAction("GetListProductByUser_PartialView", "User");
                     }
 
 
@@ -256,7 +256,7 @@ namespace LookAuKwat.Controllers
         }
 
 
-        private List<ImageProcductModel> EditAdd(ImageModelView userImage, ProductModel product)
+        private List<ImageProcductModel> ImageEdit(ImageModelView userImage, ProductModel product)
         {
 
             List<ImageProcductModel> liste = new List<ImageProcductModel>();

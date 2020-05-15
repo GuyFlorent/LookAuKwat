@@ -13,6 +13,9 @@ namespace LookAuKwat.Models
         //Product
         IEnumerable<ProductModel> GetListProduct();
         IEnumerable<ProductModel> GetListUserProduct(string id);
+        //Product Image
+        void DeleteImage(ImageProcductModel image);
+        List<ImageProcductModel> GetImageList();
         //Work Category
         void AddJob(JobModel job, string lat, string lon);
         void EditJob(JobModel job, string lat, string lon);

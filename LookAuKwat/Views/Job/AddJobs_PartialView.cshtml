@@ -1,7 +1,7 @@
 ﻿@model LookAuKwat.ViewModel.JobViewModel
 @using LookAuKwat.ViewModel
 
-@using (Html.BeginForm("AddJobs_PartialView","Job",FormMethod.Post,new { enctype = "multipart/form-data" }))
+@using (Ajax.BeginForm("AddJobs_PartialView","Job", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ProductAdd" }, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
