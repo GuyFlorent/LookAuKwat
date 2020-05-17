@@ -8,13 +8,13 @@ namespace LookAuKwat.ViewModel
 {
     public class JobEditViewModel
     {
-        public int id { get; set; }
+        public int JobEditid { get; set; }
         public string TitleJob { get; set; }
         public string DescriptionJob { get; set; }
         public string TownJob { get; set; }
         public string StreetJob { get; set; }
-        public decimal PriceJob { get; set; }
-        public DateTime DateAddJob { get; set; }
+        public string PriceJob { get; set; }
+        public string DateAddJob { get; set; }
         public string SearchOrAskJobJob { get; set; }
         public string TypeContractJob { get; set; }
         public string ActivitySectorJob { get; set; }

@@ -40,6 +40,15 @@ namespace LookAuKwat.Controllers
             return Json(data1, JsonRequestBehavior.AllowGet);
         }
 
+
+        public JsonResult listProductImageReturnJson()
+        {
+            IEnumerable<Guid> data2 = dal.GetImageList().Select(s => s.id);
+
+
+            return Json(data2, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public JsonResult DeleteImage(string id)
         {
@@ -67,6 +76,40 @@ namespace LookAuKwat.Controllers
                 {
                     System.IO.File.Delete(path);
                 }
+                return Json(new { Result = "OK" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
+        }
+
+
+        [HttpPost]
+        public JsonResult DeleteProduct(int id)
+        {
+            try
+            {
+                ProductModel pro = dal.GetListProduct().FirstOrDefault(s => s.id == id);
+                if (pro == null)
+                {
+
+                    Response.StatusCode = (int)HttpStatusCode.NotFound;
+                    return Json(new { Result = "Error" });
+                }
+
+                //delete files from the file system
+
+                foreach (var item in pro.Images)
+                {
+                    String path = item.Image;
+                    if (System.IO.File.Exists(path))
+                    {
+                        System.IO.File.Delete(path);
+                    }
+                }
+
+                dal.DeleteProduct(pro);
                 return Json(new { Result = "OK" });
             }
             catch (Exception ex)

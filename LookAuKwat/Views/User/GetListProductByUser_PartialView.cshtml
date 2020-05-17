@@ -1,9 +1,6 @@
 ﻿@model IEnumerable<LookAuKwat.Models.ProductModel>
 
 
-
-
-
 @foreach (var item in Model)
 {
 
@@ -109,9 +106,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.SearchOrAskJob)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SearchOrAskJob)
-                </th>
+               
                 <th>
                    Nombre d'images
                 </th>
@@ -158,7 +153,7 @@
                         <a id="btnModalDetails_@item.id" class="btn btn-info" title="Détails"><span class="glyphicon glyphicon-eye-open"></span></a>
 
 
-                        <a id="btnModalDelete_@item.id" class="btn btn-danger" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></a>
+                        <a href="javascript:void(0);" data-id="@item.id" id ="deletePro_@item.id" class="btn btn-danger deleteProduct_@item.id" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></a>
                     </td>
                 </tr>
             }
@@ -170,10 +165,21 @@
 <script type="text/javascript">
     $(function () {
 
-        $('.deleteItem').click(function (e) {
+         //for Image product
+        $.ajax({
+            type: "POST",
+            url: '/Product/listProductImageReturnJson',
+            success: function (data2) {
+                //var result = JSON.stringify(data);
+                console.log(data2);
+                $.each(data2, function (i, data) {
+
+                    var btnDeleteImage = $('.deleteItem_' + data)
+                    console.log(btnDeleteImage);
+        $(btnDeleteImage).click(function (e) {
            e.preventDefault();
            var $ctrl = $(this);
-           if (confirm('Voulez vous vraiment supprimer cette annonce?')) {
+           if (confirm('Voulez vous vraiment supprimer cette image?')) {
                $.ajax({
                    url: '@Url.Action("DeleteImage","Product")',
                    type: 'POST',
@@ -192,6 +198,18 @@
            }
        });
 
+                })
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+                alert("Une erreur est survenu  !");
+            }
+        });
+
+
+
+
+
         $.ajax({
             type: "POST",
             url: '/Product/listProductReturnJson',
@@ -199,7 +217,34 @@
                 //var result = JSON.stringify(data);
                 console.log(data1);
                 $.each(data1, function (i, data) {
-                    //for initiative events
+
+
+                    //for Product
+                    var btnDelete = $('.deleteProduct_' + data)
+                    $(btnDelete).click(function (e) {
+           e.preventDefault();
+           var $ctrl = $(this);
+                        if (confirm('Voulez vous vraiment supprimer cette annonce?')) {
+               $.ajax({
+                   url: '@Url.Action("DeleteProduct","Product")',
+                   type: 'POST',
+                   data: { id: $(this).data('id') }
+               }).done(function (data) {
+                   if (data.Result == "OK") {
+                       $ctrl.closest('tr').remove();
+                   }
+                   else if (data.Result.Message) {
+                       alert(data.Result.Message);
+                   }
+               }).fail(function () {
+                   alert("Une erreur c'est produite !");
+               })
+
+           }
+       });
+
+
+
                     //var btnDeleteInitiative = $('#btnModalDeleteInitiative_' + data.IdEvent);
                     //var modaDeleteInitiative = $('#MyModalDeleteInitiative_' + data.IdEvent);
 
@@ -306,14 +351,14 @@
 
                     });
 
-                    //var btnDeleteIni = $('#btnDeleteInitiativeAjax_' + data.IdEvent);
+                    var btnDeleteIni = $('#deletePro_' + data);
 
-                    //$(btnDeleteIni).click(function () {
-                    //    $(modaDeleteInitiative).modal('hide');
-                    //        $(".js-alert-delete-Initiative").removeClass('hidden').delay(5000).queue(function () {
-                    //            $(this).addClass('hidden').dequeue();
-                    //        })
-                    //});
+                    $(btnDeleteIni).click(function () {
+                        $(modaEditmodaProduct).modal('hide');
+                            $(".js-alert-delete-Initiative").removeClass('hidden').delay(5000).queue(function () {
+                                $(this).addClass('hidden').dequeue();
+                            })
+                    });
 
                     //var FileEditImage = $('#FileEditInitia_' + data.IdEvent);
                     //var FormEditImage = $('.EditImagInitiativ_' + data.IdEvent);

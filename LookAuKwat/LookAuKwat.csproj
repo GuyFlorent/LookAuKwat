@@ -170,6 +170,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobController.cs" />
+    <Compile Include="Controllers\JobOfferSearchController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -192,6 +193,7 @@
     <Compile Include="ViewModel\ImageModelView.cs" />
     <Compile Include="ViewModel\JobEditViewModel.cs" />
     <Compile Include="ViewModel\JobViewModel.cs" />
+    <Compile Include="ViewModel\SeachJobViewModel.cs" />
     <Compile Include="ViewModel\SelectListMethod.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -256,6 +258,7 @@
     <Content Include="Views\User\GetListProductByUser_PartialView.cshtml" />
     <Content Include="Views\Job\EditJob_PartialView.cshtml" />
     <Content Include="Views\Job\JobDetails_PartialView.cshtml" />
+    <Content Include="Views\JobOfferSearch\ResultSearchOfferJob_PartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

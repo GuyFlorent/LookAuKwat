@@ -7,7 +7,7 @@ namespace LookAuKwat.ViewModel
 {
     public class ImageModelView
     {
-        public int id { get; set; }
+        public Guid id { get; set; }
         public string Image { get; set; }
         public List<HttpPostedFileBase> ImageFile { get; set; }
     }

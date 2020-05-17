@@ -100,31 +100,37 @@ namespace LookAuKwat.Models
                 .Include(s => s.Category)
                 .Include(s => s.Coordinate).ToList();
 
-
-            foreach (var job in listjobs)
+            if (listjobs.ToList().Count > 0)
             {
-                if(job != null)
-                liste.Add(job);
+                foreach (var job in listjobs)
+                {
+                    if (job != null && !liste.Contains(job))
+                        liste.Add(job);
+                }
             }
-            foreach (var apart in listapart)
+            if(listapart.ToList().Count > 0)
             {
-                if(apart != null)
-                liste.Add(apart);
+                foreach (var apart in listapart)
+                {
+                    if (apart != null)
+                        liste.Add(apart);
+                }
             }
+           
             return liste.Where(s => s.User == user);
         }
 
         public void EditJob(JobModel job, string lat, string lon)
         {
-           //foreach(var image in job.Images)
-           // {
-           //     var img = dbb.Images.Where(s => s.ProductId == job.id);
-           //     foreach(var im in img)
-           //     {
-           //         im.Image = image.Image;
-           //     }
-                
-           // }
+            //foreach (var image in job.Images)
+            //{
+            //    var img = dbb.Images.Where(s => s.ProductId == job.id);
+            //    foreach (var im in img)
+            //    {
+            //        im.Image = image.Image;
+            //    }
+
+            //}
             ProductCoordinateModel coor = dbb.ProductCoordinates.Find(job.id);
             coor.Lat = lat;
             coor.Lon = lon;
@@ -156,6 +162,12 @@ namespace LookAuKwat.Models
         public List<ImageProcductModel> GetImageList()
         {
             return dbb.Images.ToList();
+        }
+
+        public void DeleteProduct(ProductModel product)
+        {
+            dbb.Products.Remove(product);
+            dbb.SaveChanges();
         }
     }
 }

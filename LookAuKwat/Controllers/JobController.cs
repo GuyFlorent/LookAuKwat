@@ -49,7 +49,7 @@ namespace LookAuKwat.Controllers
             Price = job.Price,
             Street = job.Street,
             ActivitySector = job.ActivitySector,
-            DateAdd = DateTime.Now,
+            DateAdd = DateTime.Now.ToString(),
             SearchOrAskJob = job.SearchOrAskJob,
             
             
@@ -106,8 +106,8 @@ namespace LookAuKwat.Controllers
 
         public ActionResult EditJob_PartialView(JobModel job)
         {
-            int? id = job.id;
-            if (id == null)
+             
+            if (job.id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -117,7 +117,7 @@ namespace LookAuKwat.Controllers
             }
             JobEditViewModel model = new JobEditViewModel()
             {
-                id = job.id,
+                JobEditid = job.id,
                 TitleJob = job.Title,
                 DescriptionJob = job.Description,
                 TypeContractJob = job.TypeContract,
@@ -125,7 +125,7 @@ namespace LookAuKwat.Controllers
                 PriceJob = job.Price,
                 StreetJob = job.Street,
                 ActivitySectorJob = job.ActivitySector,
-                DateAddJob = DateTime.Now,
+                DateAddJob = DateTime.Now.ToString(),
                 SearchOrAskJobJob = job.SearchOrAskJob,
                 listeImageJob = job.Images
 
@@ -137,31 +137,34 @@ namespace LookAuKwat.Controllers
         [HttpPost]
         public async Task<ActionResult> EditJob(JobEditViewModel job, ImageModelView userImage)
         {
-            JobModel model = new JobModel()
-            {
-                id = job.id,
-                Title = job.TitleJob,
-                Description = job.DescriptionJob,
-                TypeContract = job.TypeContractJob,
-                Town = job.TownJob,
-                Price = job.PriceJob,
-                Street = job.StreetJob,
-                ActivitySector = job.ActivitySectorJob,
-                DateAdd = DateTime.Now,
-                SearchOrAskJob = job.SearchOrAskJobJob,
-                
-
-            };
-
+           
 
             if (ModelState.IsValid)
             {
 
+                string userId = User.Identity.GetUserId();
+                ApplicationUser user = dal.GetUserByStrId(userId);
+                JobModel model = new JobModel()
+                {
+                    id = job.JobEditid,
+                    Title = job.TitleJob,
+                    Description = job.DescriptionJob,
+                    TypeContract = job.TypeContractJob,
+                    Town = job.TownJob,
+                    Price = job.PriceJob,
+                    Street = job.StreetJob,
+                    ActivitySector = job.ActivitySectorJob,
+                    DateAdd = DateTime.Now.ToString(),
+                    SearchOrAskJob = job.SearchOrAskJobJob,
+                    Category = new CategoryModel { CategoryName = "Emploi" },
+                    User = user
+
+                };
+
                 using (var httpClient = new HttpClient())
                 {
 
-                    string userId = User.Identity.GetUserId();
-                    ApplicationUser user = dal.GetUserByStrId(userId);
+                   
 
                     var fullAddress = $"{model.Town + "," + model.Street + ",Cameroon"}";
                     var response = await httpClient.GetAsync("https://api.opencagedata.com/geocode/v1/json?q=" + fullAddress + "&key=a196040df44a4a41a471173aed07635c");
@@ -177,8 +180,7 @@ namespace LookAuKwat.Controllers
                         List<ImageProcductModel> images = ImageEdit(userImage,model);
 
                         model.Images = images;
-                        model.User = user;
-                        model.Category = new CategoryModel { CategoryName = "Emploi" };
+                       
                         dal.EditJob(model, latt, lonn);
 
                         //if (userImage.ImageFile != null)
@@ -214,45 +216,59 @@ namespace LookAuKwat.Controllers
         {
             
             List<ImageProcductModel> liste = new List<ImageProcductModel>();
-            foreach (var image in userImage.ImageFile)
+            if (userImage.ImageFile != null)
             {
 
-                if (image != null && image.ContentLength > 0)
+
+                foreach (var image in userImage.ImageFile)
                 {
 
-
-                    //Save image name path
-                    string FileName = Path.GetFileNameWithoutExtension(image.FileName);
-
-                    // save extension of image
-                    string FileExtension = Path.GetExtension(image.FileName);
-
-                    //Add a curent date to attached file name
-                    FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + FileName + FileExtension;
-
-                    //Create complete path to store in server
-                    var path = Server.MapPath("~/UserImages/");
-                    if (!Directory.Exists(path))
+                    if (image != null && image.ContentLength > 0)
                     {
-                        Directory.CreateDirectory(path);
+
+
+                        //Save image name path
+                        string FileName = Path.GetFileNameWithoutExtension(image.FileName);
+
+                        // save extension of image
+                        string FileExtension = Path.GetExtension(image.FileName);
+
+                        //Add a curent date to attached file name
+                        FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + FileName + FileExtension;
+
+                        //Create complete path to store in server
+                        var path = Server.MapPath("~/UserImages/");
+                        if (!Directory.Exists(path))
+                        {
+                            Directory.CreateDirectory(path);
+                        }
+                        userImage.Image = $"/UserImages/{FileName}";
+                        ImageProcductModel picture = new ImageProcductModel
+                        {
+                            Image = userImage.Image,
+                            id = Guid.NewGuid(),
+
+                        };
+                        liste.Add(picture);
+                        FileName = Path.Combine(path, FileName);
+
+                        image.SaveAs(FileName);
+
                     }
-                    userImage.Image = $"/UserImages/{FileName}";
-                    ImageProcductModel picture = new ImageProcductModel
-                    {
-                        Image = userImage.Image,
-                        id = Guid.NewGuid(),
-                        
-                    };
-                    liste.Add(picture);
-                    FileName = Path.Combine(path, FileName);
-
-                    image.SaveAs(FileName);
 
                 }
-
+                return liste;
             }
-            return liste;
+            else
+            {
+                ImageProcductModel picture = new ImageProcductModel
+                {
+                    id = Guid.NewGuid(),
+                    Image = "https://particulier-employeur.fr/wp-content/themes/fepem/img/general/avatar.png"
+                };
+                liste.Add(picture);
 
+            }return liste;
         }
 
 
@@ -260,45 +276,58 @@ namespace LookAuKwat.Controllers
         {
 
             List<ImageProcductModel> liste = new List<ImageProcductModel>();
-            foreach (var image in userImage.ImageFile)
+            if (userImage.ImageFile != null)
             {
 
-                if (image != null && image.ContentLength > 0)
+                foreach (var image in userImage.ImageFile)
                 {
 
-
-                    //Save image name path
-                    string FileName = Path.GetFileNameWithoutExtension(image.FileName);
-
-                    // save extension of image
-                    string FileExtension = Path.GetExtension(image.FileName);
-
-                    //Add a curent date to attached file name
-                    FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + FileName + FileExtension;
-
-                    //Create complete path to store in server
-                    var path = Server.MapPath("~/UserImages/");
-                    if (!Directory.Exists(path))
+                    if (image != null && image.ContentLength > 0)
                     {
-                        Directory.CreateDirectory(path);
+
+
+                        //Save image name path
+                        string FileName = Path.GetFileNameWithoutExtension(image.FileName);
+
+                        // save extension of image
+                        string FileExtension = Path.GetExtension(image.FileName);
+
+                        //Add a curent date to attached file name
+                        FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + FileName + FileExtension;
+
+                        //Create complete path to store in server
+                        var path = Server.MapPath("~/UserImages/");
+                        if (!Directory.Exists(path))
+                        {
+                            Directory.CreateDirectory(path);
+                        }
+                        userImage.Image = $"/UserImages/{FileName}";
+                        ImageProcductModel picture = new ImageProcductModel
+                        {
+                            Image = userImage.Image,
+                            id = Guid.NewGuid(),
+                            ProductId = product.id
+                        };
+                        liste.Add(picture);
+                        FileName = Path.Combine(path, FileName);
+
+                        image.SaveAs(FileName);
+
                     }
-                    userImage.Image = $"/UserImages/{FileName}";
-                    ImageProcductModel picture = new ImageProcductModel
-                    {
-                        Image = userImage.Image,
-                        id = Guid.NewGuid(),
-                        ProductId = product.id
-                    };
-                    liste.Add(picture);
-                    FileName = Path.Combine(path, FileName);
-
-                    image.SaveAs(FileName);
 
                 }
-
+                return liste;
             }
-            return liste;
-
+            else
+            {
+               // Guid guid = new Guid(userImage.id);
+                List<ImageProcductModel> picture = dal.GetImageList().Where(s => s.ProductId == product.id).ToList();
+                   foreach(var im in picture)
+                {
+                    liste.Add(im);
+                }
+                
+            }return liste;
         }
 
         public async Task<JsonResult> ShowAddress(string term, string town)
