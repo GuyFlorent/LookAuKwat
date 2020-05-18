@@ -1,7 +1,9 @@
 ﻿using LookAuKwat.Models;
 using LookAuKwat.ViewModel;
+using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -122,16 +124,33 @@ namespace LookAuKwat.Controllers
         //result of every search product
         public ActionResult ResultSearch_PartialView(SeachJobViewModel modelresult)
         {
-            if(modelresult.ListePro == null)
+           
+
+            switch (modelresult.CagtegorieSearch)
+            {
+                case "Emploi":
+                     var result= TempData["listeJob"] as List<JobModel>;
+                    foreach(var element in result)
+                    {
+                        modelresult.ListePro.Add(element);
+                    }
+                   
+                    break;
+            }
+
+
+            if (modelresult.ListePro == null)
             {
                 modelresult.ListePro = new List<ProductModel>();
             }
-            if (!string.IsNullOrWhiteSpace(modelresult.TitleJobSearch))
-            {
 
-                modelresult.ListePro = dal.GetListProduct().Where(r => r.Title.IndexOf(modelresult.TitleJobSearch, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
-            }
-                return PartialView(modelresult);
+
+            // modelresult.ListePro = TempData["listeJob"] as List<ProductModel>;
+            // modelresult.ListePro = dal.GetListProduct().Where(r => r.Title.IndexOf(modelresult.TitleJobSearch, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
+
+
+
+            return PartialView(modelresult);
         }
 
     }

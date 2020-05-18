@@ -12,6 +12,7 @@ namespace LookAuKwat.Models
         ApplicationUser GetUserByStrId(string id);
         //Product
         IEnumerable<ProductModel> GetListProduct();
+        IEnumerable<JobModel> GetListJob();
         void DeleteProduct(ProductModel product);
         IEnumerable<ProductModel> GetListUserProduct(string id);
         //Product Image

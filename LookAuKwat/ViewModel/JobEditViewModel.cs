@@ -13,7 +13,7 @@ namespace LookAuKwat.ViewModel
         public string DescriptionJob { get; set; }
         public string TownJob { get; set; }
         public string StreetJob { get; set; }
-        public string PriceJob { get; set; }
+        public int PriceJob { get; set; }
         public string DateAddJob { get; set; }
         public string SearchOrAskJobJob { get; set; }
         public string TypeContractJob { get; set; }

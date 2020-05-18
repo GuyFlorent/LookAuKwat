@@ -9,15 +9,20 @@ namespace LookAuKwat.ViewModel
 {
     public class SeachJobViewModel
     {
-        public string TitleJobSearch { get; set; }
-        public string TownJobSearch { get; set; }
-        public string StreetJobSearch { get; set; }
-        public string PriceJobMinSearch { get; set; }
-        public string PriceJobMaxSearch { get; set; }
+        public string CagtegorieSearch { get; set; }
+        public string TitleSearch { get; set; }
+        public string TownSearch { get; set; }
+        public string StreetSearch { get; set; }
+        public int PriceMinSearch { get; set; }
+        public int PriceMaxSearch { get; set; }
+
+        public List<ProductModel> ListePro { get; set; }
+
+        //For jobs
         public string SearchOrAskJobJob { get; set; }
         public string TypeContractJob { get; set; }
         public string ActivitySectorJob { get; set; }
-        public List<ProductModel> ListePro { get; set; }
+        
        
     }
 }

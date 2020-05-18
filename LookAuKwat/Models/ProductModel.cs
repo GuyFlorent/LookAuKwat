@@ -12,7 +12,7 @@ namespace LookAuKwat.Models
         public string Description { get; set; }
         public string Town { get; set; }
         public string Street { get; set; }
-        public string Price { get; set; }
+        public int Price { get; set; }
         public string DateAdd { get; set; }
         public string SearchOrAskJob { get; set; }
         public virtual CategoryModel Category { get; set; }

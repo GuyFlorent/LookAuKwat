@@ -169,5 +169,14 @@ namespace LookAuKwat.Models
             dbb.Products.Remove(product);
             dbb.SaveChanges();
         }
+
+        public IEnumerable<JobModel> GetListJob()
+        {
+            IEnumerable<JobModel> listjobs = dbb.Jobs.Include(s => s.Images)
+               .Include(s => s.User)
+               .Include(s => s.Category)
+               .Include(s => s.Coordinate).ToList();
+            return listjobs;
+        }
     }
 }
