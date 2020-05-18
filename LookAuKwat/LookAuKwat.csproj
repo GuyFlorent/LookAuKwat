@@ -259,10 +259,11 @@
     <Content Include="Views\Job\EditJob_PartialView.cshtml" />
     <Content Include="Views\Job\JobDetails_PartialView.cshtml" />
     <Content Include="Views\JobOfferSearch\ResultSearchOfferJob_PartialView.cshtml" />
+    <Content Include="Views\JobOfferSearch\SearchOfferJob_PartialView.cshtml" />
+    <Content Include="Views\Product\ResultSearch_PartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Product\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

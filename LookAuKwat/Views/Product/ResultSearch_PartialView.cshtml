@@ -1,6 +1,6 @@
 ﻿@model LookAuKwat.ViewModel.SeachJobViewModel
 
-
+<p>@DateTime.Now</p>
 @if (Model.ListePro.Count == 0)
 {
 
@@ -18,7 +18,7 @@ else
                 <div class="list-group">
                     @foreach (var liste in Model.ListePro)
                     {
-                        <a href="@Url.Action("UserDetailsById","User",new { id = liste.id },null)" class="list-group-item">
+                        <a href="@Url.Action("UserDetailsById", "User", new { id = liste.id }, null)" class="list-group-item">
                             <h4 class="list-group-item-heading"> @liste.Title Ville:<span class="text-info"> @liste.Town</span></h4>
                             <p class="list-group-item-text pull-right">@liste.DateAdd</p>
 
@@ -29,4 +29,5 @@ else
             </div>
         </section>
     </div>
+}
 

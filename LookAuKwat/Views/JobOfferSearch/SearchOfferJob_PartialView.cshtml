@@ -1,0 +1,99 @@
+﻿@model LookAuKwat.ViewModel.SeachJobViewModel
+@using LookAuKwat.ViewModel
+
+@using (Ajax.BeginForm("ResultSearchOfferJob_PartialView", "JobOfferSearch", new AjaxOptions
+{
+    HttpMethod = "GET",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "resultsJobSearch",
+    // OnFailure = "ErreurRecherche",
+    // LoadingElementId = "chargement"
+}
+         ))
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <h4>SeachJobViewModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="form-group col-xs-6 col-sm-4 col-md-3">
+                @Html.LabelFor(model => model.TitleJobSearch, htmlAttributes: new { @class = "control-label " })
+
+                @Html.EditorFor(model => model.TitleJobSearch, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TitleJobSearch, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group col-xs-6 col-sm-4 col-md-3">
+                @Html.LabelFor(model => model.TownJobSearch, htmlAttributes: new { @class = "control-label " })
+
+                @Html.DropDownListFor(model => model.TownJobSearch, SelectListMethod.GetListTownCameroon(), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TownJobSearch, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group col-xs-6 col-sm-4 col-md-3">
+                @Html.LabelFor(model => model.StreetJobSearch, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => model.StreetJobSearch, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StreetJobSearch, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group col-xs-4 col-sm-4 col-md-3">
+                @Html.LabelFor(model => model.PriceJobMinSearch, htmlAttributes: new { @class = "control-label " })
+
+                @Html.EditorFor(model => model.PriceJobMinSearch, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PriceJobMinSearch, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group col-xs-6 col-sm-4 col-md-3">
+                @Html.LabelFor(model => model.PriceJobMaxSearch, htmlAttributes: new { @class = "control-label " })
+
+                @Html.EditorFor(model => model.PriceJobMaxSearch, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PriceJobMaxSearch, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group col-xs-6 col-sm-4 col-md-3">
+                @Html.LabelFor(model => model.SearchOrAskJobJob, htmlAttributes: new { @class = "control-label " })
+
+                @Html.DropDownListFor(model => model.SearchOrAskJobJob, SelectListMethod.ChooseSearchOrAsk(), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SearchOrAskJobJob, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group col-xs-6 col-sm-4 col-md-3">
+                @Html.LabelFor(model => model.TypeContractJob, htmlAttributes: new { @class = "control-label" })
+
+                @Html.DropDownListFor(model => model.TypeContractJob, SelectListMethod.GetListWorkContract(), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TypeContractJob, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group col-xs-6 col-sm-4 col-md-3">
+                @Html.LabelFor(model => model.ActivitySectorJob, htmlAttributes: new { @class = "control-label " })
+
+                @Html.DropDownListFor(model => model.ActivitySectorJob, SelectListMethod.GetListActivitySector(), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ActivitySectorJob, "", new { @class = "text-danger" })
+
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-search"></span> Rechercher
+        </button>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

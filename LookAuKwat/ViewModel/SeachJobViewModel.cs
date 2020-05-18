@@ -1,4 +1,5 @@
 ﻿using LookAuKwat.Models;
+using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,6 @@ namespace LookAuKwat.ViewModel
         public string TypeContractJob { get; set; }
         public string ActivitySectorJob { get; set; }
         public List<ProductModel> ListePro { get; set; }
+       
     }
 }

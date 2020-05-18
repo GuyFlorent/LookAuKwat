@@ -1,4 +1,5 @@
 ﻿using LookAuKwat.Models;
+using LookAuKwat.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -116,6 +117,21 @@ namespace LookAuKwat.Controllers
             {
                 return Json(new { Result = "ERROR", Message = ex.Message });
             }
+        }
+
+        //result of every search product
+        public ActionResult ResultSearch_PartialView(SeachJobViewModel modelresult)
+        {
+            if(modelresult.ListePro == null)
+            {
+                modelresult.ListePro = new List<ProductModel>();
+            }
+            if (!string.IsNullOrWhiteSpace(modelresult.TitleJobSearch))
+            {
+
+                modelresult.ListePro = dal.GetListProduct().Where(r => r.Title.IndexOf(modelresult.TitleJobSearch, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
+            }
+                return PartialView(modelresult);
         }
 
     }
