@@ -5,7 +5,7 @@
 {
     HttpMethod = "GET",
     InsertionMode = InsertionMode.Replace,
-    UpdateTargetId = "resultsJobSearch",
+    UpdateTargetId = "ResulList",
     // OnFailure = "ErreurRecherche",
     // LoadingElementId = "chargement"
 }
@@ -29,14 +29,14 @@
         <div class="form-group col-xs-6 col-sm-4 col-md-2">
             @Html.LabelFor(model => model.TownSearch, htmlAttributes: new { @class = "control-label " })
 
-            @Html.DropDownListFor(model => model.TownSearch, SelectListMethod.GetListTownCameroon(),"Toutes", new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.TownSearch, SelectListMethod.GetListTownCameroon(),"Toutes", new { @class = "form-control TownSearchJob" })
             @Html.ValidationMessageFor(model => model.TownSearch, "", new { @class = "text-danger" })
 
         </div>
         <div class="form-group col-xs-6 col-sm-4 col-md-2">
             @Html.LabelFor(model => model.ActivitySectorJob, htmlAttributes: new { @class = "control-label " })
 
-            @Html.DropDownListFor(model => model.ActivitySectorJob, SelectListMethod.GetListActivitySector(),"Tout", new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.ActivitySectorJob, SelectListMethod.GetListActivitySector(),"Tout", new { @class = "form-control " })
             @Html.ValidationMessageFor(model => model.ActivitySectorJob, "", new { @class = "text-danger" })
 
         </div>
@@ -82,7 +82,7 @@
 
     </div>
 
-        <button type="submit" class="btn btn-primary">
+        <button id="submitJob" type="submit" class="btn btn-primary">
             <span class="glyphicon glyphicon-search"></span> Rechercher
         </button>
     </div>
@@ -95,3 +95,35 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script type="text/javascript">
+    $(function () {
+        $("#submitJob").on('click','button',
+            function () {
+                alert('je suis la')
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("ResultSearchOfferJob_Jason", "JobOfferSearch")',
+            dataType: "json",
+            headers: {
+                //"api-key": searchServiceApiKey,
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify({
+                top: 5,
+
+                sector: $("#ActivitySectorJob").val(),
+                town: $(".TownSearchJob").val(),
+                contract: $("#TypeContractJob").val(),
+                minPrice: $("#PriceMinSearch").val(),
+                maxPrice: $("#PriceMaxSearch").val(),
+            }),
+            success: function (data) {
+               
+                }
+            });
+        
+       
+    });
+});
+</script>

@@ -153,5 +153,31 @@ namespace LookAuKwat.Controllers
             return PartialView(modelresult);
         }
 
+        public JsonResult ResultSearchJson(SeachJobViewModel modelresult)
+        {
+            List<JobModel> data = TempData["listeJobJson"] as List<JobModel>;
+            JobModel data1 = data[0];
+            switch (modelresult.CagtegorieSearch)
+            {
+                case "Emploi":
+                    
+                    foreach (var element in data)
+                    {
+                        modelresult.ListePro.Add(element);
+                    }
+
+                    break;
+            }
+
+
+            if (modelresult.ListePro == null)
+            {
+                modelresult.ListePro = new List<ProductModel>();
+            }
+
+            return Json(data1, JsonRequestBehavior.AllowGet);
+        }
+
+
     }
 }

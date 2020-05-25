@@ -47,7 +47,7 @@ namespace LookAuKwat.Controllers
             model.SearchOrAskJobJob = "J'offre";
             List<JobModel> liste = dal.GetListJob().Where(m => m.Category.CategoryName == model.CagtegorieSearch && m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
 
-            if (model.PriceMinSearch == 0 && model.PriceMaxSearch ==0 && string.IsNullOrWhiteSpace(model.TownSearch)
+            if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <=0 && string.IsNullOrWhiteSpace(model.TownSearch)
                 && string.IsNullOrWhiteSpace(model.TypeContractJob) && string.IsNullOrWhiteSpace(model.ActivitySectorJob))
                 { 
 
@@ -57,14 +57,14 @@ namespace LookAuKwat.Controllers
 
 
             }
-             if(model.PriceMinSearch != 0 && model.PriceMaxSearch ==0 && string.IsNullOrWhiteSpace(model.TownSearch)
+             else if(model.PriceMinSearch > 0 && model.PriceMaxSearch <=0 && string.IsNullOrWhiteSpace(model.TownSearch)
                 && string.IsNullOrWhiteSpace(model.TypeContractJob) && string.IsNullOrWhiteSpace(model.ActivitySectorJob))
             {
                 List<JobModel> list = liste.Where(r => r.Price >= model.PriceMinSearch).ToList();
                 TempData["listeJob"] = list;  
                     
             }
-            if (model.PriceMinSearch != 0 && model.PriceMaxSearch != 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+            else if (model.PriceMinSearch > 0 && model.PriceMaxSearch > 0 && string.IsNullOrWhiteSpace(model.TownSearch)
                && string.IsNullOrWhiteSpace(model.TypeContractJob) && string.IsNullOrWhiteSpace(model.ActivitySectorJob))
             {
                 List<JobModel> list = liste.Where(r => r.Price >= model.PriceMinSearch && r.Price <= model.PriceMaxSearch).ToList();
@@ -72,14 +72,14 @@ namespace LookAuKwat.Controllers
 
             }
 
-            if (model.PriceMinSearch != 0 && model.PriceMaxSearch != 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+            else if(model.PriceMinSearch > 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
                && string.IsNullOrWhiteSpace(model.TypeContractJob) && string.IsNullOrWhiteSpace(model.ActivitySectorJob))
             {
                 List<JobModel> list = liste.Where(r => r.Price >= model.PriceMinSearch && r.Price <= model.PriceMaxSearch && r.Town == model.TownSearch).ToList();
                 TempData["listeJob"] = list;
 
             }
-            if (model.PriceMinSearch != 0 && model.PriceMaxSearch != 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+            else if (model.PriceMinSearch > 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
               && !string.IsNullOrWhiteSpace(model.TypeContractJob) && string.IsNullOrWhiteSpace(model.ActivitySectorJob))
             {
                 List<JobModel> list = liste.Where(r => r.Price >= model.PriceMinSearch && r.Price <= model.PriceMaxSearch
@@ -88,7 +88,7 @@ namespace LookAuKwat.Controllers
 
             }
 
-            if (model.PriceMinSearch != 0 && model.PriceMaxSearch != 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+            else if (model.PriceMinSearch > 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
              && !string.IsNullOrWhiteSpace(model.TypeContractJob) && !string.IsNullOrWhiteSpace(model.ActivitySectorJob))
             {
                 List<JobModel> list = liste.Where(r => r.Price >= model.PriceMinSearch && r.Price <= model.PriceMaxSearch
@@ -96,9 +96,257 @@ namespace LookAuKwat.Controllers
                 TempData["listeJob"] = list;
 
             }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+            && string.IsNullOrWhiteSpace(model.TypeContractJob) && string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.Price <= model.PriceMaxSearch).ToList();
+                TempData["listeJob"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+           && string.IsNullOrWhiteSpace(model.TypeContractJob) && string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.Price <= model.PriceMaxSearch && r.Town == model.TownSearch).ToList();
+                TempData["listeJob"] = list;
+
+            }
+
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+          && !string.IsNullOrWhiteSpace(model.TypeContractJob) && string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.Price <= model.PriceMaxSearch && r.Town == model.TownSearch && r.TypeContract == model.TypeContractJob).ToList();
+                TempData["listeJob"] = list;
+
+            }
+
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+          && !string.IsNullOrWhiteSpace(model.TypeContractJob) && !string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.Price <= model.PriceMaxSearch && r.Town == model.TownSearch && r.TypeContract == model.TypeContractJob
+                && r.ActivitySector == model.ActivitySectorJob).ToList();
+                TempData["listeJob"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+         && string.IsNullOrWhiteSpace(model.TypeContractJob) && string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.Town == model.TownSearch).ToList();
+                TempData["listeJob"] = list;
+
+            }
+            else if (model.PriceMinSearch > 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+        && string.IsNullOrWhiteSpace(model.TypeContractJob) && string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.Town == model.TownSearch && r.Price >= model.PriceMinSearch).ToList();
+                TempData["listeJob"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+        && !string.IsNullOrWhiteSpace(model.TypeContractJob) && string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.Town == model.TownSearch && r.TypeContract == model.TypeContractJob).ToList();
+                TempData["listeJob"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+       && !string.IsNullOrWhiteSpace(model.TypeContractJob) && !string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.Town == model.TownSearch && r.TypeContract == model.TypeContractJob).ToList();
+                TempData["listeJob"] = list;
+
+            }
+            else if (model.PriceMinSearch > 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+      && !string.IsNullOrWhiteSpace(model.TypeContractJob) && string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.Town == model.TownSearch && r.Price >= model.PriceMinSearch).ToList();
+                TempData["listeJob"] = list;
+
+            }
+            else if (model.PriceMinSearch > 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+      && !string.IsNullOrWhiteSpace(model.TypeContractJob) && !string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.Town == model.TownSearch && r.Price >= model.PriceMinSearch && r.TypeContract == model.TypeContractJob).ToList();
+                TempData["listeJob"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+     && !string.IsNullOrWhiteSpace(model.TypeContractJob) && string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.TypeContract == model.TypeContractJob).ToList();
+                TempData["listeJob"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+    && !string.IsNullOrWhiteSpace(model.TypeContractJob) && string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.TypeContract == model.TypeContractJob && r.Price <= model.PriceMaxSearch).ToList();
+                TempData["listeJob"] = list;
+
+            }
+            else if (model.PriceMinSearch > 0 && model.PriceMaxSearch > 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+   && !string.IsNullOrWhiteSpace(model.TypeContractJob) && string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.TypeContract == model.TypeContractJob && r.Price <= model.PriceMaxSearch
+                && r.Price >= model.PriceMinSearch).ToList();
+                TempData["listeJob"] = list;
+
+            }
+            else if (model.PriceMinSearch > 0 && model.PriceMaxSearch > 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+  && !string.IsNullOrWhiteSpace(model.TypeContractJob) && !string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.TypeContract == model.TypeContractJob && r.Price <= model.PriceMaxSearch
+                && r.Price >= model.PriceMinSearch && r.ActivitySector == model.ActivitySectorJob).ToList();
+                TempData["listeJob"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+  && !string.IsNullOrWhiteSpace(model.TypeContractJob) && !string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.TypeContract == model.TypeContractJob && r.Price <= model.PriceMaxSearch
+                 && r.ActivitySector == model.ActivitySectorJob).ToList();
+                TempData["listeJob"] = list;
+
+            }
+            else if (model.PriceMinSearch > 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+ && !string.IsNullOrWhiteSpace(model.TypeContractJob) && !string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.TypeContract == model.TypeContractJob 
+                && r.Price >= model.PriceMinSearch && r.ActivitySector == model.ActivitySectorJob).ToList();
+                TempData["listeJob"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+&& string.IsNullOrWhiteSpace(model.TypeContractJob) && !string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.ActivitySector == model.ActivitySectorJob ).ToList();
+                TempData["listeJob"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+&& string.IsNullOrWhiteSpace(model.TypeContractJob) && !string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.ActivitySector == model.ActivitySectorJob && r.Town == model.TownSearch).ToList();
+                TempData["listeJob"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+&& string.IsNullOrWhiteSpace(model.TypeContractJob) && !string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.ActivitySector == model.ActivitySectorJob && r.Town == model.TownSearch
+                && r.Price <= model.PriceMaxSearch).ToList();
+                TempData["listeJob"] = list;
+
+            }
+            else if (model.PriceMinSearch > 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+&& string.IsNullOrWhiteSpace(model.TypeContractJob) && !string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.ActivitySector == model.ActivitySectorJob && r.Town == model.TownSearch
+                && r.Price <= model.PriceMaxSearch && r.Price >= model.PriceMinSearch).ToList();
+                TempData["listeJob"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+&& string.IsNullOrWhiteSpace(model.TypeContractJob) && !string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.ActivitySector == model.ActivitySectorJob && r.Price <= model.PriceMaxSearch).ToList();
+
+                TempData["listeJob"] = list;
+
+            }
+            else if (model.PriceMinSearch > 0 && model.PriceMaxSearch > 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+&& string.IsNullOrWhiteSpace(model.TypeContractJob) && !string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.ActivitySector == model.ActivitySectorJob && r.Price <= model.PriceMaxSearch
+                && r.Price >= model.PriceMinSearch).ToList();
+
+                TempData["listeJob"] = list;
+
+            }
+            else if (model.PriceMinSearch > 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+&& string.IsNullOrWhiteSpace(model.TypeContractJob) && !string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.ActivitySector == model.ActivitySectorJob && r.Price >= model.PriceMinSearch).ToList();
+
+                TempData["listeJob"] = list;
+
+            }
 
             model.ListePro = new List<ProductModel>();
             return RedirectToAction("ResultSearch_PartialView","Product", model);
         }
-    }
+
+
+
+
+
+
+
+
+
+        public ActionResult ResultSearchOfferJob_Jason(string sector, string town, string contract, int minPrice, int maxPrice)
+        {
+            SeachJobViewModel model = new SeachJobViewModel();
+            model.ActivitySectorJob = sector;
+            model.TownSearch = town;
+            model.TypeContractJob = contract;
+            model.PriceMinSearch = minPrice;
+            model.PriceMaxSearch = maxPrice;
+            model.CagtegorieSearch = "Emploi";
+            model.SearchOrAskJobJob = "J'offre";
+            List<JobModel> liste = dal.GetListJob().Where(m => m.Category.CategoryName == model.CagtegorieSearch && m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
+
+            if (model.PriceMinSearch == 0 && model.PriceMaxSearch == 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+                && string.IsNullOrWhiteSpace(model.TypeContractJob) && string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+
+
+                //  TempData["listeJob"] = liste.Where(r => r.Title.IndexOf(model.TitleSearch, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
+                TempData["listeJobJson"] = liste;
+
+
+            }
+            else if (model.PriceMinSearch != 0 && model.PriceMaxSearch == 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+               && string.IsNullOrWhiteSpace(model.TypeContractJob) && string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.Price >= model.PriceMinSearch).ToList();
+                TempData["listeJobJson"] = list;
+
+            }
+             else if (model.PriceMinSearch != 0 && model.PriceMaxSearch != 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+               && string.IsNullOrWhiteSpace(model.TypeContractJob) && string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.Price >= model.PriceMinSearch && r.Price <= model.PriceMaxSearch).ToList();
+                TempData["listeJobJson"] = list;
+
+            }
+
+           else if (model.PriceMinSearch != 0 && model.PriceMaxSearch != 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+               && string.IsNullOrWhiteSpace(model.TypeContractJob) && string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.Price >= model.PriceMinSearch && r.Price <= model.PriceMaxSearch && r.Town == model.TownSearch).ToList();
+                TempData["listeJobJson"] = list;
+
+            }
+            else if (model.PriceMinSearch != 0 && model.PriceMaxSearch != 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+              && !string.IsNullOrWhiteSpace(model.TypeContractJob) && string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.Price >= model.PriceMinSearch && r.Price <= model.PriceMaxSearch
+                && r.Town == model.TownSearch && r.TypeContract == model.TypeContractJob).ToList();
+                TempData["listeJobJson"] = list;
+
+            }
+
+           else if (model.PriceMinSearch != 0 && model.PriceMaxSearch != 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+             && !string.IsNullOrWhiteSpace(model.TypeContractJob) && !string.IsNullOrWhiteSpace(model.ActivitySectorJob))
+            {
+                List<JobModel> list = liste.Where(r => r.Price >= model.PriceMinSearch && r.Price <= model.PriceMaxSearch
+                && r.Town == model.TownSearch && r.TypeContract == model.TypeContractJob && r.ActivitySector == model.ActivitySectorJob).ToList();
+                TempData["listeJobJson"] = list;
+
+            }
+
+            model.ListePro = new List<ProductModel>();
+            return RedirectToAction("ResultSearchJson", "Product", model);
+        }
+        }
 }

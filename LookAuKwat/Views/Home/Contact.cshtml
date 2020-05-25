@@ -2,41 +2,63 @@
     ViewBag.Title = "Contact";
 }
 
-<section class="row">
-    <div class="row">
-        <div class="form-group">
-            <label for="selectCategory">Choisir une catégorie</label>
-            <select class="form-control Addcategory" data-show-icon="true">
-                <option >Tout</option>
-                <option data-content="<i class='glyphicon glyphicon-briefcase'></i>">Emploi</option>
-                <option data-content="<i class='glyphicon glyphicon-home'></i>">Immobilier</option>
+    <section class="row">
+        <div class="row">
+            <div class="form-group">
+                <label for="selectCategory">Choisir une catégorie</label>
+                <select class="form-control Addcategory" data-show-icon="true">
+                    <option>Tout</option>
+                    <option data-content="<i class='glyphicon glyphicon-briefcase'></i>">Emploi</option>
+                    <option data-content="<i class='glyphicon glyphicon-home'></i>">Immobilier</option>
 
-            </select>
+                </select>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div id="MyModalAddJob" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Détails de événement<span id="eventTitle"></span></h4>
-                    </div>
-                    <div class="modal-body">
+        <div class="row">
+            <div id="MyModalAddJob" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Ajouter une chercher tout type d'emploi<span id="eventTitle"></span></h4>
+                        </div>
+                        <div class="modal-body">
 
-                        @{
-                            Html.RenderAction("AddJobs_PartialView", "Job");
-                        }
+                            @{
+                                Html.RenderAction("AddJobs_PartialView", "Job");
+                            }
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+        <div class="row">
+            <div id="MyModalAddApartment" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Ajouter une chercher tout type de biens immobiliers<span id="eventTitle"></span></h4>
+                        </div>
+                        <div class="modal-body">
+
+                            @{
+                                Html.RenderAction("AddApartment_PartialView", "ApartmentRental");
+                            }
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 <section>
     <div class="col-md-12">
@@ -67,6 +89,8 @@
             
             if (select == "Emploi") {
                 $('#MyModalAddJob').modal();
+            } else if (select == "Immobilier") {
+                $('#MyModalAddApartment').modal();
             }
         });
     });

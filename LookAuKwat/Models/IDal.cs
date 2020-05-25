@@ -18,8 +18,12 @@ namespace LookAuKwat.Models
         //Product Image
         void DeleteImage(ImageProcductModel image);
         List<ImageProcductModel> GetImageList();
-        //Work Category
+        //job Category
         void AddJob(JobModel job, string lat, string lon);
         void EditJob(JobModel job, string lat, string lon);
+
+        // Apartment category
+        void AddAppartment(ApartmentRentalModel apart, string lat, string lon);
+        void EditApartment(ApartmentRentalModel apart, string lat, string lon);
     }
 }

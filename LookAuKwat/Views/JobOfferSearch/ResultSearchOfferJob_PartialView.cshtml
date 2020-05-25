@@ -18,15 +18,18 @@ else
                 <div class="list-group">
                     @foreach (var liste in Model.ListePro)
                     {
-                        <a href="@Url.Action("UserDetailsById","User",new { id = liste.id },null)" class="list-group-item">
-                            <h4 class="list-group-item-heading"> @liste.Title Ville:<span class="text-info"> @liste.Town</span></h4>
-                            <p class="list-group-item-text pull-right">@liste.DateAdd</p>
+                        var im = (from l in liste.Images select l).First();
 
-                            <img src="@liste.Images.First();" alt="image du groupe @liste.Title" style="height:50px" class="img-rounded" />
-                        </a>
+                    @*<a href="@Url.Action("JobDetail", "Job", new { id = liste.id }, null)" class="list-group-item">*@
+                        <h4 class="list-group-item-heading"> @liste.Title Ville:<span class="text-info"> @liste.Town</span></h4>
+                        <p class="list-group-item-text pull-right">@liste.DateAdd</p>
+                      
+                            <img src="@im" alt="image du groupe @liste.Title" style="height:50px" class="img-rounded" />
+                        
+                        @*</a>*@
                     }
                 </div>
             </div>
         </section>
     </div>
-
+}

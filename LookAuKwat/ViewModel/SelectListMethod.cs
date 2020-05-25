@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -120,6 +120,18 @@ namespace LookAuKwat.ViewModel
                 new SelectListItem() { Text = "Hôtellerie/Restauration", Value = "Hôtellerie/Restauration" },
                 new SelectListItem() { Text = "Sport", Value = "Sport" },
                  new SelectListItem() { Text = "Service à la personne", Value = "Service à la personne" }
+            };
+            return list;
+        }
+
+        //for apartment
+        public static IEnumerable<SelectListItem> FurnitureOrNot()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "Meublé", Value = "Meublé" },
+                new SelectListItem() { Text = "Non meublé", Value = "Non meublé" }
+               
             };
             return list;
         }

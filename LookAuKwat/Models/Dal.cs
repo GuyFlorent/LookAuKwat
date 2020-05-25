@@ -146,6 +146,7 @@ namespace LookAuKwat.Models
             model.Coordinate = coor;
             model.User = job.User;
             model.TypeContract = job.TypeContract;
+            model.ActivitySector = job.ActivitySector;
             model.DateAdd = job.DateAdd;
             model.Category = cate;
             model.Images = job.Images;
@@ -177,6 +178,56 @@ namespace LookAuKwat.Models
                .Include(s => s.Category)
                .Include(s => s.Coordinate).ToList();
             return listjobs;
+        }
+
+        public void AddAppartment(ApartmentRentalModel apart, string lat, string lon)
+        {
+            CategoryModel category = new CategoryModel
+            {
+                CategoryName = apart.Category.CategoryName,
+
+            };
+
+            // dbb.Categories.Add(category);
+            apart.Category = category;
+
+            ProductCoordinateModel coordinate = new ProductCoordinateModel
+            {
+                Lat = lat,
+                Lon = lon
+
+            };
+            // dbb.ProductCoordinates.Add(coordinate);
+            apart.Coordinate = coordinate;
+
+            dbb.ApartmentRentals.Add(apart);
+            dbb.SaveChanges();
+        }
+
+        public void EditApartment(ApartmentRentalModel apart, string lat, string lon)
+        {
+            ProductCoordinateModel coor = dbb.ProductCoordinates.Find(apart.id);
+            coor.Lat = lat;
+            coor.Lon = lon;
+
+            CategoryModel cate = dbb.Categories.FirstOrDefault(s => s.CategoryName == apart.Category.CategoryName);
+
+            ApartmentRentalModel model = dbb.ApartmentRentals.FirstOrDefault(s => s.id == apart.id);
+            model.Title = apart.Title;
+            model.SearchOrAskJob = apart.SearchOrAskJob;
+            model.Price = apart.Price;
+            model.Street = apart.Street;
+            model.Town = apart.Town;
+            model.Coordinate = coor;
+            model.User = apart.User;
+            model.FurnitureOrNot = apart.FurnitureOrNot;
+            model.RoomNumber = apart.RoomNumber;
+            model.ApartSurface = apart.ApartSurface;
+            model.DateAdd = apart.DateAdd;
+            model.Category = cate;
+            model.Images = apart.Images;
+
+            dbb.SaveChanges();
         }
     }
 }

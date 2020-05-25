@@ -7,8 +7,8 @@ namespace LookAuKwat.Models
 {
     public class ApartmentRentalModel : ProductModel
     {
-        public double ApartSurface { get; set; }
-        public double RoomNumber { get; set; }
+        public int ApartSurface { get; set; }
+        public int RoomNumber { get; set; }
         public string FurnitureOrNot { get; set; }
       
     }

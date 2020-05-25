@@ -1,0 +1,156 @@
+﻿@model LookAuKwat.ViewModel.ApartmentRentalViewModel
+@using LookAuKwat.ViewModel
+
+@using (Ajax.BeginForm("AddAppartment", "ApartmentRental", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ProductAdd" }, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>ApartmentRentalViewModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Imageproduct.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            @*<label class="control-label col-md-2" for="#imagesJobs"></label>*@
+            <div class="col-md-6">
+
+                <input type="file" name="ImageFile" multiple="multiple" @*onchange="readURL(this);"*@>
+
+            </div>
+            <div style="height:50px " class="col-md-4">
+                <img id="InitiativeImageUpToDate" src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt="photo de initiative" height="50" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TitleAppart, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TitleAppart, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TitleAppart, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DescriptionAppart, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DescriptionAppart, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DescriptionAppart, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TownAppart, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.TownAppart, SelectListMethod.GetListTownCameroon(), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TownAppart, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StreetAppart, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StreetAppart, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StreetAppart, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PriceAppart, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PriceAppart, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PriceAppart, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SearchOrAskJobAppart, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SearchOrAskJobAppart, SelectListMethod.ChooseSearchOrAsk(), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SearchOrAskJobAppart, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ApartSurface, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ApartSurface, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ApartSurface, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RoomNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RoomNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RoomNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FurnitureOrNot, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.FurnitureOrNot, SelectListMethod.FurnitureOrNot(), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FurnitureOrNot, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script type="text/javascript">
+    $(function () {
+
+        $("#StreetAppart").autocomplete({
+        source: function (request, response) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ShowAddress", "Job")',
+            dataType: "json",
+            headers: {
+                //"api-key": searchServiceApiKey,
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify({
+                top: 5,
+
+               // country: $("#Country").val(),
+                    town: $("#Town").val(),
+                 // zipcode: $("#ZipCode").val(),
+                term: request.term
+            }),
+            success: function (data) {
+                if (data && data.length > 0) {
+                      var parsedDate = $.parseJSON(data);
+
+                        response((parsedDate["results"]).map(feature => feature["formatted"]));
+
+                    }
+                }
+            });
+        },
+        minLength: 3,
+        position: {
+            //my: "left top",
+            //at: "left-23 bottom+10"
+            my: "left top",
+  at: "left-3 bottom+0",
+            of: "#StreetAppart"
+            },
+            appendTo: "#MyModalAddApartment"
+         });
+
+    });
+</script>

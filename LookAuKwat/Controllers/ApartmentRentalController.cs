@@ -14,47 +14,49 @@ using System.Web.Mvc;
 
 namespace LookAuKwat.Controllers
 {
-    public class JobController : Controller
+    public class ApartmentRentalController : Controller
     {
         private IDal dal;
-        public JobController() : this(new Dal())
+        public ApartmentRentalController() : this(new Dal())
         {
 
         }
 
-        public JobController(IDal dalIoc)
+        public ApartmentRentalController(IDal dalIoc)
         {
             dal = dalIoc;
         }
-        // GET: Job
+        // GET: ApartmentRental
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult AddJobs_PartialView()
+
+        public ActionResult AddApartment_PartialView()
         {
             return PartialView();
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddJobs_PartialView(JobViewModel job, ImageModelView userImage)
+        public async Task<ActionResult> AddAppartment(ApartmentRentalViewModel apart, ImageModelView userImage)
         {
-            JobModel model = new JobModel()
+            ApartmentRentalModel model = new ApartmentRentalModel()
             {
-                 id = job.id,
-            Title = job.Title,
-            Description = job.Description,
-            TypeContract = job.TypeContract,
-            Town = job.Town,
-            Price = job.Price,
-            Street = job.Street,
-            ActivitySector = job.ActivitySector,
-            DateAdd = DateTime.Now.ToString(),
-            SearchOrAskJob = job.SearchOrAskJob,
-            
-            
-        };
-           
+                id = apart.Id,
+                Title = apart.TitleAppart,
+                Description = apart.DescriptionAppart,
+                ApartSurface = apart.ApartSurface,
+                Town = apart.TownAppart,
+                Price = apart.PriceAppart,
+                Street = apart.StreetAppart,
+                FurnitureOrNot = apart.FurnitureOrNot,
+                RoomNumber = apart.RoomNumber,
+                DateAdd = DateTime.Now.ToString(),
+                SearchOrAskJob = apart.SearchOrAskJobAppart,
+
+
+            };
+
 
             if (ModelState.IsValid)
             {
@@ -65,59 +67,58 @@ namespace LookAuKwat.Controllers
                     string userId = User.Identity.GetUserId();
                     ApplicationUser user = dal.GetUserByStrId(userId);
 
-                    var fullAddress = $"{model.Town+","+model.Street+",Cameroon"}";
+                    var fullAddress = $"{model.Town + "," + model.Street + ",Cameroon"}";
                     var response = await httpClient.GetAsync("https://api.opencagedata.com/geocode/v1/json?q=" + fullAddress + "&key=a196040df44a4a41a471173aed07635c");
-                  
+
                     if (response.IsSuccessStatusCode)
                     {
-                   
-                            var jsonn = await response.Content.ReadAsStringAsync();
-                            var joo = JObject.Parse(jsonn);
-                            var latt = (string)joo["results"][0]["geometry"]["lat"];
-                            var lonn = (string)joo["results"][0]["geometry"]["lng"];
+
+                        var jsonn = await response.Content.ReadAsStringAsync();
+                        var joo = JObject.Parse(jsonn);
+                        var latt = (string)joo["results"][0]["geometry"]["lat"];
+                        var lonn = (string)joo["results"][0]["geometry"]["lng"];
 
                         List<ImageProcductModel> images = ImageAdd(userImage);
-                        
+
                         model.Images = images;
                         model.User = user;
-                        model.Category = new CategoryModel { CategoryName = "Emploi" };
-                        dal.AddJob(model,latt,lonn);
+                        model.Category = new CategoryModel { CategoryName = "Immobilier" };
+                        dal.AddAppartment(model, latt, lonn);
 
 
-                        return RedirectToAction("GetListProductByUser_PartialView","User");
-                        }
-
-
+                        return RedirectToAction("GetListProductByUser_PartialView", "User");
                     }
 
+
+                }
+
             }
-            return View(job);
+            return View(apart);
         }
 
-        public ActionResult EditJob_PartialView(JobModel job)
+        public ActionResult EditApartment_PartialView(ApartmentRentalModel apart)
         {
-             
-            if (job.id == 0)
+
+            if (apart.id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            if (job == null)
+            if (apart == null)
             {
                 return HttpNotFound();
             }
-            JobEditViewModel model = new JobEditViewModel()
+            ApartmentRentalViewModel model = new ApartmentRentalViewModel()
             {
-                JobEditid = job.id,
-                TitleJob = job.Title,
-                DescriptionJob = job.Description,
-                TypeContractJob = job.TypeContract,
-                TownJob = job.Town,
-                PriceJob = job.Price,
-                StreetJob = job.Street,
-                ActivitySectorJob = job.ActivitySector,
-                DateAddJob = DateTime.Now.ToString(),
-                SearchOrAskJobJob = job.SearchOrAskJob,
-                listeImageJob = job.Images
+                Id = apart.id,
+                TitleAppart = apart.Title,
+                DescriptionAppart = apart.Description,
+                FurnitureOrNot = apart.FurnitureOrNot,
+                TownAppart = apart.Town,
+                PriceAppart = apart.Price,
+                StreetAppart = apart.Street,
+                RoomNumber = apart.RoomNumber,
+                SearchOrAskJobAppart = apart.SearchOrAskJob,
+                listeImageappart = apart.Images
 
             };
 
@@ -125,28 +126,29 @@ namespace LookAuKwat.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> EditJob(JobEditViewModel job, ImageModelView userImage)
+        public async Task<ActionResult> EditApartment(ApartmentRentalViewModel apart, ImageModelView userImage)
         {
-           
 
-            if (ModelState.IsValid)
-            {
+
+         
 
                 string userId = User.Identity.GetUserId();
                 ApplicationUser user = dal.GetUserByStrId(userId);
-                JobModel model = new JobModel()
+               
+                ApartmentRentalModel model = new ApartmentRentalModel()
                 {
-                    id = job.JobEditid,
-                    Title = job.TitleJob,
-                    Description = job.DescriptionJob,
-                    TypeContract = job.TypeContractJob,
-                    Town = job.TownJob,
-                    Price = job.PriceJob,
-                    Street = job.StreetJob,
-                    ActivitySector = job.ActivitySectorJob,
+                    id = apart.Id,
+                    Title = apart.TitleAppart,
+                    Description = apart.DescriptionAppart,
+                    ApartSurface = apart.ApartSurface,
+                    Town = apart.TownAppart,
+                    Price = apart.PriceAppart,
+                    Street = apart.StreetAppart,
+                    FurnitureOrNot = apart.FurnitureOrNot,
+                    RoomNumber = apart.RoomNumber,
                     DateAdd = DateTime.Now.ToString(),
-                    SearchOrAskJob = job.SearchOrAskJobJob,
-                    Category = new CategoryModel { CategoryName = "Emploi" },
+                    SearchOrAskJob = apart.SearchOrAskJobAppart,
+                    Category = new CategoryModel { CategoryName = "Immobilier" },
                     User = user
 
                 };
@@ -154,7 +156,7 @@ namespace LookAuKwat.Controllers
                 using (var httpClient = new HttpClient())
                 {
 
-                   
+
 
                     var fullAddress = $"{model.Street}";
                     var response = await httpClient.GetAsync("https://api.opencagedata.com/geocode/v1/json?q=" + fullAddress + "&key=a196040df44a4a41a471173aed07635c");
@@ -167,34 +169,32 @@ namespace LookAuKwat.Controllers
                         var latt = (string)joo["results"][0]["geometry"]["lat"];
                         var lonn = (string)joo["results"][0]["geometry"]["lng"];
 
-                        List<ImageProcductModel> images = ImageEdit(userImage,model);
+                        List<ImageProcductModel> images = ImageEdit(userImage, model);
 
                         model.Images = images;
-                       
-                        dal.EditJob(model, latt, lonn);
 
-                       
+                        dal.EditApartment(model, latt, lonn);
+
+
                         return RedirectToAction("GetListProductByUser_PartialView", "User");
                     }
 
 
                 }
 
-            }
-            return View(job);
+            
+            return View(apart);
         }
 
-        public ActionResult JobDetails_PartialView(JobModel model)
+        public ActionResult ApartmentDetails_PartialView(ApartmentRentalModel model)
         {
 
             return PartialView(model);
         }
 
-
-
         private List<ImageProcductModel> ImageAdd(ImageModelView userImage)
         {
-            
+
             List<ImageProcductModel> liste = new List<ImageProcductModel>();
             if (userImage.ImageFile != null)
             {
@@ -248,9 +248,9 @@ namespace LookAuKwat.Controllers
                 };
                 liste.Add(picture);
 
-            }return liste;
+            }
+            return liste;
         }
-
 
         private List<ImageProcductModel> ImageEdit(ImageModelView userImage, ProductModel product)
         {
@@ -300,35 +300,15 @@ namespace LookAuKwat.Controllers
             }
             else
             {
-               // Guid guid = new Guid(userImage.id);
+                // Guid guid = new Guid(userImage.id);
                 List<ImageProcductModel> picture = dal.GetImageList().Where(s => s.ProductId == product.id).ToList();
-                   foreach(var im in picture)
+                foreach (var im in picture)
                 {
                     liste.Add(im);
                 }
-                
-            }return liste;
-        }
 
-        public async Task<JsonResult> ShowAddress(string term, string town)
-        {
-            using (var httpClient = new HttpClient())
-            {
-                var fullAddress = $"{term + "," + town + "," + "Cameroun" }";
-                
-                    var response2 = await httpClient.GetAsync("https://api.opencagedata.com/geocode/v1/json?q=" + fullAddress + "&key=a196040df44a4a41a471173aed07635c");
-                    var data = await response2.Content.ReadAsStringAsync();
-
-                    return Json(data, JsonRequestBehavior.AllowGet);
-                
             }
+            return liste;
         }
-
-        public ActionResult JobDetail(int id)
-        {
-            JobModel model = dal.GetListJob().FirstOrDefault(e => e.id == id);
-            return View(model);
-        }
-
     }
 }
