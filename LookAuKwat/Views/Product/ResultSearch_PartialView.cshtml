@@ -22,7 +22,7 @@ else
                             <h4 class="list-group-item-heading"> @liste.Title Ville:<span class="text-info"> @liste.Town</span></h4>
                             <p class="list-group-item-text pull-right">@liste.DateAdd</p>
 
-                            <img src="@liste.Images.Select(m=>m.Image).First();" alt="image du groupe @liste.Title" style="height:50px" class="img-rounded" />
+                            <img src="@liste.Images.Select(m=>m.Image).First()" alt="image du groupe @liste.Title" style="height:50px" class="img-rounded" />
                         </a>
                     }
                 </div>

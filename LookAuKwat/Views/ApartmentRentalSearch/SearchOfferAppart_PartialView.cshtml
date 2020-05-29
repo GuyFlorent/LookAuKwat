@@ -1,0 +1,119 @@
+﻿@model LookAuKwat.ViewModel.SeachJobViewModel
+@using LookAuKwat.ViewModel
+
+@using (Ajax.BeginForm("searchOfferAppart", "ApartmentRentalSearch", new AjaxOptions
+{
+    HttpMethod = "GET",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "ResulList",
+    // OnFailure = "ErreurRecherche",
+    // LoadingElementId = "chargement"
+}
+         ))
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <h4>SeachJobViewModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
+        @*<div class="form-group col-xs-6 col-sm-4 col-md-3">
+            @Html.LabelFor(model => model.TitleSearch, htmlAttributes: new { @class = "control-label " })
+
+            @Html.EditorFor(model => model.TitleSearch, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TitleSearch, "", new { @class = "text-danger" })
+
+        </div>*@
+
+        <div class="form-group col-xs-6 col-sm-4 col-md-3">
+            @Html.LabelFor(model => model.TownSearch, htmlAttributes: new { @class = "control-label " })
+
+            @Html.DropDownListFor(model => model.TownSearch, SelectListMethod.GetListTownCameroon(), "Toutes", new { @class = "form-control TownSearchApart" })
+            @Html.ValidationMessageFor(model => model.TownSearch, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-3">
+            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label " })
+
+            @Html.DropDownListFor(model => model.Type, SelectListMethod.TypeImmobilier(), "Tout", new { @class = "form-control " })
+            @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-3">
+            @Html.LabelFor(model => model.MinApartSurface, htmlAttributes: new { @class = "control-label" })
+
+            @Html.EditorFor(model => model.MinApartSurface, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MinApartSurface, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-3">
+            @Html.LabelFor(model => model.MaxApartSurface, htmlAttributes: new { @class = "control-label " })
+
+            @Html.EditorFor(model => model.MaxApartSurface, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MaxApartSurface, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-3">
+            @Html.LabelFor(model => model.RoomNumber, htmlAttributes: new { @class = "control-label" })
+
+            @Html.EditorFor(model => model.RoomNumber, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.RoomNumber, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-3">
+            @Html.LabelFor(model => model.FurnitureOrNot, htmlAttributes: new { @class = "control-label" })
+
+            @Html.DropDownListFor(model => model.FurnitureOrNot, SelectListMethod.FurnitureOrNot(), "Tout", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.FurnitureOrNot, "", new { @class = "text-danger" })
+
+        </div>
+
+        @*<div class="form-group col-xs-6 col-sm-4 col-md-3">
+            @Html.LabelFor(model => model.StreetSearch, htmlAttributes: new { @class = "control-label" })
+
+            @Html.EditorFor(model => model.StreetSearch, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.StreetSearch, "", new { @class = "text-danger" })
+
+        </div>*@
+
+        <div class="form-group col-xs-4 col-sm-4 col-md-3">
+            @Html.LabelFor(model => model.PriceMinSearch, htmlAttributes: new { @class = "control-label " })
+
+            @Html.EditorFor(model => model.PriceMinSearch, new { htmlAttributes = new { @class = "form-control PriceMinSearchApart" } })
+            @Html.ValidationMessageFor(model => model.PriceMinSearch, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group col-xs-6 col-sm-4 col-md-3">
+            @Html.LabelFor(model => model.PriceMaxSearch, htmlAttributes: new { @class = "control-label " })
+
+            @Html.EditorFor(model => model.PriceMaxSearch, new { htmlAttributes = new { @class = "form-control PriceMaxSearchApart" } })
+            @Html.ValidationMessageFor(model => model.PriceMaxSearch, "", new { @class = "text-danger" })
+
+        </div>
+
+
+        @*<div class="form-group col-xs-6 col-sm-4 col-md-3">
+            @Html.LabelFor(model => model.SearchOrAskJobJob, htmlAttributes: new { @class = "control-label " })
+
+            @Html.DropDownListFor(model => model.SearchOrAskJobJob, SelectListMethod.ChooseSearchOrAsk(), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.SearchOrAskJobJob, "", new { @class = "text-danger" })
+
+        </div>*@
+
+    </div>
+
+        <button id="submitJob" type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-search"></span> Rechercher
+        </button>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

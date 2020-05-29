@@ -16,6 +16,7 @@ namespace LookAuKwat.ViewModel
         public int PriceAppart { get; set; }
         public string DateAddAppart { get; set; }
         public string SearchOrAskJobAppart { get; set; }
+        public string Type { get; set; }
         public int ApartSurface { get; set; }
         public int RoomNumber { get; set; }
         public string FurnitureOrNot { get; set; }

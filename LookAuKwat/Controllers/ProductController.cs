@@ -34,6 +34,17 @@ namespace LookAuKwat.Controllers
             IEnumerable<ProductModel> liste = dal.GetListProduct();
             return View(liste);
         }
+        public ActionResult ListProduct_PartialView()
+        {
+            IEnumerable<ProductModel> liste = dal.GetListProduct().OrderByDescending(m=>m.DateAdd);
+            return PartialView(liste);
+        }
+        public JsonResult listAllProductReturnJson()
+        {
+            var data2 = dal.GetListProduct().Select(m =>m.Coordinate);
+
+            return Json(data2, JsonRequestBehavior.AllowGet);
+        }
 
         public JsonResult listProductReturnJson()
         {
@@ -136,6 +147,14 @@ namespace LookAuKwat.Controllers
                     }
                    
                     break;
+                case "Immobilier":
+                    var resultImmobilier = TempData["listeApart"] as List<ApartmentRentalModel>;
+                    foreach (var element in resultImmobilier)
+                    {
+                        modelresult.ListePro.Add(element);
+                    }
+
+                    break;
             }
 
 
@@ -155,17 +174,26 @@ namespace LookAuKwat.Controllers
 
         public JsonResult ResultSearchJson(SeachJobViewModel modelresult)
         {
-            List<JobModel> data = TempData["listeJobJson"] as List<JobModel>;
-            JobModel data1 = data[0];
+            List<JobModel> result = TempData["listeJobJson"] as List<JobModel>;
+            List<ApartmentRentalModel> resultImmobilier = TempData["listeApartJson"] as List<ApartmentRentalModel>;
+            List<ProductCoordinateModel> data = new List<ProductCoordinateModel>() ;
             switch (modelresult.CagtegorieSearch)
             {
                 case "Emploi":
                     
-                    foreach (var element in data)
+                    foreach (var element in result)
                     {
                         modelresult.ListePro.Add(element);
                     }
+                    data = modelresult.ListePro.Select(s=>s.Coordinate).ToList();
+                    break;
+                case "Immobilier":
 
+                    foreach (var element in resultImmobilier)
+                    {
+                        modelresult.ListePro.Add(element);
+                    }
+                    data = modelresult.ListePro.Select(s => s.Coordinate).ToList();
                     break;
             }
 
@@ -175,7 +203,7 @@ namespace LookAuKwat.Controllers
                 modelresult.ListePro = new List<ProductModel>();
             }
 
-            return Json(data1, JsonRequestBehavior.AllowGet);
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
 

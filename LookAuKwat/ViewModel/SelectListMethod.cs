@@ -135,6 +135,17 @@ namespace LookAuKwat.ViewModel
             };
             return list;
         }
+
+        public static IEnumerable<SelectListItem> TypeImmobilier()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "Ventes Immobilières", Value = "Ventes Immobilières" },
+                new SelectListItem() { Text = "Location", Value = "Location" }
+
+            };
+            return list;
+        }
     }
 
 }

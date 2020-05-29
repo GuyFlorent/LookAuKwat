@@ -33,7 +33,13 @@
                     }
 
                 </div>
-                Future Offres
+                <div id="ImmobilierId" class="hidden">
+                    @{
+                        Html.RenderAction("SearchOfferAppart_PartialView", "ApartmentRentalSearch");
+                    }
+
+                </div>
+
             </div>
         </div>
         <div class="tab-pane fade " id="ask">
@@ -54,21 +60,24 @@
 </section>
 <hr />
 <section class="row">
-    <section class="col-md-4">
-        les pubs
-    </section>
-    <section id="jobSectionResult" class="col-md-4 hidden">
+    
+    <section id="jobSectionResult" class="row hidden">
         <ul class="nav nav-pills ">
             <li class="active"><a href="#ResulList" data-toggle="tab">Liste</a></li>
             <li><a href="#ResultMap" data-toggle="tab">Carte</a></li>
         </ul>
         <div class="tab-content" id="resultsJobSearch">
             <div class="tab-pane active  fade in" id="ResulList">
-                <div class="">
-                    @{
-                        Html.RenderAction("ResultSearch_PartialView", "Product");
-                    }
-                </div>
+               
+                    <div class="col-md-6" >
+                        @{
+                            Html.RenderAction("ResultSearch_PartialView", "Product");
+                        }
+                    </div>
+                    <div class="col-md-6">
+                        <h1> Pub bevgduvchdiuchgeablidbealdbilbeivuxvvdcvqlivcdiqvdcslqbhcvudqvcudbqkcbbidbvucvqdulcblidbcdibqbcidbckbdbckidbicbiqm</h1>
+                    </div>
+                
             </div>
 
             <div class="tab-pane  fade " id="ResultMap">
@@ -77,17 +86,220 @@
         </div>
     </section>
 
-    <section class="col-md-4">
-        les pubs
+    <section id="AllCategoryResult" class="row ">
+        <ul class="nav nav-pills ">
+            <li class="active"><a href="#ResulListAll" data-toggle="tab">Liste</a></li>
+            <li><a href="#ResultMapAll" data-toggle="tab">Carte</a></li>
+        </ul>
+        <div class="tab-content" id="resultsAllCategory">
+            <div class="tab-pane active  fade in" id="ResulListAll">
+                <div class="col-md-6">
+                    @{
+                        Html.RenderAction("ListProduct_PartialView", "Product");
+                    }
+                </div>
+                <div class="col-md-6">
+                    <h1> totot rygiiudbhkjfbkubu</h1>
+                </div>
+            </div>
+
+            <div class="tab-pane  fade " id="ResultMapAll">
+                <div id="mapidAll" style="height:480px"> </div>
+            </div>
+        </div>
     </section>
+
 </section>
 
 
 <script type="text/javascript">
+    var jobMarkers = L.layerGroup();
+    var ApartMarkers = L.layerGroup();
+    var mymapJob = L.map('mapid');
+    mymapJob.setView(["48.864716", "2.349014"], 13);
 
-    var mymap = L.map('mapid');
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11', /*mapbox/satellite-v9*/
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoiZ3V5d2FuZ3VldSIsImEiOiJjazc0amN4ZzkwOG14M2twYXhpbDZ6NjRwIn0.HU_TD-k9bLv6_ctUhyIRuw'
+    }).addTo(mymapJob);
+
+    var options = {
+        enableHighAccuracy: false,
+        timeout: 5000,
+        maximumAge: Infinity
+    };
+
+
+    navigator.geolocation.getCurrentPosition(function (position) {
+        var lat = position.coords.latitude;
+        var long = position.coords.longitude;
+        mymapJob.setView([lat, long], 13);
+    }, null, options)
+
+
+    $(function () {
+
+        $("select.searchcategory").change(function () {
+            var select = $(this).children("option:selected").val();
+
+            if (select == "Emploi") {
+                $('#JobId').removeClass('hidden');
+            } else {
+                $('#JobId').addClass('hidden');
+            }
+            if (select == "Tout") {
+                $('#jobSectionResult').addClass('hidden');
+                $('#AllCategoryResult').removeClass('hidden');
+            }
+            if (select == "Immobilier") {
+                $('#ImmobilierId').removeClass('hidden');
+            } else {
+                $('#ImmobilierId').addClass('hidden');
+            }
+        });
+
+        $('button').click(function () {
+            $('#jobSectionResult').removeClass('hidden');
+            $('#AllCategoryResult').addClass('hidden');
+           // alert('toto');
+
+
+        })
+
+         $("a[href='#ResultMap']").on('shown.bs.tab', function (e) {
+             jobMarkers.clearLayers()
+
+              $.ajax({
+            type: "POST",
+            url: '@Url.Action("ResultSearchOfferJob_Jason", "JobOfferSearch")',
+            dataType: "json",
+            headers: {
+                //"api-key": searchServiceApiKey,
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify({
+
+                sector: $("#ActivitySectorJob").val(),
+                town: $(".TownSearchJob").val(),
+                contract: $("#TypeContractJob").val(),
+                minPrice: $("#PriceMinSearch").val(),
+                maxPrice: $("#PriceMaxSearch").val(),
+            }),
+                  success:
+                      function (data) {
+
+                    for (var i = 0; i < data.length; i++) {
+                        console.log(data[i].Lat);
+                    //var popup = '<b>Titre:</b>' + data[i].Title +
+                    //    '<br/><b>Adresse:</b>' + data[i].Price + ',' + data[i].Town + ',' + data[i].Country
+
+
+
+                 var markerjob =  L.marker([data[i].Lat, data[i].Lon])
+                    //    .bindPopup(popup)
+                       // .addTo(mymapJob);
+
+                        jobMarkers.addLayer(markerjob)
+                          }
+                          // $("#mymapJob").load(" #mymapJob");
+                          mymapJob.addLayer(jobMarkers);
+                  },
+                  error: function (xhr) {
+                      console.log(xhr.responseText);
+                      alert("Une erreur est survenu  !");
+                  }
+              });
+             mymapJob.invalidateSize();
+         });
+
+        $("a[href='#ResultMap']").on('shown.bs.tab', function (e) {
+            ApartMarkers.clearLayers()
+
+              $.ajax({
+            type: "POST",
+            url: '@Url.Action("ResultSearchOfferApart_Jason", "ApartmentRentalSearch")',
+            dataType: "json",
+            headers: {
+                //"api-key": searchServiceApiKey,
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify({
+
+                type: $("#Type").val(),
+                town: $(".TownSearchApart").val(),
+                minSurface: $("#MinApartSurface").val(),
+                maxSurface: $("#MaxApartSurface").val(),
+                minPrice: $(".PriceMinSearchApart").val(),
+                maxPrice: $(".PriceMaxSearchApart").val(),
+                furnitureOrNot: $("#FurnitureOrNot").val(),
+                roomNumber: $("#RoomNumber").val(),
+            }),
+                  success:
+                      function (data) {
+
+                    for (var i = 0; i < data.length; i++) {
+                        console.log(data[i].Lat);
+                    //var popup = '<b>Titre:</b>' + data[i].Title +
+                    //    '<br/><b>Adresse:</b>' + data[i].Price + ',' + data[i].Town + ',' + data[i].Country
+
+
+
+                 var markerjob =  L.marker([data[i].Lat, data[i].Lon])
+                    //    .bindPopup(popup)
+                       // .addTo(mymapJob);
+
+                        ApartMarkers.addLayer(markerjob)
+                          }
+                          // $("#mymapJob").load(" #mymapJob");
+                          mymapJob.addLayer(ApartMarkers);
+                  },
+                  error: function (xhr) {
+                      console.log(xhr.responseText);
+                      alert("Une erreur est survenu  !");
+                  }
+              });
+             mymapJob.invalidateSize();
+        });
+    })
+</script>
+
+<script type="text/javascript">
+    var mymap = L.map('mapidAll');
     mymap.setView(["48.864716", "2.349014"], 13);
+    $("a[href='#ResultMapAll']").on('shown.bs.tab', function (e) {
+        mymap.invalidateSize();
+        $.ajax({
+            type: "POST",
+            url: '/Product/listAllProductReturnJson',
 
+            success: function (data2) {
+
+
+                for (var i = 0; i < data2.length; i++) {
+                    console.log(data2[i]);
+                    //var popup = '<div class="thumbnail"> <a class="img-rounded" href="' + data[i].Image + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].AssociationName + '">  <img id="ImageDetailIniById" src="' + data[i].Image + '" alt="photo groupe local' + data[i].AssociationName + '" height="40"></a> </div>' +
+                    //    '<b><span class="glyphicon glyphicon-user"></span> Nom du groupe local : </b>' + data[i].AssociationName +
+                    //    '<br/><b>Adresse : </b>' + data[i].Address + ',' + data[i].Country +
+                    //    '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/User/UserDetailsById/' + data[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
+
+                    L.marker([data2[i].Lat, data2[i].Lon])
+                        // .bindPopup(popup)
+                        .addTo(mymap);
+                    // allGroup.addLayer(group);
+
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+                alert("Une erreur est survenu  !");
+            }
+        });
+    });
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -110,79 +322,4 @@
         var long = position.coords.longitude;
         mymap.setView([lat, long], 13);
     }, null, options)
-
-
-    $(function () {
-
-        $("select.searchcategory").change(function () {
-            var select = $(this).children("option:selected").val();
-
-            if (select == "Emploi") {
-                $('#JobId').removeClass('hidden');
-            } else {
-                $('#JobId').addClass('hidden');
-            }
-        });
-
-        $('button').click(function () {
-            $('#jobSectionResult').removeClass('hidden');
-            //$('#jobSectionResult').addClass('hidden');
-           // alert('toto');
-
-
-        })
-
-         $("a[href='#ResultMap']").on('shown.bs.tab', function (e) {
-             mymap.invalidateSize();
-              $.ajax({
-            type: "POST",
-            url: '@Url.Action("ResultSearchOfferJob_Jason", "JobOfferSearch")',
-            dataType: "json",
-            headers: {
-                //"api-key": searchServiceApiKey,
-                "Content-Type": "application/json"
-            },
-            data: JSON.stringify({
-               
-                sector: $("#ActivitySectorJob").val(),
-                town: $(".TownSearchJob").val(),
-                contract: $("#TypeContractJob").val(),
-                minPrice: $("#PriceMinSearch").val(),
-                maxPrice: $("#PriceMaxSearch").val(),
-            }),
-                  success: function (data1) {
-                      if (data1.success) {
-                          alert("bien");
-                      } else {
-                          // DoSomethingElse()
-                          alert("movais");
-                      }           
-                  },
-                      //function (data1) {
-                  //    alert(data1);
-                  //    alert('cest bon');
-                  //    //console.log(data.length);
-                  //  for (var i = 0; i < data1.length; i++) {
-                  //  console.log(i);
-                  //  //var popup = '<b>Titre:</b>' + data[i].Title +
-                  //  //    '<br/><b>Adresse:</b>' + data[i].Price + ',' + data[i].Town + ',' + data[i].Country
-
-
-
-                  //  //L.marker([data[i].Coordinate.Lat, data[i].Coordinate.Lon])
-                  //  //    .bindPopup(popup)
-                  //  //    .addTo(mymap);
-
-                  //   }
-                  //   $("#mapid").html(data1);
-
-                  //},
-                  error: function (xhr) {
-                      console.log(xhr.responseText);
-                      alert("Une erreur est survenu  !");
-                  }
-              });
-             
-        });
-    })
 </script>

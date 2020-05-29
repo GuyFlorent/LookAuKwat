@@ -169,6 +169,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApartmentRentalController.cs" />
+    <Compile Include="Controllers\ApartmentRentalSearchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\JobOfferSearchController.cs" />
@@ -267,9 +268,12 @@
     <Content Include="Views\ApartmentRental\AddApartment_PartialView.cshtml" />
     <Content Include="Views\ApartmentRental\ApartmentDetails_PartialView.cshtml" />
     <Content Include="Views\ApartmentRental\EditApartment_PartialView.cshtml" />
+    <Content Include="Views\Product\ListProduct_PartialView.cshtml" />
+    <Content Include="Views\ApartmentRentalSearch\SearchOfferAppart_PartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="UserImage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -10,6 +10,7 @@ namespace LookAuKwat.Models
         public int ApartSurface { get; set; }
         public int RoomNumber { get; set; }
         public string FurnitureOrNot { get; set; }
+        public string Type { get; set; }
       
     }
 }

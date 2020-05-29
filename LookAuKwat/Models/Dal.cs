@@ -229,5 +229,14 @@ namespace LookAuKwat.Models
 
             dbb.SaveChanges();
         }
+
+        public IEnumerable<ApartmentRentalModel> GetListAppart()
+        {
+            IEnumerable<ApartmentRentalModel> listapart = dbb.ApartmentRentals.Include(s => s.Images)
+              .Include(s => s.User)
+              .Include(s => s.Category)
+              .Include(s => s.Coordinate).ToList();
+            return listapart;
+        }
     }
 }

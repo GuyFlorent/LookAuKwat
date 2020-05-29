@@ -25,5 +25,6 @@ namespace LookAuKwat.Models
         // Apartment category
         void AddAppartment(ApartmentRentalModel apart, string lat, string lon);
         void EditApartment(ApartmentRentalModel apart, string lat, string lon);
+        IEnumerable<ApartmentRentalModel> GetListAppart();
     }
 }

@@ -217,12 +217,12 @@ namespace LookAuKwat.Controllers
                         FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + FileName + FileExtension;
 
                         //Create complete path to store in server
-                        var path = Server.MapPath("~/UserImages/");
+                        var path = Server.MapPath("~/UserImage/");
                         if (!Directory.Exists(path))
                         {
                             Directory.CreateDirectory(path);
                         }
-                        userImage.Image = $"/UserImages/{FileName}";
+                        userImage.Image = $"/UserImage/{FileName}";
                         ImageProcductModel picture = new ImageProcductModel
                         {
                             Image = userImage.Image,
@@ -276,12 +276,12 @@ namespace LookAuKwat.Controllers
                         FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + FileName + FileExtension;
 
                         //Create complete path to store in server
-                        var path = Server.MapPath("~/UserImages/");
+                        var path = Server.MapPath("~/UserImage/");
                         if (!Directory.Exists(path))
                         {
                             Directory.CreateDirectory(path);
                         }
-                        userImage.Image = $"/UserImages/{FileName}";
+                        userImage.Image = $"/UserImage/{FileName}";
                         ImageProcductModel picture = new ImageProcductModel
                         {
                             Image = userImage.Image,
