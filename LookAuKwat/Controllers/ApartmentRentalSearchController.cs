@@ -43,7 +43,7 @@ namespace LookAuKwat.Controllers
                 && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
                 && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
             {
- 
+
                 TempData["listeApart"] = liste;
 
             }
@@ -77,7 +77,7 @@ namespace LookAuKwat.Controllers
                 && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
             {
                 List<ApartmentRentalModel> list = liste.Where(r => r.Price >= model.PriceMinSearch && r.Price <= model.PriceMaxSearch
-                && r.Town == model.TownSearch && r.ApartSurface>= model.MinApartSurface ).ToList();
+                && r.Town == model.TownSearch && r.ApartSurface >= model.MinApartSurface).ToList();
                 TempData["listeJob"] = list;
 
             }
@@ -197,7 +197,7 @@ namespace LookAuKwat.Controllers
               && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
             {
                 List<ApartmentRentalModel> list = liste.Where(r => r.Price >= model.PriceMinSearch && r.ApartSurface >= model.MinApartSurface
-                && r.ApartSurface <= model.MaxApartSurface ).ToList();
+                && r.ApartSurface <= model.MaxApartSurface).ToList();
                 TempData["listeApart"] = list;
 
             }
@@ -340,7 +340,7 @@ namespace LookAuKwat.Controllers
 
             }
             else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
-         && model.MinApartSurface > 0 && model.MaxApartSurface >= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+         && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
          && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
             {
                 List<ApartmentRentalModel> list = liste.Where(r => r.Price <= model.PriceMaxSearch && r.Town == model.TownSearch
@@ -349,17 +349,17 @@ namespace LookAuKwat.Controllers
 
             }
             else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
-         && model.MinApartSurface > 0 && model.MaxApartSurface >= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+         && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
          && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
             {
                 List<ApartmentRentalModel> list = liste.Where(r => r.Price <= model.PriceMaxSearch && r.Town == model.TownSearch
-                && r.ApartSurface >= model.MinApartSurface && r.ApartSurface <= model.MaxApartSurface 
+                && r.ApartSurface >= model.MinApartSurface && r.ApartSurface <= model.MaxApartSurface
                 && r.FurnitureOrNot == model.FurnitureOrNot).ToList();
                 TempData["listeApart"] = list;
 
             }
             else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
-        && model.MinApartSurface > 0 && model.MaxApartSurface >= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+        && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
         && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
             {
                 List<ApartmentRentalModel> list = liste.Where(r => r.Price <= model.PriceMaxSearch && r.Town == model.TownSearch
@@ -369,12 +369,436 @@ namespace LookAuKwat.Controllers
 
             }
             else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
-        && model.MinApartSurface > 0 && model.MaxApartSurface >= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+        && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
         && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
             {
                 List<ApartmentRentalModel> list = liste.Where(r => r.Price <= model.PriceMaxSearch && r.Town == model.TownSearch
                 && r.ApartSurface >= model.MinApartSurface && r.ApartSurface <= model.MaxApartSurface
                 && r.FurnitureOrNot == model.FurnitureOrNot && r.Type == model.Type && r.RoomNumber >= model.RoomNumber).ToList();
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+        && model.MinApartSurface <=0 && model.MaxApartSurface > 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+        && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Price <= model.PriceMaxSearch && r.Town == model.TownSearch
+                 && r.ApartSurface <= model.MaxApartSurface).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+       && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+       && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Price <= model.PriceMaxSearch && r.Town == model.TownSearch
+                 && r.FurnitureOrNot == model.FurnitureOrNot).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+       && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+       && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Price <= model.PriceMaxSearch && r.Town == model.TownSearch
+                 && r.Type == model.Type).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+       && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+       && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Price <= model.PriceMaxSearch && r.Town == model.TownSearch
+                 && r.RoomNumber >= model.RoomNumber).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+        && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+        && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch).ToList();
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+       && model.MinApartSurface > 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+       && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.ApartSurface >= model.MinApartSurface).ToList();
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+       && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+       && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.ApartSurface >= model.MinApartSurface
+                && r.ApartSurface <= model.MaxApartSurface).ToList();
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+      && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+      && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.ApartSurface >= model.MinApartSurface
+                && r.ApartSurface <= model.MaxApartSurface && r.FurnitureOrNot == model.FurnitureOrNot).ToList();
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+     && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+     && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.ApartSurface >= model.MinApartSurface
+                && r.ApartSurface <= model.MaxApartSurface && r.FurnitureOrNot == model.FurnitureOrNot && r.Type == model.Type).ToList();
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+     && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+     && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.ApartSurface >= model.MinApartSurface
+                && r.ApartSurface <= model.MaxApartSurface && r.FurnitureOrNot == model.FurnitureOrNot && r.Type == model.Type
+                && r.RoomNumber >= model.RoomNumber).ToList();
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+      && model.MinApartSurface <= 0 && model.MaxApartSurface > 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+      && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.ApartSurface <= model.MaxApartSurface).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+      && model.MinApartSurface <= 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+      && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.ApartSurface <= model.MaxApartSurface
+                && r.FurnitureOrNot == model.FurnitureOrNot).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+      && model.MinApartSurface <= 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+      && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.ApartSurface <= model.MaxApartSurface
+                && r.FurnitureOrNot == model.FurnitureOrNot && r.Type == model.Type).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+      && model.MinApartSurface <= 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+      && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.ApartSurface <= model.MaxApartSurface
+                && r.FurnitureOrNot == model.FurnitureOrNot && r.Type == model.Type && r.RoomNumber >= model.RoomNumber).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+      && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+      && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.FurnitureOrNot == model.FurnitureOrNot).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+     && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+     && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.FurnitureOrNot == model.FurnitureOrNot
+                && r.Type == model.Type).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+    && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+    && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.FurnitureOrNot == model.FurnitureOrNot
+                && r.Type == model.Type && r.RoomNumber >= model.RoomNumber).ToList();
+
+                TempData["listeApart"] = list;
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+    && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+    && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch 
+                && r.Type == model.Type).ToList();
+
+                TempData["listeApart"] = list;
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+   && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+   && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.RoomNumber >= model.RoomNumber
+                && r.Type == model.Type).ToList();
+
+                TempData["listeApart"] = list;
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+  && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+  && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.RoomNumber >= model.RoomNumber).ToList();
+
+
+                TempData["listeApart"] = list;
+            }
+
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+        && model.MinApartSurface > 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+        && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface).ToList();
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+        && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+        && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.ApartSurface <= model.MaxApartSurface).ToList();
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+       && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+       && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.ApartSurface <= model.MaxApartSurface
+                && r.FurnitureOrNot == model.FurnitureOrNot).ToList();
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+       && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+       && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.ApartSurface <= model.MaxApartSurface
+                && r.FurnitureOrNot == model.FurnitureOrNot && r.Type == model.Type).ToList();
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+       && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+       && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.ApartSurface <= model.MaxApartSurface
+                && r.FurnitureOrNot == model.FurnitureOrNot && r.Type == model.Type && r.RoomNumber >= model.RoomNumber).ToList();
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+        && model.MinApartSurface > 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+        && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.FurnitureOrNot == model.FurnitureOrNot).ToList();
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+       && model.MinApartSurface > 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+       && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.FurnitureOrNot == model.FurnitureOrNot
+                && r.Type == model.Type).ToList();
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+      && model.MinApartSurface > 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+      && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.FurnitureOrNot == model.FurnitureOrNot
+                && r.Type == model.Type && r.RoomNumber >= model.RoomNumber).ToList();
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+      && model.MinApartSurface > 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+      && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface
+                && r.Type == model.Type ).ToList();
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+      && model.MinApartSurface > 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+      && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface 
+                && r.Type == model.Type && r.RoomNumber >= model.RoomNumber).ToList();
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+     && model.MinApartSurface > 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+     && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.RoomNumber >= model.RoomNumber
+               ).ToList();
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+    && model.MinApartSurface <= 0 && model.MaxApartSurface > 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+    && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+    && model.MinApartSurface <= 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+    && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.FurnitureOrNot == model.FurnitureOrNot).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+   && model.MinApartSurface <= 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+   && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.FurnitureOrNot == model.FurnitureOrNot
+                && r.Type == model.Type).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+  && model.MinApartSurface <= 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+  && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.FurnitureOrNot == model.FurnitureOrNot
+                && r.Type == model.Type && r.RoomNumber >= model.RoomNumber).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+   && model.MinApartSurface <= 0 && model.MaxApartSurface > 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+   && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.Type == model.Type).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+  && model.MinApartSurface <= 0 && model.MaxApartSurface > 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+  && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.Type == model.Type && 
+                r.RoomNumber >= model.RoomNumber).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+  && model.MinApartSurface <= 0 && model.MaxApartSurface > 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+  && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface  &&
+                r.RoomNumber >= model.RoomNumber).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+   && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+   && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.FurnitureOrNot == model.FurnitureOrNot).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+  && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+  && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.FurnitureOrNot == model.FurnitureOrNot).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+  && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+  && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.FurnitureOrNot == model.FurnitureOrNot && r.Type == model.Type).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+ && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+ && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.FurnitureOrNot == model.FurnitureOrNot && r.Type == model.Type
+                && r.RoomNumber >= model.RoomNumber).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+  && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+  && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.FurnitureOrNot == model.FurnitureOrNot && r.RoomNumber >= model.RoomNumber).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+  && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+  && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Type == model.Type).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+  && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+  && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Type == model.Type && r.RoomNumber >= model.RoomNumber).ToList();
+
+                TempData["listeApart"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+  && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+  && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.RoomNumber >= model.RoomNumber).ToList();
+
                 TempData["listeApart"] = list;
 
             }
@@ -476,6 +900,46 @@ namespace LookAuKwat.Controllers
                 List<ApartmentRentalModel> list = liste.Where(r => r.Price >= model.PriceMinSearch && r.Price <= model.PriceMaxSearch
                 && r.Town == model.TownSearch && r.ApartSurface >= model.MinApartSurface && r.ApartSurface <= model.MinApartSurface
                 && r.FurnitureOrNot == model.FurnitureOrNot && r.Type == model.Type && r.RoomNumber >= model.RoomNumber).ToList();
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+       && model.MinApartSurface <= 0 && model.MaxApartSurface > 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+       && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Price <= model.PriceMaxSearch && r.Town == model.TownSearch
+                 && r.ApartSurface <= model.MaxApartSurface).ToList();
+
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+       && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+       && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Price <= model.PriceMaxSearch && r.Town == model.TownSearch
+                 && r.FurnitureOrNot == model.FurnitureOrNot).ToList();
+
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+       && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+       && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Price <= model.PriceMaxSearch && r.Town == model.TownSearch
+                 && r.Type == model.Type).ToList();
+
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+       && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+       && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Price <= model.PriceMaxSearch && r.Town == model.TownSearch
+                 && r.RoomNumber >= model.RoomNumber).ToList();
+
                 TempData["listeApartJson"] = list;
 
             }
@@ -699,7 +1163,7 @@ namespace LookAuKwat.Controllers
 
             }
             else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
-         && model.MinApartSurface > 0 && model.MaxApartSurface >= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+         && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
          && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
             {
                 List<ApartmentRentalModel> list = liste.Where(r => r.Price <= model.PriceMaxSearch && r.Town == model.TownSearch
@@ -708,7 +1172,7 @@ namespace LookAuKwat.Controllers
 
             }
             else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
-         && model.MinApartSurface > 0 && model.MaxApartSurface >= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+         && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
          && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
             {
                 List<ApartmentRentalModel> list = liste.Where(r => r.Price <= model.PriceMaxSearch && r.Town == model.TownSearch
@@ -718,7 +1182,7 @@ namespace LookAuKwat.Controllers
 
             }
             else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
-        && model.MinApartSurface > 0 && model.MaxApartSurface >= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+        && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
         && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
             {
                 List<ApartmentRentalModel> list = liste.Where(r => r.Price <= model.PriceMaxSearch && r.Town == model.TownSearch
@@ -728,12 +1192,396 @@ namespace LookAuKwat.Controllers
 
             }
             else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch > 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
-        && model.MinApartSurface > 0 && model.MaxApartSurface >= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+        && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
         && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
             {
                 List<ApartmentRentalModel> list = liste.Where(r => r.Price <= model.PriceMaxSearch && r.Town == model.TownSearch
                 && r.ApartSurface >= model.MinApartSurface && r.ApartSurface <= model.MaxApartSurface
                 && r.FurnitureOrNot == model.FurnitureOrNot && r.Type == model.Type && r.RoomNumber >= model.RoomNumber).ToList();
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+        && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+        && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch).ToList();
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+       && model.MinApartSurface > 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+       && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.ApartSurface >= model.MinApartSurface).ToList();
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+       && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+       && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.ApartSurface >= model.MinApartSurface
+                && r.ApartSurface <= model.MaxApartSurface).ToList();
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+      && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+      && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.ApartSurface >= model.MinApartSurface
+                && r.ApartSurface <= model.MaxApartSurface && r.FurnitureOrNot == model.FurnitureOrNot).ToList();
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+     && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+     && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.ApartSurface >= model.MinApartSurface
+                && r.ApartSurface <= model.MaxApartSurface && r.FurnitureOrNot == model.FurnitureOrNot && r.Type == model.Type).ToList();
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+     && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+     && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.ApartSurface >= model.MinApartSurface
+                && r.ApartSurface <= model.MaxApartSurface && r.FurnitureOrNot == model.FurnitureOrNot && r.Type == model.Type
+                && r.RoomNumber >= model.RoomNumber).ToList();
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+      && model.MinApartSurface <= 0 && model.MaxApartSurface > 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+      && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.ApartSurface <= model.MaxApartSurface).ToList();
+
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+      && model.MinApartSurface <= 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+      && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.ApartSurface <= model.MaxApartSurface
+                && r.FurnitureOrNot == model.FurnitureOrNot).ToList();
+
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+      && model.MinApartSurface <= 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+      && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.ApartSurface <= model.MaxApartSurface
+                && r.FurnitureOrNot == model.FurnitureOrNot && r.Type == model.Type).ToList();
+
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+      && model.MinApartSurface <= 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+      && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.ApartSurface <= model.MaxApartSurface
+                && r.FurnitureOrNot == model.FurnitureOrNot && r.Type == model.Type && r.RoomNumber >= model.RoomNumber).ToList();
+
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+      && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+      && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.FurnitureOrNot == model.FurnitureOrNot).ToList();
+
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+     && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+     && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.FurnitureOrNot == model.FurnitureOrNot
+                && r.Type == model.Type).ToList();
+
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+    && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+    && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.FurnitureOrNot == model.FurnitureOrNot
+                && r.Type == model.Type && r.RoomNumber >= model.RoomNumber).ToList();
+
+                TempData["listeApartJson"] = list;
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+    && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+    && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch
+                && r.Type == model.Type).ToList();
+
+                TempData["listeApartJson"] = list;
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+   && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+   && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.RoomNumber >= model.RoomNumber
+                && r.Type == model.Type).ToList();
+
+                TempData["listeApartJson"] = list;
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && !string.IsNullOrWhiteSpace(model.TownSearch)
+  && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+  && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Town == model.TownSearch && r.RoomNumber >= model.RoomNumber).ToList();
+
+
+                TempData["listeApartJson"] = list;
+            }
+
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+        && model.MinApartSurface > 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+        && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface).ToList();
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+        && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+        && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.ApartSurface <= model.MaxApartSurface).ToList();
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+       && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+       && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.ApartSurface <= model.MaxApartSurface
+                && r.FurnitureOrNot == model.FurnitureOrNot).ToList();
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+       && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+       && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.ApartSurface <= model.MaxApartSurface
+                && r.FurnitureOrNot == model.FurnitureOrNot && r.Type == model.Type).ToList();
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+       && model.MinApartSurface > 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+       && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.ApartSurface <= model.MaxApartSurface
+                && r.FurnitureOrNot == model.FurnitureOrNot && r.Type == model.Type && r.RoomNumber >= model.RoomNumber).ToList();
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+        && model.MinApartSurface > 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+        && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.FurnitureOrNot == model.FurnitureOrNot).ToList();
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+       && model.MinApartSurface > 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+       && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.FurnitureOrNot == model.FurnitureOrNot
+                && r.Type == model.Type).ToList();
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+      && model.MinApartSurface > 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+      && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.FurnitureOrNot == model.FurnitureOrNot
+                && r.Type == model.Type && r.RoomNumber >= model.RoomNumber).ToList();
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+      && model.MinApartSurface > 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+      && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface
+                && r.Type == model.Type).ToList();
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+      && model.MinApartSurface > 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+      && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface
+                && r.Type == model.Type && r.RoomNumber >= model.RoomNumber).ToList();
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+     && model.MinApartSurface > 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+     && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.RoomNumber >= model.RoomNumber
+               ).ToList();
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+    && model.MinApartSurface <= 0 && model.MaxApartSurface > 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+    && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface).ToList();
+
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+    && model.MinApartSurface <= 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+    && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.FurnitureOrNot == model.FurnitureOrNot).ToList();
+
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+   && model.MinApartSurface <= 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+   && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.FurnitureOrNot == model.FurnitureOrNot
+                && r.Type == model.Type).ToList();
+
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+  && model.MinApartSurface <= 0 && model.MaxApartSurface > 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+  && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.FurnitureOrNot == model.FurnitureOrNot
+                && r.Type == model.Type && r.RoomNumber >= model.RoomNumber).ToList();
+
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+   && model.MinApartSurface <= 0 && model.MaxApartSurface > 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+   && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.Type == model.Type).ToList();
+
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+  && model.MinApartSurface <= 0 && model.MaxApartSurface > 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+  && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface && r.Type == model.Type &&
+                r.RoomNumber >= model.RoomNumber).ToList();
+
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+  && model.MinApartSurface <= 0 && model.MaxApartSurface > 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+  && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.ApartSurface >= model.MinApartSurface &&
+                r.RoomNumber >= model.RoomNumber).ToList();
+
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+   && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+   && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.FurnitureOrNot == model.FurnitureOrNot).ToList();
+
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+  && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+  && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.FurnitureOrNot == model.FurnitureOrNot).ToList();
+
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+  && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+  && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.FurnitureOrNot == model.FurnitureOrNot && r.Type == model.Type).ToList();
+
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+ && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+ && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.FurnitureOrNot == model.FurnitureOrNot && r.Type == model.Type
+                && r.RoomNumber >= model.RoomNumber).ToList();
+
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+  && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && !string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+  && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.FurnitureOrNot == model.FurnitureOrNot && r.RoomNumber >= model.RoomNumber).ToList();
+
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+  && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+  && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber <= 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Type == model.Type).ToList();
+
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+  && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+  && !string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.Type == model.Type && r.RoomNumber >= model.RoomNumber).ToList();
+
+                TempData["listeApartJson"] = list;
+
+            }
+            else if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)
+  && model.MinApartSurface <= 0 && model.MaxApartSurface <= 0 && string.IsNullOrWhiteSpace(model.FurnitureOrNot)
+  && string.IsNullOrWhiteSpace(model.Type) && model.RoomNumber > 0)
+            {
+                List<ApartmentRentalModel> list = liste.Where(r => r.RoomNumber >= model.RoomNumber).ToList();
+
                 TempData["listeApartJson"] = list;
 
             }

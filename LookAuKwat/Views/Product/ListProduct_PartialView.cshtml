@@ -9,12 +9,24 @@
             <div class="list-group">
                 @foreach (var liste in Model)
                 {
-                    <a href="@Url.Action("JobDetail", "Job", new { id = liste.id }, null)" class="list-group-item">
-                        <h4 class="list-group-item-heading"> @liste.Title Ville:<span class="text-info"> @liste.Town</span></h4>
-                        <p class="list-group-item-text pull-right">@liste.DateAdd</p>
+                    if (liste.Category.CategoryName == "Emploi")
+                    {
+                        <a href="@Url.Action("JobDetail", "Job", new { id = liste.id }, null)" class="list-group-item">
+                            <h4 class="list-group-item-heading"> @liste.Title Ville:<span class="text-info"> @liste.Town</span></h4>
+                            <p class="list-group-item-text pull-right">@liste.DateAdd</p>
 
-                        <img src="@liste.Images.Select(m=>m.Image).First()" alt="image du groupe @liste.Title" style="height:50px" class="img-rounded" />
-                    </a>
+                            <img src="@liste.Images.Select(m=>m.Image).First()" alt="image du groupe @liste.Title" style="height:50px" class="img-rounded" />
+                        </a>
+                    }
+                    else if (liste.Category.CategoryName == "Immobilier")
+                    {
+                        <a href="@Url.Action("ApartDetail", "ApartmentRental", new { id = liste.id }, null)" class="list-group-item">
+                            <h4 class="list-group-item-heading"> @liste.Title Ville:<span class="text-info"> @liste.Town</span></h4>
+                            <p class="list-group-item-text pull-right">@liste.DateAdd</p>
+
+                            <img src="@liste.Images.Select(m=>m.Image).First()" alt="image du groupe @liste.Title" style="height:50px" class="img-rounded" />
+                        </a>
+                    }
                 }
             </div>
         </div>

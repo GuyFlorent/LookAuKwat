@@ -312,5 +312,10 @@ namespace LookAuKwat.Controllers
             }
             return liste;
         }
+        public ActionResult ApartDetail(int id)
+        {
+            ApartmentRentalModel model = dal.GetListAppart().FirstOrDefault(e => e.id == id);
+            return View(model);
+        }
     }
 }

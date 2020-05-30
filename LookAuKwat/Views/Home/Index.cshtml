@@ -163,62 +163,11 @@
             }
         });
 
-        $('button').click(function () {
+        $('#submitApart').click(function () {
             $('#jobSectionResult').removeClass('hidden');
             $('#AllCategoryResult').addClass('hidden');
-           // alert('toto');
-
-
-        })
-
-         $("a[href='#ResultMap']").on('shown.bs.tab', function (e) {
-             jobMarkers.clearLayers()
-
-              $.ajax({
-            type: "POST",
-            url: '@Url.Action("ResultSearchOfferJob_Jason", "JobOfferSearch")',
-            dataType: "json",
-            headers: {
-                //"api-key": searchServiceApiKey,
-                "Content-Type": "application/json"
-            },
-            data: JSON.stringify({
-
-                sector: $("#ActivitySectorJob").val(),
-                town: $(".TownSearchJob").val(),
-                contract: $("#TypeContractJob").val(),
-                minPrice: $("#PriceMinSearch").val(),
-                maxPrice: $("#PriceMaxSearch").val(),
-            }),
-                  success:
-                      function (data) {
-
-                    for (var i = 0; i < data.length; i++) {
-                        console.log(data[i].Lat);
-                    //var popup = '<b>Titre:</b>' + data[i].Title +
-                    //    '<br/><b>Adresse:</b>' + data[i].Price + ',' + data[i].Town + ',' + data[i].Country
-
-
-
-                 var markerjob =  L.marker([data[i].Lat, data[i].Lon])
-                    //    .bindPopup(popup)
-                       // .addTo(mymapJob);
-
-                        jobMarkers.addLayer(markerjob)
-                          }
-                          // $("#mymapJob").load(" #mymapJob");
-                          mymapJob.addLayer(jobMarkers);
-                  },
-                  error: function (xhr) {
-                      console.log(xhr.responseText);
-                      alert("Une erreur est survenu  !");
-                  }
-              });
-             mymapJob.invalidateSize();
-         });
-
-        $("a[href='#ResultMap']").on('shown.bs.tab', function (e) {
-            ApartMarkers.clearLayers()
+            jobMarkers.clearLayers()
+             ApartMarkers.clearLayers()
 
               $.ajax({
             type: "POST",
@@ -263,8 +212,63 @@
                       alert("Une erreur est survenu  !");
                   }
               });
-             mymapJob.invalidateSize();
+            mymapJob.invalidateSize();
         });
+
+        $('#submitJob').click(function () {
+            $('#jobSectionResult').removeClass('hidden');
+            $('#AllCategoryResult').addClass('hidden');
+            ApartMarkers.clearLayers()
+            jobMarkers.clearLayers()
+
+              $.ajax({
+            type: "POST",
+            url: '@Url.Action("ResultSearchOfferJob_Jason", "JobOfferSearch")',
+            dataType: "json",
+            headers: {
+                //"api-key": searchServiceApiKey,
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify({
+
+                sector: $("#ActivitySectorJob").val(),
+                town: $(".TownSearchJob").val(),
+                contract: $("#TypeContractJob").val(),
+                minPrice: $("#PriceMinSearch").val(),
+                maxPrice: $("#PriceMaxSearch").val(),
+            }),
+                  success:
+                      function (data) {
+
+                    for (var i = 0; i < data.length; i++) {
+                        console.log(data[i].Lat);
+                    //var popup = '<b>Titre:</b>' + data[i].Title +
+                    //    '<br/><b>Adresse:</b>' + data[i].Price + ',' + data[i].Town + ',' + data[i].Country
+
+
+
+                 var markerjob =  L.marker([data[i].Lat, data[i].Lon])
+                    //    .bindPopup(popup)
+                       // .addTo(mymapJob);
+
+                        jobMarkers.addLayer(markerjob)
+                          }
+                          // $("#mymapJob").load(" #mymapJob");
+                          mymapJob.addLayer(jobMarkers);
+                  },
+                  error: function (xhr) {
+                      console.log(xhr.responseText);
+                      alert("Une erreur est survenu  !");
+                  }
+              });
+            mymapJob.invalidateSize();
+        });
+
+         $("a[href='#ResultMap']").on('shown.bs.tab', function (e) {
+
+             mymapJob.invalidateSize();
+         });
+
     })
 </script>
 

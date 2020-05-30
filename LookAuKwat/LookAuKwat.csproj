@@ -270,6 +270,7 @@
     <Content Include="Views\ApartmentRental\EditApartment_PartialView.cshtml" />
     <Content Include="Views\Product\ListProduct_PartialView.cshtml" />
     <Content Include="Views\ApartmentRentalSearch\SearchOfferAppart_PartialView.cshtml" />
+    <Content Include="Views\ApartmentRental\ApartDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
