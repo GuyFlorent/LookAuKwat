@@ -329,6 +329,7 @@ namespace LookAuKwat.Controllers
             JobModel model = dal.GetListJob().FirstOrDefault(e => e.id == id);
             return View(model);
         }
+        
 
     }
 }

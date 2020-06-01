@@ -1,11 +1,15 @@
 ﻿using LookAuKwat.Models;
 using LookAuKwat.ViewModel;
 using Microsoft.Ajax.Utilities;
+using SendGrid;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -206,6 +210,83 @@ namespace LookAuKwat.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult ContactProductUser_PartialView(contactUserViewModel vm)
+        {
+            
+            return PartialView(vm);
+        }
+        [HttpPost]
+        public async Task< ActionResult> ContactProductUser(contactUserViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                await configSendGridasync(vm);
+                //try
+                //{
+                //    MailMessage msz = new MailMessage();
+                //    msz.From = new MailAddress(vm.EmailSender);//Email which you are getting 
+                //                                         //from contact us page 
+                //    msz.To.Add(vm.user);//Where mail will be sent 
+                //    msz.Subject = vm.SubjectSender;
+                //    msz.Body = vm.Message;
+                //    SmtpClient smtp = new SmtpClient();
+                //smtp.UseDefaultCredentials = false;
+                //    smtp.Host = "smtp.gmail.com";
 
+                //    smtp.Port = 587;
+
+                //    smtp.Credentials = new NetworkCredential("wangueujunior23@gmail.com", "florent23");
+
+                //smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                //    smtp.EnableSsl = true;
+
+                //    smtp.Send(msz);
+
+                //    ModelState.Clear();
+                //    ViewBag.Message = "Méssage envoyé avec succès ";
+                //}
+                //catch (Exception ex)
+                //{
+
+                //    ModelState.Clear();
+                //    ViewBag.Message = $" Sorry we are facing Problem here {ex.Message}";
+                //}
+            }
+
+            return PartialView("ContactProductUser_PartialView",vm);
+        }
+
+      
+        private async Task configSendGridasync(contactUserViewModel message)
+        {
+            var myMessage = new SendGridMessage();
+            myMessage.AddTo(message.user);
+            myMessage.From = new System.Net.Mail.MailAddress(
+                                message.EmailSender, message.NameSender);
+            myMessage.Subject = message.SubjectSender;
+            myMessage.Text = message.Message;
+            myMessage.Html = message.Message;
+
+            var credentials = new NetworkCredential(
+                       ConfigurationManager.AppSettings["mailAccountSendGrid"],
+                       ConfigurationManager.AppSettings["mailPasswordSendGrid"]
+                       );
+
+            // Create a Web transport for sending email.
+            var transportWeb = new Web(credentials);
+
+            // Send the email.
+            if (transportWeb != null)
+            {
+
+               await transportWeb.DeliverAsync(myMessage);
+
+            }
+            else
+            {
+                Trace.TraceError("Failed to create Web transport.");
+                await Task.FromResult(0);
+            }
+        }
     }
 }
