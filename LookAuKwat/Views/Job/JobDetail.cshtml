@@ -22,7 +22,8 @@
                 <div class="modal-body">
 
                     @{
-                        Html.RenderAction("ContactProductUser_PartialView", "Product", new {user = Model.User.Email });
+                        var link = HttpContext.Current.Request.Url.AbsoluteUri;
+                        Html.RenderAction("ContactProductUser_PartialView", "Product", new {user = Model.User.Email, Linkshare = link });
                     }
                 </div>
                 <div class="modal-footer">
@@ -133,11 +134,11 @@
         </div>
         <hr />
         <div class="row">
-           <p><strong>Share us on:</strong></p>
+           <p><strong>Partager sur:</strong></p>
            <p>
                @*facebook sharing*@
                <a href="javascript:void(o)" onclick="window.open('http://www.facebook.com/sharer/sharer.php?u=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id','facebook-share-dialog','toolbar=0,status=0,width=600,height=600');"> <img src="@Url.Content("~/UserImage/facebook.png ")" id="imgfb" alt="facebook" height="40" /></a> @*twitter sharing*@
-               <a href="http://twitter.com/share?url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, " / ")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id&title=@Model.Title&summary=@Model.Description" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img src="@Url.Content("~/UserImage/Twitter.png ")" id="imgtw" alt="twitter" height="40" /></a>
+               <a href="http://twitter.com/share?url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id&title=@Model.Title&summary=@Model.Description" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img src="@Url.Content("~/UserImage/Twitter.png ")" id="imgtw" alt="twitter" height="40" /></a>
                <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script> @*LinkedIn sharing*@
                <a href="http://www.linkedin.com/shareArticle?mini=true&url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content("~/UserImage/linkedin.png ")" id="imgln" height="40" /></a> @*GooglePlus sharing*@
                <a href="https://mail.google.com/mail/?view=cm&su=@Model.Title&to&body=Job disponible @Model.Description sur le lien : @HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="GooglePlus" src="@Url.Content("~/UserImage/Gmail.png ")" id="imggoogle" height="40" /></a>
@@ -145,6 +146,13 @@
                <a href="http://www.linkedin.com/shareArticle?mini=true&url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content("~/UserImage/whatsapp.png ")" id="imgln" height="40" /></a>
                <a href="whatsapp://send" data-text="@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" data-href="http://www.cdef.com/"><img alt="whatsapp" src="@Url.Content("~/UserImage/whatsapp.png ")" id="imgln" height="40" /></a>
            </p>
+        </div>
+        <hr />
+        <div class="row gallery">
+            <h3>Quelsues annonce similaire qui peuvent vous intéréssez</h3>
+            @{ 
+                Html.RenderAction("SimilarProduct_PartialView", "Product", new { model = Model});
+            }
         </div>
     </section>
     <section class="col-md-4">

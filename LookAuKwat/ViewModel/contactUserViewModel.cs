@@ -17,6 +17,7 @@ namespace LookAuKwat.ViewModel
         public string EmailSender { get; set; }
         [DisplayName("Votre méssage")]
         public string Message { get; set; }
+        public string Linkshare { get; set; }
         public string user { get; set; }
     }
 }

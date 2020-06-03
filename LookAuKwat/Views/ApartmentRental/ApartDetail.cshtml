@@ -12,108 +12,164 @@
         integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
         crossorigin=""></script>
 <h2>ApartDetail</h2>
+<div id="MyModalContactApart" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title">Envoyer un méssage à Guy<span id="eventTitle"></span></h2>
+            </div>
+            <div class="modal-body">
+
+                @{
+                    var link = HttpContext.Current.Request.Url.AbsoluteUri;
+                    Html.RenderAction("ContactProductUser_PartialView", "Product", new { user = Model.User.Email, Linkshare = link });
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
 <section class="row">
 
     <section class="col-md-8">
-        <div class="row">
-            <div id="myCarousel" class="carousel slide col-sm-12" data-ride="carousel">
+        <div class="col-md-12" style="border-radius: 15px;background:#a5b5c5;background: lightgray !important; ">
+            <div class="row">
+                <div id="myCarousel" class="carousel slide col-sm-12" data-ride="carousel">
 
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    @{
-
-                        for (int num = 1; num < Model.Images.Count; num++)
-                        {
-                            <li data-target="#myCarousel" data-slide-to="@num"></li>
-
-                        }
-
-                    }
-                </ol>
-                <!-- Wrapper for slides -->
-                <div class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                         @{
 
-                            <div class="item active thumbnail">
-                                <a href="@Model.Images[0].Image" data-lightbox="mygallery"><img class="img-rounded" src="@Model.Images[0].Image" alt="" /></a>
-
-                            </div>
-                            for (int a = 1; a < Model.Images.Count; a++)
+                            for (int num = 1; num < Model.Images.Count; num++)
                             {
-                                <div class="item thumbnail">
-                                    <a href="@Model.Images[a].Image" data-lightbox="mygallery"><img src="@Model.Images[a].Image" alt="" /></a>
+                                <li data-target="#myCarousel" data-slide-to="@num"></li>
+
+                            }
+
+                        }
+                    </ol>
+                    <!-- Wrapper for slides -->
+                    <div class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            @{
+
+                                <div class="item active">
+                                    <a href="@Model.Images[0].Image" data-lightbox="mygallery"><img class="img-rounded img-responsive" src="@Model.Images[0].Image" alt="" /></a>
 
                                 </div>
+                                for (int a = 1; a < Model.Images.Count; a++)
+                                {
+                                    <div class="item ">
+                                        <a href="@Model.Images[a].Image" data-lightbox="mygallery"><img height="400" src="@Model.Images[a].Image" alt="" /></a>
+
+                                    </div>
+                                }
                             }
-                        }
-                        <!-- Left and right controls -->
-                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
+                            <!-- Left and right controls -->
+                            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
+            <hr />
+            <div class="row">
+                <h3 class="product-title">@Model.Title</h3>
+                <div>
+                    <label>Ajouté le : </label>  @Model.DateAdd
+
+                </div>
+                <div class="rating">
+                    <span class="review-no">41 vues</span>
+                </div>
+            </div>
         </div>
-        <div class="row">
-            <h3 class="product-title">@Model.Title</h3>
-            <div>
-                <label>Ajouté le : </label>  @Model.DateAdd
+            
+            <hr />
+            <div class="row">
+
+                <div class=" col-xs-6 col-sm-6 col-md-6">
+                    @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label " })
+                    <p>@Model.Type</p>
+
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    @Html.LabelFor(model => model.FurnitureOrNot, htmlAttributes: new { @class = "control-label " })
+                    <p>@Model.FurnitureOrNot</p>
+
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 price">
+                    @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label " })
+                    <p><span>@Model.Price FCFA</span></p>
+
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    @Html.LabelFor(model => model.RoomNumber, htmlAttributes: new { @class = "control-label " })
+                    <p>@Model.RoomNumber</p>
+
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    @Html.LabelFor(model => model.ApartSurface, htmlAttributes: new { @class = "control-label " })
+                    <p>@Model.ApartSurface</p>
+
+                </div>
 
             </div>
-            <div class="rating">
-                <span class="review-no">41 vues</span>
+            <hr />
+            <div class="row">
+                <h3 class="product-title">Description</h3>
+                <p class="product-description">@Model.Description</p>
             </div>
-        </div>
-        <hr />
-        <div class="row">
-
-            <div class=" col-xs-6 col-sm-6 col-md-6">
-                @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label " })
-                <p>@Model.Type</p>
-
+            <hr />
+            <div class="row">
+                <label>Ville : </label> @Model.Town , <label>Adresse : </label> @Model.Street
+                <div id="mapidDetailsJob" style="height:250px;"></div>
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-6">
-                @Html.LabelFor(model => model.FurnitureOrNot, htmlAttributes: new { @class = "control-label " })
-                <p>@Model.FurnitureOrNot</p>
-
+            <hr />
+            <div class="row">
+                Signaler l'annonce
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-6 price">
-                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label " })
-                <p><span>@Model.Price FCFA</span></p>
-
+            <hr />
+            <div class="row">
+                <p><strong>Partager sur:</strong></p>
+                <p>
+                    @*facebook sharing*@
+                    <a href="javascript:void(o)" onclick="window.open('http://www.facebook.com/sharer/sharer.php?u=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/ApartDetail/@Model.id','facebook-share-dialog','toolbar=0,status=0,width=600,height=600');"> <img src="@Url.Content("~/UserImage/facebook.png ")" id="imgfb" alt="facebook" height="40" /></a> @*twitter sharing*@
+                    <a href="http://twitter.com/share?url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/ApartDetail/@Model.id&title=@Model.Title&summary=@Model.Description" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img src="@Url.Content("~/UserImage/Twitter.png ")" id="imgtw" alt="twitter" height="40" /></a>
+                    <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script> @*LinkedIn sharing*@
+                    <a href="http://www.linkedin.com/shareArticle?mini=true&url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/ApartDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content("~/UserImage/linkedin.png ")" id="imgln" height="40" /></a> @*GooglePlus sharing*@
+                    <a href="https://mail.google.com/mail/?view=cm&su=@Model.Title&to&body=Job disponible @Model.Description sur le lien : @HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/ApartDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="GooglePlus" src="@Url.Content("~/UserImage/Gmail.png ")" id="imggoogle" height="40" /></a>
+                    <a href="http://compose.mail.yahoo.com/?&Subject=@Model.Title&To=&Body=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/ApartDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content("~/UserImage/Yahoo.png ")" id="imgln" height="40" /></a>
+                    <a href="http://www.linkedin.com/shareArticle?mini=true&url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/ApartDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content("~/UserImage/whatsapp.png ")" id="imgln" height="40" /></a>
+                    <a href="whatsapp://send" data-text="@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/ApartDetail/@Model.id" data-href="http://www.cdef.com/"><img alt="whatsapp" src="@Url.Content("~/UserImage/whatsapp.png ")" id="imgln" height="40" /></a>
+                </p>
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-6">
-                @Html.LabelFor(model => model.RoomNumber, htmlAttributes: new { @class = "control-label " })
-                <p>@Model.RoomNumber</p>
-
+            <hr />
+            <div class="row gallery">
+                <h3>Quelsues annonce similaire qui peuvent vous intéréssez</h3>
+                @{
+                    Html.RenderAction("SimilarProduct_PartialView", "Product", new { model = Model });
+                }
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-6">
-                @Html.LabelFor(model => model.ApartSurface, htmlAttributes: new { @class = "control-label " })
-                <p>@Model.ApartSurface</p>
-
-            </div>
-
-        </div>
-        <hr />
-        <div class="row">
-            <h3 class="product-title">Description</h3>
-            <p class="product-description">@Model.Description</p>
-        </div>
-        <hr />
-        <div class="row">
-            <label>Ville : </label> @Model.Town , <label>Adresse : </label> @Model.Street
-            <div id="mapidDetailsJob" style="height:250px;"></div>
-        </div>
-
-    </section>
+</section>
     <section class="col-md-4">
+        <div class="row" style="border-radius: 25px;background: lightgray;padding: 20px;">
+            <img src="https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg" alt="photo du publicateur" class="img-rounded" height="50" /> Guy
+            <hr />
+            <button id="sendApartMessage" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
+            <button id="iconApartCall" class="btn btn-default"><span class="glyphicon glyphicon-phone"></span> Voir le numéro</button>
+            <a id="numApartCall" class="hidden" href="tel:123-456-7890">123-456-7890</a>
+        </div>
     </section>
 </section>
 
@@ -144,4 +200,21 @@
         maximumAge: Infinity
     };
 
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#iconApartCall').click(function () {
+            $(this).addClass("hidden");
+            $('#numApartCall').removeClass("hidden");
+        });
+        $('#sendApartMessage').click(function () {
+
+            $('#MyModalContactApart').modal();
+        });
+        $('.carousel').carousel({
+            pause: true,
+            interval: false
+        });
+    })
 </script>

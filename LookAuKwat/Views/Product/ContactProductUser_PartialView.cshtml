@@ -3,8 +3,8 @@
 @if (ViewBag.Message == null)
 {
 
-
-    using (Html.BeginForm("ContactProductUser","Product" , new { user = Model.user }, FormMethod.Post, null))
+  
+    using (Html.BeginForm("ContactProductUser","Product" , new { user = Model.user, Linkshare = Model.Linkshare }, FormMethod.Post, null))
     {
         @Html.AntiForgeryToken()
 

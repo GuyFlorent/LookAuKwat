@@ -250,14 +250,15 @@
                       function (data) {
 
                     for (var i = 0; i < data.length; i++) {
-                        console.log(data[i].Lat);
-                    //var popup = '<b>Titre:</b>' + data[i].Title +
-                    //    '<br/><b>Adresse:</b>' + data[i].Price + ',' + data[i].Town + ',' + data[i].Country
+                        console.log(data[i].Coordinate.Lat);
+                        var popup = '<div class="thumbnail"> <a class="img-rounded" href="' + data[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].Title + '">  <img id="ImageDetailIniById" src="' + data[i].Images[0] + '" alt="photo groupe local' + data[i].Title + '" height="40"></a> </div>' +
+                            '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data[i].Title +
+                            '<br/><b>Adresse : </b>' + data[i].Town +
+                            '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/ApartmentRental/ApartDetail/' + data[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
 
 
-
-                 var markerjob =  L.marker([data[i].Lat, data[i].Lon])
-                    //    .bindPopup(popup)
+                        var markerjob = L.marker([data[i].Coordinate.Lat, data[i].Coordinate.Lon])
+                        .bindPopup(popup)
                        // .addTo(mymapJob);
 
                         ApartMarkers.addLayer(markerjob)
@@ -299,14 +300,17 @@
                       function (data) {
 
                     for (var i = 0; i < data.length; i++) {
-                        console.log(data[i].Lat);
-                    //var popup = '<b>Titre:</b>' + data[i].Title +
-                    //    '<br/><b>Adresse:</b>' + data[i].Price + ',' + data[i].Town + ',' + data[i].Country
+                        console.log(data[i].Coordinate.Lat);
+                       
+                        var popup = '<div class="thumbnail"> <a class="img-rounded" href="' + data[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].Title + '">  <img id="ImageDetailIniById" src="' + data[i].Images[0] + '" alt="photo groupe local' + data[i].Title + '" height="40"></a> </div>' +
+                            '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data[i].Title +
+                            '<br/><b>Adresse : </b>' + data[i].Town + 
+                            '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Job/JobDetail/' + data[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
 
 
 
-                 var markerjob =  L.marker([data[i].Lat, data[i].Lon])
-                    //    .bindPopup(popup)
+                        var markerjob = L.marker([data[i].Coordinate.Lat, data[i].Coordinate.Lon])
+                           .bindPopup(popup)
                        // .addTo(mymapJob);
 
                         jobMarkers.addLayer(markerjob)
@@ -344,13 +348,23 @@
 
                 for (var i = 0; i < data2.length; i++) {
                     console.log(data2[i]);
-                    //var popup = '<div class="thumbnail"> <a class="img-rounded" href="' + data[i].Image + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].AssociationName + '">  <img id="ImageDetailIniById" src="' + data[i].Image + '" alt="photo groupe local' + data[i].AssociationName + '" height="40"></a> </div>' +
-                    //    '<b><span class="glyphicon glyphicon-user"></span> Nom du groupe local : </b>' + data[i].AssociationName +
-                    //    '<br/><b>Adresse : </b>' + data[i].Address + ',' + data[i].Country +
-                    //    '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/User/UserDetailsById/' + data[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
+                    if (data2[i].Category.CategoryName == "Emploi") {
 
-                    L.marker([data2[i].Lat, data2[i].Lon])
-                        // .bindPopup(popup)
+                        var popup2 =
+                            '<div class="thumbnail"> <a class="img-rounded" href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="photo de' + data2[i].Title + '" height="40"></a> </div>' +
+                            '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
+                            '<br/><b>ville : </b>' + data2[i].Town +
+                            '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Job/JobDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
+                    } else if (data2[i].Category.CategoryName == "Immobilier") {
+
+                        var popup2 =
+                            '<div class="thumbnail"> <a class="img-rounded" href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="photo de' + data2[i].Title + '" height="40"></a> </div>' +
+                            '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
+                            '<br/><b>ville : </b>' + data2[i].Town +
+                            '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/ApartmentRental/ApartDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
+                    }
+                    L.marker([data2[i].Coordinate.Lat, data2[i].Coordinate.Lon])
+                         .bindPopup(popup2)
                         .addTo(mymap);
                     // allGroup.addLayer(group);
 

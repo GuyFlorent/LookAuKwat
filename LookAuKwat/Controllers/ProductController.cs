@@ -33,6 +33,12 @@ namespace LookAuKwat.Controllers
             return View();
         }
 
+        public ActionResult SimilarProduct_PartialView(ProductModel model)
+        {
+            List<ProductModel> similarList = dal.GetListProduct().Where(l => l.Category.CategoryName == model.Category.CategoryName
+            && l.Town == model.Town && l.Title != model.Title).Take(4).ToList();
+            return PartialView(similarList);
+        }
         public ActionResult ListProduct()
         {
             IEnumerable<ProductModel> liste = dal.GetListProduct();
@@ -45,7 +51,20 @@ namespace LookAuKwat.Controllers
         }
         public JsonResult listAllProductReturnJson()
         {
-            var data2 = dal.GetListProduct().Select(m =>m.Coordinate);
+            var data2 = dal.GetListProduct().Select(s => new DataJsonProductViewModel
+            {
+                Title = s.Title,
+                Coordinate = s.Coordinate,
+                id = s.id,
+                Price = s.Price,
+                Description = s.Description,
+                DateAdd = s.DateAdd,
+                Images = s.Images.Select(o => o.Image).ToList(),
+                User = s.User,
+                Street = s.Street,
+                Town = s.Town,
+                Category = s.Category
+            }).ToList();
 
             return Json(data2, JsonRequestBehavior.AllowGet);
         }
@@ -180,7 +199,7 @@ namespace LookAuKwat.Controllers
         {
             List<JobModel> result = TempData["listeJobJson"] as List<JobModel>;
             List<ApartmentRentalModel> resultImmobilier = TempData["listeApartJson"] as List<ApartmentRentalModel>;
-            List<ProductCoordinateModel> data = new List<ProductCoordinateModel>() ;
+            List<DataJsonProductViewModel> data = new List<DataJsonProductViewModel>() ;
             switch (modelresult.CagtegorieSearch)
             {
                 case "Emploi":
@@ -189,7 +208,10 @@ namespace LookAuKwat.Controllers
                     {
                         modelresult.ListePro.Add(element);
                     }
-                    data = modelresult.ListePro.Select(s=>s.Coordinate).ToList();
+                    data = modelresult.ListePro.Select(s=>new DataJsonProductViewModel
+                    { Title = s.Title,
+                    Coordinate = s.Coordinate, id = s.id, Price = s.Price, Description = s.Description, DateAdd = s.DateAdd,
+                    Images = s.Images.Select(o=>o.Image).ToList(), User = s.User, Street = s.Street, Town = s.Town}).ToList();
                     break;
                 case "Immobilier":
 
@@ -197,7 +219,19 @@ namespace LookAuKwat.Controllers
                     {
                         modelresult.ListePro.Add(element);
                     }
-                    data = modelresult.ListePro.Select(s => s.Coordinate).ToList();
+                    data = modelresult.ListePro.Select(s => new DataJsonProductViewModel
+                    {
+                        Title = s.Title,
+                        Coordinate = s.Coordinate,
+                        id = s.id,
+                        Price = s.Price,
+                        Description = s.Description,
+                        DateAdd = s.DateAdd,
+                        Images = s.Images.Select(o => o.Image).ToList(),
+                        User = s.User,
+                        Street = s.Street,
+                        Town = s.Town
+                    }).ToList();
                     break;
             }
 
@@ -259,6 +293,8 @@ namespace LookAuKwat.Controllers
       
         private async Task configSendGridasync(contactUserViewModel message)
         {
+            message.Message = "Hello <br/> vous avez un nouveau message sur votre annonce dans LookAuKwat! <br/> " +
+               " <a href =\"" + message.Linkshare + "\">" + message.Linkshare + "</a> <br/>"+ message.Message;
             var myMessage = new SendGridMessage();
             myMessage.AddTo(message.user);
             myMessage.From = new System.Net.Mail.MailAddress(

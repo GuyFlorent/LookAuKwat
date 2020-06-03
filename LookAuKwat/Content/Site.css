@@ -28,15 +28,15 @@ textarea {
     margin: 10px 50px;
 }
 
-.gallery img {
+.gallery div {
         transition: 1s;
-        padding: 15px;
-        width: 200px;
+        /*padding: 15px;
+        width: 200px;*/
     }
 
-.gallery img:hover {
-  filter: grayscale(100%);
-  transform: scale(1.1);
+.gallery  div:hover {
+  filter: grayscale(50%);
+  transform: scale(1.05);
   }
 
 /*for détails job*/
@@ -59,3 +59,12 @@ textarea {
 .price span {
     color: #ff9f1a;
 }
+.box {
+    background: #fff;
+    border-radius: 4px;
+    padding-bottom: 100%;
+}
+
+.box .col-lg-2 {
+        margin-top: 30px !important;
+    }
