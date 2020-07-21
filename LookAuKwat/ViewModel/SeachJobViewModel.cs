@@ -24,7 +24,7 @@ namespace LookAuKwat.ViewModel
         public List<ProductModel> ListePro { get; set; }
 
         //For jobs
-        
+        [DisplayName("J'offre/Je demande")]
         public string SearchOrAskJobJob { get; set; }
         [DisplayName("Type de contrat")]
         public string TypeContractJob { get; set; }

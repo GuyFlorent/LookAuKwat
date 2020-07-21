@@ -65,6 +65,12 @@ namespace LookAuKwat.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Prénom")]
+        public string FirstName { get; set; }
+        [Required]
+        [Display(Name = "Numéro de téléphone")]
+        public string Phone { get; set; }
+        [Required]
         [EmailAddress]
         [Display(Name = "Courrier électronique")]
         public string Email { get; set; }

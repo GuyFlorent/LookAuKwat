@@ -38,5 +38,23 @@ namespace LookAuKwat.Controllers
             
             return PartialView();
         }
+
+        public ActionResult UserDetails()
+        {
+            string id = User.Identity.GetUserId();
+            ApplicationUser user = dal.GetUserByStrId(id);
+            return View(user);
+        }
+        public ActionResult UpdateUserInformations(string id)
+        {
+            ApplicationUser user = dal.GetUserByStrId(id);
+            return View(user);
+        }
+        [HttpPost]
+        public ActionResult UpdateUserInformations(ApplicationUser user)
+        {
+            
+            return View(user);
+        }
     }
 }

@@ -1,11 +1,13 @@
 ﻿using LookAuKwat.Models;
 using LookAuKwat.ViewModel;
 using Microsoft.Ajax.Utilities;
+using PagedList;
 using SendGrid;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -44,10 +46,34 @@ namespace LookAuKwat.Controllers
             IEnumerable<ProductModel> liste = dal.GetListProduct();
             return View(liste);
         }
-        public ActionResult ListProduct_PartialView()
+        public ActionResult ListProduct_PartialView(int? pageNumber, string sortBy)
         {
-            IEnumerable<ProductModel> liste = dal.GetListProduct().OrderByDescending(m=>m.DateAdd);
-            return PartialView(liste);
+            ViewBag.PriceAscSort = String.IsNullOrEmpty(sortBy) ? "Price desc" : "";
+            ViewBag.PriceDescSort = sortBy == "Prix croissant" ? "Price asc" : "";
+            ViewBag.DateAscSort = sortBy == "Plus anciennes" ? "date asc" : "";
+            ViewBag.DateDescSort = sortBy == "Plus recentes" ? "date desc" : "";
+            IEnumerable<ProductModel> liste = dal.GetListProduct();
+
+            switch (sortBy)
+            {
+                case "Price desc":
+                    liste = liste.OrderByDescending(m => m.Price);
+                    break;
+                case "Price asc":
+                    liste = liste.OrderBy(m=>m.Price);
+                    break;
+                case "date desc":
+                    liste = liste.OrderByDescending(m => m.id);
+                    break;
+                case "date asc":
+                    liste = liste.OrderBy(m => m.id);
+                    break;
+                default:
+                    liste = liste.OrderByDescending(x => x.id);
+                    break;
+            }
+
+            return PartialView(liste.ToPagedList(pageNumber ?? 1, 5));
         }
         public JsonResult listAllProductReturnJson()
         {
@@ -302,6 +328,39 @@ namespace LookAuKwat.Controllers
             myMessage.Subject = message.SubjectSender;
             myMessage.Text = message.Message;
             myMessage.Html = message.Message;
+            string file = AttachFileMessage(message);
+            if (file != null)
+            {
+                myMessage.AddAttachment(file);
+            }
+
+
+            //if (message.file != null)
+            //{
+
+            //    //Save image name path
+            //    string FileName = Path.GetFileNameWithoutExtension(message.file.FileName);
+
+            //    // save extension of image
+            //    string FileExtension = Path.GetExtension(message.file.FileName);
+
+            //    //Add a curent date to attached file name
+            //    FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + FileName + FileExtension;
+
+            //    //Create complete path to store in server
+            //    var path = Server.MapPath("~/UserImage/");
+            //    if (!Directory.Exists(path))
+            //    {
+            //        Directory.CreateDirectory(path);
+            //    }
+            //    message.attachFile = $"/UserImage/{FileName}";
+
+            //    FileName = Path.Combine(path, FileName);
+
+            //    message.file.SaveAs(FileName);
+
+            //}
+            // myMessage.AddAttachment("C:/Users/wangu/OneDrive/Bureau/LOGEMENT/barman.png");
 
             var credentials = new NetworkCredential(
                        ConfigurationManager.AppSettings["mailAccountSendGrid"],
@@ -323,6 +382,37 @@ namespace LookAuKwat.Controllers
                 Trace.TraceError("Failed to create Web transport.");
                 await Task.FromResult(0);
             }
+        }
+
+        private string AttachFileMessage(contactUserViewModel contact)
+        {
+            if (contact.file != null)
+            {
+
+                //Save image name path
+                string FileName = Path.GetFileNameWithoutExtension(contact.file.FileName);
+
+                // save extension of image
+                string FileExtension = Path.GetExtension(contact.file.FileName);
+
+                //Add a curent date to attached file name
+                FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + FileName + FileExtension;
+
+                //Create complete path to store in server
+                var path = Server.MapPath("~/UserImage/");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                contact.attachFile = $"/UserImage/{FileName}";
+
+                FileName = Path.Combine(path, FileName);
+
+                contact.file.SaveAs(FileName);
+                return FileName;
+            }
+            else
+                return null;
         }
     }
 }

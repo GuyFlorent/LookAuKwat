@@ -140,9 +140,13 @@ namespace LookAuKwat.ViewModel
         {
             IList<SelectListItem> list = new List<SelectListItem>()
             {
-                 new SelectListItem() { Text = "Ventes Immobilières", Value = "Ventes Immobilières" },
-                new SelectListItem() { Text = "Location", Value = "Location" }
-
+                
+                new SelectListItem() { Text = "Chambre à louer", Value = "Chambre à louer" },
+                 new SelectListItem() { Text = "studio à louer", Value = "studio à louer" },
+                  new SelectListItem() { Text = "Maison à louer", Value = "Maison à louer" },
+                   new SelectListItem() { Text = "Bureau à louer", Value = "Bureau à louer" },
+                    new SelectListItem() { Text = "Maison à Vendre", Value ="Maison à Vendre" },
+                     new SelectListItem() { Text = "Terrain vendre", Value = "terrain à vendre" }
             };
             return list;
         }

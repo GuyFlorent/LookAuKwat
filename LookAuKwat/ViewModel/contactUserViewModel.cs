@@ -19,5 +19,9 @@ namespace LookAuKwat.ViewModel
         public string Message { get; set; }
         public string Linkshare { get; set; }
         public string user { get; set; }
+        public HttpPostedFileBase file { get; set; }
+        public string attachFile { get; set; }
+        public string Category { get; set; }
+
     }
 }

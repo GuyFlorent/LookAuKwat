@@ -41,20 +41,20 @@ namespace LookAuKwat.Controllers
         {
             JobModel model = new JobModel()
             {
-                 id = job.id,
-            Title = job.Title,
-            Description = job.Description,
-            TypeContract = job.TypeContract,
-            Town = job.Town,
-            Price = job.Price,
-            Street = job.Street,
-            ActivitySector = job.ActivitySector,
-            DateAdd = DateTime.Now.ToString(),
-            SearchOrAskJob = job.SearchOrAskJob,
-            
-            
-        };
-           
+                id = job.id,
+                Title = job.Title,
+                Description = job.Description,
+                TypeContract = job.TypeContract,
+                Town = job.Town,
+                Price = job.Price,
+                Street = job.Street,
+                ActivitySector = job.ActivitySector,
+                DateAdd = DateTime.Now.ToString(),
+                SearchOrAskJob = job.SearchOrAskJob,
+
+
+            };
+
 
             if (ModelState.IsValid)
             {
@@ -65,30 +65,30 @@ namespace LookAuKwat.Controllers
                     string userId = User.Identity.GetUserId();
                     ApplicationUser user = dal.GetUserByStrId(userId);
 
-                    var fullAddress = $"{model.Town+","+model.Street+",Cameroon"}";
+                    var fullAddress = $"{model.Town + "," + model.Street + ",Cameroon"}";
                     var response = await httpClient.GetAsync("https://api.opencagedata.com/geocode/v1/json?q=" + fullAddress + "&key=a196040df44a4a41a471173aed07635c");
-                  
+
                     if (response.IsSuccessStatusCode)
                     {
-                   
-                            var jsonn = await response.Content.ReadAsStringAsync();
-                            var joo = JObject.Parse(jsonn);
-                            var latt = (string)joo["results"][0]["geometry"]["lat"];
-                            var lonn = (string)joo["results"][0]["geometry"]["lng"];
+
+                        var jsonn = await response.Content.ReadAsStringAsync();
+                        var joo = JObject.Parse(jsonn);
+                        var latt = (string)joo["results"][0]["geometry"]["lat"];
+                        var lonn = (string)joo["results"][0]["geometry"]["lng"];
 
                         List<ImageProcductModel> images = ImageAdd(userImage);
-                        
+
                         model.Images = images;
                         model.User = user;
                         model.Category = new CategoryModel { CategoryName = "Emploi" };
-                        dal.AddJob(model,latt,lonn);
+                        dal.AddJob(model, latt, lonn);
 
 
-                        return RedirectToAction("GetListProductByUser_PartialView","User");
-                        }
-
-
+                        return RedirectToAction("GetListProductByUser_PartialView", "User");
                     }
+
+
+                }
 
             }
             return View(job);
@@ -96,7 +96,7 @@ namespace LookAuKwat.Controllers
 
         public ActionResult EditJob_PartialView(JobModel job)
         {
-             
+
             if (job.id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -127,7 +127,7 @@ namespace LookAuKwat.Controllers
         [HttpPost]
         public async Task<ActionResult> EditJob(JobEditViewModel job, ImageModelView userImage)
         {
-           
+
 
             if (ModelState.IsValid)
             {
@@ -154,7 +154,7 @@ namespace LookAuKwat.Controllers
                 using (var httpClient = new HttpClient())
                 {
 
-                   
+
 
                     var fullAddress = $"{model.Street}";
                     var response = await httpClient.GetAsync("https://api.opencagedata.com/geocode/v1/json?q=" + fullAddress + "&key=a196040df44a4a41a471173aed07635c");
@@ -167,13 +167,13 @@ namespace LookAuKwat.Controllers
                         var latt = (string)joo["results"][0]["geometry"]["lat"];
                         var lonn = (string)joo["results"][0]["geometry"]["lng"];
 
-                        List<ImageProcductModel> images = ImageEdit(userImage,model);
+                        List<ImageProcductModel> images = ImageEdit(userImage, model);
 
                         model.Images = images;
-                       
+
                         dal.EditJob(model, latt, lonn);
 
-                       
+
                         return RedirectToAction("GetListProductByUser_PartialView", "User");
                     }
 
@@ -194,7 +194,7 @@ namespace LookAuKwat.Controllers
 
         private List<ImageProcductModel> ImageAdd(ImageModelView userImage)
         {
-            
+
             List<ImageProcductModel> liste = new List<ImageProcductModel>();
             if (userImage.ImageFile != null)
             {
@@ -248,7 +248,7 @@ namespace LookAuKwat.Controllers
                 };
                 liste.Add(picture);
 
-            }return liste;
+            } return liste;
         }
 
 
@@ -300,14 +300,14 @@ namespace LookAuKwat.Controllers
             }
             else
             {
-               // Guid guid = new Guid(userImage.id);
+                // Guid guid = new Guid(userImage.id);
                 List<ImageProcductModel> picture = dal.GetImageList().Where(s => s.ProductId == product.id).ToList();
-                   foreach(var im in picture)
+                foreach (var im in picture)
                 {
                     liste.Add(im);
                 }
-                
-            }return liste;
+
+            } return liste;
         }
 
         public async Task<JsonResult> ShowAddress(string term, string town)
@@ -315,12 +315,12 @@ namespace LookAuKwat.Controllers
             using (var httpClient = new HttpClient())
             {
                 var fullAddress = $"{term + "," + town + "," + "Cameroun" }";
-                
-                    var response2 = await httpClient.GetAsync("https://api.opencagedata.com/geocode/v1/json?q=" + fullAddress + "&key=a196040df44a4a41a471173aed07635c");
-                    var data = await response2.Content.ReadAsStringAsync();
 
-                    return Json(data, JsonRequestBehavior.AllowGet);
-                
+                var response2 = await httpClient.GetAsync("https://api.opencagedata.com/geocode/v1/json?q=" + fullAddress + "&key=a196040df44a4a41a471173aed07635c");
+                var data = await response2.Content.ReadAsStringAsync();
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+
             }
         }
 
@@ -329,7 +329,7 @@ namespace LookAuKwat.Controllers
             JobModel model = dal.GetListJob().FirstOrDefault(e => e.id == id);
             return View(model);
         }
-        
 
+       
     }
 }

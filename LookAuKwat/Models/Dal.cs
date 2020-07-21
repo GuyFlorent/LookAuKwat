@@ -238,5 +238,10 @@ namespace LookAuKwat.Models
               .Include(s => s.Coordinate).ToList();
             return listapart;
         }
+
+        public IEnumerable<MessageDetails> GetListMessage()
+        {
+            return dbb.Messages.ToList();
+        }
     }
 }

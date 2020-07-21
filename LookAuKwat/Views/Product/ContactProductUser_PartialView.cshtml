@@ -3,52 +3,68 @@
 @if (ViewBag.Message == null)
 {
 
-  
-    using (Html.BeginForm("ContactProductUser","Product" , new { user = Model.user, Linkshare = Model.Linkshare }, FormMethod.Post, null))
+
+    using (Html.BeginForm("ContactProductUser","Product" , new { user = Model.user, Linkshare = Model.Linkshare }, FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
+    <div class="form-horizontal">
 
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.NameSender, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.NameSender, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.NameSender, "", new { @class = "text-danger" })
-                </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.NameSender, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NameSender, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NameSender, "", new { @class = "text-danger" })
             </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.SubjectSender, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.SubjectSender, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.SubjectSender, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.EmailSender, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.EmailSender, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.EmailSender, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextAreaFor(model => model.Message, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-send"></span> Envoyer</button>
-                </div>
-            </div>
-            
         </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SubjectSender, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SubjectSender, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SubjectSender, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmailSender, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EmailSender, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EmailSender, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Message, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @if (Model.Category != null && Model.Category == "Job")
+        {
+            <div class="form-group">
+                <label class="control-label">Votre CV</label>
+                <p>Pour vous faire remarquer des autres candidats, vous pouvez ajouter votre CV de préférence sous le format PDF</p>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.file, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.file, new { type = "file", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.file, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-send"></span> Envoyer</button>
+            </div>
+        </div>
+
+    </div>
     }
 }
     <div>

@@ -123,16 +123,14 @@
         </ul>
         <div class="tab-content" id="resultsJobSearch">
             <div class="tab-pane active  fade in" id="ResulList">
-                
-                    <div class="col-md-6">
-                        @{
-                            Html.RenderAction("ResultSearch_PartialView", "Product");
-                        }
-                    </div>
+                <div class="row">
+                    @{
+                        Html.RenderAction("ResultSearch_PartialView", "Product");
+                    }
+
                 </div>
-                <div class="col-md-6">
-                    <h1> Pub bevgduvchdiuchgeablidbealdbilbeivuxvvdcvqlivcdi</h1>
-                </div>
+            </div>
+               
          
 
             <div class="tab-pane  fade " id="ResultMap">
@@ -141,7 +139,7 @@
         </div>
     </section>
 
-    <section id="AllCategoryResult">
+    <section id="AllCategoryResult" class="hidden">
        
             <ul class="nav nav-pills ">
                 <li class="active"><a href="#ResulListAll" data-toggle="tab">Liste</a></li>
@@ -149,10 +147,12 @@
             </ul>
             <div class="tab-content" id="resultsAllCategory">
                 <div class="tab-pane active  fade in" id="ResulListAll">
-                    <div class="col-md-6">
-                        @{
-                            Html.RenderAction("ListProduct_PartialView", "Product");
-                        }
+                    <div class="col-md-6" id="groupe">
+                        
+                        
+                            @{
+                                Html.RenderAction("ListProduct_PartialView", "Product");
+                            }
                     </div>
                     <div class="col-md-6">
                         <h1> totot ndc</h1>
@@ -202,28 +202,69 @@
 
     $(function () {
 
+
         $("select.searchcategory").change(function () {
             var select = $(this).children("option:selected").val();
 
             if (select == "Emploi") {
                 $('#JobId').removeClass('hidden');
+                localStorage.setItem("AllResultHidden", "true");
+                localStorage.setItem("JobResultHidden", "false");
+                localStorage.setItem("AppartResultHidden", "true");
+
             } else {
                 $('#JobId').addClass('hidden');
             }
-            if (select == "Tout") {
+            if (select == "Toutes les catégories") {
                 $('#jobSectionResult').addClass('hidden');
                 $('#AllCategoryResult').removeClass('hidden');
+                localStorage.setItem("AllResultHidden", "false");
+                localStorage.setItem("JobResultHidden", "true");
+                localStorage.setItem("AppartResultHidden", "true");
             }
             if (select == "Immobilier") {
                 $('#ImmobilierId').removeClass('hidden');
+                localStorage.setItem("AllResultHidden", "true");
+                localStorage.setItem("JobResultHidden", "true");
+                localStorage.setItem("AppartResultHidden", "false");
+               
             } else {
                 $('#ImmobilierId').addClass('hidden');
             }
         });
 
+        if (localStorage.getItem("AllResultHidden") == "true") {
+            $('#AllCategoryResult').addClass('hidden');
+        } else {
+            $('#AllCategoryResult').removeClass('hidden');
+        };
+
+        if (localStorage.getItem("JobResultHidden") == "true") {
+            $('#JobId').addClass('hidden');
+            $('#jobSectionResult').addClass('hidden');
+        } else {
+            $('#JobId').removeClass('hidden');
+            $('#jobSectionResult').removeClass('hidden');
+         
+           $('#submitJob').click();
+        };
+
+        if (localStorage.getItem("AppartResultHidden") == "true") {
+            $('#ImmobilierId').addClass('hidden');
+           // $('#jobSectionResult').addClass('hidden');
+        } else {
+            $('#ImmobilierId').removeClass('hidden');
+            $('#jobSectionResult').removeClass('hidden');
+
+            $('#submitApart').click();
+        };
+
+
+
         $('#submitApart').click(function () {
             $('#jobSectionResult').removeClass('hidden');
             $('#AllCategoryResult').addClass('hidden');
+            localStorage.setItem("AllResultHidden", "true");
             jobMarkers.clearLayers()
              ApartMarkers.clearLayers()
 
@@ -274,7 +315,17 @@
             mymapJob.invalidateSize();
         });
 
-        $('#submitJob').click(function () {
+        $('#submitJob').click(SubmitJobClick);
+
+
+         $("a[href='#ResultMap']").on('shown.bs.tab', function (e) {
+
+             mymapJob.invalidateSize();
+         });
+
+    })
+
+        function SubmitJobClick () {
             $('#jobSectionResult').removeClass('hidden');
             $('#AllCategoryResult').addClass('hidden');
             ApartMarkers.clearLayers()
@@ -301,10 +352,10 @@
 
                     for (var i = 0; i < data.length; i++) {
                         console.log(data[i].Coordinate.Lat);
-                       
+
                         var popup = '<div class="thumbnail"> <a class="img-rounded" href="' + data[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].Title + '">  <img id="ImageDetailIniById" src="' + data[i].Images[0] + '" alt="photo groupe local' + data[i].Title + '" height="40"></a> </div>' +
                             '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data[i].Title +
-                            '<br/><b>Adresse : </b>' + data[i].Town + 
+                            '<br/><b>Adresse : </b>' + data[i].Town +
                             '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Job/JobDetail/' + data[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
 
 
@@ -324,14 +375,7 @@
                   }
               });
             mymapJob.invalidateSize();
-        });
-
-         $("a[href='#ResultMap']").on('shown.bs.tab', function (e) {
-
-             mymapJob.invalidateSize();
-         });
-
-    })
+        };
 </script>
 
 <script type="text/javascript">

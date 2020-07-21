@@ -17,11 +17,12 @@ namespace LookAuKwat.ViewModel
         public string Description { get; set; }
         [DisplayName("Ville")]
         public string Town { get; set; }
-        [DisplayName("Lieu")]
+        [DisplayName("Adresse")]
         public string Street { get; set; }
         [DisplayName("Salaire")]
         public int Price { get; set; }
         public string DateAdd { get; set; }
+        [DisplayName("J'offre/Je demande")]
         public string SearchOrAskJob { get; set; }
         [DisplayName("Type de contrat")]
         public string TypeContract { get; set; }

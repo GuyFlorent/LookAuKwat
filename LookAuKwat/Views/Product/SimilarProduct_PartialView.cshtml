@@ -36,37 +36,41 @@
             {
                 if (liste.Category.CategoryName == "Emploi")
                 {
-                    <a  href="@Url.Action("JobDetail", "Job", new { id = liste.id }, null)">
-                        <div class=" col-md-4">
-                            <div style="border-radius: 25px;background: lightgray;padding: 20px;" class="thumbnail">
-                                <div class="row">
-                                    <img src="@liste.Images.Select(m=>m.Image).First()" alt="image du groupe @liste.Title" style="height:100px; width:180px" class="img-rounded" />
-                                </div>
-                                <div class="row">
-                                    <h4><span>@liste.Title</span></h4>
-                                    <p class="price"><span>@liste.Price FCFA</span></p>
-                                    <p class="bottom"><span>@liste.Town</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
+    <div>
+        <a href="@Url.Action("JobDetail", "Job", new { id = liste.id }, null)">
+            <div>
+                <div style="border-radius: 25px;background: lightgray;padding: 20px;" class="thumbnail">
+                    <div class="row">
+                        <img src="@liste.Images.Select(m=>m.Image).First()" alt="image du groupe @liste.Title" class="img-rounded img-responsive" />
+                    </div>
+                    <div class="row">
+                        <h4><span>@liste.Title</span></h4>
+                        <p class="price"><span>@liste.Price FCFA</span></p>
+                        <p class="bottom"><span>@liste.Town</span></p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
                 }
                 else if (liste.Category.CategoryName == "Immobilier")
                 {
-                    <a  href="@Url.Action("ApartDetail", "ApartmentRental", new { id = liste.id }, null)">
-                        <div class="col-md-4">
-                            <div style="border-radius: 25px;background: lightgray;padding: 20px;" class="thumbnail">
-                                <div class="row">
-                                    <img src="@liste.Images.Select(m=>m.Image).First()" alt="image du groupe @liste.Title" style="height:100px; width:180px" class="img-rounded" />
-                                </div>
-                                <div class="row">
-                                    <p><span>@liste.Title</span></p>
-                                    <p class="price"><span>@liste.Price FCFA</span></p>
-                                    <p class="bottom"><span>@liste.Town</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
+<div>
+    <a href="@Url.Action("ApartDetail", "ApartmentRental", new { id = liste.id }, null)">
+        <div>
+            <div style="border-radius: 25px;background: lightgray;padding: 20px;" class="thumbnail">
+                <div class="row">
+                    <img src="@liste.Images.Select(m=>m.Image).First()" alt="image du groupe @liste.Title" style="height:100px; width:180px" class="img-rounded" />
+                </div>
+                <div class="row">
+                    <p><span>@liste.Title</span></p>
+                    <p class="price"><span>@liste.Price FCFA</span></p>
+                    <p class="bottom"><span>@liste.Town</span></p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
                 }
             }
 

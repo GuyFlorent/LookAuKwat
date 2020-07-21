@@ -26,5 +26,8 @@ namespace LookAuKwat.Models
         void AddAppartment(ApartmentRentalModel apart, string lat, string lon);
         void EditApartment(ApartmentRentalModel apart, string lat, string lon);
         IEnumerable<ApartmentRentalModel> GetListAppart();
+
+        //For message model
+        IEnumerable<MessageDetails> GetListMessage();
     }
 }

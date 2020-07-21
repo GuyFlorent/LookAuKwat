@@ -1,4 +1,7 @@
-﻿using System;
+﻿using LookAuKwat.Models;
+//using LookAuKwat.SignalR.Hubs;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +11,16 @@ namespace LookAuKwat.Controllers
 {
     public class HomeController : Controller
     {
+        private IDal dal;
+        public HomeController() : this(new Dal())
+        {
+
+        }
+
+        public HomeController(IDal dalIoc)
+        {
+            dal = dalIoc;
+        }
         public ActionResult Index()
         {
             return View();
@@ -15,9 +28,11 @@ namespace LookAuKwat.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            
+            string id = User.Identity.GetUserId();
+            ApplicationUser user = dal.GetUserByStrId(id);
+           
+            return View(user);
         }
 
         public ActionResult Contact()

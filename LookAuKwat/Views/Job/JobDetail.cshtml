@@ -17,13 +17,13 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title">Envoyer un méssage à Guy<span id="eventTitle"></span></h2>
+                    <h3 class="modal-title">Envoyer un méssage à @Model.User.UserName<span id="eventTitle"></span></h3>
                 </div>
                 <div class="modal-body">
 
                     @{
                         var link = HttpContext.Current.Request.Url.AbsoluteUri;
-                        Html.RenderAction("ContactProductUser_PartialView", "Product", new {user = Model.User.Email, Linkshare = link });
+                        Html.RenderAction("ContactProductUser_PartialView", "Product", new {user = Model.User.Email, Linkshare = link, Category = "Job" });
                     }
                 </div>
                 <div class="modal-footer">
@@ -106,13 +106,14 @@
 
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 price">
-                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label " })
+                <label class="control-label">Salaire</label>
+
                 <p><span>@Model.Price FCFA</span></p>
 
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6">
-                @Html.LabelFor(model => model.TypeContract, htmlAttributes: new { @class = "control-label " })
-                <p>@Model.TypeContract</p>
+                @Html.LabelFor(model => model.SearchOrAskJob, htmlAttributes: new { @class = "control-label " })
+                <p>@Model.SearchOrAskJob</p>
 
             </div>
 
@@ -134,34 +135,35 @@
         </div>
         <hr />
         <div class="row">
-           <p><strong>Partager sur:</strong></p>
-           <p>
-               @*facebook sharing*@
-               <a href="javascript:void(o)" onclick="window.open('http://www.facebook.com/sharer/sharer.php?u=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id','facebook-share-dialog','toolbar=0,status=0,width=600,height=600');"> <img src="@Url.Content("~/UserImage/facebook.png ")" id="imgfb" alt="facebook" height="40" /></a> @*twitter sharing*@
-               <a href="http://twitter.com/share?url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id&title=@Model.Title&summary=@Model.Description" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img src="@Url.Content("~/UserImage/Twitter.png ")" id="imgtw" alt="twitter" height="40" /></a>
-               <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script> @*LinkedIn sharing*@
-               <a href="http://www.linkedin.com/shareArticle?mini=true&url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content("~/UserImage/linkedin.png ")" id="imgln" height="40" /></a> @*GooglePlus sharing*@
-               <a href="https://mail.google.com/mail/?view=cm&su=@Model.Title&to&body=Job disponible @Model.Description sur le lien : @HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="GooglePlus" src="@Url.Content("~/UserImage/Gmail.png ")" id="imggoogle" height="40" /></a>
-               <a href="http://compose.mail.yahoo.com/?&Subject=@Model.Title&To=&Body=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content("~/UserImage/Yahoo.png ")" id="imgln" height="40" /></a>
-               <a href="http://www.linkedin.com/shareArticle?mini=true&url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content("~/UserImage/whatsapp.png ")" id="imgln" height="40" /></a>
-               <a href="whatsapp://send" data-text="@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" data-href="http://www.cdef.com/"><img alt="whatsapp" src="@Url.Content("~/UserImage/whatsapp.png ")" id="imgln" height="40" /></a>
-           </p>
+            <p><strong>Partager sur:</strong></p>
+            <p>
+                @*facebook sharing*@
+                <a href="javascript:void(o)" onclick="window.open('http://www.facebook.com/sharer/sharer.php?u=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id','facebook-share-dialog','toolbar=0,status=0,width=600,height=600');"> <img src="@Url.Content("~/UserImage/facebook.png ")" id="imgfb" alt="facebook" height="40" /></a> @*twitter sharing*@
+                <a href="http://twitter.com/share?url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id&title=@Model.Title&summary=@Model.Description" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img src="@Url.Content("~/UserImage/Twitter.png ")" id="imgtw" alt="twitter" height="40" /></a>
+                <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script> @*LinkedIn sharing*@
+                <a href="http://www.linkedin.com/shareArticle?mini=true&url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content("~/UserImage/linkedin.png ")" id="imgln" height="40" /></a> @*GooglePlus sharing*@
+                <a href="https://mail.google.com/mail/?view=cm&su=@Model.Title&to&body=Job disponible @Model.Description sur le lien : @HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="GooglePlus" src="@Url.Content("~/UserImage/Gmail.png ")" id="imggoogle" height="40" /></a>
+                <a href="http://compose.mail.yahoo.com/?&Subject=@Model.Title&To=&Body=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content("~/UserImage/Yahoo.png ")" id="imgln" height="40" /></a>
+                <a href="http://www.linkedin.com/shareArticle?mini=true&url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content("~/UserImage/whatsapp.png ")" id="imgln" height="40" /></a>
+                <a href="whatsapp://send" data-text="@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" data-href="http://www.cdef.com/"><img alt="whatsapp" src="@Url.Content("~/UserImage/whatsapp.png ")" id="imgln" height="40" /></a>
+            </p>
         </div>
         <hr />
-        <div class="row gallery">
-            <h3>Quelsues annonce similaire qui peuvent vous intéréssez</h3>
-            @{ 
-                Html.RenderAction("SimilarProduct_PartialView", "Product", new { model = Model});
+        <h3>Quelques annonce similaire qui peuvent vous intéréssez</h3>
+        <div class="row gallery MySlickCarouselJob">
+
+            @{
+                Html.RenderAction("SimilarProduct_PartialView", "Product", new { model = Model });
             }
         </div>
     </section>
     <section class="col-md-4">
         <div class="row" style="border-radius: 25px;background: lightgray;padding: 20px;">
-            <img src="https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg" alt="photo du publicateur" class="img-rounded" height="50" /> Guy
+            <img src="https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg" alt="photo du publicateur" class="img-rounded" height="50" /> @Model.User.UserName
             <hr />
             <button id="sendJobMessage" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
             <button id="iconJobCall" class="btn btn-default"><span class="glyphicon glyphicon-phone"></span> Voir le numéro</button>
-            <a id="numJobCall" class="hidden" href="tel:123-456-7890">123-456-7890</a>
+            <a id="numJobCall" class="hidden" href="tel:@Model.User.PhoneNumber">@Model.User.PhoneNumber</a>
         </div>
     </section>
 </section>
@@ -206,6 +208,32 @@
         $('#sendJobMessage').click(function () {
 
             $('#MyModalContactJob').modal();
-        })
+        });
+
+        $('.MySlickCarouselJob').slick({
+            centerMode: true,
+            centerPadding: '60px',
+            slidesToShow: 3,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 3
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 1
+                    }
+                }
+            ]
+  });
     })
 </script>

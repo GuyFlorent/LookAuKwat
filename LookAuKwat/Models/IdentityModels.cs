@@ -9,7 +9,7 @@ namespace LookAuKwat.Models
     // Vous pouvez ajouter des données de profil pour l'utilisateur en ajoutant d'autres propriétés à votre classe ApplicationUser. Pour en savoir plus, consultez https://go.microsoft.com/fwlink/?LinkID=317594.
     public class ApplicationUser : IdentityUser
     {
-       
+        public string ConnectionId { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Notez qu'authenticationType doit correspondre à l'élément défini dans CookieAuthenticationOptions.AuthenticationType
@@ -27,6 +27,7 @@ namespace LookAuKwat.Models
         public DbSet<ImageProcductModel> Images { get; set; }
         public DbSet<ApartmentRentalModel> ApartmentRentals { get; set; }
         public DbSet<CategoryModel> Categories { get; set; }
+        public DbSet<MessageDetails> Messages { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
