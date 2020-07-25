@@ -1,5 +1,6 @@
 ﻿using LookAuKwat.Models;
 using Microsoft.Ajax.Utilities;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,9 +21,13 @@ namespace LookAuKwat.ViewModel
         public int PriceMinSearch { get; set; }
         [DisplayName("Prix maximale")]
         public int PriceMaxSearch { get; set; }
-
+        
         public List<ProductModel> ListePro { get; set; }
+        public IPagedList<ProductModel> ListeProPagedList { get; set; }
+        // for pagedList
 
+        public int? PageNumber { get; set; }
+        public string sortBy { get; set; }
         //For jobs
         [DisplayName("J'offre/Je demande")]
         public string SearchOrAskJobJob { get; set; }

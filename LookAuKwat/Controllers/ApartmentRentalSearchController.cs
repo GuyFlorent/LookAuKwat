@@ -33,10 +33,12 @@ namespace LookAuKwat.Controllers
             return PartialView(model);
         }
         
-        public ActionResult searchOfferAppart(SeachJobViewModel model)
+        public ActionResult searchOfferAppart(SeachJobViewModel model, int? pageNumber, string sortBy)
         {
             model.CagtegorieSearch = "Immobilier";
             model.SearchOrAskJobJob = "J'offre";
+            model.sortBy = sortBy;
+            model.PageNumber = pageNumber;
             List<ApartmentRentalModel> liste = dal.GetListAppart().Where(m => m.Category.CategoryName == model.CagtegorieSearch && m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
 
             if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)

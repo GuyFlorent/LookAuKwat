@@ -28,7 +28,7 @@
         </div>*@
 
         <div class="form-group col-xs-6 col-sm-4 col-md-2">
-            @Html.LabelFor(model => model.TownSearch, htmlAttributes: new { @class = "control-label " })
+            @Html.LabelFor(model => model.TownSearch, htmlAttributes: new { @class = "control-label "})
 
             @Html.DropDownListFor(model => model.TownSearch, SelectListMethod.GetListTownCameroon(),"Toutes", new { @class = "form-control TownSearchJob" })
             @Html.ValidationMessageFor(model => model.TownSearch, "", new { @class = "text-danger" })

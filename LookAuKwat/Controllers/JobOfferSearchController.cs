@@ -33,7 +33,7 @@ namespace LookAuKwat.Controllers
             return PartialView(model);
         }
       
-        public ActionResult ResultSearchOfferJob_PartialView(SeachJobViewModel model)
+        public ActionResult ResultSearchOfferJob_PartialView(SeachJobViewModel model, int? pageNumber, string sortBy)
         {
             //SeachJobViewModel model1 = new SeachJobViewModel();
             //model1.ListePro = new List<ProductModel>();
@@ -43,8 +43,11 @@ namespace LookAuKwat.Controllers
             //    if (!string.IsNullOrWhiteSpace(li.Title))
             //        model1.ListePro.Add(li);
             //}
+         
             model.CagtegorieSearch = "Emploi";
             model.SearchOrAskJobJob = "J'offre";
+            model.sortBy = sortBy;
+            model.PageNumber = pageNumber;
             List<JobModel> liste = dal.GetListJob().Where(m => m.Category.CategoryName == model.CagtegorieSearch && m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
 
             if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <=0 && string.IsNullOrWhiteSpace(model.TownSearch)
