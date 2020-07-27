@@ -24,22 +24,22 @@ else
                 @if (Model.CagtegorieSearch == "Emploi")
                 {
                     <select id="selectJob">
-                        <option>---Choisir---</option>
-                        <option id="AscendingPrice"> Tri par Prix croissant</option>
-                        <option id="descendingPrice">Tri par Prix décroissant</option>
-                        <option id="MostOlder">Tri par Plus anciennes</option>
-                        <option id="MostLastest">Tri par Plus recentes</option>
+                        <option value="---Choisir---">---Choisir---</option>
+                        <option id="AscendingPrice" value="Tri par Prix croissant"> Tri par Prix croissant</option>
+                        <option id="descendingPrice" value="Tri par Prix décroissant">Tri par Prix décroissant</option>
+                        <option id="MostOlder" value="Tri par Plus anciennes">Tri par Plus anciennes</option>
+                        <option id="MostLastest" value="Tri par Plus recentes">Tri par Plus recentes</option>
                     </select>
                 }
                 else if (Model.CagtegorieSearch == "Immobilier")
                 {
-                    <select id="SelectFlat">
-                        <option>---Choisir---</option>
-                        <option id="AscendingFlatPrice"> Tri par Prix croissant</option>
-                        <option id="descendingFlatPrice">Tri par Prix décroissant</option>
-                        <option id="MostOlderFlat">Tri par Plus anciennes</option>
-                        <option id="MostLastestFlat">Tri par Plus recentes</option>
-                    </select>
+            <select id="SelectFlat">
+                <option value="---Choisir---">---Choisir---</option>
+                <option id="AscendingPrice" value="Tri par Prix croissant"> Tri par Prix croissant</option>
+                <option id="descendingPrice" value="Tri par Prix décroissant">Tri par Prix décroissant</option>
+                <option id="MostOlder" value="Tri par Plus anciennes">Tri par Plus anciennes</option>
+                <option id="MostLastest" value="Tri par Plus recentes">Tri par Plus recentes</option>
+            </select>
                 }
 
 
@@ -114,7 +114,7 @@ else
                     }
                 </div>
         <div class="col-md-6">
-            <h1> Pub bevgduvchdiuchgeablidbealdbilbeivux</h1>
+            <h1> Publicitéx</h1>
         </div>
     </div>
 }
@@ -133,7 +133,7 @@ else
         contentType: 'application/json; charset=utf-8',
         data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
         success: function (result) {
-            console.log(result);
+           
             $('#groupeResultSearch').html(result);
         }
       });
@@ -153,7 +153,7 @@ else
         contentType: 'application/json; charset=utf-8',
         data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
         success: function (result) {
-            console.log(result);
+            
             $('#groupeResultSearch').html(result);
         }
       });
@@ -173,7 +173,7 @@ else
         contentType: 'application/json; charset=utf-8',
         data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
         success: function (result) {
-            console.log(result);
+           
             $('#groupeResultSearch').html(result);
         }
       });
@@ -193,7 +193,7 @@ else
         contentType: 'application/json; charset=utf-8',
         data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
         success: function (result) {
-            console.log(result);
+            
             $('#groupeResultSearch').html(result);
         }
       });
@@ -219,7 +219,7 @@ else
         contentType: 'application/json; charset=utf-8',
         //data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
         success: function (result) {
-            console.log(result);
+           
             $('#groupeResultSearch').html(result);
         }
       });
@@ -242,7 +242,7 @@ else
         contentType: 'application/json; charset=utf-8',
         //data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
         success: function (result) {
-            console.log(result);
+           
             $('#groupeResultSearch').html(result);
         }
       });
@@ -265,7 +265,7 @@ else
         contentType: 'application/json; charset=utf-8',
        // data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
         success: function (result) {
-            console.log(result);
+           
             $('#groupeResultSearch').html(result);
         }
       });
@@ -288,7 +288,7 @@ else
         contentType: 'application/json; charset=utf-8',
             // data: { 'toto': TownSearchApart},  // JSON.stringify(searchTerm)
         success: function (result) {
-            console.log(result);
+            
             $('#groupeResultSearch').html(result);
         }
       });
@@ -297,5 +297,24 @@ else
     $("#SelectFlat").change(function () {
         $("#SelectFlat option:selected").click();
     });
+
+   
+    if (document.getElementById("selectJob").value != null) {
+        document.getElementById("selectJob").onchange = function () {
+            localStorage['selectJob'] = document.getElementById("selectJob").value;
+        }
+    }
+    if (localStorage['selectJob']) {
+        document.getElementById("selectJob").value = localStorage['selectJob'];
+    };
+    
+    if (document.getElementById("SelectFlat").value != null) {
+        document.getElementById("SelectFlat").onchange = function () {
+            localStorage['SelectFlat'] = document.getElementById("SelectFlat").value;
+        }
+    }
+    if (localStorage['SelectFlat'])
+        document.getElementById("SelectFlat").value = localStorage['SelectFlat'];
+
 
 </script>

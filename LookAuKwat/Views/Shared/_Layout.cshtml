@@ -42,7 +42,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Message", "About", "Home",null,new { id ="Messageclick" })</li>
+                    @*<li>@Html.ActionLink("Message", "About", "Home",null,new { id ="Messageclick" })</li>*@
                     <li>@Html.ActionLink("Déposer une annonce", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")

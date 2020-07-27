@@ -75,7 +75,7 @@
             <div id="searchJob">
                 <div class="form-group">
                     <label for="selectCategory">Vous êtes dans les offres, veuillez Choisir une catégorie :</label>
-                    <select class="form-control searchcategory" data-show-icon="true">
+                    <select class="form-control searchcategory" data-show-icon="true" name="categori" id="categori">
                         <option>Toutes les catégories</option>
                         <option data-content="<i class='glyphicon glyphicon-briefcase'></i>">Emploi</option>
                         <option data-content="<i class='glyphicon glyphicon-home'></i>">Immobilier</option>
@@ -101,7 +101,7 @@
             <div id="askJob">
                 <div class="form-group">
                     <label for="selectCategory">Vous êtes dans les demandes, veuillez Choisir une catégorie</label>
-                    <select class="form-control Addcategory" data-show-icon="true">
+                    <select class="form-control Addcategory" data-show-icon="true" >
                         <option>Toutes les catégories</option>
                         <option data-content="<i class='glyphicon glyphicon-briefcase'></i>">Emploi</option>
                         <option data-content="<i class='glyphicon glyphicon-home'></i>">Immobilier</option>
@@ -212,6 +212,7 @@
                 localStorage.setItem("JobResultHidden", "false");
                 localStorage.setItem("AppartResultHidden", "true");
 
+
             } else {
                 $('#JobId').addClass('hidden');
             }
@@ -219,15 +220,14 @@
                 $('#jobSectionResult').addClass('hidden');
                 $('#AllCategoryResult').removeClass('hidden');
                 localStorage.setItem("AllResultHidden", "false");
-                localStorage.setItem("JobResultHidden", "true");
-                localStorage.setItem("AppartResultHidden", "true");
+               
             }
             if (select == "Immobilier") {
                 $('#ImmobilierId').removeClass('hidden');
                 localStorage.setItem("AllResultHidden", "true");
                 localStorage.setItem("JobResultHidden", "true");
                 localStorage.setItem("AppartResultHidden", "false");
-               
+
             } else {
                 $('#ImmobilierId').addClass('hidden');
             }
@@ -237,6 +237,9 @@
             $('#AllCategoryResult').addClass('hidden');
         } else {
             $('#AllCategoryResult').removeClass('hidden');
+            $('#ImmobilierId').addClass('hidden');
+            $('#JobId').addClass('hidden');
+            $('#jobSectionResult').addClass('hidden');
         };
 
         if (localStorage.getItem("JobResultHidden") == "true") {
@@ -245,21 +248,43 @@
         } else {
             $('#JobId').removeClass('hidden');
             $('#jobSectionResult').removeClass('hidden');
-         
+
            $('#submitJob').click();
         };
 
         if (localStorage.getItem("AppartResultHidden") == "true") {
             $('#ImmobilierId').addClass('hidden');
-           // $('#jobSectionResult').addClass('hidden');
+            // $('#jobSectionResult').addClass('hidden');
         } else {
             $('#ImmobilierId').removeClass('hidden');
             $('#jobSectionResult').removeClass('hidden');
 
             $('#submitApart').click();
+            
         };
+        //if (localStorage.getItem("NoChoicetHidden") == "true") {
+        //    $('#ImmobilierId').addClass('hidden');
+        //    $('#JobId').addClass('hidden');
+        //    $('#jobSectionResult').addClass('hidden');
+        //};
 
 
+        //document.getElementById("categori").onchange = function () {
+        //    localStorage.setItem('categori', document.getElementById("categori").value);
+        //}
+
+        //if (localStorage.getItem('categori')) {
+        //    document.getElementById("categori").options[localStorage.getItem('categori')].selected = true;
+        //};
+
+        document.getElementById("categori").onchange = function () {
+            localStorage['categori'] = document.getElementById("categori").value;
+        }
+        window.onload = function () {
+            if (localStorage['categori'])
+                document.getElementById("categori").value = localStorage['categori'];
+        }
+       
 
         $('#submitApart').click(function () {
             $('#jobSectionResult').removeClass('hidden');

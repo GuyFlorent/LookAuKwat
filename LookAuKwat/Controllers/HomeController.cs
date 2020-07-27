@@ -34,7 +34,7 @@ namespace LookAuKwat.Controllers
            
             return View(user);
         }
-
+        [Authorize]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

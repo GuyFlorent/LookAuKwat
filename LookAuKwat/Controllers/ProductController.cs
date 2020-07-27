@@ -189,20 +189,28 @@ namespace LookAuKwat.Controllers
             switch (modelresult.CagtegorieSearch)
             {
                 case "Emploi":
-                     var result= TempData["listeJob"] as List<JobModel>;
-                    foreach(var element in result)
+                    try
                     {
-                        modelresult.ListePro.Add(element);
+
+                        var result = TempData["listeJob"] as List<JobModel>;
+                        foreach (var element in result)
+                        {
+                            modelresult.ListePro.Add(element);
+                        }
+                    }catch(Exception e)
+                    {
+                        
                     }
-                   
                     break;
                 case "Immobilier":
-                    var resultImmobilier = TempData["listeApart"] as List<ApartmentRentalModel>;
-                    foreach (var element in resultImmobilier)
+                    try
                     {
-                        modelresult.ListePro.Add(element);
-                    }
-                   
+                        var resultImmobilier = TempData["listeApart"] as List<ApartmentRentalModel>;
+                        foreach (var element in resultImmobilier)
+                        {
+                            modelresult.ListePro.Add(element);
+                        }
+                    }catch(Exception e) { }
                     break;
             }
 
