@@ -10,6 +10,7 @@ namespace LookAuKwat.Models
         //User
         List<ApplicationUser> GetUsersList();
         ApplicationUser GetUserByStrId(string id);
+        void UpdateUserInformations(ApplicationUser user);
         //Product
         IEnumerable<ProductModel> GetListProduct();
         IEnumerable<JobModel> GetListJob();

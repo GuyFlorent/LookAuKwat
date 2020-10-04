@@ -344,7 +344,7 @@ namespace LookAuKwat.Controllers
                 //}
             }
 
-            return PartialView("ContactProductUser_PartialView",vm);
+            return View("ContactProductUser_PartialView",vm);
         }
 
       

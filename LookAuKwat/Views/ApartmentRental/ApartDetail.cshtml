@@ -1,6 +1,6 @@
 ﻿@model LookAuKwat.Models.ApartmentRentalModel
 @{
-    ViewBag.Title = "ApartDetail";
+    ViewBag.Title = "Detail de l'annonce";
 }
 
 
@@ -11,13 +11,15 @@
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
         integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
         crossorigin=""></script>
-<h2>ApartDetail</h2>
+
+<h2>Détails de l'annonce</h2>
+
 <div id="MyModalContactApart" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h2 class="modal-title">Envoyer un méssage à Guy<span id="eventTitle"></span></h2>
+                <h2 class="modal-title">Envoyer un message à @Model.User.UserName<span id="eventTitle"></span></h2>
             </div>
             <div class="modal-body">
 
@@ -150,15 +152,12 @@
                 <a href="http://www.linkedin.com/shareArticle?mini=true&url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/ApartDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content("~/UserImage/linkedin.png ")" id="imgln" height="40" /></a> @*GooglePlus sharing*@
                 <a href="https://mail.google.com/mail/?view=cm&su=@Model.Title&to&body=Job disponible @Model.Description sur le lien : @HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/ApartDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="GooglePlus" src="@Url.Content("~/UserImage/Gmail.png ")" id="imggoogle" height="40" /></a>
                 <a href="http://compose.mail.yahoo.com/?&Subject=@Model.Title&To=&Body=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/ApartDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content("~/UserImage/Yahoo.png ")" id="imgln" height="40" /></a>
-                <a href="http://www.linkedin.com/shareArticle?mini=true&url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/ApartDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content("~/UserImage/whatsapp.png ")" id="imgln" height="40" /></a>
-                <a href="whatsapp://send" data-text="@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/ApartDetail/@Model.id" data-href="http://www.cdef.com/"><img alt="whatsapp" src="@Url.Content("~/UserImage/whatsapp.png ")" id="imgln" height="40" /></a>
-                @*<a href="whatsapp://send" data-text="@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/ApartDetail/@Model.id" class="wa_btn wa_btn_s" data-href="URL you want to share" onClick="ga('send', 'event', { eventCategory: 'Social', eventAction: 'Share', eventLabel: 'WhatsAppShare', eventValue: 0});">
-                    <button>Share on WhatsApp</button>
-                </a>*@
+              
+                <a href="whatsapp://send?text=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/ApartDetail/@Model.id" data-action="share/whatsapp/share"><img alt="whatsapp" src="@Url.Content("~/UserImage/whatsapp.png ")" id="imgln" height="40" /></a>
             </p>
         </div>
         <hr />
-        <h3>Quelques annonce similaire qui peuvent vous intéréssez</h3>
+        <h3>Quelques annonces similaire qui peuvent vous intéréssez</h3>
         <div class="row gallery MySlickCarouselAppart">
 
             @{
@@ -172,7 +171,7 @@
             <hr />
             <button id="sendApartMessage" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
             <button id="iconApartCall" class="btn btn-default"><span class="glyphicon glyphicon-phone"></span> Voir le numéro</button>
-            <a id="numApartCall" class="hidden" href="tel:123-456-7890">123-456-7890</a>
+            <a id="numApartCall" class="hidden" href="tel:@Model.User.PhoneNumber">@Model.User.PhoneNumber</a>
         </div>
     </section>
 </section>

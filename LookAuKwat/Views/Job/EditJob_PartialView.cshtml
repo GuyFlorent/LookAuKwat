@@ -42,13 +42,13 @@
                     </div>*@
                     </div>
 
-                <div class="form-group">
+                @*<div class="form-group">
                     @Html.LabelFor(model => model.CategoryJob, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.CategoryJob, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.CategoryJob, "", new { @class = "text-danger" })
                     </div>
-                </div>
+                </div>*@
                 <div class="form-group">
                     @Html.LabelFor(model => model.TitleJob, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
@@ -58,7 +58,8 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.DescriptionJob, htmlAttributes: new { @class = "control-label col-md-2" })
+                    
+                    <label for="@Model.DescriptionJob" class="control-label col-md-2">Description</label>
                     <div class="col-md-10">
                         @Html.TextAreaFor(model => model.DescriptionJob, new { htmlAttributes = new { @class = "form-control Description_" + Model.JobEditid } })
                         @Html.ValidationMessageFor(model => model.DescriptionJob, "", new { @class = "text-danger" })
@@ -82,9 +83,9 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.PriceJob, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <label for="@Model.PriceJob" class="control-label col-md-2"> Salaire(<span class="text-danger">FCFA</span>)</label>
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.PriceJob, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.PriceJob, new { htmlAttributes = new { @class = "form-control" } }) 
                         @Html.ValidationMessageFor(model => model.PriceJob, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -92,7 +93,7 @@
 
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.SearchOrAskJobJob, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <label for="@Model.SearchOrAskJobJob" class="control-label col-md-2">J'offre/Je recherche</label>
                     <div class="col-md-10">
                         @Html.DropDownListFor(model => model.SearchOrAskJobJob, SelectListMethod.ChooseSearchOrAsk(), new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.SearchOrAskJobJob, "", new { @class = "text-danger" })
@@ -117,15 +118,12 @@
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input id="btnFormEditJob_@Model.JobEditid" type="submit" value="Enregistrer" class="btn btn-default" />
+                        <input id="btnFormEditJob_@Model.JobEditid" type="submit" value="Enregistrer" class="btn btn-success" />
                     </div>
                 </div>
             </div>
         }
     </section>
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

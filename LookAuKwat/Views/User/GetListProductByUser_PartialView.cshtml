@@ -87,20 +87,20 @@
 
 
     <div class="panel-heading">
-        <h3 class="panel-title">Historique personelle</h3>
+        <h3 class="panel-title">Historique de mes annonces</h3>
     </div>
     <div class="table-responsive">
         <table class="table table-bordered table-condensed">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Category.CategoryName)
+                    Catégorie
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Title)
                 </th>
-                <th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.Description)
-                </th>
+                </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.Town)
                 </th>
@@ -108,7 +108,7 @@
             @Html.DisplayNameFor(model => model.Street)
         </th>*@
                 <th>
-                    @Html.DisplayNameFor(model => model.Price)
+                    @Html.DisplayNameFor(model => model.Price) <span class="text-danger">(FCFA)</span>
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.DateAdd)
@@ -132,9 +132,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.Description)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Town)
             </td>

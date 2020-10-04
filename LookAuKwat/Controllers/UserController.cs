@@ -53,8 +53,9 @@ namespace LookAuKwat.Controllers
         [HttpPost]
         public ActionResult UpdateUserInformations(ApplicationUser user)
         {
-            
-            return View(user);
+            dal.UpdateUserInformations(user);
+
+            return RedirectToAction("UserDetails");
         }
     }
 }

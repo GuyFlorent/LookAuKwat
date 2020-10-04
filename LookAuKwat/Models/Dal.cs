@@ -243,5 +243,13 @@ namespace LookAuKwat.Models
         {
             return dbb.Messages.ToList();
         }
+
+        public void UpdateUserInformations(ApplicationUser user)
+        {
+            ApplicationUser userr = dbb.Users.FirstOrDefault(u => u.Id == user.Id);
+            userr.Email = user.Email;
+            userr.PhoneNumber = user.PhoneNumber;
+            dbb.SaveChanges();
+        }
     }
 }
