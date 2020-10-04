@@ -121,17 +121,21 @@
             <li class="active"><a href="#ResulList" data-toggle="tab">Liste</a></li>
             <li><a href="#ResultMap" data-toggle="tab">Carte</a></li>
         </ul>
+        <img id="charging" src="~/UserImage/ajax-loader.gif" style="display: none" alt="Chargement en cours..." />
         <div class="tab-content" id="resultsJobSearch">
+
             <div class="tab-pane active  fade in" id="ResulList">
-                <div class="row" >
+
+
+                <div class="row">
                     @{
                         Html.RenderAction("ResultSearch_PartialView", "Product");
                     }
 
                 </div>
             </div>
-               
-         
+
+
 
             <div class="tab-pane  fade " id="ResultMap">
                 <div id="mapid" style="height:480px"> </div>
@@ -155,7 +159,8 @@
                             }
                     </div>
                     <div class="col-md-6">
-                        <h1> totot ndc</h1>
+                        @*<h1> totot ndc</h1>
+                        ici les prochun code pour les publicités*@
                     </div>
                 </div>
 
@@ -202,6 +207,7 @@
 
     $(function () {
 
+      
 
         $("select.searchcategory").change(function () {
             var select = $(this).children("option:selected").val();
@@ -220,7 +226,10 @@
                 $('#jobSectionResult').addClass('hidden');
                 $('#AllCategoryResult').removeClass('hidden');
                 localStorage.setItem("AllResultHidden", "false");
-               
+                localStorage.setItem("JobResultHidden", "true");
+                localStorage.setItem("AppartResultHidden", "true");
+                $('#JobId').addClass('hidden');
+                $('#ImmobilierId').addClass('hidden');
             }
             if (select == "Immobilier") {
                 $('#ImmobilierId').removeClass('hidden');

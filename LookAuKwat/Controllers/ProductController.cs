@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -247,7 +248,7 @@ namespace LookAuKwat.Controllers
             // modelresult.ListePro = TempData["listeJob"] as List<ProductModel>;
             // modelresult.ListePro = dal.GetListProduct().Where(r => r.Title.IndexOf(modelresult.TitleJobSearch, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
 
-
+          
 
             return PartialView(modelresult);
         }

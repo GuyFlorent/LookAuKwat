@@ -14,6 +14,7 @@ namespace LookAuKwat.Models
         //Product
         IEnumerable<ProductModel> GetListProduct();
         IEnumerable<JobModel> GetListJob();
+        void UpdateNumberView(ProductModel product);
         void DeleteProduct(ProductModel product);
         IEnumerable<ProductModel> GetListUserProduct(string id);
         //Product Image

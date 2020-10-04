@@ -251,5 +251,12 @@ namespace LookAuKwat.Models
             userr.PhoneNumber = user.PhoneNumber;
             dbb.SaveChanges();
         }
+
+        public void UpdateNumberView(ProductModel product)
+        {
+            var product_To_Update = dbb.Products.FirstOrDefault(m => m.id == product.id);
+            product_To_Update.ViewNumber = product.ViewNumber;
+            dbb.SaveChanges();
+        }
     }
 }

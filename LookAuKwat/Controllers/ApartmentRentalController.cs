@@ -190,7 +190,7 @@ namespace LookAuKwat.Controllers
 
         public ActionResult ApartmentDetails_PartialView(ApartmentRentalModel model)
         {
-
+        
             return PartialView(model);
         }
 
@@ -317,6 +317,8 @@ namespace LookAuKwat.Controllers
         public ActionResult ApartDetail(int id)
         {
             ApartmentRentalModel model = dal.GetListAppart().FirstOrDefault(e => e.id == id);
+            model.ViewNumber++;
+            dal.UpdateNumberView(model);
             return View(model);
         }
     }

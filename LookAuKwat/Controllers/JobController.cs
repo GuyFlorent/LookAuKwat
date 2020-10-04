@@ -327,6 +327,8 @@ namespace LookAuKwat.Controllers
         public ActionResult JobDetail(int id)
         {
             JobModel model = dal.GetListJob().FirstOrDefault(e => e.id == id);
+            model.ViewNumber++;
+            dal.UpdateNumberView(model);
             return View(model);
         }
 
