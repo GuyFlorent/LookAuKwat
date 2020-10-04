@@ -143,7 +143,12 @@
                     }
                 }
             });
-        },
+            },
+            select: function (event, ui) {
+                //remember the selected item
+                $('#StreetAppart')
+                    .data('selected-item', ui.item.label);
+            },
         minLength: 3,
         position: {
             //my: "left top",
@@ -153,7 +158,16 @@
             of: "#StreetAppart"
             },
             appendTo: "#MyModalAddApartment"
-         });
+        }).blur(function () {
+            var value = $('#StreetAppart').val();
+            //check if the input's value matches the selected item
+            if (value != $('#StreetAppart').data('selected-item')) {
+                //they don't, the user must have typed something else
+                $('#StreetAppart')
+                    .val('') //clear the input's text
+                    .data('selected-item', ''); //clear the selected item
+            }
+        });
 
     });
 </script>

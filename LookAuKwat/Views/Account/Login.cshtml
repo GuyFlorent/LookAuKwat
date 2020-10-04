@@ -38,11 +38,12 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Se connecter" class="btn btn-default" />
+                        <input type="submit" value="Se connecter" class="btn btn-success" />
                     </div>
                 </div>
+                <p>Pas encore de compte?</p>
                 <p>
-                    @Html.ActionLink("Inscrire comme nouvel utilisateur", "Register")
+                    @Html.ActionLink("Inscrire comme nouvel utilisateur en 2 minutes !", "Register")
                 </p>
                 @* Activez ceci une fois que vous avez activé la confirmation du compte pour la fonctionnalité de réinitialisation du mot de passe
                     <p>
@@ -52,9 +53,9 @@
         </section>
     </div>
     <div class="col-md-4">
-        <section id="socialLoginForm">
+        @*<section id="socialLoginForm">
             @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
+        </section>*@
     </div>
 </div>
 

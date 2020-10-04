@@ -142,7 +142,11 @@
                     }
                 }
             });
-        },
+            }, select: function (event, ui) {
+                //remember the selected item
+                $('#Street')
+                    .data('selected-item', ui.item.label);
+            },
         minLength: 3,
         position: {
             //my: "left top",
@@ -152,7 +156,16 @@
             of: "#Street"
             },
             appendTo: "#MyModalAddJob"
-         });
+        }).blur(function () {
+            var value = $('#Street').val();
+            //check if the input's value matches the selected item
+            if (value != $('#Street').data('selected-item')) {
+                //they don't, the user must have typed something else
+                $('#Street')
+                    .val('') //clear the input's text
+                    .data('selected-item', ''); //clear the selected item
+            }
+        });
 
     });
 </script>
