@@ -3,6 +3,7 @@ using LookAuKwat.ViewModel;
 using Microsoft.Ajax.Utilities;
 using PagedList;
 using SendGrid;
+using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -11,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -200,7 +202,7 @@ namespace LookAuKwat.Controllers
                         }
                     }catch(Exception e)
                     {
-                        
+                        Console.WriteLine(e.ToString());
                     }
                     break;
                 case "Immobilier":
@@ -211,7 +213,10 @@ namespace LookAuKwat.Controllers
                         {
                             modelresult.ListePro.Add(element);
                         }
-                    }catch(Exception e) { }
+                    }catch(Exception e) 
+                    {
+                        Console.WriteLine(e.ToString());
+                    }
                     break;
             }
 
@@ -302,10 +307,12 @@ namespace LookAuKwat.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        
         public ActionResult ContactProductUser_PartialView(contactUserViewModel vm)
         {
-            
-            return PartialView(vm);
+         
+                return PartialView (vm);
+           
         }
         [HttpPost]
         public async Task< ActionResult> ContactProductUser(contactUserViewModel vm)
@@ -343,28 +350,67 @@ namespace LookAuKwat.Controllers
                 //    ModelState.Clear();
                 //    ViewBag.Message = $" Sorry we are facing Problem here {ex.Message}";
                 //}
+                ViewBag.Message = "Message envoyé avec succès ";
             }
 
-            return View("ContactProductUser_PartialView",vm);
+            return PartialView("ContactProductUser_PartialView",vm);
         }
 
       
         private async Task configSendGridasync(contactUserViewModel message)
         {
-            message.Message = "Hello <br/> vous avez un nouveau message sur votre annonce dans LookAuKwat! <br/> " +
-               " <a href =\"" + message.Linkshare + "\">" + message.Linkshare + "</a> <br/>"+ message.Message;
-            var myMessage = new SendGridMessage();
-            myMessage.AddTo(message.user);
-            myMessage.From = new System.Net.Mail.MailAddress(
-                                message.EmailSender, message.NameSender);
-            myMessage.Subject = message.SubjectSender;
-            myMessage.Text = message.Message;
-            myMessage.Html = message.Message;
-            string file = AttachFileMessage(message);
-            if (file != null)
+
+            var apiKey = "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";
+            var client = new SendGridClient(apiKey);
+            var from = new EmailAddress("wanguy9@gmail.com", message.NameSender +"(NoReply Here)");
+            var subject = message.SubjectSender;
+            var to = new EmailAddress(message.RecieverEmail, message.RecieverName);
+            var plainTextContent = "<a href='lookaukwat.azurewebsites.net'><img src=" + @Url.Content("~/UserImage/lookaukwat_logo.jpg") + " alt='lien vers le site' style='height: 50px;' /><br/><br/> <strong style='height: 20px;'>LookAuKwat</strong></a> " +
+                "Hello <br/><br/> vous avez un nouveau message sur votre annonce dans <strong style='color:blue;Height:20px;'> LookAuKwat! </strong> <br/> " +
+               " <a href =\"" + message.Linkshare + "\">" + message.Linkshare + "</a> <br/>" + message.Message+ " <br/>" + "<br/>"
+               + "Vous pouvez lui répondre aussi sur son email suivant : "+" <a href =\"" + message.EmailSender + "\">" + message.EmailSender + "</a>";
+
+            var htmlContent = "<a href='lookaukwat.azurewebsites.net'><img src=" + @Url.Content("~/UserImage/lookaukwat_logo.jpg") + " alt='lien vers le site' style='height: 50px;' /><br/><br/> <strong style='height: 20px;'>LookAuKwat</strong></a> "
+               + "Hello <br/><br/> vous avez un nouveau message sur votre annonce dans <strong style='color:blue;Height:20px;'> LookAuKwat! </strong> <br/> " +
+               " <a href =\"" + message.Linkshare + "\">" + message.Linkshare + "</a> <br/>" + message.Message + " <br/>" + "<br/>"
+               + "Vous pouvez lui répondre aussi sur son email suivant : " + " <a href =\"" + message.EmailSender + "\">" + message.EmailSender + "</a>";
+
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+            
+           List< string >files = AttachFileMessage(message);
+            if (files != null)
             {
-                myMessage.AddAttachment(file);
+                byte[] byteData = System.IO.File.ReadAllBytes(files[1]);
+                var Content = Convert.ToBase64String(byteData);
+                msg.AddAttachment(files[0], Content); 
+            //        new List<SendGrid.Helpers.Mail.Attachment>
+            //{
+            //    new SendGrid.Helpers.Mail.Attachment
+            //    {
+            //        Content = Convert.ToBase64String(byteData),
+            //        Filename = file,
+                   
+            //        Disposition = "attachment"
+            //    }
+            //};
             }
+               
+            var response = await client.SendEmailAsync(msg);
+
+            //message.Message = "Hello <br/> vous avez un nouveau message sur votre annonce dans LookAuKwat! <br/> " +
+            //   " <a href =\"" + message.Linkshare + "\">" + message.Linkshare + "</a> <br/>"+ message.Message;
+            //var myMessage = new SendGridMessage();
+            //myMessage.AddTo(message.user);
+            //myMessage.From = new System.Net.Mail.MailAddress(
+            //                    message.EmailSender, message.NameSender);
+            //myMessage.Subject = message.SubjectSender;
+            //myMessage.Text = message.Message;
+            //myMessage.Html = message.Message;
+            //string file = AttachFileMessage(message);
+            //if (file != null)
+            //{
+            //    myMessage.AddAttachment(file);
+            //}
 
 
             //if (message.file != null)
@@ -394,41 +440,50 @@ namespace LookAuKwat.Controllers
             //}
             // myMessage.AddAttachment("C:/Users/wangu/OneDrive/Bureau/LOGEMENT/barman.png");
 
-            var credentials = new NetworkCredential(
-                       ConfigurationManager.AppSettings["mailAccountSendGrid"],
-                       ConfigurationManager.AppSettings["mailPasswordSendGrid"]
-                       );
+            //var credentials = new NetworkCredential(
+            //           ConfigurationManager.AppSettings["mailAccountSendGrid"],
+            //           ConfigurationManager.AppSettings["mailPasswordSendGrid"]
+            //           );
 
-            // Create a Web transport for sending email.
-            var transportWeb = new Web(credentials);
+            //// Create a Web transport for sending email.
+            //var transportWeb = new Web(credentials);
 
-            // Send the email.
-            if (transportWeb != null)
-            {
+            //// Send the email.
+            //if (transportWeb != null)
+            //{
 
-               await transportWeb.DeliverAsync(myMessage);
+            //   await transportWeb.DeliverAsync(myMessage);
 
-            }
-            else
-            {
-                Trace.TraceError("Failed to create Web transport.");
-                await Task.FromResult(0);
-            }
+            //}
+            //else
+            //{
+            //    Trace.TraceError("Failed to create Web transport.");
+            //    await Task.FromResult(0);
+            //}
+
         }
 
-        private string AttachFileMessage(contactUserViewModel contact)
+        private List<string> AttachFileMessage(contactUserViewModel contact)
         {
+            List<string> list = new List<string>();
             if (contact.file != null)
             {
-
+               
                 //Save image name path
                 string FileName = Path.GetFileNameWithoutExtension(contact.file.FileName);
-
+               
                 // save extension of image
                 string FileExtension = Path.GetExtension(contact.file.FileName);
 
+                //Add extension to attached file name
+                FileName = FileName + FileExtension;
+
+                //name for mail attachement
+                string NameMailAttachement = FileName;
+                list.Add(NameMailAttachement);
+
                 //Add a curent date to attached file name
-                FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + FileName + FileExtension;
+                FileName = DateTime.Now.ToString("yyyyMMdd") + "-"+FileName;
 
                 //Create complete path to store in server
                 var path = Server.MapPath("~/UserImage/");
@@ -441,7 +496,8 @@ namespace LookAuKwat.Controllers
                 FileName = Path.Combine(path, FileName);
 
                 contact.file.SaveAs(FileName);
-                return FileName;
+                list.Add(FileName);
+                return list;
             }
             else
                 return null;

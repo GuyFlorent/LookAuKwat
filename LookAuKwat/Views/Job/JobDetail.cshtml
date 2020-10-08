@@ -23,8 +23,10 @@
 
                     @{
                         var link = HttpContext.Current.Request.Url.AbsoluteUri;
-                        Html.RenderAction("ContactProductUser_PartialView", "Product", new {user = Model.User.Email, Linkshare = link, Category = "Job" });
-                    }
+                        Html.RenderAction("ContactProductUser_PartialView", "Product", new {RecieverEmail = Model.User.Email, RecieverName= Model.User.UserName, Linkshare = link, Category = "Job" });
+                                                 
+                                     
+                        }
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
@@ -158,12 +160,18 @@
         </div>
     </section>
     <section class="col-md-4">
-        <div class="row" style="border-radius: 25px;background: lightgray;padding: 20px;">
+        <div  class="row" style="border-radius: 25px;background: lightgray;padding: 20px;">
             <img src="https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg" alt="photo du publicateur" class="img-rounded" height="50" /> @Model.User.UserName
             <hr />
             <button id="sendJobMessage" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
             <button id="iconJobCall" class="btn btn-default"><span class="glyphicon glyphicon-phone"></span> Voir le numéro</button>
             <a id="numJobCall" class="hidden" href="tel:@Model.User.PhoneNumber">@Model.User.PhoneNumber</a>
+        </div>
+        <div class="row" style="height:7px">
+            <div class="row alert alert-success js-alert-job hidden" role="alert">
+                Message envoyé avec succès ! 
+                Bonne chance à vous pour cet emploi
+            </div>
         </div>
     </section>
 </section>
@@ -234,6 +242,8 @@
                     }
                 }
             ]
-  });
+        });
+
+        
     })
 </script>

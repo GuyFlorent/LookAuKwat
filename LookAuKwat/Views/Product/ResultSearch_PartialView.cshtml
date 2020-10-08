@@ -35,10 +35,10 @@ else
                 {
             <select id="SelectFlat">
                 <option value="---Choisir---">---Choisir---</option>
-                <option id="AscendingPrice" value="Tri par Prix croissant"> Tri par Prix croissant</option>
-                <option id="descendingPrice" value="Tri par Prix décroissant">Tri par Prix décroissant</option>
-                <option id="MostOlder" value="Tri par Plus anciennes">Tri par Plus anciennes</option>
-                <option id="MostLastest" value="Tri par Plus recentes">Tri par Plus recentes</option>
+                <option id="AscendingFlatPrice" value="Tri par Prix croissant"> Tri par Prix croissant</option>
+                <option id="descendingFlatPrice" value="Tri par Prix décroissant">Tri par Prix décroissant</option>
+                <option id="MostOlderFlat" value="Tri par Plus anciennes">Tri par Plus anciennes</option>
+                <option id="MostLastestFlat" value="Tri par Plus recentes">Tri par Plus recentes</option>
             </select>
                 }
 
@@ -249,7 +249,7 @@ else
      return false;
      });
 
-    $('#MostOlderFlat').click(function() {
+    $('#MostLastestFlat').click(function() {
         var RoomNumber = $('#RoomNumber').val();
         var MaxApartSurface = $('#MaxApartSurface').val();
         var MinApartSurface = $('#MinApartSurface').val();

@@ -25,7 +25,7 @@
 
                 @{
                     var link = HttpContext.Current.Request.Url.AbsoluteUri;
-                    Html.RenderAction("ContactProductUser_PartialView", "Product", new { user = Model.User.Email, Linkshare = link });
+                    Html.RenderAction("ContactProductUser_PartialView", "Product", new { RecieverEmail = Model.User.Email, RecieverName = Model.User.UserName, Linkshare = link, Category = "Imo" });
                 }
             </div>
             <div class="modal-footer">
@@ -166,12 +166,18 @@
         </div>
     </section>
     <section class="col-md-4">
-        <div class="row" style="border-radius: 25px;background: lightgray;padding: 20px;">
+        <div id="ajaxImotarget" class="row" style="border-radius: 25px;background: lightgray;padding: 20px;">
             <img src="https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg" alt="photo du publicateur" class="img-rounded" height="50" /> Guy
             <hr />
             <button id="sendApartMessage" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
             <button id="iconApartCall" class="btn btn-default"><span class="glyphicon glyphicon-phone"></span> Voir le numéro</button>
             <a id="numApartCall" class="hidden" href="tel:@Model.User.PhoneNumber">@Model.User.PhoneNumber</a>
+        </div>
+        <div class="row" style="height:7px">
+            <div class="row alert alert-success js-alert-apart hidden" role="alert">
+                Message envoyé avec succès !
+                Bientôt le propriétaire vous contactera
+            </div>
         </div>
     </section>
 </section>

@@ -2,9 +2,16 @@
 
 @if (ViewBag.Message == null)
 {
+    String IdAjaxTarge = null;
+    if(Model.Category == "Job")
+    {
+        IdAjaxTarge = "ajaxjobtarget";
+    }else if(Model.Category == "Imo")
+    {
+        IdAjaxTarge = "ajaxjobtarget";
+    }
 
-
-    using (Html.BeginForm("ContactProductUser","Product" , new { user = Model.user, Linkshare = Model.Linkshare }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    using (Ajax.BeginForm("ContactProductUser","Product" , new { RecieverEmail = Model.RecieverEmail, RecieverName = Model.RecieverName, Linkshare = Model.Linkshare }, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = IdAjaxTarge }, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 
@@ -63,13 +70,13 @@
                 <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-send"></span> Envoyer</button>
             </div>
         </div>
-
+        <div>@ViewBag.Message</div>
     </div>
     }
 }
-    <div>
+    <div id="ajaxjobtarget">
 
-        <div>
+        <div class="alert alert-success" >
             @if (ViewBag.Message != null)
             {
                 <div>@ViewBag.Message</div>
@@ -78,3 +85,6 @@
             }
         </div>
     </div>
+
+<script type="text/javascript">
+</script>
