@@ -1,11 +1,11 @@
 ﻿@{
-    ViewBag.Title = "Contact";
+    ViewBag.Title = "Déposer une annoce sur lookaukwat";
 }
 <br />
     <section class="row">
         <div class="row">
             <div class=" col-md-offset-4 form-group">
-                <h2 class="text-success">Ajouter une annonce?</h2>
+                <h2 class="text-success">Ajouter une annonce sur LookAuKwat?</h2>
                 <label for="selectCategory">Choisir une catégorie</label>
                 <select class="form-control Addcategory" data-show-icon="true">
                     <option>Tout</option>
@@ -65,13 +65,13 @@
     <div class="col-md-12">
         <div class="row" style="height:7px">
             <div class="row alert alert-success js-alert hidden" role="alert">
-                Annonce ajouter avec success dans la liste !
+                Annonce ajouter avec succès dans la liste !
             </div>
-            <div class="row alert alert-success js-alert-Edit-Initiative hidden" role="alert">
-                Annonce Modifier avec success dans la liste !
+            <div class="row alert alert-success js-alert-Edit-product hidden" role="alert">
+                Annonce Modifier avec succès dans la liste !
             </div>
             <div class="row alert alert-danger js-alert-delete-Initiative hidden" role="alert">
-                Annonce supprimer avec success dans la liste !
+                Annonce supprimer avec succès dans la liste !
             </div>
         </div>
         <br />
@@ -92,7 +92,10 @@
                 $('#MyModalAddJob').modal();
             } else if (select == "Immobilier") {
                 $('#MyModalAddApartment').modal();
+
             }
         });
+
+
     });
 </script>

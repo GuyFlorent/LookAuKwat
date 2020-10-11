@@ -25,26 +25,26 @@
         <div class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="item active">
-                    <a href="#"><img src="@Url.Content("~/UserImage/TrouverUnJob.JPG")" alt="Bienvenue" class="img-rounded" /></a>
+                    <a href="#"><img src="@Url.Content("~/UserImage/TrouverUnJob.JPG")" alt="Bienvenue lookaukwat" class="img-rounded" /></a>
                    
                 </div>
 
                 <div class="item">
-                    <a href="#"><img src="@Url.Content("~/UserImage/appartement-a-louer-2.JPG")" alt="Description de incredmap" class="img-rounded" /></a>
+                    <a href="#"><img src="@Url.Content("~/UserImage/appartement-a-louer-2.JPG")" alt="appartement à louer lookaukwat" class="img-rounded" /></a>
                     <div class="carousel-caption">
                         <h4><strong>Je trouve mon logement</strong></h4>
                     </div>
                 </div>
                 <div class="item">
-                    <img src="@Url.Content("~/UserImage/terrain-construction6.png")" alt="Lancer un groupe" class="img-rounded"/>
+                    <img src="@Url.Content("~/UserImage/terrain-construction6.png")" alt="terrain à vendre lookaukwat" class="img-rounded"/>
                    
                 </div>
                 <div class="item">
-                    <img src="@Url.Content("~/UserImage/VehiculeOcassion.JPG")" alt="Vehicule occasion" class="img-rounded" />
+                    <img src="@Url.Content("~/UserImage/VehiculeOcassion.JPG")" alt="Vehicule occasion lookaukwat" class="img-rounded" />
                     
                 </div>
                 <div class="item">
-                    <img src="@Url.Content("~/UserImage/Vêtement.JPG")" alt="Vêtements" class="img-rounded"  />
+                    <img src="@Url.Content("~/UserImage/Vêtement.JPG")" alt="Vêtements lookaukwat" class="img-rounded"  />
                     
                 </div>
             </div>
@@ -63,12 +63,12 @@
     </div>
 </section>
 <br />
-<h3 class="text-info">Vous Recherchez des offres ou des demandes?</h3>
+<h3 class="text-info">Vous Recherchez des offres ou des demandes sur <strong>LookAuKwat</strong>?</h3>
 <br />
 <section>
     <ul class="nav nav-pills">
-        <li class="active"><a href="#search" data-toggle="tab">Offres</a></li>
-        @*<li><a href="#ask" data-toggle="tab">Demandes</a></li>*@
+        <li class="active"><a href="#search" data-toggle="tab">Les offres</a></li>
+        <li><a href="#ask" data-toggle="tab">Les Demandes</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active fade in" id="search">
@@ -97,19 +97,17 @@
 
             </div>
         </div>
-        @*<div class="tab-pane fade " id="ask">
+        <div class="tab-pane fade " id="ask">
             <div id="askJob">
-                <div class="form-group">
-                    <label for="selectCategory">Vous êtes dans les demandes, veuillez Choisir une catégorie</label>
-                    <select class="form-control Addcategory" data-show-icon="true" >
-                        <option>Toutes les catégories</option>
-                        <option data-content="<i class='glyphicon glyphicon-briefcase'></i>">Emploi</option>
-                        <option data-content="<i class='glyphicon glyphicon-home'></i>">Immobilier</option>
-                    </select>
+                
+                <div corners" style="border-radius: 25px;background: #ffd800;padding: 20px;">
+                    @{
+                        Html.RenderAction("SearchAskProduct_PartialView", "Product");
+                    }
+
                 </div>
-                future demande
             </div>
-        </div>*@
+        </div>
     </div>
 
 </section>
@@ -326,7 +324,7 @@
 
                     for (var i = 0; i < data.length; i++) {
                         console.log(data[i].Coordinate.Lat);
-                        var popup = '<div class="thumbnail"> <a class="img-rounded" href="' + data[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].Title + '">  <img id="ImageDetailIniById" src="' + data[i].Images[0] + '" alt="photo groupe local' + data[i].Title + '" height="40"></a> </div>' +
+                        var popup = '<div class="thumbnail"> <a class="img-rounded" href="' + data[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].Title + '">  <img id="ImageDetailIniById" src="' + data[i].Images[0] + '" alt="LookAuKwat ' + data[i].Title + '" height="40"></a> </div>' +
                             '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data[i].Title +
                             '<br/><b>Adresse : </b>' + data[i].Town +
                             '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/ApartmentRental/ApartDetail/' + data[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
@@ -387,7 +385,7 @@
                     for (var i = 0; i < data.length; i++) {
                         console.log(data[i].Coordinate.Lat);
 
-                        var popup = '<div class="thumbnail"> <a class="img-rounded" href="' + data[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].Title + '">  <img id="ImageDetailIniById" src="' + data[i].Images[0] + '" alt="photo groupe local' + data[i].Title + '" height="40"></a> </div>' +
+                        var popup = '<div class="thumbnail"> <a class="img-rounded" href="' + data[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].Title + '">  <img id="ImageDetailIniById" src="' + data[i].Images[0] + '" alt="LookAuKwat ' + data[i].Title + '" height="40"></a> </div>' +
                             '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data[i].Title +
                             '<br/><b>Adresse : </b>' + data[i].Town +
                             '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Job/JobDetail/' + data[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
@@ -436,7 +434,7 @@
                     } else if (data2[i].Category.CategoryName == "Immobilier") {
 
                         var popup2 =
-                            '<div class="thumbnail"> <a class="img-rounded" href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="photo de' + data2[i].Title + '" height="40"></a> </div>' +
+                            '<div class="thumbnail"> <a class="img-rounded" href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="LookAuKwat ' + data2[i].Title + '" height="40"></a> </div>' +
                             '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
                             '<br/><b>ville : </b>' + data2[i].Town +
                             '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/ApartmentRental/ApartDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'

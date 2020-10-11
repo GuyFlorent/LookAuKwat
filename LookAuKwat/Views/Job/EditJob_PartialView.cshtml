@@ -7,121 +7,121 @@
         {
             @Html.AntiForgeryToken()
 
-            <div class="form-horizontal">
-               
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.JobEditid)
+        <div class="form-horizontal">
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.ImageproductJob.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.JobEditid)
 
-                    @*<label class="control-label col-md-2" for="#imagesJobs"></label>*@
-                    <div class="col-md-10">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ImageproductJob.Image, htmlAttributes: new { @class = "control-label col-md-2" })
 
-                        <ul style="list-style-type: none;">
-                            @foreach (var item in Model.listeImageJob)
-                            {
-                                <li >
-                                    <div class="col-xs-5" >
-                                        <div class="thumbnail">
-                                            <img src="@item.Image" class="img-rounded" />
-                                            @*<a class="title" href="/Support/Download/?p=@(item.Id + item.Extension)&d=@item.FileName">@item.FileName</a>*@
-                                            <a href="javascript:void(0);" data-id="@item.id" class="deleteItem_@item.id">X</a>
-                                        </div>
+                @*<label class="control-label col-md-2" for="#imagesJobs"></label>*@
+                <div class="col-md-10">
+
+                    <ul style="list-style-type: none;">
+                        @foreach (var item in Model.listeImageJob)
+                        {
+                            <li>
+                                <div class="col-xs-5">
+                                    <div class="thumbnail">
+                                        <img src="@item.Image" class="img-rounded" />
+                                        @*<a class="title" href="/Support/Download/?p=@(item.Id + item.Extension)&d=@item.FileName">@item.FileName</a>*@
+                                        <a href="javascript:void(0);" data-id="@item.id" class="deleteItem_@item.id">X</a>
                                     </div>
-                                </li>
+                                </div>
+                            </li>
 
-                            }
-                        </ul>
+                        }
+                    </ul>
 
-                        <input type="file" name="ImageFile" multiple="multiple" @*onchange="readURL(this);"*@>
-
-                    </div>
-                    @*<div style="height:50px " class="col-md-4">
-                        <img id="InitiativeImageUpToDate" src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt="photo de initiative" height="50" />
-                    </div>*@
-                    </div>
-
-                @*<div class="form-group">
-                    @Html.LabelFor(model => model.CategoryJob, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.CategoryJob, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.CategoryJob, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
-                <div class="form-group">
-                    @Html.LabelFor(model => model.TitleJob, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.TitleJob, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.TitleJob, "", new { @class = "text-danger" })
-                    </div>
+                    <input type="file" name="ImageFile" accept="image/*" multiple="multiple" @*onchange="readURL(this);"*@>
+                    <p class="text-info">Vous pouvez sélectionner à la fois une ou plusieurs images.</p>
                 </div>
+                @*<div style="height:50px " class="col-md-4">
+                <img id="InitiativeImageUpToDate" src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt="photo de initiative" height="50" />
+            </div>*@
+            </div>
 
-                <div class="form-group">
-                    
-                    <label for="@Model.DescriptionJob" class="control-label col-md-2">Description</label>
-                    <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.DescriptionJob, new { htmlAttributes = new { @class = "form-control Description_" + Model.JobEditid } })
-                        @Html.ValidationMessageFor(model => model.DescriptionJob, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.TownJob, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.TownJob, SelectListMethod.GetListTownCameroon(), new { @class = "form-control Town_" + Model.JobEditid })
-                        @Html.ValidationMessageFor(model => model.TownJob, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.StreetJob, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.StreetJob, new { htmlAttributes = new { @class = "form-control Street_" + Model.JobEditid } })
-                        @Html.ValidationMessageFor(model => model.StreetJob, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="@Model.PriceJob" class="control-label col-md-2"> Salaire(<span class="text-danger">FCFA</span>)</label>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.PriceJob, new { htmlAttributes = new { @class = "form-control" } }) 
-                        @Html.ValidationMessageFor(model => model.PriceJob, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-
-
-                <div class="form-group">
-                    <label for="@Model.SearchOrAskJobJob" class="control-label col-md-2">J'offre/Je recherche</label>
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.SearchOrAskJobJob, SelectListMethod.ChooseSearchOrAsk(), new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.SearchOrAskJobJob, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.TypeContractJob, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.TypeContractJob, SelectListMethod.GetListWorkContract(), new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.TypeContractJob, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.ActivitySectorJob, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.ActivitySectorJob, SelectListMethod.GetListActivitySector(), new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.ActivitySectorJob, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input id="btnFormEditJob_@Model.JobEditid" type="submit" value="Enregistrer" class="btn btn-success" />
-                    </div>
+            @*<div class="form-group">
+            @Html.LabelFor(model => model.CategoryJob, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CategoryJob, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CategoryJob, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+            <div class="form-group">
+                @Html.LabelFor(model => model.TitleJob, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TitleJob, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TitleJob, "", new { @class = "text-danger" })
                 </div>
             </div>
+
+            <div class="form-group">
+
+                <label for="@Model.DescriptionJob" class="control-label col-md-2">Description</label>
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.DescriptionJob, new { htmlAttributes = new { @class = "form-control Description_" + Model.JobEditid } })
+                    @Html.ValidationMessageFor(model => model.DescriptionJob, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TownJob, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.TownJob, SelectListMethod.GetListTownCameroon(), new { @class = "form-control Town_" + Model.JobEditid })
+                    @Html.ValidationMessageFor(model => model.TownJob, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <p class=" col-md-offset-2 text-info">Veuillez choisir une adresse de la liste après votre saisie.</p>
+            <div class="form-group">
+                @Html.LabelFor(model => model.StreetJob, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.StreetJob, new { htmlAttributes = new { @class = "form-control Street_" + Model.JobEditid } })
+                    @Html.ValidationMessageFor(model => model.StreetJob, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="@Model.PriceJob" class="control-label col-md-2"> Salaire(<span class="text-danger">FCFA</span>)</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PriceJob, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PriceJob, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <label for="@Model.SearchOrAskJobJob" class="control-label col-md-2">J'offre/Je recherche</label>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.SearchOrAskJobJob, SelectListMethod.ChooseSearchOrAsk(), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SearchOrAskJobJob, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TypeContractJob, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.TypeContractJob, SelectListMethod.GetListWorkContract(), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.TypeContractJob, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ActivitySectorJob, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.ActivitySectorJob, SelectListMethod.GetListActivitySector(), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ActivitySectorJob, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input id="btnFormEditJob_@Model.JobEditid" type="submit" value="Enregistrer" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
         }
     </section>
 

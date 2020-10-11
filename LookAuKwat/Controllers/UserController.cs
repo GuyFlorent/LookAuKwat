@@ -38,7 +38,7 @@ namespace LookAuKwat.Controllers
             
             return PartialView();
         }
-
+        [Authorize]
         public ActionResult UserDetails()
         {
             string id = User.Identity.GetUserId();

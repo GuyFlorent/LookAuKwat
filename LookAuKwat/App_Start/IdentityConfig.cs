@@ -11,17 +11,49 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using LookAuKwat.Models;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+using System.Diagnostics;
 
 namespace LookAuKwat
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
             // Indiquez votre service de messagerie ici pour envoyer un e-mail.
-            return Task.FromResult(0);
+            await configSendGridasync(message);
+        }
+
+        private async Task configSendGridasync(IdentityMessage message)
+        {
+           
+            var apikey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");       
+            var client = new SendGridClient(apikey);
+            var from = new EmailAddress("wanguy9@gmail.com","(NoReply Here)");
+            var subject = message.Subject;
+            var to = new EmailAddress(message.Destination);
+            var plainTextContent = message.Body;
+
+            var htmlContent = message.Body;
+
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+
+            // Send the email.
+            if (client != null)
+            {
+
+                await client.SendEmailAsync(msg);
+
+            }
+            else
+            {
+                Trace.TraceError("Failed to create Web transport.");
+                await Task.FromResult(0);
+            }
         }
     }
+
 
     public class SmsService : IIdentityMessageService
     {
@@ -54,10 +86,10 @@ namespace LookAuKwat
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
+               // RequireNonLetterOrDigit = true,
+               // RequireDigit = true,
+               // RequireLowercase = true,
+                //RequireUppercase = true,
             };
 
             // Configurer les valeurs par défaut du verrouillage de l'utilisateur
@@ -82,7 +114,10 @@ namespace LookAuKwat
             if (dataProtectionProvider != null)
             {
                 manager.UserTokenProvider = 
-                    new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+                    new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"))
+                    {
+                        TokenLifespan = TimeSpan.FromHours(3)
+                    };
             }
             return manager;
         }

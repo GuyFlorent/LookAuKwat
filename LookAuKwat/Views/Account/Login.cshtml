@@ -1,7 +1,7 @@
 ﻿@using LookAuKwat.Models
 @model LoginViewModel
 @{
-    ViewBag.Title = "Se connecter";
+    ViewBag.Title = "Se connecter à LookAuKwat";
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -43,19 +43,19 @@
                 </div>
                 <p>Pas encore de compte?</p>
                 <p>
-                    @Html.ActionLink("Inscrire comme nouvel utilisateur en 2 minutes !", "Register")
+                    @Html.ActionLink("Inscrire comme nouvel utilisateur en 2 minutes !", "Register",null,new { @class = "btn btn-primary" })
                 </p>
-                @* Activez ceci une fois que vous avez activé la confirmation du compte pour la fonctionnalité de réinitialisation du mot de passe
-                    <p>
-                        @Html.ActionLink("Vous avez oublié votre mot de passe ?", "ForgotPassword")
-                    </p>*@
+                @* Activez ceci une fois que vous avez activé la confirmation du compte pour la fonctionnalité de réinitialisation du mot de passe*@
+                <p>
+                    @Html.ActionLink("Vous avez oublié votre mot de passe ?", "ForgotPassword")
+                </p>
             }
         </section>
     </div>
     <div class="col-md-4">
-        @*<section id="socialLoginForm">
+        <section id="socialLoginForm">
             @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>*@
+        </section>
     </div>
 </div>
 

@@ -33,8 +33,8 @@
                     }
                 </ul>
 
-                <input type="file" name="ImageFile" multiple="multiple" @*onchange="readURL(this);"*@>
-
+                <input type="file" name="ImageFile" accept="image/*" multiple="multiple" @*onchange="readURL(this);"*@>
+                <p class="text-info">Vous pouvez sélectionner à la fois une ou plusieurs images.</p>
             </div>
         </div>
 
@@ -70,7 +70,7 @@
                 @Html.ValidationMessageFor(model => model.TownAppart, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <p class=" col-md-offset-2 text-info">Veuillez choisir une adresse de la liste après votre saisie.</p>
         <div class="form-group">
             @Html.LabelFor(model => model.StreetAppart, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -123,12 +123,9 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-success" />
+                <input id="btnFormEditApart_@Model.Id" type="submit" value="Enregistrer" class="btn btn-success" />
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

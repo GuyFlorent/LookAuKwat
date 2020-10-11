@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using LookAuKwat.Models;
+using System.Configuration;
 
 namespace LookAuKwat
 {
@@ -58,11 +59,13 @@ namespace LookAuKwat
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                //ClientId = "",
+                //ClientSecret = ""
+                ClientId = ConfigurationManager.AppSettings["googleApiAccount"],
+                ClientSecret = ConfigurationManager.AppSettings["googleApiKey"]
+            });
         }
     }
 }

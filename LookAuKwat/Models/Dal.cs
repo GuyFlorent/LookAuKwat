@@ -150,7 +150,7 @@ namespace LookAuKwat.Models
             model.DateAdd = job.DateAdd;
             model.Category = cate;
             model.Images = job.Images;
-            
+            model.Description = job.Description;
             dbb.SaveChanges();
         }
 
@@ -226,6 +226,7 @@ namespace LookAuKwat.Models
             model.DateAdd = apart.DateAdd;
             model.Category = cate;
             model.Images = apart.Images;
+            model.Description = apart.Description;
 
             dbb.SaveChanges();
         }
@@ -257,6 +258,31 @@ namespace LookAuKwat.Models
             var product_To_Update = dbb.Products.FirstOrDefault(m => m.id == product.id);
             product_To_Update.ViewNumber = product.ViewNumber;
             dbb.SaveChanges();
+        }
+
+        public IEnumerable<ProductModel> GetListAskProduct()
+        {
+            List<ProductModel> liste = new List<ProductModel>();
+            IEnumerable<JobModel> listjobs = dbb.Jobs.Include(s => s.Images)
+                .Include(s => s.User)
+                .Include(s => s.Category)
+                .Include(s => s.Coordinate).ToList();
+            IEnumerable<ApartmentRentalModel> listapart = dbb.ApartmentRentals.Include(s => s.Images)
+                .Include(s => s.User)
+                .Include(s => s.Category)
+                .Include(s => s.Coordinate).ToList();
+
+            foreach (var job in listjobs)
+            {
+                if (job != null)
+                    liste.Add(job);
+            }
+            foreach (var apart in listapart)
+            {
+                if (apart != null)
+                    liste.Add(apart);
+            }
+            return liste.Where(m => m.SearchOrAskJob == "Je recherche");
         }
     }
 }

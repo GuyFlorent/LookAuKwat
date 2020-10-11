@@ -1,12 +1,12 @@
 ﻿@model LookAuKwat.ViewModel.ApartmentRentalViewModel
 @using LookAuKwat.ViewModel
 
-@using (Ajax.BeginForm("AddAppartment", "ApartmentRental", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ProductAdd" }, new { enctype = "multipart/form-data" }))
+@using (Ajax.BeginForm("AddAppartment", "ApartmentRental", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ProductAdd" }, new { name = "apartform", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group">
@@ -15,12 +15,12 @@
             @*<label class="control-label col-md-2" for="#imagesJobs"></label>*@
             <div class="col-md-6">
 
-                <input type="file" name="ImageFile" multiple="multiple" @*onchange="readURL(this);"*@>
-
+                <input type="file" name="ImageFile" accept="image/*" multiple="multiple" @*onchange="readURL(this);"*@>
+                <p class="text-info">Vous pouvez sélectionner à la fois une ou plusieurs images.</p>
             </div>
-            <div style="height:50px " class="col-md-4">
+            @*<div style="height:50px " class="col-md-4">
                 <img id="InitiativeImageUpToDate" src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt="photo de initiative" height="50" />
-            </div>
+            </div>*@
         </div>
 
         <div class="form-group">
@@ -54,12 +54,17 @@
             </div>
         </div>
 
+        <p class=" col-md-offset-2 text-info">Veuillez choisir une adresse de la liste après votre saisie.</p>
         <div class="form-group">
+
+
+
             @Html.LabelFor(model => model.StreetAppart, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.StreetAppart, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.StreetAppart, "", new { @class = "text-danger" })
             </div>
+
         </div>
 
         <div class="form-group">
@@ -86,8 +91,8 @@
                 @Html.ValidationMessageFor(model => model.ApartSurface, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
+        <p class=" col-md-offset-2 text-info">Veuillez mettre 0 sur le nombre de pièces si vous ajoutez un terrain.</p>
+        <div class="form-group" id="rommId">
             @Html.LabelFor(model => model.RoomNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.RoomNumber, new { htmlAttributes = new { @class = "form-control" } })
@@ -95,7 +100,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" id="FuriRNoId">
             @Html.LabelFor(model => model.FurnitureOrNot, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.FurnitureOrNot, SelectListMethod.FurnitureOrNot(), new { @class = "form-control" })
@@ -106,7 +111,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Ajouter" class="btn btn-success" />
+                <input id="btnAddaAppart" type="submit" value="Ajouter" class="btn btn-success" />
             </div>
         </div>
     </div>
@@ -115,6 +120,46 @@
 
 <script type="text/javascript">
     $(function () {
+
+        $("#Type").change(function () {
+
+            if ($('#Type').val() == 'Terrain vendre') {
+                
+                
+                $("#FuriRNoId").slideDown();
+                
+            }
+            else
+            {
+                
+                $("#FuriRNoId").slideUp();
+            }
+        });
+
+        $('#btnAddaAppart').click(function () {
+            var x = document.forms["apartform"]["Type"].value;
+            var y = document.forms["apartform"]["TitleAppart"].value;
+            var z = document.forms["apartform"]["DescriptionAppart"].value;
+            var u = document.forms["apartform"]["StreetAppart"].value;
+            var w = document.forms["apartform"]["PriceAppart"].value;
+            
+
+            if (x !== "" && y !== "" && z !== "" && u !== "" && w !== "") {
+               
+                $('#MyModalAddApartment').modal('hide');
+                    $(".js-alert").removeClass('hidden').delay(5000).queue(function () {
+                        $(this).addClass('hidden').dequeue();
+                    });
+                
+
+            }
+        
+        });
+
+
+
+
+
 
         $("#StreetAppart").autocomplete({
         source: function (request, response) {

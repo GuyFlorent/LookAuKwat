@@ -87,4 +87,20 @@
     </div>
 
 <script type="text/javascript">
+    $(document).ready(function () {
+        validate();
+        $('#NameSender, #SubjectSender, #EmailSender,#Message').change(validate);
+    });
+
+    function validate() {
+        if ($('#NameSender').val().length > 0 &&
+            $('#SubjectSender').val().length > 0 &&
+            $('#EmailSender').val().length > 0) {
+            
+            $("button[type=submit]").prop("disabled", false);
+        }
+        else {
+            $("button[type=submit]").prop("disabled", true);
+        }
+    }
 </script>

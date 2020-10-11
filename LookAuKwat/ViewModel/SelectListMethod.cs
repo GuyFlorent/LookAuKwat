@@ -95,7 +95,7 @@ namespace LookAuKwat.ViewModel
         {
             IList<SelectListItem> list = new List<SelectListItem>()
             {
-                 new SelectListItem() { Text = "Recherche", Value = "Recherche" },
+                 new SelectListItem() { Text = "Je recherche", Value = "Je recherche" },
                 new SelectListItem() { Text = "J'offre", Value = "J'offre" }
             };
             return list;
@@ -111,15 +111,28 @@ namespace LookAuKwat.ViewModel
             };
             return list;
         }
+
+        public static IEnumerable<SelectListItem> GetListCategory()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "Emploi", Value = "Emploi" },
+                new SelectListItem() { Text = "Immobilier", Value = "Immobilier" }
+                
+            };
+            return list;
+        }
         public static IEnumerable<SelectListItem> GetListActivitySector()
         {
             IList<SelectListItem> list = new List<SelectListItem>()
             {
                  new SelectListItem() { Text = "Agriculture", Value = "Agriculture" },
                 new SelectListItem() { Text = "Immobilier", Value = "Immobilier" },
+                 new SelectListItem() { Text = "Enseignement", Value = "Enseignement" },
                 new SelectListItem() { Text = "Hôtellerie/Restauration", Value = "Hôtellerie/Restauration" },
                 new SelectListItem() { Text = "Sport", Value = "Sport" },
-                 new SelectListItem() { Text = "Service à la personne", Value = "Service à la personne" }
+                 new SelectListItem() { Text = "Service à la personne", Value = "Service à la personne" },
+                 new SelectListItem() { Text = "Autres", Value = "Autres" }
             };
             return list;
         }
@@ -146,7 +159,9 @@ namespace LookAuKwat.ViewModel
                   new SelectListItem() { Text = "Maison à louer", Value = "Maison à louer" },
                    new SelectListItem() { Text = "Bureau à louer", Value = "Bureau à louer" },
                     new SelectListItem() { Text = "Maison à Vendre", Value ="Maison à Vendre" },
-                     new SelectListItem() { Text = "Terrain vendre", Value = "terrain à vendre" }
+                     new SelectListItem() { Text = "Terrain vendre", Value = "terrain à vendre" },
+                     new SelectListItem() { Text = "Autres", Value = "Autres" }
+
             };
             return list;
         }

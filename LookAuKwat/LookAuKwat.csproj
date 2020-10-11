@@ -201,6 +201,18 @@
     <Compile Include="Migrations\202010041323080_numberviewProperty.Designer.cs">
       <DependentUpon>202010041323080_numberviewProperty.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010091731172_AddFirstName.cs" />
+    <Compile Include="Migrations\202010091731172_AddFirstName.Designer.cs">
+      <DependentUpon>202010091731172_AddFirstName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010100809591_intNullable.cs" />
+    <Compile Include="Migrations\202010100809591_intNullable.Designer.cs">
+      <DependentUpon>202010100809591_intNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010100816369_RemoveintNullable.cs" />
+    <Compile Include="Migrations\202010100816369_RemoveintNullable.Designer.cs">
+      <DependentUpon>202010100816369_RemoveintNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApartmentRentalModel.cs" />
@@ -219,6 +231,7 @@
     <Compile Include="SignalR\Hubs\ChatHub.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\ApartmentRentalViewModel.cs" />
+    <Compile Include="ViewModel\AskJobViewModel.cs" />
     <Compile Include="ViewModel\contactUserViewModel.cs" />
     <Compile Include="ViewModel\DataJsonProductViewModel.cs" />
     <Compile Include="ViewModel\ImageModelView.cs" />
@@ -355,6 +368,8 @@
     <Content Include="Views\Product\SimilarProduct_PartialView.cshtml" />
     <Content Include="Views\User\UserDetails.cshtml" />
     <Content Include="Views\User\UpdateUserInformations.cshtml" />
+    <Content Include="Views\Shared\Info.cshtml" />
+    <Content Include="Views\Product\SearchAskProduct_PartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -378,6 +393,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010041323080_numberviewProperty.resx">
       <DependentUpon>202010041323080_numberviewProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010091731172_AddFirstName.resx">
+      <DependentUpon>202010091731172_AddFirstName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010100809591_intNullable.resx">
+      <DependentUpon>202010100809591_intNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010100816369_RemoveintNullable.resx">
+      <DependentUpon>202010100816369_RemoveintNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -69,9 +69,14 @@ else
                         {
                             <h3 class="panel-title">@Model.ListePro.Count Annonces disponibles dans la catégorie Immobilier :</h3>
                         }
+                        else if (Model.CagtegorieSearch == "AskSearch")
+                        {
+                            <h3 class="panel-title">@Model.ListePro.Count Annonces disponibles dans la rubrique des demandes :</h3>
+                        }
                     }
                 </div>
                 <div class="list-group">
+
                     @foreach (var liste in Model.ListeProPagedList)
                     {
                         if (liste.Category.CategoryName == "Emploi")
@@ -81,7 +86,7 @@ else
                                 <p class="list-group-item-text pull-right">@liste.DateAdd</p>
                                 <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
                                 <p class="list-group-item-text text-left">@liste.Category.CategoryName</p>
-                                <img src="@liste.Images.Select(m=>m.Image).First()" alt="image du groupe @liste.Title" style="height:150px" class="img-rounded" />
+                                <img src="@liste.Images.Select(m=>m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded" />
                             </a>
                         }
                         else if (liste.Category.CategoryName == "Immobilier")
@@ -91,7 +96,7 @@ else
                                 <p class="list-group-item-text pull-right">@liste.DateAdd</p>
                                 <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
                                 <p class="list-group-item-text text-left">@liste.Category.CategoryName</p>
-                                <img src="@liste.Images.Select(m=>m.Image).First()" alt="image du groupe @liste.Title" style="height:150px" class="img-rounded" />
+                                <img src="@liste.Images.Select(m=>m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded" />
                             </a>
                         }
 

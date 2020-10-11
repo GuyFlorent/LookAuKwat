@@ -69,6 +69,7 @@ namespace LookAuKwat.Models
         public string FirstName { get; set; }
         [Required]
         [Display(Name = "Numéro de téléphone")]
+        //[RegularExpression(@"^(?:\d{10}|00\d{11}|\+\d{2}\d{9})$", ErrorMessage = "Numéro incorect ! ex:06...,01..., +33... , + 49..., 0033...")]
         public string Phone { get; set; }
         [Required]
         [EmailAddress]

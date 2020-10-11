@@ -13,6 +13,7 @@ namespace LookAuKwat.Models
         void UpdateUserInformations(ApplicationUser user);
         //Product
         IEnumerable<ProductModel> GetListProduct();
+        IEnumerable<ProductModel> GetListAskProduct();
         IEnumerable<JobModel> GetListJob();
         void UpdateNumberView(ProductModel product);
         void DeleteProduct(ProductModel product);

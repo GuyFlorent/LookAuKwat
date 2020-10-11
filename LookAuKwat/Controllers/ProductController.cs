@@ -78,6 +78,96 @@ namespace LookAuKwat.Controllers
 
             return PartialView(liste.ToPagedList(pageNumber ?? 1, 5));
         }
+
+        public ActionResult SearchAskProduct_PartialView(AskJobViewModel model)
+        {
+            return PartialView(model);
+        }
+            public ActionResult ResultSearchAskProduct_PartialView(AskJobViewModel model, int? pageNumber, string sortBy)
+        {
+            string searchOrAsk = "Je recherche";
+            //ViewBag.PriceAscSort = String.IsNullOrEmpty(sortBy) ? "Price desc" : "";
+            //ViewBag.PriceDescSort = sortBy == "Prix croissant" ? "Price asc" : "";
+            //ViewBag.DateAscSort = sortBy == "Plus anciennes" ? "date asc" : "";
+            //ViewBag.DateDescSort = sortBy == "Plus recentes" ? "date desc" : "";
+            model.sortBy = sortBy;
+            List < ProductModel> liste = dal.GetListProduct().ToList();
+            if (model.TitleSearchAsk == null && model.CagtegorieSearchAsk == null
+                && model.TownSearchAsk == null)
+            {
+                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk).ToList();
+                TempData["listeSearchAsk"] = liste;
+            }
+            else if (model.TitleSearchAsk != null && model.CagtegorieSearchAsk != null
+                && model.TownSearchAsk != null)
+            {
+
+
+                 liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk
+                  && m.Category.CategoryName == model.CagtegorieSearchAsk && m.Town == model.TownSearchAsk && m.Title.ToLower().Contains(model.TitleSearchAsk.ToLower())
+                  || m.Description.ToLower().Contains(model.TitleSearchAsk.ToLower())).ToList();
+                TempData["listeSearchAsk"] = liste;
+            }
+            else if(model.TitleSearchAsk == null && model.CagtegorieSearchAsk != null
+                && model.TownSearchAsk != null)
+            {
+                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk
+               && m.Category.CategoryName == model.CagtegorieSearchAsk && m.Town == model.TownSearchAsk).ToList();
+                TempData["listeSearchAsk"] = liste;
+            }
+            else if (model.TitleSearchAsk == null && model.CagtegorieSearchAsk == null
+               && model.TownSearchAsk != null)
+            {
+                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk &&  m.Town == model.TownSearchAsk).ToList();
+                TempData["listeSearchAsk"] = liste;
+            }
+            else if (model.TitleSearchAsk == null && model.CagtegorieSearchAsk != null
+              && model.TownSearchAsk == null)
+            {
+                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk && m.Category.CategoryName == model.CagtegorieSearchAsk).ToList();
+                TempData["listeSearchAsk"] = liste;
+            }
+            else if (model.TitleSearchAsk != null && model.CagtegorieSearchAsk == null
+             && model.TownSearchAsk != null)
+            {
+                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk && m.Title.ToLower().Contains(model.TitleSearchAsk.ToLower()) && m.Town == model.TownSearchAsk).ToList();
+                TempData["listeSearchAsk"] = liste;
+            }
+            else if (model.TitleSearchAsk != null && model.CagtegorieSearchAsk != null
+           && model.TownSearchAsk == null)
+            {
+                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk && m.Title.ToLower().Contains(model.TitleSearchAsk.ToLower()) && m.Category.CategoryName == model.CagtegorieSearchAsk).ToList();
+                TempData["listeSearchAsk"] = liste;
+            }
+            else if (model.TitleSearchAsk != null && model.CagtegorieSearchAsk == null
+          && model.TownSearchAsk == null)
+            {
+                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk && m.Title.ToLower().Contains(model.TitleSearchAsk.ToLower())).ToList();
+                TempData["listeSearchAsk"] = liste;
+            }
+            //switch (sortBy)
+            //{
+            //    case "Price desc":
+            //        liste = liste.OrderByDescending(m => m.Price).ToList();
+            //        break;
+            //    case "Price asc":
+            //        liste = liste.OrderBy(m => m.Price).ToList();
+            //        break;
+            //    case "date desc":
+            //        liste = liste.OrderByDescending(m => m.id).ToList();
+            //        break;
+            //    case "date asc":
+            //        liste = liste.OrderBy(m => m.id).ToList();
+            //        break;
+            //    default:
+            //        liste = liste.OrderByDescending(x => x.id).ToList();
+            //        break;
+            //}
+
+            return RedirectToAction("ResultSearch_PartialView", model );
+        }
+
+
         public JsonResult listAllProductReturnJson()
         {
             var data2 = dal.GetListProduct().Select(s => new DataJsonProductViewModel
@@ -185,77 +275,130 @@ namespace LookAuKwat.Controllers
         }
 
         //result of every search product
-        public ActionResult ResultSearch_PartialView(SeachJobViewModel modelresult, int? pageNumber, string sortBy)
+        public ActionResult ResultSearch_PartialView(SeachJobViewModel modelresult, int? pageNumber, string sortBy, AskJobViewModel model)
         {
-           
 
-            switch (modelresult.CagtegorieSearch)
+            if (modelresult.CagtegorieSearch != null)
             {
-                case "Emploi":
-                    try
-                    {
 
-                        var result = TempData["listeJob"] as List<JobModel>;
-                        foreach (var element in result)
+
+                switch (modelresult.CagtegorieSearch)
+                {
+                    case "Emploi":
+                        try
                         {
-                            modelresult.ListePro.Add(element);
+
+                            var result = TempData["listeJob"] as List<JobModel>;
+                            foreach (var element in result)
+                            {
+                                modelresult.ListePro.Add(element);
+                            }
                         }
-                    }catch(Exception e)
-                    {
-                        Console.WriteLine(e.ToString());
-                    }
-                    break;
-                case "Immobilier":
-                    try
-                    {
-                        var resultImmobilier = TempData["listeApart"] as List<ApartmentRentalModel>;
-                        foreach (var element in resultImmobilier)
+                        catch (Exception e)
                         {
-                            modelresult.ListePro.Add(element);
+                            Console.WriteLine(e.ToString());
                         }
-                    }catch(Exception e) 
-                    {
-                        Console.WriteLine(e.ToString());
-                    }
-                    break;
+                        break;
+                    case "Immobilier":
+                        try
+                        {
+                            var resultImmobilier = TempData["listeApart"] as List<ApartmentRentalModel>;
+                            foreach (var element in resultImmobilier)
+                            {
+                                modelresult.ListePro.Add(element);
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.ToString());
+                        }
+                        break;
+                }
+
+
+                if (modelresult.ListePro == null)
+                {
+                    modelresult.ListePro = new List<ProductModel>();
+                }
+
+                switch (sortBy)
+                {
+                    case "Price desc":
+                        modelresult.ListePro = modelresult.ListePro.OrderByDescending(m => m.Price).ToList();
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
+                        break;
+                    case "Price asc":
+                        modelresult.ListePro = modelresult.ListePro.OrderBy(m => m.Price).ToList();
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
+                        break;
+                    case "date desc":
+                        modelresult.ListePro = modelresult.ListePro.OrderByDescending(m => m.id).ToList();
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
+                        break;
+                    case "date asc":
+                        modelresult.ListePro = modelresult.ListePro.OrderBy(m => m.id).ToList();
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
+                        break;
+                    default:
+                        modelresult.ListePro = modelresult.ListePro.OrderByDescending(x => x.id).ToList();
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
+                        break;
+                }
+                return PartialView(modelresult);
             }
-
-
-            if (modelresult.ListePro == null)
+            else 
             {
+
+               modelresult = new SeachJobViewModel();
                 modelresult.ListePro = new List<ProductModel>();
-            }
+                modelresult.CagtegorieSearch = "AskSearch";
+                try
+                {
 
-            switch (sortBy)
-            {
-                case "Price desc":
-                    modelresult.ListePro = modelresult.ListePro.OrderByDescending(m => m.Price).ToList();
-                    modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
-                    break;
-                case "Price asc":
-                    modelresult.ListePro = modelresult.ListePro.OrderBy(m => m.Price).ToList();
-                    modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
-                    break;
-                case "date desc":
-                    modelresult.ListePro = modelresult.ListePro.OrderByDescending(m => m.id).ToList();
-                    modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
-                    break;
-                case "date asc":
-                    modelresult.ListePro = modelresult.ListePro.OrderBy(m => m.id).ToList();
-                    modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
-                    break;
-                default:
-                    modelresult.ListePro = modelresult.ListePro.OrderByDescending(x => x.id).ToList();
-                    modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
-                    break;
-            }
+                    var result = TempData["listeSearchAsk"] as List<ProductModel>;
+                    foreach (var element in result)
+                    {
+                        modelresult.ListePro.Add(element);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
 
+                switch (sortBy)
+                {
+                    case "Price desc":
+                        modelresult.ListePro = modelresult.ListePro.OrderByDescending(m => m.Price).ToList();
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
+                        break;
+                    case "Price asc":
+                        modelresult.ListePro = modelresult.ListePro.OrderBy(m => m.Price).ToList();
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
+                        break;
+                    case "date desc":
+                        modelresult.ListePro = modelresult.ListePro.OrderByDescending(m => m.id).ToList();
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
+                        break;
+                    case "date asc":
+                        modelresult.ListePro = modelresult.ListePro.OrderBy(m => m.id).ToList();
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
+                        break;
+                    default:
+                        modelresult.ListePro = modelresult.ListePro.OrderByDescending(x => x.id).ToList();
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
+                        break;
+                }
+
+                return PartialView(modelresult);
+            }
+            
             // modelresult.ListePro = TempData["listeJob"] as List<ProductModel>;
             // modelresult.ListePro = dal.GetListProduct().Where(r => r.Title.IndexOf(modelresult.TitleJobSearch, StringComparison.CurrentCultureIgnoreCase) >= 0).ToList();
 
           
 
-            return PartialView(modelresult);
+            
         }
 
         public JsonResult ResultSearchJson(SeachJobViewModel modelresult)
@@ -319,38 +462,47 @@ namespace LookAuKwat.Controllers
         {
             if (ModelState.IsValid)
             {
-                await configSendGridasync(vm);
-                //try
-                //{
-                //    MailMessage msz = new MailMessage();
-                //    msz.From = new MailAddress(vm.EmailSender);//Email which you are getting 
-                //                                         //from contact us page 
-                //    msz.To.Add(vm.user);//Where mail will be sent 
-                //    msz.Subject = vm.SubjectSender;
-                //    msz.Body = vm.Message;
-                //    SmtpClient smtp = new SmtpClient();
-                //smtp.UseDefaultCredentials = false;
-                //    smtp.Host = "smtp.gmail.com";
+                try
+                {
 
-                //    smtp.Port = 587;
 
-                //    smtp.Credentials = new NetworkCredential("wangueujunior23@gmail.com", "florent23");
+                    await configSendGridasync(vm);
+                    //try
+                    //{
+                    //    MailMessage msz = new MailMessage();
+                    //    msz.From = new MailAddress(vm.EmailSender);//Email which you are getting 
+                    //                                         //from contact us page 
+                    //    msz.To.Add(vm.user);//Where mail will be sent 
+                    //    msz.Subject = vm.SubjectSender;
+                    //    msz.Body = vm.Message;
+                    //    SmtpClient smtp = new SmtpClient();
+                    //smtp.UseDefaultCredentials = false;
+                    //    smtp.Host = "smtp.gmail.com";
 
-                //smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                //    smtp.EnableSsl = true;
+                    //    smtp.Port = 587;
 
-                //    smtp.Send(msz);
+                    //    smtp.Credentials = new NetworkCredential("wangueujunior23@gmail.com", "florent23");
 
-                //    ModelState.Clear();
-                //    ViewBag.Message = "Méssage envoyé avec succès ";
-                //}
-                //catch (Exception ex)
-                //{
+                    //smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    //    smtp.EnableSsl = true;
 
-                //    ModelState.Clear();
-                //    ViewBag.Message = $" Sorry we are facing Problem here {ex.Message}";
-                //}
-                ViewBag.Message = "Message envoyé avec succès ";
+                    //    smtp.Send(msz);
+
+                    //    ModelState.Clear();
+                    //    ViewBag.Message = "Méssage envoyé avec succès ";
+                    //}
+                    //catch (Exception ex)
+                    //{
+
+                    //    ModelState.Clear();
+                    //    ViewBag.Message = $" Sorry we are facing Problem here {ex.Message}";
+                    //}
+                    ViewBag.Message = "Message envoyé avec succès ";
+                }catch(Exception ex)
+                {
+                    ModelState.Clear();
+                    ViewBag.Message = $" désolé il y'a un problème {ex.Message}";
+                }
             }
 
             return PartialView("ContactProductUser_PartialView",vm);
@@ -359,21 +511,23 @@ namespace LookAuKwat.Controllers
       
         private async Task configSendGridasync(contactUserViewModel message)
         {
+           
 
-            var apiKey = "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";
-            var client = new SendGridClient(apiKey);
+            var apikey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
+            //var apiKey = ConfigurationManager.AppSettings["mailPasswordSendGrid"];
+            var client = new SendGridClient(apikey);
             var from = new EmailAddress("wanguy9@gmail.com", message.NameSender +"(NoReply Here)");
             var subject = message.SubjectSender;
             var to = new EmailAddress(message.RecieverEmail, message.RecieverName);
             var plainTextContent = "<a href='lookaukwat.azurewebsites.net'><img src=" + @Url.Content("~/UserImage/lookaukwat_logo.jpg") + " alt='lien vers le site' style='height: 50px;' /><br/><br/> <strong style='height: 20px;'>LookAuKwat</strong></a> " +
                 "Hello <br/><br/> vous avez un nouveau message sur votre annonce dans <strong style='color:blue;Height:20px;'> LookAuKwat! </strong> <br/> " +
                " <a href =\"" + message.Linkshare + "\">" + message.Linkshare + "</a> <br/>" + message.Message+ " <br/>" + "<br/>"
-               + "Vous pouvez lui répondre aussi sur son email suivant : "+" <a href =\"" + message.EmailSender + "\">" + message.EmailSender + "</a>";
+               + "Vous pouvez lui répondre aussi sur son email suivant : "+" <a href =\"mailto:" + message.EmailSender + "\">" + message.EmailSender + "</a>";
 
             var htmlContent = "<a href='lookaukwat.azurewebsites.net'><img src=" + @Url.Content("~/UserImage/lookaukwat_logo.jpg") + " alt='lien vers le site' style='height: 50px;' /><br/><br/> <strong style='height: 20px;'>LookAuKwat</strong></a> "
                + "Hello <br/><br/> vous avez un nouveau message sur votre annonce dans <strong style='color:blue;Height:20px;'> LookAuKwat! </strong> <br/> " +
                " <a href =\"" + message.Linkshare + "\">" + message.Linkshare + "</a> <br/>" + message.Message + " <br/>" + "<br/>"
-               + "Vous pouvez lui répondre aussi sur son email suivant : " + " <a href =\"" + message.EmailSender + "\">" + message.EmailSender + "</a>";
+               + "Vous pouvez lui répondre aussi sur son email suivant : " + " <a href =\"mailto:" + message.EmailSender + "\">" + message.EmailSender + "</a>";
 
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             

@@ -347,19 +347,19 @@
 
                         var descrip = $('.Description_' + data).val();
 
-                        if (y !== "" && u !== "") {
-                            if (descrip.length >= 3 && descrip.length <= 1000) {
+                        if (y !== "" && u !== "" && descrip !=="") {
+                            //if (descrip.length >= 3 && descrip.length <= 1000) {
+                            //    $(modaEditmodaProduct).modal('hide');
+                            //    $(".js-alert-Edit-Initiative").removeClass('hidden').delay(5000).queue(function () {
+                            //        $(this).addClass('hidden').dequeue();
+                            //    })
+                            //}
+                            //if (descrip == "") {
                                 $(modaEditmodaProduct).modal('hide');
-                                $(".js-alert-Edit-Initiative").removeClass('hidden').delay(5000).queue(function () {
+                            $(".js-alert-Edit-product").removeClass('hidden').delay(5000).queue(function () {
                                     $(this).addClass('hidden').dequeue();
                                 })
-                            }
-                            if (descrip == "") {
-                                $(modaEditmodaProduct).modal('hide');
-                                $(".js-alert-Edit-Initiative").removeClass('hidden').delay(5000).queue(function () {
-                                    $(this).addClass('hidden').dequeue();
-                                })
-                            }
+                            //}
                         }
 
                     });
