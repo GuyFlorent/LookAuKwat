@@ -11,22 +11,22 @@ namespace LookAuKwat.ViewModel
     public class ApartmentRentalViewModel
     {
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Le titre de l'annonce ne doit pas être vide")]
         [DisplayName("Titre de l'annonce*")]
         public string TitleAppart { get; set; }
-        [Required]
+        [Required(ErrorMessage = "La description de l'annonce ne doit pas être vide")]
         [DisplayName("Description*")]
         public string DescriptionAppart { get; set; }
         
         [DisplayName("Ville")]
         public string TownAppart { get; set; }
-        [Required]
+        [Required(ErrorMessage = "L'adresse ne doit pas être vide")]
         [DisplayName("Adresse*")]
         public string StreetAppart { get; set; }
         [Required]
-        [DisplayName("Prix")]
+        [DisplayName("Prix(FCFA)")]
         public int PriceAppart { get; set; }
-        public string DateAddAppart { get; set; }
+        public DateTime DateAddAppart { get; set; }
         [DisplayName("J'offre/Je recherche")]
         public string SearchOrAskJobAppart { get; set; }
         [DisplayName("Type de bien")]

@@ -39,9 +39,16 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.SearchOrAskJobAppart, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SearchOrAskJobAppart, SelectListMethod.ChooseSearchOrAsk(), new { @class = "form-control SearchOrAskJobAppartEditJob", id = "SearchOrAskJobAppart_" + Model.Id })
+                @Html.ValidationMessageFor(model => model.SearchOrAskJobAppart, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group TypeJobEdit">
             @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Type, SelectListMethod.TypeImmobilier(), new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.Type, SelectListMethod.TypeImmobilier(), new { @class = "form-control", id = "Type_" + Model.Id })
                 @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -49,7 +56,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TitleAppart, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TitleAppart, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.TitleAppart, new { htmlAttributes = new { @class = "form-control", id = "TitleAppart_" + Model.Id } })
                 @Html.ValidationMessageFor(model => model.TitleAppart, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -57,7 +64,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DescriptionAppart, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.DescriptionAppart, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.DescriptionAppart, new { id = "DescriptionAppart_" + Model.Id , htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.DescriptionAppart, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -65,7 +72,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TownAppart, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.TownAppart, SelectListMethod.GetListTownCameroon(), new { @class = "form-control Town_" + Model.Id })
+                @Html.DropDownListFor(model => model.TownAppart, SelectListMethod.GetListTownCameroon(), new { @class = "form-control Town_" + Model.Id, id = "TownAppart_" + Model.Id })
 
                 @Html.ValidationMessageFor(model => model.TownAppart, "", new { @class = "text-danger" })
             </div>
@@ -74,32 +81,26 @@
         <div class="form-group">
             @Html.LabelFor(model => model.StreetAppart, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.StreetAppart, new { htmlAttributes = new { @class = "form-control Street_" + Model.Id } })
+                @Html.EditorFor(model => model.StreetAppart, new { htmlAttributes = new { @class = "form-control Street_" + Model.Id, id = "StreetAppart_"+ Model.Id } })
                 @Html.ValidationMessageFor(model => model.StreetAppart, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group priceApartdivEdit">
             @Html.LabelFor(model => model.PriceAppart, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PriceAppart, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.PriceAppart, new { htmlAttributes = new { @class = "form-control", id = "PriceAppart_" + Model.Id } })
                 @Html.ValidationMessageFor(model => model.PriceAppart, "", new { @class = "text-danger" })
             </div>
         </div>
 
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SearchOrAskJobAppart, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.SearchOrAskJobAppart, SelectListMethod.ChooseSearchOrAsk(), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SearchOrAskJobAppart, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
+
+        <div class="form-group apartSurfaceEdit">
             @Html.LabelFor(model => model.ApartSurface, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ApartSurface, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ApartSurface, new { htmlAttributes = new { @class = "form-control", id = "ApartSurface_" + Model.Id } })
                 @Html.ValidationMessageFor(model => model.ApartSurface, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -107,15 +108,15 @@
         <div class="form-group">
             @Html.LabelFor(model => model.RoomNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RoomNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.RoomNumber, new { htmlAttributes = new { @class = "form-control", id = "RoomNumber_" + Model.Id } })
                 @Html.ValidationMessageFor(model => model.RoomNumber, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group FuriRNoIdEdit">
             @Html.LabelFor(model => model.FurnitureOrNot, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.FurnitureOrNot, SelectListMethod.FurnitureOrNot(), new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.FurnitureOrNot, SelectListMethod.FurnitureOrNot(), new { @class = "form-control", id = "FurnitureOrNot_" + Model.Id })
                 @Html.ValidationMessageFor(model => model.FurnitureOrNot, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -129,3 +130,39 @@
     </div>
 }
 
+<script type="text/javascript">
+    $(function(){
+
+        $(".TypeJobEdit").change(function () {
+
+            if ($('.TypeJobEdit').val() == 'Terrain à vendre') {
+
+
+                $(".FuriRNoIdEdit").slideDown();
+
+            }
+            else {
+                $(".FuriRNoIdEdit").slideUp();
+
+            }
+        });
+
+        $(".SearchOrAskJobAppartEditJob").change(function () {
+
+            if ($('.SearchOrAskJobAppartEditJob').val() == 'J\'offre') {
+
+
+                $(".FuriRNoIdEdit").slideDown();
+                $(".apartSurfaceEdit").slideDown();
+                $(".priceApartdivEdit").slideDown();
+
+            }
+            else {
+
+                $(".FuriRNoIdEdit").slideUp();
+                $(".apartSurfaceEdit").slideUp();
+                $(".priceApartdivEdit").slideUp();
+            }
+        });
+    })
+</script>

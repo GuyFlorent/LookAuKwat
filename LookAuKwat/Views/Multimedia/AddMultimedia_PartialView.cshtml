@@ -1,0 +1,233 @@
+﻿@model LookAuKwat.ViewModel.MultimediaViewModel
+@using LookAuKwat.ViewModel
+
+@using (Ajax.BeginForm("AddMultimedia", "Multimedia", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ProductAdd" }, new { name = "multimediaform", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group" id="SearchOrAskJobMultimediaDiv">
+            @Html.LabelFor(model => model.SearchOrAskJob, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SearchOrAskJob, SelectListMethod.ChooseSearchOrAsk(), "Choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SearchOrAskJob, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group hidden" id="TypeMultiDiv">
+            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Type, SelectListMethod.TypeMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="BrandConsoleGameDiv">
+            @Html.LabelFor(model => model.BrandConsoleGame, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.BrandConsoleGame, SelectListMethod.BrandConsoleGamequeMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BrandConsoleGame, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="BrandInformatiquePhotocopiDiv">
+            @Html.LabelFor(model => model.BrandInformatiquePhotocopi, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.BrandInformatiquePhotocopi, SelectListMethod.BrandInformatiquePhotocopyMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BrandInformatiquePhotocopi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group hidden" id="BrandPhoneAccesoriesDiv">
+            @Html.LabelFor(model => model.BrandPhoneAccesories, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.BrandPhoneAccesories, SelectListMethod.BrandPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BrandPhoneAccesories, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="BrandSonDiv">
+            @Html.LabelFor(model => model.BrandSon, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.BrandSon, SelectListMethod.BrandSonMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BrandSon, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="BrandTvDiv">
+            @Html.LabelFor(model => model.BrandTv, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.BrandTv, SelectListMethod.BrandTVGameMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BrandTv, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelAlcatelPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelAlcatelPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelAlcatelPhoneAccesorie, SelectListMethod.ModelAlcatelPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelAlcatelPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelApplePhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelApplePhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelApplePhoneAccesorie, SelectListMethod.ModelApplePhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelApplePhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelApplePhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelAzusPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelAzusPhoneAccesorie, SelectListMethod.ModelAzusPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelAzusPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelConsoleGameDiv">
+            @Html.LabelFor(model => model.ModelConsoleGame, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelConsoleGame, SelectListMethod.ModelConsoleGameMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelConsoleGame, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelHonorPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelHonorPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelHonorPhoneAccesorie, SelectListMethod.ModelHonorPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelHonorPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelHTCPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelHTCPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelHTCPhoneAccesorie, SelectListMethod.ModelHTCPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelHTCPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelHuaweiPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelHuaweiPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelHuaweiPhoneAccesorie, SelectListMethod.ModelHuaweiPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelHuaweiPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelInformatiquePhotocopyDiv">
+            @Html.LabelFor(model => model.ModelInformatiquePhotocopy, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelInformatiquePhotocopy, SelectListMethod.ModelInformatiquePhotocopyMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelInformatiquePhotocopy, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelLenovoPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelLenovoPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelLenovoPhoneAccesorie, SelectListMethod.ModelLenovoPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelLenovoPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelLGPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelLGPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelLGPhoneAccesorie, SelectListMethod.ModelLGPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelLGPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelMicrosoftPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelMicrosoftPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelMicrosoftPhoneAccesorie, SelectListMethod.ModelMicrosoftPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelMicrosoftPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelLenovoPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelMotorolaPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelMotorolaPhoneAccesorie, SelectListMethod.ModelMotorolaPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelMotorolaPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelOnePlusPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelOnePlusPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelOnePlusPhoneAccesorie, SelectListMethod.ModelOnePlusPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelOnePlusPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelOtherMultimediaDiv">
+            @Html.LabelFor(model => model.ModelOtherMultimedia, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelOtherMultimedia, SelectListMethod.ModelOtherMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelOtherMultimedia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelSamsungPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelSamsungPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelSamsungPhoneAccesorie, SelectListMethod.ModelSamsungPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelSamsungPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelSonDiv">
+            @Html.LabelFor(model => model.ModelSon, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelSon, SelectListMethod.ModelSonGamequeMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelSon, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelSonyPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelSonyPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelSonyPhoneAccesorie, SelectListMethod.ModelSonGamequeMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelSonyPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelSamsungPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelTV, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelTV, SelectListMethod.ModelTVGameMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelTV, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelWikoPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelWikoPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelWikoPhoneAccesorie, SelectListMethod.ModelWikoPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelWikoPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelWikoPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelXaomiPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelXaomiPhoneAccesorie, SelectListMethod.ModelXaomiPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelXaomiPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelZTEPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelZTEPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelZTEPhoneAccesorie, SelectListMethod.ModelZTEPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelZTEPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group hidden" id="ImageApartDiv">
+            @Html.LabelFor(model => model.Imageproduct.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            @*<label class="control-label col-md-2" for="#imagesJobs"></label>*@
+            <div class="col-md-6">
+
+                <input type="file" name="ImageFile" accept="image/*" multiple="multiple" @*onchange="readURL(this);"*@>
+                <p class="text-info">Vous pouvez sélectionner à la fois une ou plusieurs images.</p>
+            </div>
+            @*<div style="height:50px " class="col-md-4">
+                <img id="InitiativeImageUpToDate" src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt="photo de initiative" height="50" />
+            </div>*@
+        </div>
+
+        <div class="form-group hidden" id="btnAppaertDiv">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="btnAddaAppart" type="submit" value="Ajouter" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+

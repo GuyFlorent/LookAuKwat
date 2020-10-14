@@ -12,18 +12,19 @@ namespace LookAuKwat.ViewModel
     public class JobViewModel
     {
         public int id { get; set; }
-        [Required]
+        [Required(ErrorMessage ="Le titre de l'annonce ne doit pas être vide")]
+       
         [DisplayName("Titre de l'annonce*")]
         public string Title { get; set; }
-
+        [Required(ErrorMessage = "La description ne doit pas être vide")]
         public string Description { get; set; }
         [DisplayName("Ville")]
         public string Town { get; set; }
-        [Required]
+        [Required(ErrorMessage = "L'adresse ne doit pas être vide")]
         [DisplayName("Adresse*")]
         public string Street { get; set; }
         
-        [DisplayName("Salaire")]
+        [DisplayName("Salaire (FCFA)")]
         public int Price { get; set; }
         public string DateAdd { get; set; }
         [DisplayName("J'offre/Je recherche")]

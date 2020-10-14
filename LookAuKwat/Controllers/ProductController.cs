@@ -130,19 +130,22 @@ namespace LookAuKwat.Controllers
             else if (model.TitleSearchAsk != null && model.CagtegorieSearchAsk == null
              && model.TownSearchAsk != null)
             {
-                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk && m.Title.ToLower().Contains(model.TitleSearchAsk.ToLower()) && m.Town == model.TownSearchAsk).ToList();
+                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk && m.Town == model.TownSearchAsk && m.Title.ToLower().Contains(model.TitleSearchAsk.ToLower())
+                 || m.Description.ToLower().Contains(model.TitleSearchAsk.ToLower())).ToList();
                 TempData["listeSearchAsk"] = liste;
             }
             else if (model.TitleSearchAsk != null && model.CagtegorieSearchAsk != null
            && model.TownSearchAsk == null)
             {
-                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk && m.Title.ToLower().Contains(model.TitleSearchAsk.ToLower()) && m.Category.CategoryName == model.CagtegorieSearchAsk).ToList();
+                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk && m.Category.CategoryName == model.CagtegorieSearchAsk && m.Title.ToLower().Contains(model.TitleSearchAsk.ToLower())
+                || m.Description.ToLower().Contains(model.TitleSearchAsk.ToLower())).ToList();
                 TempData["listeSearchAsk"] = liste;
             }
             else if (model.TitleSearchAsk != null && model.CagtegorieSearchAsk == null
           && model.TownSearchAsk == null)
             {
-                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk && m.Title.ToLower().Contains(model.TitleSearchAsk.ToLower())).ToList();
+                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk && m.Title.ToLower().Contains(model.TitleSearchAsk.ToLower())
+                || m.Description.ToLower().Contains(model.TitleSearchAsk.ToLower())).ToList();
                 TempData["listeSearchAsk"] = liste;
             }
             //switch (sortBy)
@@ -167,8 +170,76 @@ namespace LookAuKwat.Controllers
             return RedirectToAction("ResultSearch_PartialView", model );
         }
 
+        public ActionResult ResultSearchAsk_Jason(string category, string town, string title)
+        {
+            string searchOrAsk = "Je recherche";
+            AskJobViewModel model = new AskJobViewModel();
+            model.CagtegorieSearchAsk = category;
+            model.TownSearchAsk = town;
+            model.TitleSearchAsk = title;
 
-        public JsonResult listAllProductReturnJson()
+            List<ProductModel> liste = dal.GetListProduct().ToList();
+            if ( string.IsNullOrWhiteSpace(model.TitleSearchAsk) && string.IsNullOrWhiteSpace(model.CagtegorieSearchAsk)
+                && string.IsNullOrWhiteSpace(model.TownSearchAsk))
+            {
+                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk).ToList();
+                TempData["listeSearchAsk_json"] = liste;
+            }
+            else if (!string.IsNullOrWhiteSpace(model.TitleSearchAsk) && !string.IsNullOrWhiteSpace(model.CagtegorieSearchAsk)
+                && !string.IsNullOrWhiteSpace(model.TownSearchAsk))
+            {
+
+
+                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk
+                 && m.Category.CategoryName == model.CagtegorieSearchAsk && m.Town == model.TownSearchAsk && (m.Title.ToLower().Contains(model.TitleSearchAsk.ToLower())
+                 || m.Description.ToLower().Contains(model.TitleSearchAsk.ToLower()))).ToList();
+                TempData["listeSearchAsk_json"] = liste;
+            }
+            else if (string.IsNullOrWhiteSpace(model.TitleSearchAsk) && !string.IsNullOrWhiteSpace(model.CagtegorieSearchAsk)
+                && !string.IsNullOrWhiteSpace(model.TownSearchAsk))
+            {
+                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk
+               && m.Category.CategoryName == model.CagtegorieSearchAsk && m.Town == model.TownSearchAsk).ToList();
+                TempData["listeSearchAsk_json"] = liste;
+            }
+            else if (string.IsNullOrWhiteSpace(model.TitleSearchAsk) && string.IsNullOrWhiteSpace(model.CagtegorieSearchAsk)
+               && !string.IsNullOrWhiteSpace(model.TownSearchAsk))
+            {
+                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk && m.Town == model.TownSearchAsk).ToList();
+                TempData["listeSearchAsk_json"] = liste;
+            }
+            else if (string.IsNullOrWhiteSpace(model.TitleSearchAsk) && !string.IsNullOrWhiteSpace(model.CagtegorieSearchAsk)
+              && string.IsNullOrWhiteSpace(model.TownSearchAsk))
+            {
+                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk && m.Category.CategoryName == model.CagtegorieSearchAsk).ToList();
+                TempData["listeSearchAsk_json"] = liste;
+            }
+            else if (!string.IsNullOrWhiteSpace(model.TitleSearchAsk) && string.IsNullOrWhiteSpace(model.CagtegorieSearchAsk)
+             && !string.IsNullOrWhiteSpace(model.TownSearchAsk))
+            {
+                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk && m.Town == model.TownSearchAsk &&( m.Title.ToLower().Contains(model.TitleSearchAsk.ToLower())
+                 || m.Description.ToLower().Contains(model.TitleSearchAsk.ToLower()))).ToList();
+                TempData["listeSearchAsk_json"] = liste;
+            }
+            else if (!string.IsNullOrWhiteSpace(model.TitleSearchAsk) && !string.IsNullOrWhiteSpace(model.CagtegorieSearchAsk)
+           && string.IsNullOrWhiteSpace(model.TownSearchAsk))
+            {
+                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk && m.Category.CategoryName == model.CagtegorieSearchAsk && (m.Title.ToLower().Contains(model.TitleSearchAsk.ToLower())
+                || m.Description.ToLower().Contains(model.TitleSearchAsk.ToLower()))).ToList();
+                TempData["listeSearchAsk_json"] = liste;
+            }
+            else if (!string.IsNullOrWhiteSpace(model.TitleSearchAsk) && string.IsNullOrWhiteSpace(model.CagtegorieSearchAsk)
+          && string.IsNullOrWhiteSpace(model.TownSearchAsk))
+            {
+                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk && (m.Title.ToLower().Contains(model.TitleSearchAsk.ToLower())
+                || m.Description.ToLower().Contains(model.TitleSearchAsk.ToLower()))).ToList();
+                TempData["listeSearchAsk_json"] = liste;
+            }
+            return RedirectToAction("ResultSearchJson", model);
+        }
+
+
+            public JsonResult listAllProductReturnJson()
         {
             var data2 = dal.GetListProduct().Select(s => new DataJsonProductViewModel
             {
@@ -177,7 +248,7 @@ namespace LookAuKwat.Controllers
                 id = s.id,
                 Price = s.Price,
                 Description = s.Description,
-                DateAdd = s.DateAdd,
+                DateAdd = s.DateAdd.ToString(),
                 Images = s.Images.Select(o => o.Image).ToList(),
                 User = s.User,
                 Street = s.Street,
@@ -401,46 +472,89 @@ namespace LookAuKwat.Controllers
             
         }
 
-        public JsonResult ResultSearchJson(SeachJobViewModel modelresult)
+        public JsonResult ResultSearchJson(SeachJobViewModel modelresult, AskJobViewModel model)
         {
             List<JobModel> result = TempData["listeJobJson"] as List<JobModel>;
+            List<ProductModel> resultSearchAsk = TempData["listeSearchAsk_json"] as List<ProductModel>;
             List<ApartmentRentalModel> resultImmobilier = TempData["listeApartJson"] as List<ApartmentRentalModel>;
             List<DataJsonProductViewModel> data = new List<DataJsonProductViewModel>() ;
-            switch (modelresult.CagtegorieSearch)
+            if (modelresult.CagtegorieSearch != null)
             {
-                case "Emploi":
-                    
-                    foreach (var element in result)
-                    {
-                        modelresult.ListePro.Add(element);
-                    }
-                    data = modelresult.ListePro.Select(s=>new DataJsonProductViewModel
-                    { Title = s.Title,
-                    Coordinate = s.Coordinate, id = s.id, Price = s.Price, Description = s.Description, DateAdd = s.DateAdd,
-                    Images = s.Images.Select(o=>o.Image).ToList(), User = s.User, Street = s.Street, Town = s.Town}).ToList();
-                    break;
-                case "Immobilier":
 
-                    foreach (var element in resultImmobilier)
-                    {
-                        modelresult.ListePro.Add(element);
-                    }
-                    data = modelresult.ListePro.Select(s => new DataJsonProductViewModel
-                    {
-                        Title = s.Title,
-                        Coordinate = s.Coordinate,
-                        id = s.id,
-                        Price = s.Price,
-                        Description = s.Description,
-                        DateAdd = s.DateAdd,
-                        Images = s.Images.Select(o => o.Image).ToList(),
-                        User = s.User,
-                        Street = s.Street,
-                        Town = s.Town
-                    }).ToList();
-                    break;
+                switch (modelresult.CagtegorieSearch)
+                {
+                    case "Emploi":
+
+                        foreach (var element in result)
+                        {
+                            modelresult.ListePro.Add(element);
+                        }
+                        data = modelresult.ListePro.Select(s => new DataJsonProductViewModel
+                        {
+                            Title = s.Title,
+                            Coordinate = s.Coordinate,
+                            id = s.id,
+                            Price = s.Price,
+                            Description = s.Description,
+                            DateAdd = s.DateAdd.ToString(),
+                            Images = s.Images.Select(o => o.Image).ToList(),
+                            User = s.User,
+                            Street = s.Street,
+                            Town = s.Town
+                        }).ToList();
+                        break;
+                    case "Immobilier":
+
+                        foreach (var element in resultImmobilier)
+                        {
+                            modelresult.ListePro.Add(element);
+                        }
+                        data = modelresult.ListePro.Select(s => new DataJsonProductViewModel
+                        {
+                            Title = s.Title,
+                            Coordinate = s.Coordinate,
+                            id = s.id,
+                            Price = s.Price,
+                            Description = s.Description,
+                            DateAdd = s.DateAdd.ToString(),
+                            Images = s.Images.Select(o => o.Image).ToList(),
+                            User = s.User,
+                            Street = s.Street,
+                            Town = s.Town
+                        }).ToList();
+                        break;
+                }
             }
-
+            else
+            {
+                modelresult = new SeachJobViewModel();
+                modelresult.ListePro = new List<ProductModel>();
+                try
+                {
+                    foreach (var element in resultSearchAsk)
+                {
+                    modelresult.ListePro.Add(element);
+                }
+                data = modelresult.ListePro.Select(s => new DataJsonProductViewModel
+                {
+                    Title = s.Title,
+                    Coordinate = s.Coordinate,
+                    id = s.id,
+                    Price = s.Price,
+                    Description = s.Description,
+                    DateAdd = s.DateAdd.ToString(),
+                    Images = s.Images.Select(o => o.Image).ToList(),
+                    User = s.User,
+                    Street = s.Street,
+                    Town = s.Town
+                }).ToList();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                }
+                
+            }
 
             if (modelresult.ListePro == null)
             {
@@ -511,7 +625,7 @@ namespace LookAuKwat.Controllers
       
         private async Task configSendGridasync(contactUserViewModel message)
         {
-           
+            
 
             var apikey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
             //var apiKey = ConfigurationManager.AppSettings["mailPasswordSendGrid"];

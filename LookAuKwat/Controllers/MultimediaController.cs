@@ -14,44 +14,92 @@ using System.Web.Mvc;
 
 namespace LookAuKwat.Controllers
 {
-    public class JobController : Controller
+    public class MultimediaController : Controller
     {
         private IDal dal;
-        public JobController() : this(new Dal())
+        public MultimediaController() : this(new Dal())
         {
 
         }
 
-        public JobController(IDal dalIoc)
+        public MultimediaController(IDal dalIoc)
         {
             dal = dalIoc;
         }
-        // GET: Job
+        // GET: Multimedia
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult AddJobs_PartialView()
+        public ActionResult AddMultimedia_PartialView()
         {
-            return PartialView(new JobViewModel());
+            return PartialView(new MultimediaViewModel());
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddJobs_PartialView(JobViewModel job, ImageModelView userImage)
+        public async Task<ActionResult> AddMultimedia(MultimediaViewModel multi, ImageModelView userImage)
         {
-            JobModel model = new JobModel()
-            {
-                id = job.id,
-                Title = job.Title,
-                Description = job.Description,
-                TypeContract = job.TypeContract,
-                Town = job.Town,
-                Price = job.Price,
-                Street = job.Street,
-                ActivitySector = job.ActivitySector,
-                DateAdd = DateTime.Now,
-                SearchOrAskJob = job.SearchOrAskJob,
+            List<string> brandList = new List<string>();
+            brandList.Add(multi.BrandConsoleGame);
+            brandList.Add(multi.BrandInformatiquePhotocopi);
+            brandList.Add(multi.BrandPhone);
+            brandList.Add(multi.BrandPhoneAccesories);
+            brandList.Add(multi.BrandSon);
+            brandList.Add(multi.BrandTv);
 
+            string Brand = null;
+            foreach (var brand in brandList)
+            {
+                if (brand != null)
+                {
+                    Brand = brand;
+                }
+            }
+            List<string> ModeleList = new List<string>();
+            ModeleList.Add(multi.ModelAlcatelPhoneAccesorie);
+            ModeleList.Add(multi.ModelApplePhoneAccesorie);
+            ModeleList.Add(multi.ModelAzusPhoneAccesorie);
+            ModeleList.Add(multi.ModelConsoleGame);
+            ModeleList.Add(multi.ModelHonorPhoneAccesorie);
+            ModeleList.Add(multi.ModelHTCPhoneAccesorie);
+            ModeleList.Add(multi.ModelHuaweiPhoneAccesorie);
+            ModeleList.Add(multi.ModelInformatiquePhotocopy);
+            ModeleList.Add(multi.ModelLenovoPhoneAccesorie);
+            ModeleList.Add(multi.ModelLGPhoneAccesorie);
+            ModeleList.Add(multi.ModelMicrosoftPhoneAccesorie);
+            ModeleList.Add(multi.ModelMotorolaPhoneAccesorie);
+            ModeleList.Add(multi.ModelOnePlusPhoneAccesorie);
+            ModeleList.Add(multi.ModelOtherMultimedia);
+            ModeleList.Add(multi.ModelSamsungPhoneAccesorie);
+            ModeleList.Add(multi.ModelSon);
+            ModeleList.Add(multi.ModelSonyPhoneAccesorie);
+            ModeleList.Add(multi.ModelTV);
+            ModeleList.Add(multi.ModelWikoPhoneAccesorie);
+            ModeleList.Add(multi.ModelXaomiPhoneAccesorie);
+            ModeleList.Add(multi.ModelZTEPhoneAccesorie);
+
+            string Model = null;
+            foreach (var modell in ModeleList)
+            {
+                if (modell != null)
+                {
+                    Model = modell;
+                }
+            }
+            MultimediaModel model = new MultimediaModel()
+            {
+                id = multi.id,
+                Title = multi.Title,
+                Description = multi.Description,
+                Type = multi.Type,
+                Town = multi.Town,
+                Price = multi.Price,
+                Street = multi.Street,
+                Brand = Brand,
+                Model = Model,
+                Capacity = multi.Capacity,
+                DateAdd = DateTime.Now,
+                SearchOrAskJob = multi.SearchOrAskJob,
 
             };
 
@@ -81,7 +129,7 @@ namespace LookAuKwat.Controllers
                         model.Images = images;
                         model.User = user;
                         model.Category = new CategoryModel { CategoryName = "Emploi" };
-                        dal.AddJob(model, latt, lonn);
+                        dal.AddMultimedia(model, latt, lonn);
 
 
                         return RedirectToAction("GetListProductByUser_PartialView", "User");
@@ -91,33 +139,33 @@ namespace LookAuKwat.Controllers
                 }
 
             }
-            return View(job);
+            return View(multi);
         }
 
-        public ActionResult EditJob_PartialView(JobModel job)
+        public ActionResult EditMultimedia_PartialView(MultimediaModel multi)
         {
 
-            if (job.id == 0)
+            if (multi.id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            if (job == null)
+            if (multi == null)
             {
                 return HttpNotFound();
             }
-            JobEditViewModel model = new JobEditViewModel()
+            MultimediaViewModel model = new MultimediaViewModel()
             {
-                JobEditid = job.id,
-                TitleJob = job.Title,
-                DescriptionJob = job.Description,
-                TypeContractJob = job.TypeContract,
-                TownJob = job.Town,
-                PriceJob = job.Price,
-                StreetJob = job.Street,
-                ActivitySectorJob = job.ActivitySector,
-                DateAddJob = DateTime.Now,
-                SearchOrAskJobJob = job.SearchOrAskJob,
-                listeImageJob = job.Images
+                id = multi.id,
+                Title = multi.Title,
+                Description = multi.Description,
+                Type = multi.Type,
+                Town = multi.Town,
+                Price = multi.Price,
+                Street = multi.Street,
+              //  Brand = multi.Brand,
+                DateAdd = DateTime.Now,
+                SearchOrAskJob = multi.SearchOrAskJob,
+                listeImage = multi.Images
 
             };
 
@@ -125,28 +173,75 @@ namespace LookAuKwat.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> EditJob(JobEditViewModel job, ImageModelView userImage)
+        public async Task<ActionResult> EditMultimedia_PartialView(MultimediaViewModel multi, ImageModelView userImage)
         {
+            List<string> brandList = new List<string>();
+            brandList.Add(multi.BrandConsoleGame);
+            brandList.Add(multi.BrandInformatiquePhotocopi);
+            brandList.Add(multi.BrandPhone);
+            brandList.Add(multi.BrandPhoneAccesories);
+            brandList.Add(multi.BrandSon);
+            brandList.Add(multi.BrandTv);
 
+            string Brand = null;
+            foreach(var brand in brandList)
+            {
+                if (brand != null)
+                {
+                    Brand = brand;
+                }
+            }
+            List<string> ModeleList = new List<string>();
+            ModeleList.Add(multi.ModelAlcatelPhoneAccesorie);
+            ModeleList.Add(multi.ModelApplePhoneAccesorie);
+            ModeleList.Add(multi.ModelAzusPhoneAccesorie);
+            ModeleList.Add(multi.ModelConsoleGame);
+            ModeleList.Add(multi.ModelHonorPhoneAccesorie);
+            ModeleList.Add(multi.ModelHTCPhoneAccesorie);
+            ModeleList.Add(multi.ModelHuaweiPhoneAccesorie);
+            ModeleList.Add(multi.ModelInformatiquePhotocopy);
+            ModeleList.Add(multi.ModelLenovoPhoneAccesorie);
+            ModeleList.Add(multi.ModelLGPhoneAccesorie);
+            ModeleList.Add(multi.ModelMicrosoftPhoneAccesorie);
+            ModeleList.Add(multi.ModelMotorolaPhoneAccesorie);
+            ModeleList.Add(multi.ModelOnePlusPhoneAccesorie);
+            ModeleList.Add(multi.ModelOtherMultimedia);
+            ModeleList.Add(multi.ModelSamsungPhoneAccesorie);
+            ModeleList.Add(multi.ModelSon);
+            ModeleList.Add(multi.ModelSonyPhoneAccesorie);
+            ModeleList.Add(multi.ModelTV);
+            ModeleList.Add(multi.ModelWikoPhoneAccesorie);
+            ModeleList.Add(multi.ModelXaomiPhoneAccesorie);
+            ModeleList.Add(multi.ModelZTEPhoneAccesorie);
+
+            string Model = null;
+            foreach(var model in ModeleList)
+            {
+                if(model != null)
+                {
+                    Model = model;
+                }
+            }
 
             if (ModelState.IsValid)
             {
 
                 string userId = User.Identity.GetUserId();
                 ApplicationUser user = dal.GetUserByStrId(userId);
-                JobModel model = new JobModel()
+                MultimediaModel model = new MultimediaModel()
                 {
-                    id = job.JobEditid,
-                    Title = job.TitleJob,
-                    Description = job.DescriptionJob,
-                    TypeContract = job.TypeContractJob,
-                    Town = job.TownJob,
-                    Price = job.PriceJob,
-                    Street = job.StreetJob,
-                    ActivitySector = job.ActivitySectorJob,
+                    id = multi.id,
+                    Title = multi.Title,
+                    Description = multi.Description,
+                    Type = multi.Type,
+                    Town = multi.Town,
+                    Price = multi.Price,
+                    Street = multi.Street,
+                    Brand = Brand,
+                    Model = Model,
                     DateAdd = DateTime.Now,
-                    SearchOrAskJob = job.SearchOrAskJobJob,
-                    Category = new CategoryModel { CategoryName = "Emploi" },
+                    SearchOrAskJob = multi.SearchOrAskJob,
+                    Category = new CategoryModel { CategoryName = "Multimédia" },
                     User = user
 
                 };
@@ -171,7 +266,7 @@ namespace LookAuKwat.Controllers
 
                         model.Images = images;
 
-                        dal.EditJob(model, latt, lonn);
+                        dal.EditMultimedia(model, latt, lonn);
 
 
                         return RedirectToAction("GetListProductByUser_PartialView", "User");
@@ -181,16 +276,8 @@ namespace LookAuKwat.Controllers
                 }
 
             }
-            return View(job);
+            return View(multi);
         }
-
-        public ActionResult JobDetails_PartialView(JobModel model)
-        {
-
-            return PartialView(model);
-        }
-
-
 
         private List<ImageProcductModel> ImageAdd(ImageModelView userImage)
         {
@@ -248,7 +335,8 @@ namespace LookAuKwat.Controllers
                 };
                 liste.Add(picture);
 
-            } return liste;
+            }
+            return liste;
         }
 
 
@@ -307,31 +395,9 @@ namespace LookAuKwat.Controllers
                     liste.Add(im);
                 }
 
-            } return liste;
-        }
-
-        public async Task<JsonResult> ShowAddress(string term, string town)
-        {
-            using (var httpClient = new HttpClient())
-            {
-                var fullAddress = $"{term + "," + town + "," + "Cameroun" }";
-
-                var response2 = await httpClient.GetAsync("https://api.opencagedata.com/geocode/v1/json?q=" + fullAddress + "&key=a196040df44a4a41a471173aed07635c");
-                var data = await response2.Content.ReadAsStringAsync();
-
-                return Json(data, JsonRequestBehavior.AllowGet);
-
             }
+            return liste;
         }
 
-        public ActionResult JobDetail(int id)
-        {
-            JobModel model = dal.GetListJob().FirstOrDefault(e => e.id == id);
-            model.ViewNumber++;
-            dal.UpdateNumberView(model);
-            return View(model);
-        }
-
-       
     }
 }

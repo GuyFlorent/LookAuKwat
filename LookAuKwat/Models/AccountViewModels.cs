@@ -73,7 +73,7 @@ namespace LookAuKwat.Models
         public string Phone { get; set; }
         [Required]
         [EmailAddress]
-        [Display(Name = "Courrier électronique")]
+        [Display(Name = "Adresse email")]
         public string Email { get; set; }
 
         [Required]

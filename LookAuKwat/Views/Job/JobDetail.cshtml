@@ -1,5 +1,5 @@
 ﻿@model LookAuKwat.Models.JobModel
-
+@using System.Globalization;
 @{
     ViewBag.Title = "JobDetail";
 }
@@ -13,27 +13,27 @@
 <h2>JobDetail</h2>
 
 <div id="MyModalContactJob" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h3 class="modal-title">Envoyer un méssage à @Model.User.FirstName<span id="eventTitle"></span></h3>
-                </div>
-                <div class="modal-body">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">Envoyer un méssage à @Model.User.FirstName<span id="eventTitle"></span></h3>
+            </div>
+            <div class="modal-body">
 
-                    @{
-                        var link = HttpContext.Current.Request.Url.AbsoluteUri;
-                        Html.RenderAction("ContactProductUser_PartialView", "Product", new {RecieverEmail = Model.User.Email, RecieverName= Model.User.UserName, Linkshare = link, Category = "Job" });
-                                                 
-                                     
-                        }
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
-                </div>
+                @{
+                    var link = HttpContext.Current.Request.Url.AbsoluteUri;
+                    Html.RenderAction("ContactProductUser_PartialView", "Product", new { RecieverEmail = Model.User.Email, RecieverName = Model.User.UserName, Linkshare = link, Category = "Job" });
+
+
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
             </div>
         </div>
     </div>
+</div>
 
 <section class="row">
 
@@ -85,13 +85,13 @@
             </div>
         </div>
         <div class="row">
-            <h3 class="product-title">@Model.Title</h3>
+            <h3 class="product-title"><strong>@Model.Title</strong></h3>
             <div>
-                <label>Ajouté le : </label>  @Model.DateAdd
+                <label>Ajouté le : </label>  @Model.DateAdd.ToString("ddd, dd MMM yyy HH':'mm", new CultureInfo("fr-FR"))
 
             </div>
             <div class="rating">
-                <span class="review-no">@Model.ViewNumber vues</span>
+                <span class="review-no"><strong>@Model.ViewNumber vues</strong></span>
             </div>
         </div>
         <hr />
@@ -160,7 +160,7 @@
         </div>
     </section>
     <section class="col-md-4">
-        <div  class="row" style="border-radius: 25px;background: lightgray;padding: 20px;">
+        <div class="row" style="border-radius: 25px;background: lightgray;padding: 20px;">
             <img src="https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg" alt="photo du publicateur Lookaukwat" class="img-rounded" height="50" /> @Model.User.FirstName
             <hr />
             <button id="sendJobMessage" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
@@ -169,7 +169,7 @@
         </div>
         <div class="row" style="height:7px">
             <div class="row alert alert-success js-alert-job hidden" role="alert">
-                Message envoyé avec succès ! 
+                Message envoyé avec succès !
                 Bonne chance à vous pour cet emploi
             </div>
         </div>
@@ -244,6 +244,6 @@
             ]
         });
 
-        
+
     })
 </script>

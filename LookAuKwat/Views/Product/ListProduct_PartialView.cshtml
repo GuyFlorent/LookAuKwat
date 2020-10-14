@@ -1,5 +1,5 @@
 ﻿@using PagedList;
-
+@using System.Globalization;
 @using PagedList.Mvc;
 @model IPagedList<LookAuKwat.Models.ProductModel>
 
@@ -9,12 +9,12 @@
             Filtré par:
         </label>
         @*<select name="filter" onchange="location = this.value;">
-            <option value="@Url.Action("ListProduct_PartialView","Product",new {sortBy = ViewBag.PriceDescSort })">Prix ascendant</option>
-            <option value="@Url.Action("ListProduct_PartialView","Product",new {sortBy = ViewBag.PriceAscSort })">Prix décroissant</option>
-        </select>*@
+                <option value="@Url.Action("ListProduct_PartialView","Product",new {sortBy = ViewBag.PriceDescSort })">Prix ascendant</option>
+                <option value="@Url.Action("ListProduct_PartialView","Product",new {sortBy = ViewBag.PriceAscSort })">Prix décroissant</option>
+            </select>*@
         @Ajax.ActionLink("Prix croissant", "ListProduct_PartialView", new { sortBy = "Price asc" }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "groupe" })
 
-        @Ajax.ActionLink("Prix décroissant", "ListProduct_PartialView", new { sortBy = "Price desc" }, new AjaxOptions {HttpMethod ="GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "groupe" })
+        @Ajax.ActionLink("Prix décroissant", "ListProduct_PartialView", new { sortBy = "Price desc" }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "groupe" })
         @Ajax.ActionLink("Plus anciennes", "ListProduct_PartialView", new { sortBy = "date asc" }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "groupe" })
         @Ajax.ActionLink("Plus recentes", "ListProduct_PartialView", new { sortBy = "date desc" }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "groupe" })
 
@@ -23,7 +23,7 @@
     <section>
         <div class="panel panel-success">
             <div class="panel-heading">
-                <h3 class="panel-title">@Model.ToList().Count annonces disponibles dans toutes les catégories :</h3>
+                <h3 class="panel-title">@Model.ToList().Count <strong>annonces</strong> disponibles dans toutes les catégories :</h3>
             </div>
             <div class="list-group">
                 @foreach (var liste in Model)
@@ -31,20 +31,20 @@
                     if (liste.Category.CategoryName == "Emploi")
                     {
                         <a href="@Url.Action("JobDetail", "Job", new { id = liste.id }, null)" class="list-group-item">
-                            <h4 class="list-group-item-heading"> @liste.Title Ville:<span class="text-info"> @liste.Town</span></h4>
-                            <p class="list-group-item-text pull-right"> Ajoutée le @liste.DateAdd</p>
+                            <h4 class="list-group-item-heading"><strong>@liste.Title</strong>  Ville:<span class="text-info"><strong> @liste.Town</strong></span></h4>
+                            <p class="list-group-item-text pull-right"> Ajoutée le @liste.DateAdd.ToString("ddd, dd MMM yyy HH':'mm", new CultureInfo("fr-FR"))</p>
                             <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
-                            <p class="list-group-item-text text-left">@liste.Category.CategoryName</p>
+                            <p class="list-group-item-text text-left"><strong>@liste.Category.CategoryName</strong></p>
                             <img src="@liste.Images.Select(m=>m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded" />
                         </a>
                     }
                     else if (liste.Category.CategoryName == "Immobilier")
                     {
                         <a href="@Url.Action("ApartDetail", "ApartmentRental", new { id = liste.id }, null)" class="list-group-item">
-                            <h4 class="list-group-item-heading"> @liste.Title Ville:<span class="text-info"> @liste.Town</span></h4>
-                            <p class="list-group-item-text pull-right"> Ajoutée le @liste.DateAdd</p>
+                            <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"><strong> @liste.Town</strong></span></h4>
+                            <p class="list-group-item-text pull-right"> Ajoutée le @liste.DateAdd.ToString("ddd, dd MMM yyy HH':'mm", new CultureInfo("fr-FR"))</p>
                             <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
-                            <p class="list-group-item-text text-left">@liste.Category.CategoryName</p>
+                            <p class="list-group-item-text text-left"><strong>@liste.Category.CategoryName</strong></p>
                             <img src="@liste.Images.Select(m=>m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded" />
                         </a>
                     }

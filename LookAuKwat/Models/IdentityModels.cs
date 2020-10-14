@@ -31,6 +31,7 @@ namespace LookAuKwat.Models
         public DbSet<ApartmentRentalModel> ApartmentRentals { get; set; }
         public DbSet<CategoryModel> Categories { get; set; }
         public DbSet<MessageDetails> Messages { get; set; }
+        public DbSet<MultimediaModel> Multimedia { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

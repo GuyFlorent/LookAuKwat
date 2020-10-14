@@ -14,7 +14,7 @@
     @Html.AntiForgeryToken()
 
     <div>
-        <h4 class="text-center">Filtrer votre recherche dans la catégorie Immobilier</h4>
+        <h4 class="text-center">Filtrer votre <strong>recherche</strong> dans la catégorie <strong>Immobilier</strong></h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="row">
@@ -105,7 +105,7 @@
         </div>
        
         <button id="submitApart" type="submit" class="btn btn-primary">
-            <span class="glyphicon glyphicon-search"></span> Rechercher
+            <span class="glyphicon glyphicon-search"></span> <strong>Rechercher</strong>
         </button>
     </div>
 }

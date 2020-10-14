@@ -25,22 +25,22 @@
         <div class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="item active">
-                    <a href="#"><img src="@Url.Content("~/UserImage/TrouverUnJob.JPG")" alt="Bienvenue lookaukwat" class="img-rounded" /></a>
+                    <a href="#"><img src="@Url.Content("~/UserImage/TrouverUnJob.JPG")" alt="Bienvenue LookAuKwat" class="img-rounded" /></a>
                    
                 </div>
 
                 <div class="item">
-                    <a href="#"><img src="@Url.Content("~/UserImage/appartement-a-louer-2.JPG")" alt="appartement à louer lookaukwat" class="img-rounded" /></a>
+                    <a href="#"><img src="@Url.Content("~/UserImage/appartement-a-louer-2.JPG")" alt="appartement à louer LookAuKwat" class="img-rounded" /></a>
                     <div class="carousel-caption">
                         <h4><strong>Je trouve mon logement</strong></h4>
                     </div>
                 </div>
                 <div class="item">
-                    <img src="@Url.Content("~/UserImage/terrain-construction6.png")" alt="terrain à vendre lookaukwat" class="img-rounded"/>
+                    <img src="@Url.Content("~/UserImage/terrain-construction6.png")" alt="terrain à vendre LookAuKwat" class="img-rounded"/>
                    
                 </div>
                 <div class="item">
-                    <img src="@Url.Content("~/UserImage/VehiculeOcassion.JPG")" alt="Vehicule occasion lookaukwat" class="img-rounded" />
+                    <img src="@Url.Content("~/UserImage/VehiculeOcassion.JPG")" alt="Vehicule occasion LookAuKwat" class="img-rounded" />
                     
                 </div>
                 <div class="item">
@@ -63,7 +63,7 @@
     </div>
 </section>
 <br />
-<h3 class="text-info">Vous Recherchez des offres ou des demandes sur <strong>LookAuKwat</strong>?</h3>
+<h3 class="text-info">Vous <strong>recherchez</strong> des offres ou des demandes sur <strong>LookAuKwat</strong>?</h3>
 <br />
 <section>
     <ul class="nav nav-pills">
@@ -74,7 +74,7 @@
         <div class="tab-pane active fade in" id="search">
             <div id="searchJob">
                 <div class="form-group">
-                    <label for="selectCategory">Vous êtes dans les offres, veuillez Choisir une catégorie :</label>
+                    <label for="selectCategory">Vous êtes dans les <strong>offres</strong>, veuillez Choisir une catégorie :</label>
                     <select class="form-control searchcategory" data-show-icon="true" name="categori" id="categori">
                         <option>Toutes les catégories</option>
                         <option data-content="<i class='glyphicon glyphicon-briefcase'></i>">Emploi</option>
@@ -205,7 +205,7 @@
 
     $(function () {
 
-      
+
 
         $("select.searchcategory").change(function () {
             var select = $(this).children("option:selected").val();
@@ -267,7 +267,7 @@
             $('#jobSectionResult').removeClass('hidden');
 
             $('#submitApart').click();
-            
+
         };
         //if (localStorage.getItem("NoChoicetHidden") == "true") {
         //    $('#ImmobilierId').addClass('hidden');
@@ -291,7 +291,7 @@
             if (localStorage['categori'])
                 document.getElementById("categori").value = localStorage['categori'];
         }
-       
+
 
         $('#submitApart').click(function () {
             $('#jobSectionResult').removeClass('hidden');
@@ -348,6 +348,7 @@
         });
 
         $('#submitJob').click(SubmitJobClick);
+        $('#btnSearchAskProduct').click(SubmitAskClick);
 
 
          $("a[href='#ResultMap']").on('shown.bs.tab', function (e) {
@@ -378,6 +379,58 @@
                 contract: $("#TypeContractJob").val(),
                 minPrice: $("#PriceMinSearch").val(),
                 maxPrice: $("#PriceMaxSearch").val(),
+            }),
+                  success:
+                      function (data) {
+
+                    for (var i = 0; i < data.length; i++) {
+                        console.log(data[i].Coordinate.Lat);
+
+                        var popup = '<div class="thumbnail"> <a class="img-rounded" href="' + data[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].Title + '">  <img id="ImageDetailIniById" src="' + data[i].Images[0] + '" alt="LookAuKwat ' + data[i].Title + '" height="40"></a> </div>' +
+                            '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data[i].Title +
+                            '<br/><b>Adresse : </b>' + data[i].Town +
+                            '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Job/JobDetail/' + data[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
+
+
+
+                        var markerjob = L.marker([data[i].Coordinate.Lat, data[i].Coordinate.Lon])
+                           .bindPopup(popup)
+                       // .addTo(mymapJob);
+
+                        jobMarkers.addLayer(markerjob)
+                          }
+                          // $("#mymapJob").load(" #mymapJob");
+                          mymapJob.addLayer(jobMarkers);
+                  },
+                  error: function (xhr) {
+                      console.log(xhr.responseText);
+                      alert("Une erreur est survenu  !");
+                  }
+              });
+            mymapJob.invalidateSize();
+    };
+
+
+    function SubmitAskClick () {
+            $('#jobSectionResult').removeClass('hidden');
+            $('#AllCategoryResult').addClass('hidden');
+            ApartMarkers.clearLayers()
+            jobMarkers.clearLayers()
+
+              $.ajax({
+            type: "POST",
+            url: '@Url.Action("ResultSearchAsk_Jason", "Product")',
+            dataType: "json",
+            headers: {
+                //"api-key": searchServiceApiKey,
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify({
+
+                category: $("#CagtegorieSearchAsk").val(),
+                town: $("#TownSearchAsk").val(),
+                title: $("#TitleSearchAsk").val(),
+                
             }),
                   success:
                       function (data) {

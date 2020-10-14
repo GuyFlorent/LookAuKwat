@@ -9,7 +9,98 @@
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
+        <div class="form-group" id="SearchOrAskJobAppartDiv">
+            @Html.LabelFor(model => model.SearchOrAskJobAppart, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SearchOrAskJobAppart, SelectListMethod.ChooseSearchOrAsk(), "Choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SearchOrAskJobAppart, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group hidden" id="TypeApartDiv">
+            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Type, SelectListMethod.TypeImmobilier(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+            <div class="form-group hidden" id="TitleAppartDiv">
+                @Html.LabelFor(model => model.TitleAppart, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.TitleAppart, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TitleAppart, "", new { @class = "text-danger" })
+                </div>
+                <p class="col-md-2" id="spanApartTitle" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus" ></span></p>
+            </div>
+           
+       
+            <div class="form-group hidden" id="DescriptionAppartDiv">
+                @Html.LabelFor(model => model.DescriptionAppart, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.TextAreaFor(model => model.DescriptionAppart, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DescriptionAppart, "", new { @class = "text-danger" })
+                </div>
+                <p class="col-md-2" id="spanApartDescription" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
+            </div>
+
+        <div class="form-group hidden" id="TownAppartDiv">
+            @Html.LabelFor(model => model.TownAppart, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.TownAppart, SelectListMethod.GetListTownCameroon(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TownAppart, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="hidden" id="StreetAppartDiv">
+            <p class=" col-md-offset-2 text-info">Veuillez choisir une adresse de la liste après votre saisie.</p>
+            <div class="form-group">
+
+                @Html.LabelFor(model => model.StreetAppart, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.StreetAppart, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.StreetAppart, "", new { @class = "text-danger" })
+                </div>
+                <p class="col-md-2" id="spanApartStreet" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
+            </div>
+        </div>
+
+        <div class="form-group hidden" id="priceApartdiv">
+            @Html.LabelFor(model => model.PriceAppart, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.PriceAppart, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PriceAppart, "", new { @class = "text-danger" })
+            </div>
+            <p class="col-md-2" id="spanApartPrice" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
+        </div>
+
+
+        <div class="form-group hidden" id="apartSurface">
+            @Html.LabelFor(model => model.ApartSurface, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.ApartSurface, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ApartSurface, "", new { @class = "text-danger" })
+            </div>
+            <p class="col-md-2" id="spanApartSurface" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
+        </div>
+        @*<p class=" col-md-offset-2 text-info">Veuillez mettre 0 sur le nombre de pièces si vous ajoutez un terrain.</p>*@
+    <div class="form-group hidden" id="rommId">
+        @Html.LabelFor(model => model.RoomNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-9">
+            @Html.EditorFor(model => model.RoomNumber, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.RoomNumber, "", new { @class = "text-danger" })
+        </div>
+        <p class="col-md-2" id="spanApartRoomNum" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
+    </div>
+
+        <div class="form-group hidden" id="FuriRNoId">
+            @Html.LabelFor(model => model.FurnitureOrNot, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.FurnitureOrNot, SelectListMethod.FurnitureOrNot(), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FurnitureOrNot, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ImageApartDiv">
             @Html.LabelFor(model => model.Imageproduct.Image, htmlAttributes: new { @class = "control-label col-md-2" })
 
             @*<label class="control-label col-md-2" for="#imagesJobs"></label>*@
@@ -23,93 +114,7 @@
             </div>*@
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Type, SelectListMethod.TypeImmobilier(), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.TitleAppart, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TitleAppart, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TitleAppart, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DescriptionAppart, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.DescriptionAppart, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DescriptionAppart, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TownAppart, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.TownAppart, SelectListMethod.GetListTownCameroon(), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TownAppart, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <p class=" col-md-offset-2 text-info">Veuillez choisir une adresse de la liste après votre saisie.</p>
-        <div class="form-group">
-
-
-
-            @Html.LabelFor(model => model.StreetAppart, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StreetAppart, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StreetAppart, "", new { @class = "text-danger" })
-            </div>
-
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PriceAppart, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PriceAppart, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PriceAppart, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SearchOrAskJobAppart, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.SearchOrAskJobAppart, SelectListMethod.ChooseSearchOrAsk(), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SearchOrAskJobAppart, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ApartSurface, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ApartSurface, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ApartSurface, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <p class=" col-md-offset-2 text-info">Veuillez mettre 0 sur le nombre de pièces si vous ajoutez un terrain.</p>
-        <div class="form-group" id="rommId">
-            @Html.LabelFor(model => model.RoomNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RoomNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RoomNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group" id="FuriRNoId">
-            @Html.LabelFor(model => model.FurnitureOrNot, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.FurnitureOrNot, SelectListMethod.FurnitureOrNot(), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.FurnitureOrNot, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
+        <div class="form-group hidden" id="btnAppaertDiv">
             <div class="col-md-offset-2 col-md-10">
                 <input id="btnAddaAppart" type="submit" value="Ajouter" class="btn btn-success" />
             </div>
@@ -121,20 +126,133 @@
 <script type="text/javascript">
     $(function () {
 
-        $("#Type").change(function () {
+        //$("#Type").change(function () {
 
-            if ($('#Type').val() == 'Terrain vendre') {
+        //    if ($('#Type').val() == 'Terrain à vendre') {
                 
                 
-                $("#FuriRNoId").slideDown();
+        //        $("#FuriRNoId").slideDown();
                 
-            }
-            else
-            {
+        //    }
+        //    else
+        //    {
+        //        $("#FuriRNoId").slideUp();
                 
-                $("#FuriRNoId").slideUp();
+        //    }
+        //});
+
+        //$("#SearchOrAskJobAppart").change(function () {
+
+        //    if ($('#SearchOrAskJobAppart').val() == 'J\'offre') {
+
+
+        //        $("#FuriRNoId").slideDown();
+        //        $("#apartSurface").slideDown();
+        //        $("#priceApartdiv").slideDown();
+
+        //    }
+        //    else {
+
+        //        $("#FuriRNoId").slideUp();
+        //        $("#apartSurface").slideUp();
+        //        $("#priceApartdiv").slideUp();
+        //    }
+        //});
+
+
+        $("#SearchOrAskJobAppart").change(function () {
+
+            if ($('#SearchOrAskJobAppart').val() !== 'choisir') {
+
+
+                $("#TypeApartDiv").removeClass('hidden');
+
             }
         });
+        $("#TypeApartDiv").change(function () {
+
+            if ($('#TypeApartDiv').val() !== 'choisir') {
+
+
+                $("#TitleAppartDiv").removeClass('hidden');
+
+            }
+        });
+        $("#TitleAppart").change(function () {
+
+            $("#DescriptionAppartDiv").removeClass('hidden');
+
+        });
+        $("#DescriptionAppart").change(function () {
+
+                $("#TownAppartDiv").removeClass('hidden');
+
+        });
+        $("#TownAppartDiv").change(function () {
+
+            $("#TownAppartDiv").removeClass('hidden');
+
+        });
+        $("#TownAppartDiv").change(function () {
+            if ($('#TownAppartDiv').val() !== 'choisir') {
+                $("#StreetAppartDiv").removeClass('hidden');
+            }
+        });
+        $("#StreetAppart").change(function () {
+            if ($('#SearchOrAskJobAppart').val() == 'Je recherche') {
+                $("#ImageApartDiv").removeClass('hidden');
+                $("#btnAppaertDiv").removeClass('hidden');
+            } else if ($('#SearchOrAskJobAppart').val() == 'J\'offre') {
+                $("#priceApartdiv").removeClass('hidden');
+            }
+               
+        });
+        $("#priceApartdiv").change(function () {
+
+            $("#apartSurface").removeClass('hidden');
+
+        }); 
+        $("#apartSurface").change(function () {
+            
+            if ($('#Type').val() == 'terrain à vendre') {
+                $("#ImageApartDiv").removeClass('hidden');
+                $("#btnAppaertDiv").removeClass('hidden');
+            } else if ($('#TypeApartDiv').val() !== 'Terrain à vendre') {
+                $("#rommId").removeClass('hidden');
+            }
+            
+        }); 
+
+        $("#rommId").change(function () {
+            
+            $("#FuriRNoId").removeClass('hidden');
+            $("#ImageApartDiv").removeClass('hidden');
+            $("#btnAppaertDiv").removeClass('hidden');
+        }); 
+
+        //for plus sign
+        $('#spanApartTitle').click(function () {
+            $("#spanApartTitle").addClass('hidden');
+        }) 
+
+        $('#spanApartDescription').click(function () {
+            $("#spanApartDescription").addClass('hidden');
+        }) 
+
+        $('#spanApartStreet').click(function () {
+            $("#spanApartStreet").addClass('hidden');
+        }) 
+
+        $('#spanApartPrice').click(function () {
+            $("#spanApartPrice").addClass('hidden');
+        }) 
+        $('#spanApartRoomNum').click(function () {
+            $("#spanApartRoomNum").addClass('hidden');
+        }) 
+        $('#spanApartSurface').click(function () {
+            $("#spanApartSurface").addClass('hidden');
+        }) 
+       
 
         $('#btnAddaAppart').click(function () {
             var x = document.forms["apartform"]["Type"].value;

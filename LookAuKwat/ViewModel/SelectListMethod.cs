@@ -95,8 +95,9 @@ namespace LookAuKwat.ViewModel
         {
             IList<SelectListItem> list = new List<SelectListItem>()
             {
-                 new SelectListItem() { Text = "Je recherche", Value = "Je recherche" },
-                new SelectListItem() { Text = "J'offre", Value = "J'offre" }
+                 new SelectListItem() { Text = "J'offre", Value = "J'offre" },
+                 new SelectListItem() { Text = "Je recherche", Value = "Je recherche" }
+               
             };
             return list;
             }
@@ -107,7 +108,8 @@ namespace LookAuKwat.ViewModel
                  new SelectListItem() { Text = "CDI", Value = "CDI" },
                 new SelectListItem() { Text = "CDD", Value = "CDD" },
                 new SelectListItem() { Text = "Stage/Alternance", Value = "Stage/Alternance" },
-                new SelectListItem() { Text = "Sans contrat", Value = "Sans contrat" }
+                new SelectListItem() { Text = "Sans contrat", Value = "Sans contrat" },
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
             };
             return list;
         }
@@ -159,8 +161,518 @@ namespace LookAuKwat.ViewModel
                   new SelectListItem() { Text = "Maison à louer", Value = "Maison à louer" },
                    new SelectListItem() { Text = "Bureau à louer", Value = "Bureau à louer" },
                     new SelectListItem() { Text = "Maison à Vendre", Value ="Maison à Vendre" },
-                     new SelectListItem() { Text = "Terrain vendre", Value = "terrain à vendre" },
+                     new SelectListItem() { Text = "Terrain à vendre", Value = "terrain à vendre" },
                      new SelectListItem() { Text = "Autres", Value = "Autres" }
+
+            };
+            return list;
+        }
+
+        //for multimedia
+        public static IEnumerable<SelectListItem> TypeMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "Informatique", Value = "Informatique" },
+                new SelectListItem() { Text = "Consoles de jeux", Value = "Consoles de jeux" },
+                new SelectListItem() { Text = "Jeux video", Value = "Jeux video" },
+                new SelectListItem() { Text = "Téléphonie", Value = "Téléphonie" },
+                new SelectListItem() { Text = "Accésoires téléphonie", Value = "Accésoires téléphonie" },
+                new SelectListItem() { Text = "Téléviseur", Value = "Téléviseur" },
+                new SelectListItem() { Text = "Son", Value = "Son" },
+                new SelectListItem() { Text = "Photocopieuse", Value = "Photocopieuse" },
+                
+                new SelectListItem() { Text = "Autres", Value = "Autres" }
+
+            };
+            return list;
+        }
+
+
+        public static IEnumerable<SelectListItem> BrandInformatiquePhotocopyMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "Hp", Value = "Hp" },
+                new SelectListItem() { Text = "Dell", Value = "Dell" },
+                new SelectListItem() { Text = "Samsung", Value = "Samsung" },
+                new SelectListItem() { Text = "MSI", Value = "MSI" },
+                new SelectListItem() { Text = "Apple", Value = "Apple" },
+                new SelectListItem() { Text = "Acer", Value = "Acer" },
+                new SelectListItem() { Text = "Lenovo", Value = "Lenovo" },
+                new SelectListItem() { Text = "Microsoft", Value = "Microsoft" },
+                new SelectListItem() { Text = "Autres", Value = "Autres" }
+
+            };
+            return list;
+        }
+        public static IEnumerable<SelectListItem> ModelInformatiquePhotocopyMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "Laptop 14 pouces", Value = "Laptop 14 pouces" },
+                 new SelectListItem() { Text = "Laptop 15 pouces", Value = "Laptop 15 pouces" },
+                 new SelectListItem() { Text = "Laptop 16 pouces", Value = "Laptop 16 pouces" },
+                new SelectListItem() { Text = "Desktop", Value = "Desktop" },
+                new SelectListItem() { Text = "Souris", Value = "Souris" },
+                new SelectListItem() { Text = "Imprimante", Value = "Imprimante" },
+                new SelectListItem() { Text = "Photocopieuse", Value = "Photocopieuse" },
+                new SelectListItem() { Text = "Autres", Value = "Autres" }
+
+            };
+            return list;
+        }
+
+
+
+        public static IEnumerable<SelectListItem> BrandConsoleGamequeMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "Sony", Value = "Sony" },
+                new SelectListItem() { Text = "Nitendo", Value = "Nitendo" },
+                new SelectListItem() { Text = "Microsoft", Value = "Microsoft" },
+                new SelectListItem() { Text = "Sega", Value = "Sega" },
+                new SelectListItem() { Text = "Neo-Geo-AES", Value = "Neo-Geo-AES" },
+                new SelectListItem() { Text = "Amiga", Value = "Amiga" },
+                new SelectListItem() { Text = "Atari", Value = "Atari" },
+                new SelectListItem() { Text = "Retrogaming", Value = "Retrogaming" },
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+        }
+
+        public static IEnumerable<SelectListItem> ModelConsoleGameMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "PS4 Pro", Value = "PS4 Pro" },
+                new SelectListItem() { Text = "PS4", Value = "PS4" },
+                new SelectListItem() { Text = "PS3", Value = "PS3" },
+                new SelectListItem() { Text = "PS2", Value = "PS2" },
+                new SelectListItem() { Text = "Wii", Value = "Wii" },
+                new SelectListItem() { Text = "Switch", Value = "Switch" },
+                new SelectListItem() { Text = "Game Boy Advance", Value = "Game Boy Advance" },
+                new SelectListItem() { Text = "XBOX ONE", Value = "XBOX ONE" },
+                new SelectListItem() { Text = "XBOX 360", Value = "XBOX 360" },
+                new SelectListItem() { Text = "XBOX", Value = "XBOX" },
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+        }
+
+        public static IEnumerable<SelectListItem> BrandPhoneAccesorieMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "Apple", Value = "Apple" },
+                new SelectListItem() { Text = "Huawei", Value = "Huawei" },
+                new SelectListItem() { Text = "Samsung", Value = "Samsung" },
+                new SelectListItem() { Text = "Sony", Value = "Sony" },
+                new SelectListItem() { Text = "Alcatel", Value = "Alcatel" },
+                new SelectListItem() { Text = "Asus", Value = "Asus" },
+                new SelectListItem() { Text = "Honor", Value = "Honor" },
+                new SelectListItem() { Text = "HTC", Value = "HTC" },
+                new SelectListItem() { Text = "Lenovo", Value = "Lenovo" },
+                new SelectListItem() { Text = "LG", Value = "LG" },
+                new SelectListItem() { Text = "Microsoft", Value = "Microsoft" },
+                
+                new SelectListItem() { Text = "Motorola", Value = "Motorola" },
+                new SelectListItem() { Text = "Nokia", Value = "Nokia" },
+                new SelectListItem() { Text = "One plus", Value = "One plus" },
+                new SelectListItem() { Text = "Wiko", Value = "Wiko" },
+                 new SelectListItem() { Text = "Xaomi", Value = "Xaomi" },
+                  new SelectListItem() { Text = "ZTE", Value = "ZTE" },
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+        }
+
+        public static IEnumerable<SelectListItem> ModelApplePhoneAccesorieMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "IPhone 11 Pro Max", Value = "IPhone 11 Pro Max" },
+                new SelectListItem() { Text = "IPhone 11 Pro", Value = "IPhone 11 Pro" },
+                new SelectListItem() { Text = "IPhone 11", Value = "IPhone 11" },
+                new SelectListItem() { Text = "IPhone XS Max", Value = "IPhone XS Max" },
+                new SelectListItem() { Text = "IPhone XS", Value = "IPhone XS" },
+                new SelectListItem() { Text = "IPhone XR", Value = "IPhone XR" },
+                new SelectListItem() { Text = "IPhone X", Value = "IPhone X" },
+                new SelectListItem() { Text = "IPhone 8Plus", Value = "IPhone 8Plus" },
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+        }
+        public static IEnumerable<SelectListItem> ModelHuaweiPhoneAccesorieMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "P8 Lite", Value = "P8 Lite" },
+                new SelectListItem() { Text = "P9", Value = "P9" },
+                new SelectListItem() { Text = "P9 Lite", Value = "P9 Lite" },
+                new SelectListItem() { Text = "P10", Value = "P10" },
+                new SelectListItem() { Text = "P10 Lite", Value = "P10 Lite" },
+                new SelectListItem() { Text = "Mate 10 Pro", Value = "Mate 10 Pro" },
+                new SelectListItem() { Text = "P20", Value = "P20" },
+                new SelectListItem() { Text = "P20 Pro", Value = "P20 Pro" },
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+        }
+        public static IEnumerable<SelectListItem> ModelSamsungPhoneAccesorieMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "Galaxy S20 Ultra", Value = "Galaxy S20 Ultra" },
+                new SelectListItem() { Text = "Galaxy S20+", Value = "Galaxy S20+" },
+                new SelectListItem() { Text = "Galaxy S20", Value = "Galaxy S20" },
+                new SelectListItem() { Text = "Galaxy S10+", Value = "Galaxy S10+" },
+                new SelectListItem() { Text = "Galaxy S10", Value = "Galaxy S10" },
+                new SelectListItem() { Text = "Galaxy Note 4", Value = "Galaxy Note 4" },
+                new SelectListItem() { Text = "Galaxy Note 3", Value = "Galaxy Note 3" },
+                new SelectListItem() { Text = "Galaxy S7 Edge", Value = "Galaxy S7 Edge" },
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+        }
+
+        public static IEnumerable<SelectListItem> ModelSonyPhoneAccesorieMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "Xperia XZ2", Value = "Xperia XZ2" },
+                new SelectListItem() { Text = "Xperia E3", Value = "Xperia E3" },
+                new SelectListItem() { Text = "Xperia X", Value = "Xperia X" },
+                new SelectListItem() { Text = "Xperia XA", Value = "Xperia XA" },
+                new SelectListItem() { Text = "Xperia XA1", Value = "Xperia XA1" },
+                new SelectListItem() { Text = "Xperia Z5", Value = "Xperia Z5" },
+                new SelectListItem() { Text = "Xperia XZ", Value = "Xperia XZ" },
+                new SelectListItem() { Text = "Xperia Z3", Value = "Xperia Z3" },
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+        }
+
+        public static IEnumerable<SelectListItem> ModelAlcatelPhoneAccesorieMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "1", Value = "1" },
+                new SelectListItem() { Text = "3L", Value = "6L" },
+                new SelectListItem() { Text = "5", Value = "5" },
+                new SelectListItem() { Text = "5V", Value = "5V" },
+                new SelectListItem() { Text = "A5 LED", Value = "A5 LED" },
+                new SelectListItem() { Text = "Idol 3", Value = "Idol 3" },
+                new SelectListItem() { Text = "One Touch 995", Value = "One Touch 995" },
+                new SelectListItem() { Text = "One Touch Idol Alpha", Value = "One Touch Idol Alpha" },
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+        }
+
+        public static IEnumerable<SelectListItem> ModelAzusPhoneAccesorieMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "ZenFone 2", Value = "ZenFone 2" },
+                new SelectListItem() { Text = "ZenFone 2 Laser", Value = "ZenFone 2 Laser" },
+                new SelectListItem() { Text = "ZenFone 3 Laser", Value = "ZenFone 3 Laser" },
+                new SelectListItem() { Text = "ZenFone 3 Max", Value = "ZenFone 3 Max" },
+                new SelectListItem() { Text = "ZenFone 3 Max Plus", Value = "ZenFone 3 Max Plus" },
+                new SelectListItem() { Text = "ZenFone 3 Deluxe", Value = "ZenFone 3 Deluxe" },
+                new SelectListItem() { Text = "ZenFone Zoom", Value = "ZenFone Zoom" },
+                new SelectListItem() { Text = "Zenfone Max Pro M1", Value = "Zenfone Max Pro M1" },
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+
+        }
+        public static IEnumerable<SelectListItem> ModelHonorPhoneAccesorieMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "5", Value = "5" },
+                new SelectListItem() { Text = "5A", Value = "5A" },
+                new SelectListItem() { Text = "5C", Value = "5C" },
+                new SelectListItem() { Text = "6", Value = "6" },
+                new SelectListItem() { Text = "6 Plus", Value = "6 Plus" },
+                new SelectListItem() { Text = "9X Pro", Value = "9X Pro" },
+                new SelectListItem() { Text = "9X", Value = "9X" },
+                new SelectListItem() { Text = "20 Pro", Value = "20 Pro" },
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+
+        }
+
+        public static IEnumerable<SelectListItem> ModelHTCPhoneAccesorieMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "8X", Value = "8X" },
+                new SelectListItem() { Text = "Desire 10 Lifestyle", Value = "Desire 10 Lifestyle" },
+                new SelectListItem() { Text = "Desire 10 Pro", Value = "Desire 10 Pro" },
+                new SelectListItem() { Text = "Desire 12", Value = "Desire 12" },
+                new SelectListItem() { Text = "Desire 610", Value = "Desire 610" },
+                new SelectListItem() { Text = "One M9 Plus", Value = "One M9 Plus" },
+                new SelectListItem() { Text = "One X10", Value = "One X10" },
+                new SelectListItem() { Text = "One Mini 2", Value = "One Mini 2" },
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+
+        }
+
+        public static IEnumerable<SelectListItem> ModelLenovoPhoneAccesorieMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "C2", Value = "8X" },
+                new SelectListItem() { Text = "K5", Value = "Desire 10 Lifestyle" },
+                new SelectListItem() { Text = "K5 Note", Value = "Desire 10 Pro" },
+                new SelectListItem() { Text = "K6 Note", Value = "K6 Note" },
+                new SelectListItem() { Text = "Moto C Plus", Value = "Moto C Plus" },
+                new SelectListItem() { Text = "Moto G4 Plus", Value = "Moto G4 Plus" },
+                new SelectListItem() { Text = "Moto G5 Plus", Value = "Moto G5 Plus" },
+                new SelectListItem() { Text = "Z6 Pro", Value = "Z6 Pro" },
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+
+        }
+
+        public static IEnumerable<SelectListItem> ModelMicrosoftPhoneAccesorieMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "Lumia 435", Value = "Lumia 435" },
+                new SelectListItem() { Text = "Lumia 532", Value = "Lumia 532" },
+                new SelectListItem() { Text = "Lumia 535", Value = "Lumia 535" },
+                new SelectListItem() { Text = "Lumia 550", Value = "Lumia 550" },
+                new SelectListItem() { Text = "Lumia 640", Value = "Lumia 640" },
+                new SelectListItem() { Text = "Lumia 640 LTE", Value = "Lumia 640 LTE" },
+                new SelectListItem() { Text = "Lumia 640 XL", Value = "Lumia 640 XL" },
+                new SelectListItem() { Text = "Lumia 650 XL", Value = "Lumia 650 XL" },
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+
+        }
+
+        public static IEnumerable<SelectListItem> ModelLGPhoneAccesorieMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "Optimus G", Value = "Optimus G" },
+                new SelectListItem() { Text = "Optimus F6", Value = "Optimus F6" },
+                new SelectListItem() { Text = "Optimus L7", Value = "Optimus L7" },
+                new SelectListItem() { Text = "Optimus L9", Value = "Optimus L9" },
+                new SelectListItem() { Text = "Nexus 5", Value = "Nexus 5" },
+                new SelectListItem() { Text = "Nexus 5X", Value = "Nexus 5X" },
+                new SelectListItem() { Text = "V30", Value = "V30" },
+                new SelectListItem() { Text = "G6", Value = "G6" },
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+
+        }
+        public static IEnumerable<SelectListItem> ModelMotorolaPhoneAccesorieMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "One", Value = "One" },
+                new SelectListItem() { Text = "One Vision", Value = "One Vision" },
+                new SelectListItem() { Text = "Moto Defy", Value = "Moto Defy" },
+                new SelectListItem() { Text = "Moto E4 Plus", Value = "Moto E4 Plus" },
+                new SelectListItem() { Text = "Moto G5 Plus", Value = "Moto G5 Plus" },
+                new SelectListItem() { Text = "Moto G5S Plus", Value = "Moto G5S Plus" },
+                new SelectListItem() { Text = "Moto G7 Power", Value = "Moto G7 Power" },
+                new SelectListItem() { Text = "Moto X Force", Value = "Moto X Force" },
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+
+        }
+
+        public static IEnumerable<SelectListItem> ModelOnePlusPhoneAccesorieMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "One", Value = "One" },
+                new SelectListItem() { Text = "2", Value = "2" },
+                new SelectListItem() { Text = "3", Value = "3" },
+                new SelectListItem() { Text = "3T", Value = "3T" },
+                new SelectListItem() { Text = "5", Value = "5" },
+                new SelectListItem() { Text = "5T", Value = "5T" },
+                new SelectListItem() { Text = "6", Value = "6" },
+                new SelectListItem() { Text = "7 Pro", Value = "7 Pro" },
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+
+        }
+        public static IEnumerable<SelectListItem> ModelWikoPhoneAccesorieMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "Cink", Value = "Cink" },
+                new SelectListItem() { Text = "Cink Five", Value = "Cink Five" },
+                new SelectListItem() { Text = "Cink King", Value = "Cink King" },
+                new SelectListItem() { Text = "Cink Peax", Value = "Cink Peax" },
+                new SelectListItem() { Text = "Getaway", Value = "Getaway" },
+                new SelectListItem() { Text = "Jerry 3", Value = "Jerry 3" },
+                new SelectListItem() { Text = "JimmyBirdy 4G", Value = "JimmyBirdy 4G" },
+                new SelectListItem() { Text = "JimmyBirdy 4G", Value = "JimmyBirdy 4G" },
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+
+        }
+        public static IEnumerable<SelectListItem> ModelXaomiPhoneAccesorieMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "Mi 4", Value = "Mi 4" },
+                new SelectListItem() { Text = "Mi 5", Value = "Mi 5" },
+                new SelectListItem() { Text = "Mi 5S", Value = "Mi 5S" },
+                new SelectListItem() { Text = "Mi 8 Lite", Value = "Mi 8 Lite" },
+                new SelectListItem() { Text = "Mi 8 Pro", Value = "Mi 8 Pro" },
+                new SelectListItem() { Text = "Mi 9", Value = "Mi 9" },
+                new SelectListItem() { Text = "Mi 9T", Value = "Mi 9T" },
+                new SelectListItem() { Text = "Mi A1", Value = "Mi A1" },
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+
+        }
+
+        public static IEnumerable<SelectListItem> ModelZTEPhoneAccesorieMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "Axon 7", Value = "Axon 7" },
+                new SelectListItem() { Text = "Axon 7 Mini", Value = "Axon 7 Mini" },
+                new SelectListItem() { Text = "Axon Lite", Value = "Axon Lite" },
+                new SelectListItem() { Text = "Axon Mini", Value = "Axon Mini" },
+                new SelectListItem() { Text = "Blade 3", Value = "Blade 3" },
+                new SelectListItem() { Text = "Blade A310", Value = "Blade A310" },
+                new SelectListItem() { Text = "Blade A452", Value = "Blade A452" },
+                new SelectListItem() { Text = "Blade A506", Value = "Blade A506" },
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+
+        }
+        public static IEnumerable<SelectListItem> ModelOtherMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+
+        }
+        public static IEnumerable<SelectListItem> BrandTVGameMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "Samsung", Value = "Samsung" },
+                new SelectListItem() { Text = "Sony", Value = "Sony" },
+                new SelectListItem() { Text = "Panasonic", Value = "Panasonic" },
+                new SelectListItem() { Text = "LG", Value = "LG" },
+                new SelectListItem() { Text = "Sharp", Value = "Sharp" },
+                new SelectListItem() { Text = "TCL", Value = "TCL" },
+                
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+        }
+
+        public static IEnumerable<SelectListItem> ModelTVGameMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "TV Full HD 32 pouces", Value = "TV Full HD 32 pouces" },
+                new SelectListItem() { Text = "TV Full HD 40 pouces", Value = "TV Full HD 40 pouces" },
+                new SelectListItem() { Text = "TV Full HD 48 pouces", Value = "TV Full HD 48 pouces" },
+                new SelectListItem() { Text = "TV 4K Ultra-HD 48 pouces", Value = "TV 4K Ultra-HD 48 pouces" },
+                new SelectListItem() { Text = "TV 4K Ultra-HD 50 pouces", Value = "TV 4K Ultra-HD 50 pouces" },
+                new SelectListItem() { Text = "TV 4K Ultra-HD 55pouces", Value = "TV 4K Ultra-HD 55pouces" },
+
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+        }
+
+        public static IEnumerable<SelectListItem> BrandSonMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "Amazon", Value = "Amazon" },
+                new SelectListItem() { Text = "Apple", Value = "Apple" },
+                new SelectListItem() { Text = "Bose", Value = "Bose" },
+                new SelectListItem() { Text = "LG", Value = "LG" },
+                new SelectListItem() { Text = "Teufel", Value = "Teufel" },
+                new SelectListItem() { Text = "Klipsch", Value = "Klipsch" },
+
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+        }
+
+        public static IEnumerable<SelectListItem> ModelSonGamequeMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "Haut-parleur voiture", Value = "Haut-parleur voiture" },
+                new SelectListItem() { Text = "Haut-parleur PC", Value = "Haut-parleur PC" },
+                new SelectListItem() { Text = "Haut-parleur bluetooth", Value = "Haut-parleur bluetooth" },
+                new SelectListItem() { Text = "Haut-parleur discothèque", Value = "Haut-parleur discothèque" },
+                new SelectListItem() { Text = "Casque sans fil", Value = "Casque sans fil" },
+                new SelectListItem() { Text = "écouteurs", Value = "écouteurs" },
+
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+        }
+        public static IEnumerable<SelectListItem> CapacityMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "8 Go", Value = "8 Go" },
+                new SelectListItem() { Text = "16 Go", Value = "16 Go" },
+                new SelectListItem() { Text = "32 Go", Value = "32 Go" },
+                new SelectListItem() { Text = "64 Go", Value = "64 Go" },
+                new SelectListItem() { Text = "128 Go", Value = "128 Go" },
+                new SelectListItem() { Text = "256 Go", Value = "256 Go" },
+                new SelectListItem() { Text = "512 Go", Value = "512 Go" },
+                new SelectListItem() { Text = "+ de 512 Go", Value = "+ de 512 Go" }
 
             };
             return list;

@@ -188,6 +188,7 @@
     <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\JobOfferSearchController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MultimediaController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -213,6 +214,14 @@
     <Compile Include="Migrations\202010100816369_RemoveintNullable.Designer.cs">
       <DependentUpon>202010100816369_RemoveintNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010131745298_AddNewClassMultimedia.cs" />
+    <Compile Include="Migrations\202010131745298_AddNewClassMultimedia.Designer.cs">
+      <DependentUpon>202010131745298_AddNewClassMultimedia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010132059312_AddDateTime.cs" />
+    <Compile Include="Migrations\202010132059312_AddDateTime.Designer.cs">
+      <DependentUpon>202010132059312_AddDateTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApartmentRentalModel.cs" />
@@ -224,6 +233,7 @@
     <Compile Include="Models\JobModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MessageDetails.cs" />
+    <Compile Include="Models\MultimediaModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\ProductCoordinateModel.cs" />
     <Compile Include="Models\VehicleModel.cs" />
@@ -237,6 +247,7 @@
     <Compile Include="ViewModel\ImageModelView.cs" />
     <Compile Include="ViewModel\JobEditViewModel.cs" />
     <Compile Include="ViewModel\JobViewModel.cs" />
+    <Compile Include="ViewModel\MultimediaViewModel.cs" />
     <Compile Include="ViewModel\SeachJobViewModel.cs" />
     <Compile Include="ViewModel\SelectListMethod.cs" />
   </ItemGroup>
@@ -370,6 +381,7 @@
     <Content Include="Views\User\UpdateUserInformations.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
     <Content Include="Views\Product\SearchAskProduct_PartialView.cshtml" />
+    <Content Include="Views\Multimedia\AddMultimedia_PartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -402,6 +414,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010100816369_RemoveintNullable.resx">
       <DependentUpon>202010100816369_RemoveintNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010131745298_AddNewClassMultimedia.resx">
+      <DependentUpon>202010131745298_AddNewClassMultimedia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010132059312_AddDateTime.resx">
+      <DependentUpon>202010132059312_AddDateTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

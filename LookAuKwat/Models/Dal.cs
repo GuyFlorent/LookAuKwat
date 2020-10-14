@@ -72,8 +72,12 @@ namespace LookAuKwat.Models
                 .Include(s => s.User)
                 .Include(s => s.Category)
                 .Include(s => s.Coordinate).ToList();
+            IEnumerable<MultimediaModel> listMulti = dbb.Multimedia.Include(s => s.Images)
+                .Include(s => s.User)
+                .Include(s => s.Category)
+                .Include(s => s.Coordinate).ToList();
 
-            foreach(var job in listjobs)
+            foreach (var job in listjobs)
             {
                 if (job != null)
                     liste.Add(job);
@@ -82,6 +86,11 @@ namespace LookAuKwat.Models
             {
                 if (apart != null)
                     liste.Add(apart);
+            }
+            foreach (var multi in listMulti)
+            {
+                if (multi != null)
+                    liste.Add(multi);
             }
             return liste;
 
@@ -99,7 +108,10 @@ namespace LookAuKwat.Models
                 .Include(s => s.User)
                 .Include(s => s.Category)
                 .Include(s => s.Coordinate).ToList();
-
+            IEnumerable<MultimediaModel> listMulti = dbb.Multimedia.Include(s => s.Images)
+                .Include(s => s.User)
+                .Include(s => s.Category)
+                .Include(s => s.Coordinate).ToList();
             if (listjobs.ToList().Count > 0)
             {
                 foreach (var job in listjobs)
@@ -116,7 +128,15 @@ namespace LookAuKwat.Models
                         liste.Add(apart);
                 }
             }
-           
+            if (listMulti.ToList().Count > 0)
+            {
+                foreach (var multi in listMulti)
+                {
+                    if (multi != null)
+                        liste.Add(multi);
+                }
+            }
+
             return liste.Where(s => s.User == user);
         }
 
@@ -248,7 +268,7 @@ namespace LookAuKwat.Models
         public void UpdateUserInformations(ApplicationUser user)
         {
             ApplicationUser userr = dbb.Users.FirstOrDefault(u => u.Id == user.Id);
-            userr.Email = user.Email;
+            userr.FirstName = user.FirstName;
             userr.PhoneNumber = user.PhoneNumber;
             dbb.SaveChanges();
         }
@@ -283,6 +303,58 @@ namespace LookAuKwat.Models
                     liste.Add(apart);
             }
             return liste.Where(m => m.SearchOrAskJob == "Je recherche");
+        }
+
+        public void AddMultimedia(MultimediaModel model, string lat, string lon)
+        {
+            CategoryModel category = new CategoryModel
+            {
+                CategoryName = model.Category.CategoryName,
+
+            };
+
+            // dbb.Categories.Add(category);
+            model.Category = category;
+
+            ProductCoordinateModel coordinate = new ProductCoordinateModel
+            {
+                Lat = lat,
+                Lon = lon
+
+            };
+            // dbb.ProductCoordinates.Add(coordinate);
+            model.Coordinate = coordinate;
+
+            dbb.Multimedia.Add(model);
+            dbb.SaveChanges();
+        }
+
+        public void EditMultimedia(MultimediaModel multi, string lat, string lon)
+        {
+            ProductCoordinateModel coor = dbb.ProductCoordinates.Find(multi.id);
+            coor.Lat = lat;
+            coor.Lon = lon;
+
+            CategoryModel cate = dbb.Categories.FirstOrDefault(s => s.CategoryName == multi.Category.CategoryName);
+
+            MultimediaModel model = dbb.Multimedia.FirstOrDefault(s => s.id == multi.id);
+            model.Title = multi.Title;
+            model.SearchOrAskJob = multi.SearchOrAskJob;
+            model.Price = multi.Price;
+            model.Street = multi.Street;
+            model.Town = multi.Town;
+            model.Coordinate = coor;
+            model.User = multi.User;
+            model.Type = multi.Type;
+            model.Brand = multi.Brand;
+            model.Model = multi.Model;
+            model.Capacity = multi.Capacity;
+            model.DateAdd = multi.DateAdd;
+            model.Category = cate;
+            model.Images = multi.Images;
+            model.Description = multi.Description;
+
+            dbb.SaveChanges();
         }
     }
 }

@@ -10,21 +10,21 @@ namespace LookAuKwat.ViewModel
 {
     public class contactUserViewModel
     {
-       // [Required]
-        [DisplayName("Votre nom")]
+        [Required(ErrorMessage = "Le nom de l'expéditeur ne doit pas être vide")]
+        [DisplayName("Votre nom *")]
         
         public string NameSender { get; set; }
-       // [Required]
-        [DisplayName("Votre Sujet")]
+        [Required(ErrorMessage = "Le sujet ne doit pas être vide")]
+        [DisplayName("Votre Sujet *")]
        
         public string SubjectSender { get; set; }
         
-        [DisplayName("Votre Email")]
-        //[DataType(DataType.EmailAddress)]
-        //[EmailAddress(ErrorMessage = "Adresse Email n'est pas valide!!")]
+        [DisplayName("Votre Email *")]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress(ErrorMessage = "Adresse Email n'est pas valide!!")]
         public string EmailSender { get; set; }
-        //[Required]
-        [DisplayName("Votre message")]
+        [Required(ErrorMessage = "Le message ne doit pas être vide")]
+        [DisplayName("Votre message *")]
         
         public string Message { get; set; }
         public string Linkshare { get; set; }

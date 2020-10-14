@@ -19,7 +19,7 @@ namespace LookAuKwat.Models
         [DisplayName("Prix")]
         public int Price { get; set; }
         [DisplayName("Date d'ajout")]
-        public string DateAdd { get; set; }
+        public DateTime DateAdd { get; set; }
         [DisplayName("J'offre/Je recherche")]
         public string SearchOrAskJob { get; set; }
         [DisplayName("Nombre de vues")]

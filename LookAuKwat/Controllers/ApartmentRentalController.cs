@@ -34,7 +34,7 @@ namespace LookAuKwat.Controllers
 
         public ActionResult AddApartment_PartialView()
         {
-            return PartialView();
+            return PartialView(new ApartmentRentalViewModel() );
         }
 
         [HttpPost]
@@ -51,7 +51,7 @@ namespace LookAuKwat.Controllers
                 Street = apart.StreetAppart,
                 FurnitureOrNot = apart.FurnitureOrNot,
                 RoomNumber = apart.RoomNumber,
-                DateAdd = DateTime.Now.ToString(),
+                DateAdd = DateTime.Now,
                 SearchOrAskJob = apart.SearchOrAskJobAppart,
                 Type = apart.Type
 
@@ -148,7 +148,7 @@ namespace LookAuKwat.Controllers
                     FurnitureOrNot = apart.FurnitureOrNot,
                     RoomNumber = apart.RoomNumber,
                     Type = apart.Type,
-                    DateAdd = DateTime.Now.ToString(),
+                    DateAdd = DateTime.Now,
                     SearchOrAskJob = apart.SearchOrAskJobAppart,
                     Category = new CategoryModel { CategoryName = "Immobilier" },
                     User = user

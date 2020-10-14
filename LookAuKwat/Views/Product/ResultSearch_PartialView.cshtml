@@ -1,5 +1,5 @@
 ﻿@using PagedList;
-
+@using System.Globalization;
 @using PagedList.Mvc;
 @model LookAuKwat.ViewModel.SeachJobViewModel
 
@@ -33,28 +33,28 @@ else
                 }
                 else if (Model.CagtegorieSearch == "Immobilier")
                 {
-            <select id="SelectFlat">
-                <option value="---Choisir---">---Choisir---</option>
-                <option id="AscendingFlatPrice" value="Tri par Prix croissant"> Tri par Prix croissant</option>
-                <option id="descendingFlatPrice" value="Tri par Prix décroissant">Tri par Prix décroissant</option>
-                <option id="MostOlderFlat" value="Tri par Plus anciennes">Tri par Plus anciennes</option>
-                <option id="MostLastestFlat" value="Tri par Plus recentes">Tri par Plus recentes</option>
-            </select>
+                    <select id="SelectFlat">
+                        <option value="---Choisir---">---Choisir---</option>
+                        <option id="AscendingFlatPrice" value="Tri par Prix croissant"> Tri par Prix croissant</option>
+                        <option id="descendingFlatPrice" value="Tri par Prix décroissant">Tri par Prix décroissant</option>
+                        <option id="MostOlderFlat" value="Tri par Plus anciennes">Tri par Plus anciennes</option>
+                        <option id="MostLastestFlat" value="Tri par Plus recentes">Tri par Plus recentes</option>
+                    </select>
                 }
 
 
                 @*<a id="AscendingPrice" class="btn">Tri par Prix croissant</a>
-            <a id="descendingPrice" class="btn">Tri par Prix décroissantt</a>
-            <a id="MostOlder" class="btn">Tri par Plus anciennes</a>
-            <a id="MostLastest" class="btn">Tri par Plus recentes</a>*@
+                    <a id="descendingPrice" class="btn">Tri par Prix décroissantt</a>
+                    <a id="MostOlder" class="btn">Tri par Plus anciennes</a>
+                    <a id="MostLastest" class="btn">Tri par Plus recentes</a>*@
 
                 @*<div id="CompanySearchResults"></div>*@
 
                 @*@Ajax.ActionLink("Prix croissant", "ResultSearchOfferJob_PartialView", "JobOfferSearch", new { sortBy = "Price asc" }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "groupeResultSearch" }, new { @class = "test" })
 
-            @Ajax.ActionLink("Prix décroissant", "ResultSearchOfferJob_PartialView", "JobOfferSearch", new { sortBy = "Price desc" }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "groupeResultSearch" })
-            @Ajax.ActionLink("Plus anciennes", "ResultSearchOfferJob_PartialView", "JobOfferSearch", new { sortBy = "date asc" }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "groupeResultSearch" })
-            @Ajax.ActionLink("Plus recentes", "ResultSearchOfferJob_PartialView", "JobOfferSearch", new { sortBy = "date desc" }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "groupeResultSearch" })*@
+                    @Ajax.ActionLink("Prix décroissant", "ResultSearchOfferJob_PartialView", "JobOfferSearch", new { sortBy = "Price desc" }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "groupeResultSearch" })
+                    @Ajax.ActionLink("Plus anciennes", "ResultSearchOfferJob_PartialView", "JobOfferSearch", new { sortBy = "date asc" }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "groupeResultSearch" })
+                    @Ajax.ActionLink("Plus recentes", "ResultSearchOfferJob_PartialView", "JobOfferSearch", new { sortBy = "date desc" }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "groupeResultSearch" })*@
 
 
 
@@ -63,15 +63,15 @@ else
                 <div class="panel-heading">
                     @{ if (Model.CagtegorieSearch == "Emploi")
                         {
-                            <h3 class="panel-title">@Model.ListePro.Count Annonces disponibles dans la catégorie Emploi :</h3>
+                            <h3 class="panel-title">@Model.ListePro.Count <strong>Annonces</strong> disponibles dans la catégorie <strong>offres Emploi</strong> :</h3>
                         }
                         else if (Model.CagtegorieSearch == "Immobilier")
                         {
-                            <h3 class="panel-title">@Model.ListePro.Count Annonces disponibles dans la catégorie Immobilier :</h3>
+                            <h3 class="panel-title">@Model.ListePro.Count <strong>Annonces</strong> disponibles dans la catégorie <strong>offres Immobilier</strong> :</h3>
                         }
                         else if (Model.CagtegorieSearch == "AskSearch")
                         {
-                            <h3 class="panel-title">@Model.ListePro.Count Annonces disponibles dans la rubrique des demandes :</h3>
+                            <h3 class="panel-title">@Model.ListePro.Count <strong>Annonces</strong> disponibles dans la rubrique des demandes :</h3>
                         }
                     }
                 </div>
@@ -82,8 +82,8 @@ else
                         if (liste.Category.CategoryName == "Emploi")
                         {
                             <a href="@Url.Action("JobDetail", "Job", new { id = liste.id }, null)" class="list-group-item">
-                                <h4 class="list-group-item-heading"> @liste.Title Ville:<span class="text-info"> @liste.Town</span></h4>
-                                <p class="list-group-item-text pull-right">@liste.DateAdd</p>
+                                <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"> @liste.Town</span></h4>
+                                <p class="list-group-item-text pull-right">@liste.DateAdd.ToString("ddd, dd MMM yyy HH':'mm", new CultureInfo("fr-FR"))</p>
                                 <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
                                 <p class="list-group-item-text text-left">@liste.Category.CategoryName</p>
                                 <img src="@liste.Images.Select(m=>m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded" />
@@ -92,8 +92,8 @@ else
                         else if (liste.Category.CategoryName == "Immobilier")
                         {
                             <a href="@Url.Action("ApartDetail", "ApartmentRental", new { id = liste.id }, null)" class="list-group-item">
-                                <h4 class="list-group-item-heading"> @liste.Title Ville:<span class="text-info"> @liste.Town</span></h4>
-                                <p class="list-group-item-text pull-right">@liste.DateAdd</p>
+                                <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"> @liste.Town</span></h4>
+                                <p class="list-group-item-text pull-right">@liste.DateAdd.ToString("ddd, dd MMM yyy HH':'mm", new CultureInfo("fr-FR"))</p>
                                 <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
                                 <p class="list-group-item-text text-left">@liste.Category.CategoryName</p>
                                 <img src="@liste.Images.Select(m=>m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded" />
@@ -109,15 +109,15 @@ else
                 @*Page @(Model.ListeProPagedList.PageCount< Model.ListeProPagedList.PageNumber ? 0 : Model.ListeProPagedList.PageNumber) sur @Model.ListeProPagedList.PageCount*@
                 @Html.PagedListPager(Model.ListeProPagedList, pageNumber => Url.Action("ResultSearchOfferJob_PartialView", "JobOfferSearch", new { pageNumber, sortBy = Request["sortBy"] }),
      PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "groupeResultSearch" }))
-                }
-                @if (Model.CagtegorieSearch == "Immobilier")
-                {
+            }
+            @if (Model.CagtegorieSearch == "Immobilier")
+            {
 
-                    @*Page @(Model.ListeProPagedList.PageCount< Model.ListeProPagedList.PageNumber ? 0 : Model.ListeProPagedList.PageNumber) sur @Model.ListeProPagedList.PageCount*@
-                    @Html.PagedListPager(Model.ListeProPagedList, pageNumber => Url.Action("searchOfferAppart", "ApartmentRentalSearch", new { pageNumber, sortBy = Request["sortBy"] }),
-         PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "groupeResultSearch" }))
-                    }
-                </div>
+                @*Page @(Model.ListeProPagedList.PageCount< Model.ListeProPagedList.PageNumber ? 0 : Model.ListeProPagedList.PageNumber) sur @Model.ListeProPagedList.PageCount*@
+                @Html.PagedListPager(Model.ListeProPagedList, pageNumber => Url.Action("searchOfferAppart", "ApartmentRentalSearch", new { pageNumber, sortBy = Request["sortBy"] }),
+     PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "groupeResultSearch" }))
+            }
+        </div>
         <div class="col-md-6">
             @*<h1> Publicitéx</h1>*@
         </div>
@@ -138,7 +138,7 @@ else
         contentType: 'application/json; charset=utf-8',
         data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
         success: function (result) {
-           
+
             $('#groupeResultSearch').html(result);
         }
       });
@@ -158,7 +158,7 @@ else
         contentType: 'application/json; charset=utf-8',
         data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
         success: function (result) {
-            
+
             $('#groupeResultSearch').html(result);
         }
       });
@@ -178,7 +178,7 @@ else
         contentType: 'application/json; charset=utf-8',
         data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
         success: function (result) {
-           
+
             $('#groupeResultSearch').html(result);
         }
       });
@@ -198,7 +198,7 @@ else
         contentType: 'application/json; charset=utf-8',
         data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
         success: function (result) {
-            
+
             $('#groupeResultSearch').html(result);
         }
       });
@@ -224,7 +224,7 @@ else
         contentType: 'application/json; charset=utf-8',
         //data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
         success: function (result) {
-           
+
             $('#groupeResultSearch').html(result);
         }
       });
@@ -247,7 +247,7 @@ else
         contentType: 'application/json; charset=utf-8',
         //data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
         success: function (result) {
-           
+
             $('#groupeResultSearch').html(result);
         }
       });
@@ -270,7 +270,7 @@ else
         contentType: 'application/json; charset=utf-8',
        // data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
         success: function (result) {
-           
+
             $('#groupeResultSearch').html(result);
         }
       });
@@ -293,7 +293,7 @@ else
         contentType: 'application/json; charset=utf-8',
             // data: { 'toto': TownSearchApart},  // JSON.stringify(searchTerm)
         success: function (result) {
-            
+
             $('#groupeResultSearch').html(result);
         }
       });
@@ -303,7 +303,7 @@ else
         $("#SelectFlat option:selected").click();
     });
 
-   
+
     if (document.getElementById("selectJob").value != null) {
         document.getElementById("selectJob").onchange = function () {
             localStorage['selectJob'] = document.getElementById("selectJob").value;
@@ -312,7 +312,7 @@ else
     if (localStorage['selectJob']) {
         document.getElementById("selectJob").value = localStorage['selectJob'];
     };
-    
+
     if (document.getElementById("SelectFlat").value != null) {
         document.getElementById("SelectFlat").onchange = function () {
             localStorage['SelectFlat'] = document.getElementById("SelectFlat").value;

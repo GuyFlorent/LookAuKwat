@@ -27,7 +27,7 @@ namespace LookAuKwat
 
         private async Task configSendGridasync(IdentityMessage message)
         {
-           
+            
             var apikey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");       
             var client = new SendGridClient(apikey);
             var from = new EmailAddress("wanguy9@gmail.com","(NoReply Here)");

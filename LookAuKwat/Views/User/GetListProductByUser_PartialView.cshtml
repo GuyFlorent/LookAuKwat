@@ -1,28 +1,28 @@
 ﻿@model IEnumerable<LookAuKwat.Models.ProductModel>
-
+@using System.Globalization;
 
 @foreach (var item in Model)
 {
 
     @*<div id="MyModalDelete_@item.id" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title">Supprimer<span id="eventTitle"></span></h2>
-                </div>
-                <div class="modal-body">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h2 class="modal-title">Supprimer<span id="eventTitle"></span></h2>
+                    </div>
+                    <div class="modal-body">
 
-                    @{
-                        Html.RenderAction("deleteInitiative_PartialView", "Initiative", new { id = item.id });
-                    }
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        @{
+                            Html.RenderAction("deleteInitiative_PartialView", "Initiative", new { id = item.id });
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>*@
+        </div>*@
 
 
     <div id="MyModalDetail_@item.id" class="modal fade" role="dialog">
@@ -33,16 +33,17 @@
                     <h2 class="modal-title">Détails<span id="eventTitle"></span></h2>
                 </div>
                 <div class="modal-body">
-                  @{  if (@item.Category.CategoryName == "Emploi")
-                      {
+                    @{ if (@item.Category.CategoryName == "Emploi")
+                        {
 
-                          Html.RenderAction("JobDetails_PartialView", "Job", new { model = item });
+                            Html.RenderAction("JobDetails_PartialView", "Job", new { model = item });
 
-                      } else if(@item.Category.CategoryName == "Immobilier")
-                      {
-                          Html.RenderAction("ApartmentDetails_PartialView", "ApartmentRental", new { model = item });
-                      }
                         }
+                        else if (@item.Category.CategoryName == "Immobilier")
+                        {
+                            Html.RenderAction("ApartmentDetails_PartialView", "ApartmentRental", new { model = item });
+                        }
+                    }
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
@@ -59,17 +60,17 @@
                     <h3 class="modal-title">Modifier<span id="eventTitle"></span></h3>
                 </div>
                 <div class="modal-body">
-                  @{  if (@item.Category.CategoryName == "Emploi")
-                      {
+                    @{ if (@item.Category.CategoryName == "Emploi")
+                        {
 
-                          Html.RenderAction("EditJob_PartialView", "Job", new { job = item });
+                            Html.RenderAction("EditJob_PartialView", "Job", new { job = item });
 
-                      }
-                      else if (@item.Category.CategoryName == "Immobilier")
-                      {
-                          Html.RenderAction("EditApartment_PartialView", "ApartmentRental", new { apart = item });
-                      }
                         }
+                        else if (@item.Category.CategoryName == "Immobilier")
+                        {
+                            Html.RenderAction("EditApartment_PartialView", "ApartmentRental", new { apart = item });
+                        }
+                    }
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
@@ -77,7 +78,7 @@
             </div>
         </div>
     </div>
-                      }
+}
 
 
 
@@ -99,14 +100,14 @@
                     @Html.DisplayNameFor(model => model.Title)
                 </th>
                 @*<th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>*@
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.Town)
                 </th>
                 @*<th>
-            @Html.DisplayNameFor(model => model.Street)
-        </th>*@
+                        @Html.DisplayNameFor(model => model.Street)
+                    </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.Price) <span class="text-danger">(FCFA)</span>
                 </th>
@@ -125,50 +126,56 @@
 
             @foreach (var item in Model)
             {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.CategoryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Town)
-            </td>
-            @*<td>
-            @Html.DisplayFor(modelItem => item.Street)
-        </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateAdd)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SearchOrAskJob)
-            </td>
-            <td>
-                @if (item.Images.Count() == 0)
-                {
-                    <span>Aucune image</span>
-                }
-                else
-                {
-                    <span>@item.Images.Count() Image(s)</span>
-                }
-            </td>
-            <td>
-                <a id="btnModalEdit_@item.id" class="btn btn-success" title="Modifier"><span class="glyphicon glyphicon-edit"></span></a>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Town)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.Street)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @{
+                            //var st = DateTime.ParseExact(item.StartHour, "dd/MM/yyyy HH:mm", null);
+                            var date = item.DateAdd.ToString("ddd, dd MMM yyy HH':'mm", new CultureInfo("fr-FR"));
 
-                <a id="btnModalDetails_@item.id" class="btn btn-info" title="Détails"><span class="glyphicon glyphicon-eye-open"></span></a>
+                        }
+                        @date
+                       
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SearchOrAskJob)
+                    </td>
+                    <td>
+                        @if (item.Images.Count() == 0)
+                        {
+                            <span>Aucune image</span>
+                        }
+                        else
+                        {
+                            <span>@item.Images.Count() Image(s)</span>
+                        }
+                    </td>
+                    <td>
+                        <a id="btnModalEdit_@item.id" class="btn btn-success" title="Modifier"><span class="glyphicon glyphicon-edit"></span></a>
+
+                        <a id="btnModalDetails_@item.id" class="btn btn-info" title="Détails"><span class="glyphicon glyphicon-eye-open"></span></a>
 
 
-                <a href="javascript:void(0);" data-id="@item.id" id="deletePro_@item.id" class="btn btn-danger deleteProduct_@item.id" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></a>
-            </td>
-        </tr>
+                        <a href="javascript:void(0);" data-id="@item.id" id="deletePro_@item.id" class="btn btn-danger deleteProduct_@item.id" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></a>
+                    </td>
+                </tr>
             }
 
         </table>
@@ -184,11 +191,11 @@
             url: '/Product/listProductImageReturnJson',
             success: function (data2) {
                 //var result = JSON.stringify(data);
-                console.log(data2);
+                //console.log(data2);
                 $.each(data2, function (i, data) {
 
                     var btnDeleteImage = $('.deleteItem_' + data)
-                    console.log(btnDeleteImage);
+                   // console.log(btnDeleteImage);
         $(btnDeleteImage).click(function (e) {
            e.preventDefault();
            var $ctrl = $(this);
@@ -228,7 +235,7 @@
             url: '/Product/listProductReturnJson',
             success: function (data1) {
                 //var result = JSON.stringify(data);
-                console.log(data1);
+                //console.log(data1);
                 $.each(data1, function (i, data) {
 
 
@@ -270,8 +277,8 @@
                     var btnDetailProduct = $('#btnModalDetails_' + data);
                     var modaDetailProduct = $('#MyModalDetail_' + data);
                     var btnEditIni = $('#btnEditProductDetail_' + data);
-                    console.log(btnDetailProduct);
-                    console.log(modaDetailProduct);
+                   // console.log(btnDetailProduct);
+                    //console.log(modaDetailProduct);
                     $(btnDetailProduct).click(function () {
 
                         $(modaDetailProduct).modal();

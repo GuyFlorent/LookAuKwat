@@ -32,5 +32,9 @@ namespace LookAuKwat.Models
 
         //For message model
         IEnumerable<MessageDetails> GetListMessage();
+
+        //For Multimedia model
+        void AddMultimedia(MultimediaModel model, string lat, string lon);
+        void EditMultimedia(MultimediaModel model, string lat, string lon);
     }
 }

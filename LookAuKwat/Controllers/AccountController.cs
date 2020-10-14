@@ -74,7 +74,7 @@ namespace LookAuKwat.Controllers
             }
 
             // Require the user to have a confirmed email before they can log on.
-            var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await UserManager.FindByNameAsync(model.Email.ToLower());
             if (user != null)
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
@@ -163,7 +163,7 @@ namespace LookAuKwat.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = model.Phone, FirstName = model.FirstName };
+                var user = new ApplicationUser { UserName = model.Email.ToLower(), Email = model.Email.ToLower(), PhoneNumber = model.Phone, FirstName = model.FirstName };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
