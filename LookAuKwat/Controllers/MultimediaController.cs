@@ -42,7 +42,7 @@ namespace LookAuKwat.Controllers
             List<string> brandList = new List<string>();
             brandList.Add(multi.BrandConsoleGame);
             brandList.Add(multi.BrandInformatiquePhotocopi);
-            brandList.Add(multi.BrandPhone);
+            
             brandList.Add(multi.BrandPhoneAccesories);
             brandList.Add(multi.BrandSon);
             brandList.Add(multi.BrandTv);
@@ -89,17 +89,17 @@ namespace LookAuKwat.Controllers
             MultimediaModel model = new MultimediaModel()
             {
                 id = multi.id,
-                Title = multi.Title,
-                Description = multi.Description,
-                Type = multi.Type,
-                Town = multi.Town,
-                Price = multi.Price,
-                Street = multi.Street,
+                Title = multi.TitleMultimedia,
+                Description = multi.DescriptionMultimedia,
+                Type = multi.TypeMultimedia,
+                Town = multi.TownMultimedia,
+                Price = multi.PriceMultimedia,
+                Street = multi.StreetMultimedia,
                 Brand = Brand,
                 Model = Model,
                 Capacity = multi.Capacity,
                 DateAdd = DateTime.Now,
-                SearchOrAskJob = multi.SearchOrAskJob,
+                SearchOrAskJob = multi.SearchOrAskJobMultimedia,
 
             };
 
@@ -128,7 +128,7 @@ namespace LookAuKwat.Controllers
 
                         model.Images = images;
                         model.User = user;
-                        model.Category = new CategoryModel { CategoryName = "Emploi" };
+                        model.Category = new CategoryModel { CategoryName = "Multimedia" };
                         dal.AddMultimedia(model, latt, lonn);
 
 
@@ -156,15 +156,15 @@ namespace LookAuKwat.Controllers
             MultimediaViewModel model = new MultimediaViewModel()
             {
                 id = multi.id,
-                Title = multi.Title,
-                Description = multi.Description,
-                Type = multi.Type,
-                Town = multi.Town,
-                Price = multi.Price,
-                Street = multi.Street,
+                TitleMultimedia = multi.Title,
+                DescriptionMultimedia = multi.Description,
+                TypeMultimedia = multi.Type,
+                TownMultimedia = multi.Town,
+                PriceMultimedia = multi.Price,
+                StreetMultimedia = multi.Street,
               //  Brand = multi.Brand,
                 DateAdd = DateTime.Now,
-                SearchOrAskJob = multi.SearchOrAskJob,
+                SearchOrAskJobMultimedia = multi.SearchOrAskJob,
                 listeImage = multi.Images
 
             };
@@ -178,7 +178,7 @@ namespace LookAuKwat.Controllers
             List<string> brandList = new List<string>();
             brandList.Add(multi.BrandConsoleGame);
             brandList.Add(multi.BrandInformatiquePhotocopi);
-            brandList.Add(multi.BrandPhone);
+            
             brandList.Add(multi.BrandPhoneAccesories);
             brandList.Add(multi.BrandSon);
             brandList.Add(multi.BrandTv);
@@ -231,17 +231,17 @@ namespace LookAuKwat.Controllers
                 MultimediaModel model = new MultimediaModel()
                 {
                     id = multi.id,
-                    Title = multi.Title,
-                    Description = multi.Description,
-                    Type = multi.Type,
-                    Town = multi.Town,
-                    Price = multi.Price,
-                    Street = multi.Street,
+                    Title = multi.TitleMultimedia,
+                    Description = multi.DescriptionMultimedia,
+                    Type = multi.TypeMultimedia,
+                    Town = multi.TownMultimedia,
+                    Price = multi.PriceMultimedia,
+                    Street = multi.StreetMultimedia,
                     Brand = Brand,
                     Model = Model,
                     DateAdd = DateTime.Now,
-                    SearchOrAskJob = multi.SearchOrAskJob,
-                    Category = new CategoryModel { CategoryName = "Multimédia" },
+                    SearchOrAskJob = multi.SearchOrAskJobMultimedia,
+                    Category = new CategoryModel { CategoryName = "Multimedia" },
                     User = user
 
                 };

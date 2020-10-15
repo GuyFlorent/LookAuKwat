@@ -14,33 +14,35 @@ namespace LookAuKwat.ViewModel
         [Required(ErrorMessage = "Le titre de l'annonce ne doit pas être vide")]
 
         [DisplayName("Titre de l'annonce*")]
-        public string Title { get; set; }
+        public string TitleMultimedia { get; set; }
         [Required(ErrorMessage = "La description ne doit pas être vide")]
-        public string Description { get; set; }
+        public string DescriptionMultimedia { get; set; }
         [DisplayName("Ville")]
-        public string Town { get; set; }
+        public string TownMultimedia { get; set; }
         [Required(ErrorMessage = "L'adresse ne doit pas être vide")]
         [DisplayName("Adresse*")]
-        public string Street { get; set; }
+        public string StreetMultimedia { get; set; }
 
         [DisplayName("Salaire (FCFA)")]
-        public int Price { get; set; }
+        public int PriceMultimedia { get; set; }
         public DateTime DateAdd { get; set; }
         [DisplayName("J'offre/Je recherche")]
-        public string SearchOrAskJob { get; set; }
-        [DisplayName("Type de bien")]
-        public string Type { get; set; }
+        public string SearchOrAskJobMultimedia { get; set; }
+        [DisplayName("Rubrique")]
+        public string TypeMultimedia { get; set; }
         [DisplayName("Marque")]
         public string BrandConsoleGame { get; set; }
         [DisplayName("Marque")]
         public string BrandInformatiquePhotocopi { get; set; }
-       
+
         [DisplayName("Marque")]
         public string BrandPhoneAccesories { get; set; }
         [DisplayName("Marque")]
         public string BrandTv { get; set; }
         [DisplayName("Marque")]
         public string BrandSon { get; set; }
+        [DisplayName("Marque")]
+        public string BrandOtherMultimedia { get; set; }
         [DisplayName("Modèle")]
         public string ModelInformatiquePhotocopy { get; set; }
         [DisplayName("Modèle")]

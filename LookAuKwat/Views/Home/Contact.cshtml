@@ -2,64 +2,86 @@
     ViewBag.Title = "Déposer une annoce sur lookaukwat";
 }
 <br />
-    <section class="row">
-        <div class="row">
-            <div class=" col-md-offset-4 form-group">
-                <h2 class="text-success">Ajouter une annonce sur LookAuKwat?</h2>
-                <label for="selectCategory">Choisir une catégorie</label>
-                <select class="form-control Addcategory" data-show-icon="true">
-                    <option>Tout</option>
-                    <option data-content="<i class='glyphicon glyphicon-briefcase'></i>">Emploi</option>
-                    <option data-content="<i class='glyphicon glyphicon-home'></i>">Immobilier</option>
-
-                </select>
-            </div>
+<section class="row">
+    <div class="row">
+        <div class=" col-md-offset-4 form-group">
+            <h2 class="text-success">Ajouter une annonce sur LookAuKwat?</h2>
+            <label for="selectCategory">Choisir une catégorie</label>
+            <select class="form-control Addcategory" data-show-icon="true">
+                <option>---Choisir---</option>
+                <option data-content="<i class='glyphicon glyphicon-briefcase'></i>">Emploi</option>
+                <option data-content="<i class='glyphicon glyphicon-home'></i>">Immobilier</option>
+                <option data-content="<i class='glyphicon glyphicon-home'></i>">Multimédia</option>
+            </select>
         </div>
-        <div class="row">
-            <div id="MyModalAddJob" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header" style="color:coral">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Ajouter ou chercher tout type d'emploi<span id="eventTitle"></span></h4>
-                        </div>
-                        <div class="modal-body">
+    </div>
+    <div class="row">
+        <div id="MyModalAddJob" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="color:coral">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Ajouter ou chercher tout type d'emploi<span id="eventTitle"></span></h4>
+                    </div>
+                    <div class="modal-body">
 
-                            @{
-                                Html.RenderAction("AddJobs_PartialView", "Job");
-                            }
+                        @{
+                            Html.RenderAction("AddJobs_PartialView", "Job");
+                        }
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div id="MyModalAddApartment" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header" style="color:darkturquoise">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Ajouter ou chercher tout type de biens immobiliers<span id="eventTitle"></span></h4>
-                        </div>
-                        <div class="modal-body">
+    </div>
+    <div class="row">
+        <div id="MyModalAddApartment" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="color:darkturquoise">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Ajouter ou chercher tout type de biens immobiliers<span id="eventTitle"></span></h4>
+                    </div>
+                    <div class="modal-body">
 
-                            @{
-                                Html.RenderAction("AddApartment_PartialView", "ApartmentRental");
-                            }
+                        @{
+                            Html.RenderAction("AddApartment_PartialView", "ApartmentRental");
+                        }
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+    <div class="row">
+        <div id="MyModalAddMultimedia" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="color:Highlight">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Ajouter ou chercher tout type de biens multimédia<span id="eventTitle"></span></h4>
+                    </div>
+                    <div class="modal-body">
+
+                        @{
+                            Html.RenderAction("AddMultimedia_PartialView", "Multimedia");
+                        }
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <hr />
 <section>
     <div class="col-md-12">
@@ -91,11 +113,14 @@
     $(function () {
         $("select.Addcategory").change(function () {
             var select = $(this).children("option:selected").val();
-            
+            console.log(select)
             if (select == "Emploi") {
                 $('#MyModalAddJob').modal();
             } else if (select == "Immobilier") {
                 $('#MyModalAddApartment').modal();
+
+            } else if (select == "Multimédia") {
+                $('#MyModalAddMultimedia').modal();
 
             }
         });

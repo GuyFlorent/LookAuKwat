@@ -33,7 +33,7 @@
                     <h2 class="modal-title">Détails<span id="eventTitle"></span></h2>
                 </div>
                 <div class="modal-body">
-                    @{ if (@item.Category.CategoryName == "Emploi")
+                    @*@{ if (@item.Category.CategoryName == "Emploi")
                         {
 
                             Html.RenderAction("JobDetails_PartialView", "Job", new { model = item });
@@ -43,7 +43,8 @@
                         {
                             Html.RenderAction("ApartmentDetails_PartialView", "ApartmentRental", new { model = item });
                         }
-                    }
+                        
+                    }*@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
@@ -60,7 +61,7 @@
                     <h3 class="modal-title">Modifier<span id="eventTitle"></span></h3>
                 </div>
                 <div class="modal-body">
-                    @{ if (@item.Category.CategoryName == "Emploi")
+                    @*@{ if (@item.Category.CategoryName == "Emploi")
                         {
 
                             Html.RenderAction("EditJob_PartialView", "Job", new { job = item });
@@ -70,7 +71,7 @@
                         {
                             Html.RenderAction("EditApartment_PartialView", "ApartmentRental", new { apart = item });
                         }
-                    }
+                    }*@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>

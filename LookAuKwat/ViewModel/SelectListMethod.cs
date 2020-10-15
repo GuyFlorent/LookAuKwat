@@ -134,7 +134,7 @@ namespace LookAuKwat.ViewModel
                 new SelectListItem() { Text = "Hôtellerie/Restauration", Value = "Hôtellerie/Restauration" },
                 new SelectListItem() { Text = "Sport", Value = "Sport" },
                  new SelectListItem() { Text = "Service à la personne", Value = "Service à la personne" },
-                 new SelectListItem() { Text = "Autres", Value = "Autres" }
+                 new SelectListItem() { Text = "Autre", Value = "Autre" }
             };
             return list;
         }
@@ -162,7 +162,7 @@ namespace LookAuKwat.ViewModel
                    new SelectListItem() { Text = "Bureau à louer", Value = "Bureau à louer" },
                     new SelectListItem() { Text = "Maison à Vendre", Value ="Maison à Vendre" },
                      new SelectListItem() { Text = "Terrain à vendre", Value = "terrain à vendre" },
-                     new SelectListItem() { Text = "Autres", Value = "Autres" }
+                     new SelectListItem() { Text = "Autre", Value = "Autre" }
 
             };
             return list;
@@ -182,7 +182,7 @@ namespace LookAuKwat.ViewModel
                 new SelectListItem() { Text = "Son", Value = "Son" },
                 new SelectListItem() { Text = "Photocopieuse", Value = "Photocopieuse" },
                 
-                new SelectListItem() { Text = "Autres", Value = "Autres" }
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
 
             };
             return list;
@@ -201,7 +201,7 @@ namespace LookAuKwat.ViewModel
                 new SelectListItem() { Text = "Acer", Value = "Acer" },
                 new SelectListItem() { Text = "Lenovo", Value = "Lenovo" },
                 new SelectListItem() { Text = "Microsoft", Value = "Microsoft" },
-                new SelectListItem() { Text = "Autres", Value = "Autres" }
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
 
             };
             return list;
@@ -217,7 +217,10 @@ namespace LookAuKwat.ViewModel
                 new SelectListItem() { Text = "Souris", Value = "Souris" },
                 new SelectListItem() { Text = "Imprimante", Value = "Imprimante" },
                 new SelectListItem() { Text = "Photocopieuse", Value = "Photocopieuse" },
-                new SelectListItem() { Text = "Autres", Value = "Autres" }
+                new SelectListItem() { Text = "Imprimante", Value = "Imprimante" },
+                new SelectListItem() { Text = "Logiciel", Value = "Logiciel" },
+                new SelectListItem() { Text = "Encre", Value = "Encre" },
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
 
             };
             return list;
@@ -661,11 +664,25 @@ namespace LookAuKwat.ViewModel
             };
             return list;
         }
+
+        public static IEnumerable<SelectListItem> BrandOtherMultimedia()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 
+                new SelectListItem() { Text = "Autre", Value = "Autre" }
+
+            };
+            return list;
+        }
         public static IEnumerable<SelectListItem> CapacityMultimedia()
         {
             IList<SelectListItem> list = new List<SelectListItem>()
             {
-                 new SelectListItem() { Text = "8 Go", Value = "8 Go" },
+                new SelectListItem() { Text = "2 Go", Value = "2 Go" },
+                new SelectListItem() { Text = "4 Go", Value = "4 Go" },
+                new SelectListItem() { Text = "6 Go", Value = "6 Go" },
+                new SelectListItem() { Text = "8 Go", Value = "8 Go" },
                 new SelectListItem() { Text = "16 Go", Value = "16 Go" },
                 new SelectListItem() { Text = "32 Go", Value = "32 Go" },
                 new SelectListItem() { Text = "64 Go", Value = "64 Go" },
