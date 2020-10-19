@@ -63,7 +63,7 @@ namespace LookAuKwat.Controllers
 
                 using (var httpClient = new HttpClient())
                 {
-
+                   
                     string userId = User.Identity.GetUserId();
                     ApplicationUser user = dal.GetUserByStrId(userId);
 
@@ -129,61 +129,61 @@ namespace LookAuKwat.Controllers
         [HttpPost]
         public async Task<ActionResult> EditApartment(ApartmentRentalViewModel apart, ImageModelView userImage)
         {
+           
+
+            ProductCoordinateModel coordinate = dal.GetListProduct().FirstOrDefault(m => m.id == apart.Id).Coordinate;
+            string userId = User.Identity.GetUserId();
+            ApplicationUser user = dal.GetUserByStrId(userId);
+
+            ApartmentRentalModel model = new ApartmentRentalModel()
+            {
+                id = apart.Id,
+                Title = apart.TitleAppart,
+                Description = apart.DescriptionAppart,
+                ApartSurface = apart.ApartSurface,
+                Town = apart.TownAppart,
+                Price = apart.PriceAppart,
+                Street = apart.StreetAppart,
+                FurnitureOrNot = apart.FurnitureOrNot,
+                RoomNumber = apart.RoomNumber,
+                Coordinate = coordinate,
+                Type = apart.Type,
+                DateAdd = DateTime.Now,
+                SearchOrAskJob = apart.SearchOrAskJobAppart,
+                Category = new CategoryModel { CategoryName = "Immobilier" },
+                User = user
+
+            };
+
+            using (var httpClient = new HttpClient())
+            {
 
 
-         
 
-                string userId = User.Identity.GetUserId();
-                ApplicationUser user = dal.GetUserByStrId(userId);
-               
-                ApartmentRentalModel model = new ApartmentRentalModel()
+                var fullAddress = $"{model.Street}";
+                var response = await httpClient.GetAsync("https://api.opencagedata.com/geocode/v1/json?q=" + fullAddress + "&key=a196040df44a4a41a471173aed07635c");
+
+                if (response.IsSuccessStatusCode)
                 {
-                    id = apart.Id,
-                    Title = apart.TitleAppart,
-                    Description = apart.DescriptionAppart,
-                    ApartSurface = apart.ApartSurface,
-                    Town = apart.TownAppart,
-                    Price = apart.PriceAppart,
-                    Street = apart.StreetAppart,
-                    FurnitureOrNot = apart.FurnitureOrNot,
-                    RoomNumber = apart.RoomNumber,
-                    Type = apart.Type,
-                    DateAdd = DateTime.Now,
-                    SearchOrAskJob = apart.SearchOrAskJobAppart,
-                    Category = new CategoryModel { CategoryName = "Immobilier" },
-                    User = user
 
-                };
+                    var jsonn = await response.Content.ReadAsStringAsync();
+                    var joo = JObject.Parse(jsonn);
+                    var latt = (string)joo["results"][0]["geometry"]["lat"];
+                    var lonn = (string)joo["results"][0]["geometry"]["lng"];
 
-                using (var httpClient = new HttpClient())
-                {
+                    List<ImageProcductModel> images = ImageEdit(userImage, model);
+
+                    model.Images = images;
+
+                    dal.EditApartment(model, latt, lonn);
 
 
-
-                    var fullAddress = $"{model.Street}";
-                    var response = await httpClient.GetAsync("https://api.opencagedata.com/geocode/v1/json?q=" + fullAddress + "&key=a196040df44a4a41a471173aed07635c");
-
-                    if (response.IsSuccessStatusCode)
-                    {
-
-                        var jsonn = await response.Content.ReadAsStringAsync();
-                        var joo = JObject.Parse(jsonn);
-                        var latt = (string)joo["results"][0]["geometry"]["lat"];
-                        var lonn = (string)joo["results"][0]["geometry"]["lng"];
-
-                        List<ImageProcductModel> images = ImageEdit(userImage, model);
-
-                        model.Images = images;
-
-                        dal.EditApartment(model, latt, lonn);
-
-
-                        return RedirectToAction("GetListProductByUser_PartialView", "User");
-                    }
-
-
+                    return RedirectToAction("GetListProductByUser_PartialView", "User");
                 }
 
+
+            }
+        
             
             return View(apart);
         }

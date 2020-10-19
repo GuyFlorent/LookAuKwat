@@ -19,8 +19,8 @@
             </div>
         </div>*@
         <div class="form-group">
-            @Html.LabelFor(model => model.SearchOrAskJob, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.SearchOrAskJob, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
                 @Html.DropDownListFor(model => model.SearchOrAskJob, SelectListMethod.ChooseSearchOrAsk(), "choisir", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.SearchOrAskJob, "", new { @class = "text-danger" })
             </div>
@@ -28,24 +28,24 @@
 
 
         <div class="form-group hidden" id="ActivitySectorDiv">
-            @Html.LabelFor(model => model.ActivitySector, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.ActivitySector, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
                 @Html.DropDownListFor(model => model.ActivitySector, SelectListMethod.GetListActivitySector(), "Choisir", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ActivitySector, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group hidden"
              id="TypeContractDiv">
-            @Html.LabelFor(model => model.TypeContract, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.TypeContract, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
                 @Html.DropDownListFor(model => model.TypeContract, SelectListMethod.GetListWorkContract(), "Choisir", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.TypeContract, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="hidden" id="TitleJobDiv">
             <div class="form-group">
-                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-8">
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
                     @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                 </div>
@@ -55,8 +55,8 @@
         </div>
         <div class="hidden" id="DescriptionJobDiv">
             <div class="form-group">
-                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-8">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
                     @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                 </div>
@@ -64,8 +64,8 @@
             </div>
         </div>
         <div class="form-group hidden" id="TownJobDiv">
-            @Html.LabelFor(model => model.Town, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.Town, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
                 @Html.DropDownListFor(model => model.Town, SelectListMethod.GetListTownCameroon(), "Choisir", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Town, "", new { @class = "text-danger" })
             </div>
@@ -73,18 +73,18 @@
         <div class="hidden" id="StreetJobDiv">
             <p class=" col-md-offset-2 text-info">Veuillez choisir une adresse de la liste après votre saisie.</p>
             <div class="form-group">
-                @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label col-md-4" })
                 <div class="col-md-8">
                     @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
                 </div>
-                <p class="col-md-2" id="spanJobStreet" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
+                
             </div>
         </div>
 
         <div class="form-group hidden" id="priceJobDiv">
-            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
             </div>
@@ -93,10 +93,10 @@
 
 
         <div class="form-group hidden" id="imageJobDiv">
-            @Html.LabelFor(model => model.Imageproduct.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Imageproduct.Image, htmlAttributes: new { @class = "control-label col-md-4" })
 
             @*<label class="control-label col-md-2" for="#imagesJobs"></label>*@
-            <div class="col-md-6">
+            <div class="col-md-8">
 
                 <input type="file" name="ImageFile" accept="image/*" multiple="multiple" @*onchange="readURL(this);"*@>
                 <p class="text-info">Vous pouvez sélectionner à la fois une ou plusieurs images.</p>
@@ -107,7 +107,7 @@
         </div>
 
         <div class="form-group hidden" id="btnJobDiv">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-offset-4 col-md-8">
                 <input id="btnAddJob" type="submit" value="Ajouter" class="btn btn-success" />
             </div>
         </div>
@@ -186,27 +186,23 @@
         });
         $("#TownJobDiv").change(function () {
 
-            if ($('#Town').val() !== '') {
+            if ($('#Town').val() !== '' && $('#SearchOrAskJob').val() == 'Je recherche') {
 
 
                 $("#StreetJobDiv").removeClass('hidden');
-
-            }
-        });
-        $("#StreetJobDiv").change(function () {
-
-            if ($('#Street').val() !== '' && $('#SearchOrAskJob').val() == 'Je recherche') {
-
-
                 $("#imageJobDiv").removeClass('hidden');
                 $("#btnJobDiv").removeClass('hidden');
 
-            } else if ($('#Street').val() !== '' && $('#SearchOrAskJob').val() == 'J\'offre') {
+            } else if ($('#Town').val() !== '' && $('#SearchOrAskJob').val() == 'J\'offre')
+            {
+
+                $("#StreetJobDiv").removeClass('hidden');
                 $("#priceJobDiv").removeClass('hidden');
                 $("#imageJobDiv").removeClass('hidden');
                 $("#btnJobDiv").removeClass('hidden');
             }
         });
+        
 
         //for plus sign
         $('#spanJobTitle').click(function () {
@@ -217,9 +213,7 @@
             $("#spanJobDescription").addClass('hidden');
         })
 
-        $('#spanJobStreet').click(function () {
-            $("#spanJobStreet").addClass('hidden');
-        }) 
+       
 
 
         $('#btnAddJob').click(function () {

@@ -4,26 +4,7 @@
 @foreach (var item in Model)
 {
 
-    @*<div id="MyModalDelete_@item.id" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h2 class="modal-title">Supprimer<span id="eventTitle"></span></h2>
-                    </div>
-                    <div class="modal-body">
-
-                        @{
-                            Html.RenderAction("deleteInitiative_PartialView", "Initiative", new { id = item.id });
-                        }
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-                    </div>
-                </div>
-            </div>
-        </div>*@
-
+    
 
     <div id="MyModalDetail_@item.id" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -33,7 +14,7 @@
                     <h2 class="modal-title">Détails<span id="eventTitle"></span></h2>
                 </div>
                 <div class="modal-body">
-                    @*@{ if (@item.Category.CategoryName == "Emploi")
+                    @{ if (@item.Category.CategoryName == "Emploi")
                         {
 
                             Html.RenderAction("JobDetails_PartialView", "Job", new { model = item });
@@ -43,8 +24,12 @@
                         {
                             Html.RenderAction("ApartmentDetails_PartialView", "ApartmentRental", new { model = item });
                         }
-                        
-                    }*@
+                        else if (@item.Category.CategoryName == "Multimedia")
+                        {
+                            Html.RenderAction("MultimediaDetails_PartialView", "Multimedia", new { model = item });
+                        }
+
+                    }
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
@@ -61,7 +46,7 @@
                     <h3 class="modal-title">Modifier<span id="eventTitle"></span></h3>
                 </div>
                 <div class="modal-body">
-                    @*@{ if (@item.Category.CategoryName == "Emploi")
+                    @{ if (@item.Category.CategoryName == "Emploi")
                         {
 
                             Html.RenderAction("EditJob_PartialView", "Job", new { job = item });
@@ -71,7 +56,11 @@
                         {
                             Html.RenderAction("EditApartment_PartialView", "ApartmentRental", new { apart = item });
                         }
-                    }*@
+                        else if (@item.Category.CategoryName == "Multimedia")
+                        {
+                            Html.RenderAction("EditMultimedia_PartialView", "Multimedia", new { multi = item });
+                        }
+                    }
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
@@ -79,7 +68,7 @@
             </div>
         </div>
     </div>
-}
+                        }
 
 
 
@@ -348,7 +337,7 @@
                     var btneditvalid = $('#btnFormEditJob_' + data);
                     // var Support =  $('.suppor_' + data.IdEvent);
                     $(btneditvalid).click(function () {
-
+                        
                         var y = town.val();
 
                         var u = address.val();
@@ -368,7 +357,28 @@
                                     $(this).addClass('hidden').dequeue();
                                 })
                             //}
+ 
                         }
+
+                    });
+
+                    var btneditapart = $('#btnFormEditApart_' + data);
+
+                    $(btneditapart).click(function () {
+                        var x = $('#TitleAppart_' + data)
+                        var y = $('#DescriptionAppart_' + data);
+                        var z = $('#StreetAppart_' + data);
+                        console.log("toto")
+
+                        //if (x !== "" && y !== "" && z !== "" ) {
+
+                        $(modaEditmodaProduct).modal('hide');
+                        $(".js-alert-Edit-product").removeClass('hidden').delay(5000).queue(function () {
+                            $(this).addClass('hidden').dequeue();
+                        });
+
+
+                        // }
 
                     });
 

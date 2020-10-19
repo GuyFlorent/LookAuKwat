@@ -1,4 +1,5 @@
-﻿    using System;
+﻿using Microsoft.Ajax.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -133,6 +134,7 @@ namespace LookAuKwat.ViewModel
                  new SelectListItem() { Text = "Enseignement", Value = "Enseignement" },
                 new SelectListItem() { Text = "Hôtellerie/Restauration", Value = "Hôtellerie/Restauration" },
                 new SelectListItem() { Text = "Sport", Value = "Sport" },
+                 new SelectListItem() { Text = "Technique", Value = "Technique" },
                  new SelectListItem() { Text = "Service à la personne", Value = "Service à la personne" },
                  new SelectListItem() { Text = "Autre", Value = "Autre" }
             };
@@ -693,6 +695,119 @@ namespace LookAuKwat.ViewModel
 
             };
             return list;
+        }
+
+        public static IEnumerable<SelectListItem> BrandTotalList()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>();
+           
+            foreach(var liste in BrandSonMultimedia())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in BrandPhoneAccesorieMultimedia())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in BrandOtherMultimedia())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in BrandInformatiquePhotocopyMultimedia())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in BrandConsoleGamequeMultimedia())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in BrandTVGameMultimedia())
+            {
+                list.Add(liste);
+            }
+
+            return list.DistinctBy(x => x.Text);
+        }
+
+        public static IEnumerable<SelectListItem> ModelTotalList()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>();
+
+            foreach (var liste in ModelSamsungPhoneAccesorieMultimedia())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in ModelMotorolaPhoneAccesorieMultimedia())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in ModelMicrosoftPhoneAccesorieMultimedia())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in ModelAlcatelPhoneAccesorieMultimedia())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in ModelApplePhoneAccesorieMultimedia())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in ModelHonorPhoneAccesorieMultimedia())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in ModelHTCPhoneAccesorieMultimedia())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in ModelHuaweiPhoneAccesorieMultimedia())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in ModelInformatiquePhotocopyMultimedia())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in ModelLenovoPhoneAccesorieMultimedia())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in ModelLGPhoneAccesorieMultimedia())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in ModelTVGameMultimedia())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in ModelSonyPhoneAccesorieMultimedia())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in ModelSonGamequeMultimedia())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in ModelWikoPhoneAccesorieMultimedia())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in ModelZTEPhoneAccesorieMultimedia())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in ModelXaomiPhoneAccesorieMultimedia())
+            {
+                list.Add(liste);
+            }
+            
+            foreach (var liste in ModelOtherMultimedia())
+            {
+                list.Add(liste);
+            }
+
+            return list.DistinctBy(x =>x.Text);
         }
     }
 

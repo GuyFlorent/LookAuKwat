@@ -10,8 +10,8 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group" id="SearchOrAskJobAppartDiv">
-            @Html.LabelFor(model => model.SearchOrAskJobAppart, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.SearchOrAskJobAppart, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
                 @Html.DropDownListFor(model => model.SearchOrAskJobAppart, SelectListMethod.ChooseSearchOrAsk(), "Choisir", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.SearchOrAskJobAppart, "", new { @class = "text-danger" })
             </div>
@@ -19,16 +19,16 @@
 
 
         <div class="form-group hidden" id="TypeApartDiv">
-            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
                 @Html.DropDownListFor(model => model.Type, SelectListMethod.TypeImmobilier(), "choisir", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
             </div>
         </div>
         
             <div class="form-group hidden" id="TitleAppartDiv">
-                @Html.LabelFor(model => model.TitleAppart, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-8">
+                @Html.LabelFor(model => model.TitleAppart, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
                     @Html.EditorFor(model => model.TitleAppart, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.TitleAppart, "", new { @class = "text-danger" })
                 </div>
@@ -37,8 +37,8 @@
            
        
             <div class="form-group hidden" id="DescriptionAppartDiv">
-                @Html.LabelFor(model => model.DescriptionAppart, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-8">
+                @Html.LabelFor(model => model.DescriptionAppart, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
                     @Html.TextAreaFor(model => model.DescriptionAppart, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.DescriptionAppart, "", new { @class = "text-danger" })
                 </div>
@@ -46,18 +46,18 @@
             </div>
 
         <div class="form-group hidden" id="TownAppartDiv">
-            @Html.LabelFor(model => model.TownAppart, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.TownAppart, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
                 @Html.DropDownListFor(model => model.TownAppart, SelectListMethod.GetListTownCameroon(), "choisir", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.TownAppart, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="hidden" id="StreetAppartDiv">
-            <p class=" col-md-offset-2 text-info">Veuillez choisir une adresse de la liste après votre saisie.</p>
+            <p class=" col-md-offset-4 text-info">Veuillez choisir une adresse de la liste après votre saisie.</p>
             <div class="form-group">
 
-                @Html.LabelFor(model => model.StreetAppart, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-8">
+                @Html.LabelFor(model => model.StreetAppart, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
                     @Html.EditorFor(model => model.StreetAppart, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.StreetAppart, "", new { @class = "text-danger" })
                 </div>
@@ -66,8 +66,8 @@
         </div>
 
         <div class="form-group hidden" id="priceApartdiv">
-            @Html.LabelFor(model => model.PriceAppart, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-8">
+            @Html.LabelFor(model => model.PriceAppart, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
                 @Html.EditorFor(model => model.PriceAppart, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.PriceAppart, "", new { @class = "text-danger" })
             </div>
@@ -76,8 +76,8 @@
 
 
         <div class="form-group hidden" id="apartSurface">
-            @Html.LabelFor(model => model.ApartSurface, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-8">
+            @Html.LabelFor(model => model.ApartSurface, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
                 @Html.EditorFor(model => model.ApartSurface, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ApartSurface, "", new { @class = "text-danger" })
             </div>
@@ -85,8 +85,8 @@
         </div>
         @*<p class=" col-md-offset-2 text-info">Veuillez mettre 0 sur le nombre de pièces si vous ajoutez un terrain.</p>*@
     <div class="form-group hidden" id="rommId">
-        @Html.LabelFor(model => model.RoomNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-9">
+        @Html.LabelFor(model => model.RoomNumber, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-6">
             @Html.EditorFor(model => model.RoomNumber, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.RoomNumber, "", new { @class = "text-danger" })
         </div>
@@ -94,17 +94,17 @@
     </div>
 
         <div class="form-group hidden" id="FuriRNoId">
-            @Html.LabelFor(model => model.FurnitureOrNot, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.FurnitureOrNot, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
                 @Html.DropDownListFor(model => model.FurnitureOrNot, SelectListMethod.FurnitureOrNot(), new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.FurnitureOrNot, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group hidden" id="ImageApartDiv">
-            @Html.LabelFor(model => model.Imageproduct.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Imageproduct.Image, htmlAttributes: new { @class = "control-label col-md-4" })
 
             @*<label class="control-label col-md-2" for="#imagesJobs"></label>*@
-            <div class="col-md-6">
+            <div class="col-md-8">
 
                 <input type="file" name="ImageFile" accept="image/*" multiple="multiple" @*onchange="readURL(this);"*@>
                 <p class="text-info">Vous pouvez sélectionner à la fois une ou plusieurs images.</p>
@@ -115,7 +115,7 @@
         </div>
 
         <div class="form-group hidden" id="btnAppaertDiv">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-offset-4 col-md-8">
                 <input id="btnAddaAppart" type="submit" value="Ajouter" class="btn btn-success" />
             </div>
         </div>

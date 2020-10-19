@@ -3,7 +3,7 @@
 
     <section class="row">
 
-        @using (Ajax.BeginForm("EditJob", "Job", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ProductAdd" }, new { enctype = "multipart/form-data" }))
+        @using (Ajax.BeginForm("EditJob", "Job",new { JobEditid = Model.JobEditid }, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ProductAdd" }, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
 

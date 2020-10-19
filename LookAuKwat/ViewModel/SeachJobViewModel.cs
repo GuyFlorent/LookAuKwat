@@ -37,15 +37,35 @@ namespace LookAuKwat.ViewModel
         public string ActivitySectorJob { get; set; }
 
         //for Appartment Rental
-        [DisplayName("Surface minimale")]
+        [DisplayName("Surface minimale(m2)")]
         public int MinApartSurface { get; set; }
-        [DisplayName("Surface maximale")]
+        [DisplayName("Surface maximale(m2)")]
         public int MaxApartSurface { get; set; }
         [DisplayName("Nombre de pièces minimale")]
         public int RoomNumber { get; set; }
         [DisplayName("Meublé ou non meublé")]
         public string FurnitureOrNot { get; set; }
         public string Type { get; set; }
+
+        //for multimedia
+        [DisplayName("Ville*")]
+        public string TownMultimedia { get; set; }
+        
+
+        [DisplayName("Prix maximal(FCFA)")]
+        public int PriceMultimedia { get; set; }
+        [DisplayName("Rubrique")]
+        public string TypeMultimedia { get; set; }
+        [DisplayName("Marque")]
+        public string BrandMultimedia { get; set; }
+        
+        [DisplayName("Marque")]
+        public string BrandOtherMultimedia { get; set; }
+        [DisplayName("Modèle")]
+        public string ModelMultimedia { get; set; }
+       
+        [DisplayName("Stockage")]
+        public string Capacity { get; set; }
 
     }
 }

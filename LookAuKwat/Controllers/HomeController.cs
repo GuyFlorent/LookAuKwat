@@ -41,5 +41,11 @@ namespace LookAuKwat.Controllers
 
             return View();
         }
+
+        public ActionResult LegalMention()
+        {
+           
+            return View();
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace LookAuKwat.Models
 {
     public class MultimediaModel : ProductModel
     {
-        [DisplayName("Type de bien")]
+        [DisplayName("Rubrique")]
         public string Type { get; set; }
         [DisplayName("Marque")]
         public string Brand { get; set; }

@@ -36,5 +36,6 @@ namespace LookAuKwat.Models
         //For Multimedia model
         void AddMultimedia(MultimediaModel model, string lat, string lon);
         void EditMultimedia(MultimediaModel model, string lat, string lon);
+        IEnumerable<MultimediaModel> GetListMultimedia();
     }
 }

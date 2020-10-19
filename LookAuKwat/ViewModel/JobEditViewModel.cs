@@ -12,15 +12,17 @@ namespace LookAuKwat.ViewModel
     {
         public int JobEditid { get; set; }
         [Required(ErrorMessage = "Le titre de l'annonce ne doit pas être vide")]
-        [DisplayName("Titre de l'annonce")]
+        [DisplayName("Titre de l'annonce *")]
         public string TitleJob { get; set; }
+        public ProductCoordinateModel Coordinate { get; set; }
         public string DescriptionJob { get; set; }
-        [DisplayName("Ville")]
+        [DisplayName("Ville *")]
         public string TownJob { get; set; }
         [Required(ErrorMessage = "L'adresse ne doit pas être vide")]
-        [DisplayName("Adresse")]
+        [DisplayName("Quartier *")]
         public string StreetJob { get; set; }
-        [DisplayName("Salaire")]
+        [Required(ErrorMessage = "Le salaire ne doit pas être vide")]
+        [DisplayName("Salaire *")]
         public int PriceJob { get; set; }
         public DateTime DateAddJob { get; set; }
         public string SearchOrAskJobJob { get; set; }

@@ -151,7 +151,7 @@ namespace LookAuKwat.Models
             //    }
 
             //}
-            ProductCoordinateModel coor = dbb.ProductCoordinates.Find(job.id);
+            ProductCoordinateModel coor = dbb.ProductCoordinates.Find(job.Coordinate.id);
             coor.Lat = lat;
             coor.Lon = lon;
 
@@ -226,7 +226,7 @@ namespace LookAuKwat.Models
 
         public void EditApartment(ApartmentRentalModel apart, string lat, string lon)
         {
-            ProductCoordinateModel coor = dbb.ProductCoordinates.Find(apart.id);
+            ProductCoordinateModel coor = dbb.ProductCoordinates.Find(apart.Coordinate.id);
             coor.Lat = lat;
             coor.Lon = lon;
 
@@ -355,6 +355,15 @@ namespace LookAuKwat.Models
             model.Description = multi.Description;
 
             dbb.SaveChanges();
+        }
+
+        public IEnumerable<MultimediaModel> GetListMultimedia()
+        {
+            IEnumerable<MultimediaModel> listMulti = dbb.Multimedia.Include(s => s.Images)
+               .Include(s => s.User)
+               .Include(s => s.Category)
+               .Include(s => s.Coordinate).ToList();
+            return listMulti;
         }
     }
 }

@@ -74,11 +74,12 @@
         <div class="tab-pane active fade in" id="search">
             <div id="searchJob">
                 <div class="form-group">
-                    <label for="selectCategory">Vous êtes dans les <strong>offres</strong>, veuillez Choisir une catégorie :</label>
+                    <label for="selectCategory">Vous êtes dans les <strong>offres</strong>,pour plus de filtre veuillez Choisir une catégorie :</label>
                     <select class="form-control searchcategory" data-show-icon="true" name="categori" id="categori">
                         <option>Toutes les catégories</option>
                         <option data-content="<i class='glyphicon glyphicon-briefcase'></i>">Emploi</option>
                         <option data-content="<i class='glyphicon glyphicon-home'></i>">Immobilier</option>
+                        <option data-content="<i class='glyphicon glyphicon-home'></i>">Multimédia</option>
                     </select>
                 </div>
                 <div id="JobId" class="hidden corners" style="border-radius: 25px;background: #73AD21;padding: 20px;">
@@ -87,10 +88,17 @@
                     }
 
                 </div>
-                <div id="ImmobilierId" class="hidden" style="border-radius: 25px;background: lightgray url(https://www.villanovo.fr/photos/5222/ile-maurice-nord-appartement-alezan-15202043545df9e1fd132059.84615836.1920.jpg) 
+                <div id="ImmobilierId" class="hidden" style="border-radius: 25px;background: lightgray url(https://www.villanovo.fr/photos/5222/ile-maurice-nord-appartement-alezan-15202043545df9e1fd132059.84615836.1920.jpg)
                 center center no-repeat;padding: 20px;">
                     @{
                         Html.RenderAction("SearchOfferAppart_PartialView", "ApartmentRentalSearch");
+                    }
+
+                </div>
+                <div id="MultimediaId" class="hidden" style="border-radius: 25px;background: lightgray url()
+                center center no-repeat;padding: 20px;">
+                    @{
+                        Html.RenderAction("SearchOfferMultimedia_PartialView", "MultimediaOfferSearch");
                     }
 
                 </div>
@@ -210,12 +218,25 @@
         $("select.searchcategory").change(function () {
             var select = $(this).children("option:selected").val();
 
+            if (select == "Multimédia") {
+                $('#MultimediaId').removeClass('hidden');
+                localStorage.setItem("MultimediaResultHidden", "false");
+                localStorage.setItem("AllResultHidden", "true");
+                localStorage.setItem("JobResultHidden", "true");
+                localStorage.setItem("AppartResultHidden", "true");
+
+
+            } else {
+                $('#MultimediaId').addClass('hidden');
+            }
+
             if (select == "Emploi") {
                 $('#JobId').removeClass('hidden');
+               // $('#MultimediaId').addClass('hidden');
                 localStorage.setItem("AllResultHidden", "true");
                 localStorage.setItem("JobResultHidden", "false");
                 localStorage.setItem("AppartResultHidden", "true");
-
+                localStorage.setItem("MultimediaResultHidden", "true");
 
             } else {
                 $('#JobId').addClass('hidden');
@@ -226,13 +247,16 @@
                 localStorage.setItem("AllResultHidden", "false");
                 localStorage.setItem("JobResultHidden", "true");
                 localStorage.setItem("AppartResultHidden", "true");
-                $('#JobId').addClass('hidden');
-                $('#ImmobilierId').addClass('hidden');
+                localStorage.setItem("MultimediaResultHidden", "true");
+                //$('#MultimediaId').addClass('hidden');
+               // $('#JobId').addClass('hidden');
+               // $('#ImmobilierId').addClass('hidden');
             }
             if (select == "Immobilier") {
                 $('#ImmobilierId').removeClass('hidden');
                 localStorage.setItem("AllResultHidden", "true");
                 localStorage.setItem("JobResultHidden", "true");
+                localStorage.setItem("MultimediaResultHidden", "true");
                 localStorage.setItem("AppartResultHidden", "false");
 
             } else {
@@ -246,7 +270,9 @@
             $('#AllCategoryResult').removeClass('hidden');
             $('#ImmobilierId').addClass('hidden');
             $('#JobId').addClass('hidden');
+            $('#MultimediaId').addClass('hidden');
             $('#jobSectionResult').addClass('hidden');
+
         };
 
         if (localStorage.getItem("JobResultHidden") == "true") {
@@ -267,6 +293,16 @@
             $('#jobSectionResult').removeClass('hidden');
 
             $('#submitApart').click();
+
+        };
+        if (localStorage.getItem("MultimediaResultHidden") == "true") {
+            $('#MultimediaId').addClass('hidden');
+            // $('#jobSectionResult').addClass('hidden');
+        } else {
+            $('#MultimediaId').removeClass('hidden');
+            $('#jobSectionResult').removeClass('hidden');
+
+            $('#submitMulti').click();
 
         };
         //if (localStorage.getItem("NoChoicetHidden") == "true") {
@@ -348,6 +384,7 @@
         });
 
         $('#submitJob').click(SubmitJobClick);
+        $('#submitMulti').click(SubmitMultimediaClick);
         $('#btnSearchAskProduct').click(SubmitAskClick);
 
 
@@ -384,7 +421,7 @@
                       function (data) {
 
                     for (var i = 0; i < data.length; i++) {
-                        console.log(data[i].Coordinate.Lat);
+                        //console.log(data[i].Coordinate.Lat);
 
                         var popup = '<div class="thumbnail"> <a class="img-rounded" href="' + data[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].Title + '">  <img id="ImageDetailIniById" src="' + data[i].Images[0] + '" alt="LookAuKwat ' + data[i].Title + '" height="40"></a> </div>' +
                             '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data[i].Title +
@@ -430,13 +467,13 @@
                 category: $("#CagtegorieSearchAsk").val(),
                 town: $("#TownSearchAsk").val(),
                 title: $("#TitleSearchAsk").val(),
-                
+
             }),
                   success:
                       function (data) {
 
                     for (var i = 0; i < data.length; i++) {
-                        console.log(data[i].Coordinate.Lat);
+                       // console.log(data[i].Coordinate.Lat);
 
                         var popup = '<div class="thumbnail"> <a class="img-rounded" href="' + data[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].Title + '">  <img id="ImageDetailIniById" src="' + data[i].Images[0] + '" alt="LookAuKwat ' + data[i].Title + '" height="40"></a> </div>' +
                             '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data[i].Title +
@@ -460,7 +497,61 @@
                   }
               });
             mymapJob.invalidateSize();
-        };
+    };
+
+            function SubmitMultimediaClick () {
+            $('#jobSectionResult').removeClass('hidden');
+            $('#AllCategoryResult').addClass('hidden');
+            ApartMarkers.clearLayers()
+            jobMarkers.clearLayers()
+
+              $.ajax({
+            type: "POST",
+            url: '@Url.Action("ResultSearchOfferMultimedia_Jason", "MultimediaOfferSearch")',
+            dataType: "json",
+            headers: {
+                //"api-key": searchServiceApiKey,
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify({
+
+                type: $("#TypeMultimedia").val(),
+                town: $(".TownMultimedia").val(),
+                brand: $("#BrandMultimedia").val(),
+                modele: $("#ModelMultimedia").val(),
+                capacity: $("#Capacity").val(),
+                maxPrice: $("#PriceMultimedia").val(),
+            }),
+                  success:
+                      function (data) {
+                          console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        console.log(data[i].Coordinate.Lat);
+
+                        var popup = '<div class="thumbnail"> <a class="img-rounded" href="' + data[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].Title + '">  <img id="ImageDetailIniById" src="' + data[i].Images[0] + '" alt="LookAuKwat ' + data[i].Title + '" height="40"></a> </div>' +
+                            '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data[i].Title +
+                            '<br/><b>Adresse : </b>' + data[i].Town +
+                            '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Multimedia/MultimediaDetail/' + data[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
+
+
+
+                        var markerjob = L.marker([data[i].Coordinate.Lat, data[i].Coordinate.Lon])
+                           .bindPopup(popup)
+                       // .addTo(mymapJob);
+
+                        jobMarkers.addLayer(markerjob)
+                          }
+                          // $("#mymapJob").load(" #mymapJob");
+                          mymapJob.addLayer(jobMarkers);
+                  },
+                  error: function (xhr) {
+                      console.log(xhr.responseText);
+                      alert("Une erreur est survenu  !");
+                  }
+              });
+            mymapJob.invalidateSize();
+    };
+
 </script>
 
 <script type="text/javascript">
@@ -476,7 +567,7 @@
 
 
                 for (var i = 0; i < data2.length; i++) {
-                    console.log(data2[i]);
+                    //console.log(data2[i]);
                     if (data2[i].Category.CategoryName == "Emploi") {
 
                         var popup2 =

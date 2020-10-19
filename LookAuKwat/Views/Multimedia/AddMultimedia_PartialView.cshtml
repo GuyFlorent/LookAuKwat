@@ -258,7 +258,7 @@
                     @Html.EditorFor(model => model.StreetMultimedia, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.StreetMultimedia, "", new { @class = "text-danger" })
                 </div>
-                <p class="col-md-2" id="spanMultimediaStreet" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
+                
             </div>
         </div>
 
@@ -1651,22 +1651,14 @@
             })
 
             $("#TownMultimediaDiv").change(function () {
-                if ($('#TownMultimedia').val() !== 'choisir') {
+                if ($('#TownMultimedia').val() !== 'choisir' && $('#SearchOrAskJobMultimedia').val() == 'J\'offre') {
 
                     $("#StreetMultimediaDiv").removeClass('hidden');
-                }
-            })
-
-
-            $("#StreetMultimediaDiv").change(function () {
-                if ($('#StreetMultimedia').val() !== 'choisir' && $('#SearchOrAskJobMultimedia').val() == 'J\'offre') {
-                   
                     $("#priceMultimediadiv").removeClass('hidden');
                     $("#ImageMultimediaDiv").removeClass('hidden');
                     $("#btnMultimediaDiv").removeClass('hidden');
-                } if ($('#StreetMultimedia').val() !== 'choisir' && $('#SearchOrAskJobMultimedia').val() == 'Je recherche') {
-
-                    
+                } else if ($('#TownMultimedia').val() !== 'choisir' && $('#SearchOrAskJobMultimedia').val() == 'Je recherche') {
+                    $("#StreetMultimediaDiv").removeClass('hidden');
                     $("#ImageMultimediaDiv").removeClass('hidden');
                     $("#btnMultimediaDiv").removeClass('hidden');
                 }
@@ -1683,9 +1675,7 @@
             $("#spanMultimediaDescription").addClass('hidden');
         })
 
-        $('#spanMultimediaStreet').click(function () {
-            $("#spanMultimediaStreet").addClass('hidden');
-        }) 
+        
 
         $('#btnAddMultimedia').click(function () {
             var x = document.forms["multimediaform"]["TypeMultimedia"].value;

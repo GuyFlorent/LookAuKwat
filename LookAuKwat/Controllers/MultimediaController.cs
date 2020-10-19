@@ -399,5 +399,26 @@ namespace LookAuKwat.Controllers
             return liste;
         }
 
+        public ActionResult MultimediaDetails_PartialView(MultimediaModel model)
+        {
+
+            return PartialView(model);
+        }
+
+        public ActionResult MultimediaDetail(int id)
+        {
+            MultimediaModel model = dal.GetListMultimedia().FirstOrDefault(e => e.id == id);
+            model.ViewNumber++;
+            dal.UpdateNumberView(model);
+            return View(model);
+        }
+
+        public ActionResult ListModelMultimedia(string term)
+        {
+            var data = SelectListMethod.ModelTotalList().Select(x =>x.Value.ToLower()).Where(m=>m.Contains(term.ToLower()));
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+
     }
 }

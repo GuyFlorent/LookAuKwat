@@ -21,7 +21,7 @@ namespace LookAuKwat.ViewModel
         [DisplayName("Ville")]
         public string Town { get; set; }
         [Required(ErrorMessage = "L'adresse ne doit pas être vide")]
-        [DisplayName("Adresse*")]
+        [DisplayName("Quartier*")]
         public string Street { get; set; }
         
         [DisplayName("Salaire (FCFA)")]

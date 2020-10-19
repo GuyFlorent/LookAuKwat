@@ -109,6 +109,7 @@ namespace LookAuKwat.Controllers
             {
                 JobEditid = job.id,
                 TitleJob = job.Title,
+                Coordinate = job.Coordinate,
                 DescriptionJob = job.Description,
                 TypeContractJob = job.TypeContract,
                 TownJob = job.Town,
@@ -131,7 +132,8 @@ namespace LookAuKwat.Controllers
 
             if (ModelState.IsValid)
             {
-
+                ProductCoordinateModel coordinate = dal.GetListProduct().FirstOrDefault(m => m.id == job.JobEditid).Coordinate;
+                
                 string userId = User.Identity.GetUserId();
                 ApplicationUser user = dal.GetUserByStrId(userId);
                 JobModel model = new JobModel()
@@ -140,6 +142,7 @@ namespace LookAuKwat.Controllers
                     Title = job.TitleJob,
                     Description = job.DescriptionJob,
                     TypeContract = job.TypeContractJob,
+                    Coordinate = coordinate,
                     Town = job.TownJob,
                     Price = job.PriceJob,
                     Street = job.StreetJob,

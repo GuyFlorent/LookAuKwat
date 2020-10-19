@@ -21,7 +21,7 @@ namespace LookAuKwat.ViewModel
         [DisplayName("Ville")]
         public string TownAppart { get; set; }
         [Required(ErrorMessage = "L'adresse ne doit pas être vide")]
-        [DisplayName("Adresse*")]
+        [DisplayName("Quartier*")]
         public string StreetAppart { get; set; }
         [Required]
         [DisplayName("Prix(FCFA)")]
@@ -31,7 +31,7 @@ namespace LookAuKwat.ViewModel
         public string SearchOrAskJobAppart { get; set; }
         [DisplayName("Type de bien")]
         public string Type { get; set; }
-        [DisplayName("Superficie")]
+        [DisplayName("Superficie(m2)")]
         public int ApartSurface { get; set; }
         [DisplayName("Nombre de pièces")]
         public int RoomNumber { get; set; } 

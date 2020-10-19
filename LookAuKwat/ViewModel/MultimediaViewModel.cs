@@ -16,14 +16,15 @@ namespace LookAuKwat.ViewModel
         [DisplayName("Titre de l'annonce*")]
         public string TitleMultimedia { get; set; }
         [Required(ErrorMessage = "La description ne doit pas être vide")]
+        [DisplayName("Description")]
         public string DescriptionMultimedia { get; set; }
         [DisplayName("Ville")]
         public string TownMultimedia { get; set; }
         [Required(ErrorMessage = "L'adresse ne doit pas être vide")]
-        [DisplayName("Adresse*")]
+        [DisplayName("Quartier*")]
         public string StreetMultimedia { get; set; }
 
-        [DisplayName("Salaire (FCFA)")]
+        [DisplayName("Prix (FCFA)")]
         public int PriceMultimedia { get; set; }
         public DateTime DateAdd { get; set; }
         [DisplayName("J'offre/Je recherche")]

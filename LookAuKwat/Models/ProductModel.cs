@@ -14,7 +14,7 @@ namespace LookAuKwat.Models
         public string Description { get; set; }
         [DisplayName("Ville")]
         public string Town { get; set; }
-        [DisplayName("Adresse")]
+        [DisplayName("Quartier")]
         public string Street { get; set; }
         [DisplayName("Prix")]
         public int Price { get; set; }

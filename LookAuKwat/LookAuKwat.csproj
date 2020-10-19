@@ -189,6 +189,7 @@
     <Compile Include="Controllers\JobOfferSearchController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MultimediaController.cs" />
+    <Compile Include="Controllers\MultimediaOfferSearchController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -382,6 +383,11 @@
     <Content Include="Views\Shared\Info.cshtml" />
     <Content Include="Views\Product\SearchAskProduct_PartialView.cshtml" />
     <Content Include="Views\Multimedia\AddMultimedia_PartialView.cshtml" />
+    <Content Include="Views\Multimedia\MultimediaDetail.cshtml" />
+    <Content Include="Views\Multimedia\MultimediaDetails_PartialView.cshtml" />
+    <Content Include="Views\Multimedia\EditMultimedia_PartialView.cshtml" />
+    <Content Include="Views\MultimediaOfferSearch\SearchOfferMultimedia_PartialView.cshtml" />
+    <Content Include="Views\Home\LegalMention.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

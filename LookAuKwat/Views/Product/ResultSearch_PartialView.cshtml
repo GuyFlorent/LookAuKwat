@@ -61,45 +61,70 @@ else
             </div>
             <div class="panel panel-success">
                 <div class="panel-heading">
-                    @{ if (Model.CagtegorieSearch == "Emploi")
+                    @{ 
+                        if (Model.CagtegorieSearch != null)
                         {
+
+
+                            if (Model.CagtegorieSearch == "Emploi")
+                            {
                             <h3 class="panel-title">@Model.ListePro.Count <strong>Annonces</strong> disponibles dans la catégorie <strong>offres Emploi</strong> :</h3>
-                        }
-                        else if (Model.CagtegorieSearch == "Immobilier")
-                        {
+                            }
+                            else if (Model.CagtegorieSearch == "Immobilier")
+                            {
                             <h3 class="panel-title">@Model.ListePro.Count <strong>Annonces</strong> disponibles dans la catégorie <strong>offres Immobilier</strong> :</h3>
-                        }
-                        else if (Model.CagtegorieSearch == "AskSearch")
-                        {
+                            }
+                            else if (Model.CagtegorieSearch == "AskSearch")
+                            {
                             <h3 class="panel-title">@Model.ListePro.Count <strong>Annonces</strong> disponibles dans la rubrique des demandes :</h3>
+                                }
+                            }
                         }
-                    }
                 </div>
                 <div class="list-group">
 
                     @foreach (var liste in Model.ListeProPagedList)
                     {
-                        if (liste.Category.CategoryName == "Emploi")
+                        if (liste.Category.CategoryName != null)
                         {
+                            try
+                            {
+
+
+
+                                if (liste.Category.CategoryName == "Emploi")
+                                {
                             <a href="@Url.Action("JobDetail", "Job", new { id = liste.id }, null)" class="list-group-item">
                                 <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"> @liste.Town</span></h4>
                                 <p class="list-group-item-text pull-right">@liste.DateAdd.ToString("ddd, dd MMM yyy HH':'mm", new CultureInfo("fr-FR"))</p>
                                 <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
-                                <p class="list-group-item-text text-left">@liste.Category.CategoryName</p>
-                                <img src="@liste.Images.Select(m=>m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded" />
+                                <p class="list-group-item-text text-left">Emploi</p>
+                                <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded" />
                             </a>
-                        }
-                        else if (liste.Category.CategoryName == "Immobilier")
-                        {
+                                }
+                                else if (liste.Category.CategoryName == "Immobilier")
+                                {
                             <a href="@Url.Action("ApartDetail", "ApartmentRental", new { id = liste.id }, null)" class="list-group-item">
                                 <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"> @liste.Town</span></h4>
                                 <p class="list-group-item-text pull-right">@liste.DateAdd.ToString("ddd, dd MMM yyy HH':'mm", new CultureInfo("fr-FR"))</p>
                                 <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
-                                <p class="list-group-item-text text-left">@liste.Category.CategoryName</p>
-                                <img src="@liste.Images.Select(m=>m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded" />
+                                <p class="list-group-item-text text-left">Immobilier</p>
+                                <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded" />
                             </a>
-                        }
+                                }
+                                else if (liste.Category.CategoryName == "Multimedia")
+                                {
+                            <a href="@Url.Action("MultimediaDetail", "Multimedia", new { id = liste.id }, null)" class="list-group-item">
+                                <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"> @liste.Town</span></h4>
+                                <p class="list-group-item-text pull-right">@liste.DateAdd.ToString("ddd, dd MMM yyy HH':'mm", new CultureInfo("fr-FR"))</p>
+                                <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
+                                <p class="list-group-item-text text-left">Multimédia</p>
+                                <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded" />
+                            </a>
+                                }
+                            }catch(Exception e) { Console.WriteLine(e); }
 
+                        }
                     }
                 </div>
             </div>
