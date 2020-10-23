@@ -28,6 +28,10 @@
                         {
                             Html.RenderAction("MultimediaDetails_PartialView", "Multimedia", new { model = item });
                         }
+                        else if (@item.Category.CategoryName == "Vehicule")
+                        {
+                            Html.RenderAction("VehiculeDetails_PartialView", "Vehicule", new { model = item });
+                        }
 
                     }
                 </div>
@@ -59,6 +63,12 @@
                         else if (@item.Category.CategoryName == "Multimedia")
                         {
                             Html.RenderAction("EditMultimedia_PartialView", "Multimedia", new { multi = item });
+                        }
+                        else if (@item.Category.CategoryName == "Vehicule")
+                        {
+                            //Html.RenderAction("EditMultimedia_PartialView", "Multimedia", new { multi = item });
+                            <p> Pas encore disponible pour le moment</p>
+                            <p> Supprimer et dépposer une nouvelle annonce s'il vous plait !</p>
                         }
                     }
                 </div>
@@ -381,6 +391,11 @@
                         // }
 
                     });
+
+                    //var btneditapart = $('#btnFormEditApart_' + data);
+                    //$(btneditapart).click(function () {
+                    //    $(modaEditmodaProduct).modal('hide');
+                    //})
 
                     var btnDeleteIni = $('#deletePro_' + data);
 

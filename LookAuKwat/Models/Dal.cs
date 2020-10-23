@@ -76,6 +76,10 @@ namespace LookAuKwat.Models
                 .Include(s => s.User)
                 .Include(s => s.Category)
                 .Include(s => s.Coordinate).ToList();
+            IEnumerable<VehiculeModel> listVehi = dbb.Vehicules.Include(s => s.Images)
+               .Include(s => s.User)
+               .Include(s => s.Category)
+               .Include(s => s.Coordinate).ToList();
 
             foreach (var job in listjobs)
             {
@@ -91,6 +95,11 @@ namespace LookAuKwat.Models
             {
                 if (multi != null)
                     liste.Add(multi);
+            }
+            foreach (var vehi in listVehi)
+            {
+                if (vehi != null)
+                    liste.Add(vehi);
             }
             return liste;
 
@@ -112,6 +121,10 @@ namespace LookAuKwat.Models
                 .Include(s => s.User)
                 .Include(s => s.Category)
                 .Include(s => s.Coordinate).ToList();
+            IEnumerable<VehiculeModel> listVehi = dbb.Vehicules.Include(s => s.Images)
+               .Include(s => s.User)
+               .Include(s => s.Category)
+               .Include(s => s.Coordinate).ToList();
             if (listjobs.ToList().Count > 0)
             {
                 foreach (var job in listjobs)
@@ -134,6 +147,14 @@ namespace LookAuKwat.Models
                 {
                     if (multi != null)
                         liste.Add(multi);
+                }
+            }
+            if (listVehi.ToList().Count > 0)
+            {
+                foreach (var vehi in listVehi)
+                {
+                    if (vehi != null)
+                        liste.Add(vehi);
                 }
             }
 
@@ -360,6 +381,74 @@ namespace LookAuKwat.Models
         public IEnumerable<MultimediaModel> GetListMultimedia()
         {
             IEnumerable<MultimediaModel> listMulti = dbb.Multimedia.Include(s => s.Images)
+               .Include(s => s.User)
+               .Include(s => s.Category)
+               .Include(s => s.Coordinate).ToList();
+            return listMulti;
+        }
+
+        public void AddVehicule(VehiculeModel model, string lat, string lon)
+        {
+
+            CategoryModel category = new CategoryModel
+            {
+                CategoryName = model.Category.CategoryName,
+
+            };
+
+            // dbb.Categories.Add(category);
+            model.Category = category;
+
+            ProductCoordinateModel coordinate = new ProductCoordinateModel
+            {
+                Lat = lat,
+                Lon = lon
+
+            };
+            // dbb.ProductCoordinates.Add(coordinate);
+            model.Coordinate = coordinate;
+
+            dbb.Vehicules.Add(model);
+            dbb.SaveChanges();
+        }
+
+        public void EditVehicule(VehiculeModel Vehi, string lat, string lon)
+        {
+            ProductCoordinateModel coor = dbb.ProductCoordinates.Find(Vehi.Coordinate.id);
+            coor.Lat = lat;
+            coor.Lon = lon;
+
+            CategoryModel cate = dbb.Categories.FirstOrDefault(s => s.CategoryName == Vehi.Category.CategoryName);
+
+            VehiculeModel model = dbb.Vehicules.FirstOrDefault(s => s.id == Vehi.id);
+            model.id = Vehi.id;
+            model.Title = Vehi.Title;
+            model.Description = Vehi.Description;
+            model.TypeVehicule = Vehi.TypeVehicule;
+            model.Town = Vehi.Town;
+            model.Price = Vehi.Price;
+            model.Street = Vehi.Street;
+            model.BrandVehicule = Vehi.BrandVehicule;
+            model.ModelVehicule = Vehi.ModelVehicule;
+            model.RubriqueVehicule = Vehi.RubriqueVehicule;
+            model.PetrolVehicule = Vehi.PetrolVehicule;
+            model.FirstYearVehicule = Vehi.FirstYearVehicule;
+            model.YearVehicule = Vehi.YearVehicule;
+            model.MileageVehicule = Vehi.MileageVehicule;
+            model.NumberOfDoorVehicule = Vehi.NumberOfDoorVehicule;
+            model.ColorVehicule = Vehi.ColorVehicule;
+            model.GearBoxVehicule = Vehi.GearBoxVehicule;
+            model.ModelAccessoryAutoVehicule = Vehi.ModelAccessoryAutoVehicule;
+            model.ModelAccessoryBikeVehicule = Vehi.ModelAccessoryBikeVehicule;
+            model.DateAdd = DateTime.Now;
+            model.SearchOrAskJob = Vehi.SearchOrAskJob;
+
+            dbb.SaveChanges();
+        }
+
+        public IEnumerable<VehiculeModel> GetListVehicule()
+        {
+            IEnumerable<VehiculeModel> listMulti = dbb.Vehicules.Include(s => s.Images)
                .Include(s => s.User)
                .Include(s => s.Category)
                .Include(s => s.Coordinate).ToList();

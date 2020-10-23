@@ -12,6 +12,7 @@
                 <option data-content="<i class='glyphicon glyphicon-briefcase'></i>">Emploi</option>
                 <option data-content="<i class='glyphicon glyphicon-home'></i>">Immobilier</option>
                 <option data-content="<i class='glyphicon glyphicon-home'></i>">Multimédia</option>
+                <option data-content="<i class='glyphicon glyphicon-home'></i>">Véhicule</option>
             </select>
         </div>
     </div>
@@ -81,6 +82,28 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div id="MyModalAddVehicule" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="color:Highlight">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Ajouter ou chercher tout type de biens dans les Véhicule<span id="eventTitle"></span></h4>
+                    </div>
+                    <div class="modal-body">
+
+                        @{
+                            Html.RenderAction("AddVehicule_PartialView", "Vehicule");
+                        }
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 <hr />
 <section>
@@ -121,6 +144,9 @@
 
             } else if (select == "Multimédia") {
                 $('#MyModalAddMultimedia').modal();
+
+            } else if (select == "Véhicule") {
+                $('#MyModalAddVehicule').modal();
 
             }
         });

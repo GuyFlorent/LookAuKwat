@@ -76,7 +76,7 @@ namespace LookAuKwat.Controllers
                     break;
             }
 
-            return PartialView(liste.ToPagedList(pageNumber ?? 1, 5));
+            return PartialView(liste.ToPagedList(pageNumber ?? 1, 10));
         }
 
         public ActionResult SearchAskProduct_PartialView(AskJobViewModel model)
@@ -411,23 +411,23 @@ namespace LookAuKwat.Controllers
                 {
                     case "Price desc":
                         modelresult.ListePro = modelresult.ListePro.OrderByDescending(m => m.Price).ToList();
-                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
                         break;
                     case "Price asc":
                         modelresult.ListePro = modelresult.ListePro.OrderBy(m => m.Price).ToList();
-                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
                         break;
                     case "date desc":
                         modelresult.ListePro = modelresult.ListePro.OrderByDescending(m => m.id).ToList();
-                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
                         break;
                     case "date asc":
                         modelresult.ListePro = modelresult.ListePro.OrderBy(m => m.id).ToList();
-                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
                         break;
                     default:
                         modelresult.ListePro = modelresult.ListePro.OrderByDescending(x => x.id).ToList();
-                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
                         break;
                 }
                 return PartialView(modelresult);
@@ -456,23 +456,23 @@ namespace LookAuKwat.Controllers
                 {
                     case "Price desc":
                         modelresult.ListePro = modelresult.ListePro.OrderByDescending(m => m.Price).ToList();
-                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
                         break;
                     case "Price asc":
                         modelresult.ListePro = modelresult.ListePro.OrderBy(m => m.Price).ToList();
-                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
                         break;
                     case "date desc":
                         modelresult.ListePro = modelresult.ListePro.OrderByDescending(m => m.id).ToList();
-                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
                         break;
                     case "date asc":
                         modelresult.ListePro = modelresult.ListePro.OrderBy(m => m.id).ToList();
-                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
                         break;
                     default:
                         modelresult.ListePro = modelresult.ListePro.OrderByDescending(x => x.id).ToList();
-                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 5);
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
                         break;
                 }
 

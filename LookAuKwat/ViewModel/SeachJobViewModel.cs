@@ -17,9 +17,9 @@ namespace LookAuKwat.ViewModel
         public string TownSearch { get; set; }
         [DisplayName("Lieu")]
         public string StreetSearch { get; set; }
-        [DisplayName("Prix minimale")]
+        [DisplayName("Salaire minimal")]
         public int PriceMinSearch { get; set; }
-        [DisplayName("Prix maximale")]
+        [DisplayName("Salaire maximal")]
         public int PriceMaxSearch { get; set; }
         
         public List<ProductModel> ListePro { get; set; }

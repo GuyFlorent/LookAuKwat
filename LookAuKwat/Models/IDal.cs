@@ -37,5 +37,10 @@ namespace LookAuKwat.Models
         void AddMultimedia(MultimediaModel model, string lat, string lon);
         void EditMultimedia(MultimediaModel model, string lat, string lon);
         IEnumerable<MultimediaModel> GetListMultimedia();
+
+        //For Vehicule model
+        void AddVehicule(VehiculeModel model, string lat, string lon);
+        void EditVehicule(VehiculeModel model, string lat, string lon);
+        IEnumerable<VehiculeModel> GetListVehicule();
     }
 }

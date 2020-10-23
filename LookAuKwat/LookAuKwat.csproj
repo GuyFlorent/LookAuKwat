@@ -192,6 +192,7 @@
     <Compile Include="Controllers\MultimediaOfferSearchController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\VehiculeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -223,6 +224,10 @@
     <Compile Include="Migrations\202010132059312_AddDateTime.Designer.cs">
       <DependentUpon>202010132059312_AddDateTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010202007368_addVehiculeModel.cs" />
+    <Compile Include="Migrations\202010202007368_addVehiculeModel.Designer.cs">
+      <DependentUpon>202010202007368_addVehiculeModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApartmentRentalModel.cs" />
@@ -237,7 +242,7 @@
     <Compile Include="Models\MultimediaModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\ProductCoordinateModel.cs" />
-    <Compile Include="Models\VehicleModel.cs" />
+    <Compile Include="Models\VehiculeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SignalR\Hubs\ChatHub.cs" />
     <Compile Include="Startup.cs" />
@@ -251,6 +256,8 @@
     <Compile Include="ViewModel\MultimediaViewModel.cs" />
     <Compile Include="ViewModel\SeachJobViewModel.cs" />
     <Compile Include="ViewModel\SelectListMethod.cs" />
+    <Compile Include="ViewModel\SelectListMethodVehicle.cs" />
+    <Compile Include="ViewModel\VehiculeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -388,6 +395,9 @@
     <Content Include="Views\Multimedia\EditMultimedia_PartialView.cshtml" />
     <Content Include="Views\MultimediaOfferSearch\SearchOfferMultimedia_PartialView.cshtml" />
     <Content Include="Views\Home\LegalMention.cshtml" />
+    <Content Include="Views\Vehicule\AddVehicule_PartialView.cshtml" />
+    <Content Include="Views\Vehicule\VehiculeDetails_PartialView.cshtml" />
+    <Content Include="Views\Vehicule\VehiculeDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -426,6 +436,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010132059312_AddDateTime.resx">
       <DependentUpon>202010132059312_AddDateTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010202007368_addVehiculeModel.resx">
+      <DependentUpon>202010202007368_addVehiculeModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

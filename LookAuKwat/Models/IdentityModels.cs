@@ -32,6 +32,7 @@ namespace LookAuKwat.Models
         public DbSet<CategoryModel> Categories { get; set; }
         public DbSet<MessageDetails> Messages { get; set; }
         public DbSet<MultimediaModel> Multimedia { get; set; }
+        public DbSet<VehiculeModel> Vehicules { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
