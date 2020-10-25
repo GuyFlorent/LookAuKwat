@@ -1,0 +1,120 @@
+﻿@model LookAuKwat.ViewModel.SeachJobViewModel
+@using LookAuKwat.ViewModel
+
+@using (Ajax.BeginForm("searchOfferVehicule", "VehiculeOfferSearch", new AjaxOptions
+{
+    HttpMethod = "GET",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "ResulList",
+    // OnFailure = "ErreurRecherche",
+    LoadingElementId = "charging"
+}
+         ))
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <h4 class="text-center">Filtrer votre <strong>recherche</strong> dans la catégorie <strong>Véhicule</strong></h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+
+
+
+            <div class="form-group col-xs-6 col-sm-4 col-md-4 ">
+                @Html.LabelFor(model => model.TownVehicule, htmlAttributes: new { @class = "control-label col-md-4" })
+
+                @Html.DropDownListFor(model => model.TownVehicule, SelectListMethod.GetListTownCameroon(), "Toutes les villes", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TownVehicule, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group col-xs-6 col-sm-4 col-md-4">
+                @Html.LabelFor(model => model.RubriqueVehicule, htmlAttributes: new { @class = "control-label col-md-4" })
+
+                @Html.DropDownListFor(model => model.RubriqueVehicule, SelectListMethodVehicle.RubriqueVehiculeList(), "Toute les rubriques", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.RubriqueVehicule, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group col-xs-6 col-sm-4 col-md-4">
+                @Html.LabelFor(model => model.BrandVehicule, htmlAttributes: new { @class = "control-label col-md-4" })
+
+                @Html.DropDownListFor(model => model.BrandVehicule, SelectListMethodVehicle.BrandVehiculeTotalList(), "Toutes les marques", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BrandVehicule, "", new { @class = "text-danger" })
+
+            </div>
+
+
+            <div class="form-group col-xs-6 col-sm-4 col-md-4 ">
+                @Html.LabelFor(model => model.ModelVehicule, htmlAttributes: new { @class = "control-label col-md-4" })
+
+                @Html.EditorFor(model => model.ModelVehicule, new { htmlAttributes = new { @class = "form-control", placeholder = "Ex Yaris, classe C ..." } })
+                @Html.ValidationMessageFor(model => model.ModelVehicule, "", new { @class = "text-danger" })
+
+            </div>
+
+
+            <div class="form-group col-xs-6 col-sm-4 col-md-4">
+                @Html.LabelFor(model => model.SearchTitleVehicule, htmlAttributes: new { @class = "control-label col-md-9" })
+
+                @Html.EditorFor(model => model.SearchTitleVehicule, new { htmlAttributes = new { @class = "form-control", placeholder = "Ex 2010, Automatique..." } })
+                @Html.ValidationMessageFor(model => model.SearchTitleVehicule, "", new { @class = "text-danger" })
+
+            </div>
+
+        </div>
+
+        <button id="submitVehicule" type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-search"></span> <strong>Rechercher</strong>
+        </button>
+    </div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script type="text/javascript">
+    $("#ModelVehicule").autocomplete({
+        source: function (request, response) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ListModelVehicule", "Vehicule")',
+            dataType: "json",
+            headers: {
+                //"api-key": searchServiceApiKey,
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify({
+                top: 5,
+
+               // country: $("#Country").val(),
+               // town: $("#TownAppart").val(),
+                 // zipcode: $("#ZipCode").val(),
+                term: request.term
+            }),
+            success: function (data) {
+                console.log(data);
+                        response(data);
+
+                }
+            });
+            },
+            select: function (event, ui) {
+                //remember the selected item
+                $('#ModelVehicule')
+                    .data('selected-item', ui.item.label);
+            }
+           // appendTo: "#MyModalAddApartment"
+        }).blur(function () {
+            var value = $('#ModelVehicule').val();
+            //check if the input's value matches the selected item
+            if (value != $('#ModelVehicule').data('selected-item')) {
+                //they don't, the user must have typed something else
+                $('#ModelVehicule')
+                    .val('') //clear the input's text
+                    .data('selected-item', ''); //clear the selected item
+            }
+        });
+</script>

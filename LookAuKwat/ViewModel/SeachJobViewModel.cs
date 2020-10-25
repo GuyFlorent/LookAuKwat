@@ -17,9 +17,9 @@ namespace LookAuKwat.ViewModel
         public string TownSearch { get; set; }
         [DisplayName("Lieu")]
         public string StreetSearch { get; set; }
-        [DisplayName("Salaire minimal")]
+        [DisplayName("Salaire min")]
         public int PriceMinSearch { get; set; }
-        [DisplayName("Salaire maximal")]
+        [DisplayName("Salaire max")]
         public int PriceMaxSearch { get; set; }
         
         public List<ProductModel> ListePro { get; set; }
@@ -37,9 +37,9 @@ namespace LookAuKwat.ViewModel
         public string ActivitySectorJob { get; set; }
 
         //for Appartment Rental
-        [DisplayName("Surface minimale(m2)")]
+        [DisplayName("Surface min(m2)")]
         public int MinApartSurface { get; set; }
-        [DisplayName("Surface maximale(m2)")]
+        [DisplayName("Surface max(m2)")]
         public int MaxApartSurface { get; set; }
         [DisplayName("Nombre de pièces minimale")]
         public int RoomNumber { get; set; }
@@ -52,7 +52,7 @@ namespace LookAuKwat.ViewModel
         public string TownMultimedia { get; set; }
         
 
-        [DisplayName("Prix maximal(FCFA)")]
+        [DisplayName("Prix maximal")]
         public int PriceMultimedia { get; set; }
         [DisplayName("Rubrique")]
         public string TypeMultimedia { get; set; }
@@ -66,6 +66,18 @@ namespace LookAuKwat.ViewModel
        
         [DisplayName("Stockage")]
         public string Capacity { get; set; }
+
+        //for vehicule
+        [DisplayName("Ville")]
+        public string TownVehicule { get; set; }
+        [DisplayName("Rubrique")]
+        public string RubriqueVehicule { get; set; }
+        [DisplayName("Marque")]
+        public string BrandVehicule { get; set; }
+        [DisplayName("Modèle")]
+        public string ModelVehicule { get; set; }
+        [DisplayName("Recherche")]
+        public string SearchTitleVehicule { get; set; }
 
     }
 }

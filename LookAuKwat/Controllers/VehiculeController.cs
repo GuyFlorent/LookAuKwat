@@ -102,6 +102,7 @@ namespace LookAuKwat.Controllers
                 ModelAccessoryBikeVehicule = Vehi.ModelVehiculeBikeEquipment,
                 DateAdd = DateTime.Now,
                 SearchOrAskJob = Vehi.SearchOrAskJobVehicule,
+                StateVehicule = Vehi.StateVehicule
 
              
     };
@@ -276,6 +277,12 @@ namespace LookAuKwat.Controllers
             model.ViewNumber++;
             dal.UpdateNumberView(model);
             return View(model);
+        }
+
+        public ActionResult ListModelVehicule(string term)
+        {
+            var data = SelectListMethodVehicle.ModelVehiculeTotalList().Select(x => x.Value.ToLower()).Where(m => m.Contains(term.ToLower()));
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -23,7 +23,7 @@ else
                 </label>
                 @if (Model.CagtegorieSearch == "Emploi")
                 {
-                    <select id="selectJob">
+                    <select class="SelectJob" id="SelectJob">
                         <option value="---Choisir---">---Choisir---</option>
                         <option id="AscendingPrice" value="Tri par Prix croissant"> Tri par Prix croissant</option>
                         <option id="descendingPrice" value="Tri par Prix décroissant">Tri par Prix décroissant</option>
@@ -33,7 +33,7 @@ else
                 }
                 else if (Model.CagtegorieSearch == "Immobilier")
                 {
-                    <select id="SelectFlat">
+                    <select class="SelectFlat" id="SelectFlat">
                         <option value="---Choisir---">---Choisir---</option>
                         <option id="AscendingFlatPrice" value="Tri par Prix croissant"> Tri par Prix croissant</option>
                         <option id="descendingFlatPrice" value="Tri par Prix décroissant">Tri par Prix décroissant</option>
@@ -41,20 +41,40 @@ else
                         <option id="MostLastestFlat" value="Tri par Plus recentes">Tri par Plus recentes</option>
                     </select>
                 }
+                else if (Model.CagtegorieSearch == "Multimedia")
+                {
+                    <select id="SelectMulti">
+                        <option value="---Choisir---">---Choisir---</option>
+                        <option id="AscendingMultiPrice" value="Tri par Prix croissant"> Tri par Prix croissant</option>
+                        <option id="descendingMultiPrice" value="Tri par Prix décroissant">Tri par Prix décroissant</option>
+                        <option id="MostOlderMulti" value="Tri par Plus anciennes">Tri par Plus anciennes</option>
+                        <option id="MostLastestMulti" value="Tri par Plus recentes">Tri par Plus recentes</option>
+                    </select>
+                }
+                else if (Model.CagtegorieSearch == "Vehicule")
+                {
+                    <select id="SelectVehi">
+                        <option value="---Choisir---">---Choisir---</option>
+                        <option id="AscendingVehiPrice" value="Tri par Prix croissant"> Tri par Prix croissant</option>
+                        <option id="descendingVehiPrice" value="Tri par Prix décroissant">Tri par Prix décroissant</option>
+                        <option id="MostOlderVehi" value="Tri par Plus anciennes">Tri par Plus anciennes</option>
+                        <option id="MostLastestVehi" value="Tri par Plus recentes">Tri par Plus recentes</option>
+                    </select>
+                }
 
 
                 @*<a id="AscendingPrice" class="btn">Tri par Prix croissant</a>
-            <a id="descendingPrice" class="btn">Tri par Prix décroissantt</a>
-            <a id="MostOlder" class="btn">Tri par Plus anciennes</a>
-            <a id="MostLastest" class="btn">Tri par Plus recentes</a>*@
+        <a id="descendingPrice" class="btn">Tri par Prix décroissantt</a>
+        <a id="MostOlder" class="btn">Tri par Plus anciennes</a>
+        <a id="MostLastest" class="btn">Tri par Plus recentes</a>*@
 
                 @*<div id="CompanySearchResults"></div>*@
 
                 @*@Ajax.ActionLink("Prix croissant", "ResultSearchOfferJob_PartialView", "JobOfferSearch", new { sortBy = "Price asc" }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "groupeResultSearch" }, new { @class = "test" })
 
-            @Ajax.ActionLink("Prix décroissant", "ResultSearchOfferJob_PartialView", "JobOfferSearch", new { sortBy = "Price desc" }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "groupeResultSearch" })
-            @Ajax.ActionLink("Plus anciennes", "ResultSearchOfferJob_PartialView", "JobOfferSearch", new { sortBy = "date asc" }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "groupeResultSearch" })
-            @Ajax.ActionLink("Plus recentes", "ResultSearchOfferJob_PartialView", "JobOfferSearch", new { sortBy = "date desc" }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "groupeResultSearch" })*@
+        @Ajax.ActionLink("Prix décroissant", "ResultSearchOfferJob_PartialView", "JobOfferSearch", new { sortBy = "Price desc" }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "groupeResultSearch" })
+        @Ajax.ActionLink("Plus anciennes", "ResultSearchOfferJob_PartialView", "JobOfferSearch", new { sortBy = "date asc" }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "groupeResultSearch" })
+        @Ajax.ActionLink("Plus recentes", "ResultSearchOfferJob_PartialView", "JobOfferSearch", new { sortBy = "date desc" }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "groupeResultSearch" })*@
 
 
 
@@ -74,9 +94,17 @@ else
                             {
                                 <h3 class="panel-title">@Model.ListePro.Count <strong>Annonces</strong> disponibles dans la catégorie <strong>offres Immobilier</strong> :</h3>
                             }
+                            else if (Model.CagtegorieSearch == "Multimedia")
+                            {
+                                <h3 class="panel-title">@Model.ListePro.Count <strong>Annonces</strong> disponibles dans la catégorie <strong>offres Multimédia</strong> :</h3>
+                            }
                             else if (Model.CagtegorieSearch == "AskSearch")
                             {
                                 <h3 class="panel-title">@Model.ListePro.Count <strong>Annonces</strong> disponibles dans la rubrique des demandes :</h3>
+                            }
+                            else if (Model.CagtegorieSearch == "Vehicule")
+                            {
+                                <h3 class="panel-title">@Model.ListePro.Count <strong>Annonces</strong> disponibles dans la catégorie <strong>offres Véhicule</strong> :</h3>
                             }
                         }
                     }
@@ -85,6 +113,27 @@ else
 
                     @foreach (var liste in Model.ListeProPagedList)
                     {
+                        TimeSpan elapsTime = DateTime.Now - liste.DateAdd;
+                        string period = null;
+                        int time = 0;
+
+                        if (elapsTime.TotalMinutes < 60)
+                        {
+                            time = elapsTime.Minutes;
+                            period = "minutes";
+                        }
+                        else if (elapsTime.TotalMinutes > 60 && elapsTime.TotalMinutes < 1440)
+                        {
+                            time = elapsTime.Hours;
+                            period = "Heures";
+                        }
+                        else if (elapsTime.TotalMinutes > 1440)
+                        {
+                            time = elapsTime.Days;
+                            period = "Jours";
+                        }
+
+
                         if (liste.Category.CategoryName != null)
                         {
                             try
@@ -96,7 +145,7 @@ else
                                 {
                                     <a href="@Url.Action("JobDetail", "Job", new { id = liste.id }, null)" class="list-group-item">
                                         <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"> @liste.Town</span></h4>
-                                        <p class="list-group-item-text pull-right">@liste.DateAdd.ToString("ddd, dd MMM yyy HH':'mm", new CultureInfo("fr-FR"))</p>
+                                        <p class="list-group-item-text pull-right text-success">Ajoutée il y'a @time.ToString() @period</p>
                                         <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
                                         <p class="list-group-item-text text-left">Emploi</p>
                                         <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded" />
@@ -106,7 +155,7 @@ else
                                 {
                                     <a href="@Url.Action("ApartDetail", "ApartmentRental", new { id = liste.id }, null)" class="list-group-item">
                                         <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"> @liste.Town</span></h4>
-                                        <p class="list-group-item-text pull-right">@liste.DateAdd.ToString("ddd, dd MMM yyy HH':'mm", new CultureInfo("fr-FR"))</p>
+                                        <p class="list-group-item-text pull-right text-success">Ajoutée il y'a @time.ToString() @period</p>
                                         <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
                                         <p class="list-group-item-text text-left">Immobilier</p>
                                         <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded" />
@@ -116,9 +165,19 @@ else
                                 {
                                     <a href="@Url.Action("MultimediaDetail", "Multimedia", new { id = liste.id }, null)" class="list-group-item">
                                         <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"> @liste.Town</span></h4>
-                                        <p class="list-group-item-text pull-right">@liste.DateAdd.ToString("ddd, dd MMM yyy HH':'mm", new CultureInfo("fr-FR"))</p>
+                                        <p class="list-group-item-text pull-right text-success">Ajoutée il y'a @time.ToString() @period</p>
                                         <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
                                         <p class="list-group-item-text text-left">Multimédia</p>
+                                        <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded" />
+                                    </a>
+                                }
+                                else if (liste.Category.CategoryName == "Vehicule")
+                                {
+                                    <a href="@Url.Action("VehiculeDetail", "Vehicule", new { id = liste.id }, null)" class="list-group-item">
+                                        <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"> @liste.Town</span></h4>
+                                        <p class="list-group-item-text pull-right text-success">Ajoutée il y'a @time.ToString() @period</p>
+                                        <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
+                                        <p class="list-group-item-text text-left">Vehicule</p>
                                         <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded" />
                                     </a>
                                 }
@@ -148,6 +207,13 @@ else
 
                 @*Page @(Model.ListeProPagedList.PageCount< Model.ListeProPagedList.PageNumber ? 0 : Model.ListeProPagedList.PageNumber) sur @Model.ListeProPagedList.PageCount*@
                 @Html.PagedListPager(Model.ListeProPagedList, pageNumber => Url.Action("searchOfferMultimedia", " MultimediaOfferSearch", new { pageNumber, sortBy = Request["sortBy"] }),
+     PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "groupeResultSearch" }))
+            }
+            @if (Model.CagtegorieSearch == "Vehicule")
+            {
+
+                @*Page @(Model.ListeProPagedList.PageCount< Model.ListeProPagedList.PageNumber ? 0 : Model.ListeProPagedList.PageNumber) sur @Model.ListeProPagedList.PageCount*@
+                @Html.PagedListPager(Model.ListeProPagedList, pageNumber => Url.Action("searchOfferVehicule", " VehiculeOfferSearch", new { pageNumber, sortBy = Request["sortBy"] }),
      PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "groupeResultSearch" }))
             }
         </div>
@@ -237,8 +303,8 @@ else
       });
      return false;
     });
-    $("#selectJob").change(function () {
-        $("#selectJob option:selected").click();
+    $("#SelectJob").change(function () {
+        $("#SelectJob option:selected").click();
     });
 
     $('#AscendingFlatPrice').click(function() {
@@ -336,23 +402,210 @@ else
         $("#SelectFlat option:selected").click();
     });
 
+    //for multimedia sort
 
-    if (document.getElementById("selectJob").value != null) {
-        document.getElementById("selectJob").onchange = function () {
-            localStorage['selectJob'] = document.getElementById("selectJob").value;
+    $('#AscendingMultiPrice').click(function() {
+        var Capacity = $('#Capacity').val();
+        var ModelMultimedia = $('#ModelMultimedia').val();
+        var BrandMultimedia = $('#BrandMultimedia').val();
+        var TypeMultimedia = $('#TypeMultimedia').val();
+        var PriceMultimedia = $('#PriceMultimedia').val();
+        var TownMultimedia = $('#TownMultimedia').val();
+         $.ajax({
+             url: '@Url.Action("searchOfferMultimedia", "MultimediaOfferSearch")?TownMultimedia=' + TownMultimedia + '&TypeMultimedia=' + TypeMultimedia
+                 + '&PriceMultimedia=' + PriceMultimedia + '&BrandMultimedia=' + BrandMultimedia + '&ModelMultimedia=' + ModelMultimedia
+                 + '&Capacity=' + Capacity  + '&sortBy=' + "Price asc",
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        //data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
+        success: function (result) {
+
+            $('#groupeResultSearch').html(result);
         }
-    }
+      });
+     return false;
+     });
+
+    $('#descendingMultiPrice').click(function() {
+        var Capacity = $('#Capacity').val();
+        var ModelMultimedia = $('#ModelMultimedia').val();
+        var BrandMultimedia = $('#BrandMultimedia').val();
+        var TypeMultimedia = $('#TypeMultimedia').val();
+        var PriceMultimedia = $('#PriceMultimedia').val();
+        var TownMultimedia = $('#TownMultimedia').val();
+         $.ajax({
+             url: '@Url.Action("searchOfferMultimedia", "MultimediaOfferSearch")?TownMultimedia=' + TownMultimedia + '&TypeMultimedia=' + TypeMultimedia
+                 + '&PriceMultimedia=' + PriceMultimedia + '&BrandMultimedia=' + BrandMultimedia + '&ModelMultimedia=' + ModelMultimedia
+                 + '&Capacity=' + Capacity + '&sortBy=' + "Price desc",
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        //data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
+        success: function (result) {
+
+            $('#groupeResultSearch').html(result);
+        }
+      });
+     return false;
+     });
+
+    $('#MostLastestMulti').click(function() {
+        var Capacity = $('#Capacity').val();
+        var ModelMultimedia = $('#ModelMultimedia').val();
+        var BrandMultimedia = $('#BrandMultimedia').val();
+        var TypeMultimedia = $('#TypeMultimedia').val();
+        var PriceMultimedia = $('#PriceMultimedia').val();
+        var TownMultimedia = $('#TownMultimedia').val();
+         $.ajax({
+             url: '@Url.Action("searchOfferMultimedia", "MultimediaOfferSearch")?TownMultimedia=' + TownMultimedia + '&TypeMultimedia=' + TypeMultimedia
+                 + '&PriceMultimedia=' + PriceMultimedia + '&BrandMultimedia=' + BrandMultimedia + '&ModelMultimedia=' + ModelMultimedia
+                 + '&Capacity=' + Capacity + '&sortBy=' + "Price desc",
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+       // data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
+        success: function (result) {
+
+            $('#groupeResultSearch').html(result);
+        }
+      });
+     return false;
+     });
+
+    $('#MostOlderMulti').click(function() {
+       var Capacity = $('#Capacity').val();
+        var ModelMultimedia = $('#ModelMultimedia').val();
+        var BrandMultimedia = $('#BrandMultimedia').val();
+        var TypeMultimedia = $('#TypeMultimedia').val();
+        var PriceMultimedia = $('#PriceMultimedia').val();
+        var TownMultimedia = $('#TownMultimedia').val();
+         $.ajax({
+             url: '@Url.Action("searchOfferMultimedia", "MultimediaOfferSearch")?TownMultimedia=' + TownMultimedia + '&TypeMultimedia=' + TypeMultimedia
+                 + '&PriceMultimedia=' + PriceMultimedia + '&BrandMultimedia=' + BrandMultimedia + '&ModelMultimedia=' + ModelMultimedia
+                 + '&Capacity=' + Capacity  + '&sortBy=' + "Price asc",
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+            // data: { 'toto': TownSearchApart},  // JSON.stringify(searchTerm)
+        success: function (result) {
+
+            $('#groupeResultSearch').html(result);
+        }
+      });
+     return false;
+    });
+    $("#SelectMulti").change(function () {
+        $("#SelectMulti option:selected").click();
+    });
+
+    //sort for Vehicule
+
+     $('#AscendingVehiPrice').click(function() {
+         var TownVehicule = $('#TownVehicule').val();
+         var RubriqueVehicule = $('#RubriqueVehicule').val();
+         var BrandVehicule = $('#BrandVehicule').val();
+         var ModelVehicule = $('#ModelVehicule').val();
+
+         $.ajax({
+             url: '@Url.Action("searchOfferVehicule", "VehiculeOfferSearch")?TownVehicule=' + TownVehicule + '&RubriqueVehicule=' + RubriqueVehicule
+                 + '&BrandVehicule=' + BrandVehicule + '&ModelVehicule=' + ModelVehicule + '&sortBy=' + "Price asc",
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        //data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
+        success: function (result) {
+
+            $('#groupeResultSearch').html(result);
+        }
+      });
+     return false;
+     });
+
+    $('#descendingVehiPrice').click(function() {
+        var TownVehicule = $('#TownVehicule').val();
+         var RubriqueVehicule = $('#RubriqueVehicule').val();
+         var BrandVehicule = $('#BrandVehicule').val();
+         var ModelVehicule = $('#ModelVehicule').val();
+
+         $.ajax({
+             url: '@Url.Action("searchOfferVehicule", "VehiculeOfferSearch")?TownVehicule=' + TownVehicule + '&RubriqueVehicule=' + RubriqueVehicule
+                 + '&BrandVehicule=' + BrandVehicule + '&ModelVehicule=' + ModelVehicule + '&sortBy=' + "Price desc",
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        //data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
+        success: function (result) {
+
+            $('#groupeResultSearch').html(result);
+        }
+      });
+     return false;
+     });
+
+    $('#MostLastestVehi').click(function() {
+         var TownVehicule = $('#TownVehicule').val();
+         var RubriqueVehicule = $('#RubriqueVehicule').val();
+         var BrandVehicule = $('#BrandVehicule').val();
+         var ModelVehicule = $('#ModelVehicule').val();
+
+         $.ajax({
+             url: '@Url.Action("searchOfferVehicule", "VehiculeOfferSearch")?TownVehicule=' + TownVehicule + '&RubriqueVehicule=' + RubriqueVehicule
+                 + '&BrandVehicule=' + BrandVehicule + '&ModelVehicule=' + ModelVehicule + '&sortBy=' + "Price desc",
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+       // data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
+        success: function (result) {
+
+            $('#groupeResultSearch').html(result);
+        }
+      });
+     return false;
+     });
+
+    $('#MostOlderVehi').click(function() {
+       var TownVehicule = $('#TownVehicule').val();
+         var RubriqueVehicule = $('#RubriqueVehicule').val();
+         var BrandVehicule = $('#BrandVehicule').val();
+         var ModelVehicule = $('#ModelVehicule').val();
+
+         $.ajax({
+             url: '@Url.Action("searchOfferVehicule", "VehiculeOfferSearch")?TownVehicule=' + TownVehicule + '&RubriqueVehicule=' + RubriqueVehicule
+                 + '&BrandVehicule=' + BrandVehicule + '&ModelVehicule=' + ModelVehicule + '&sortBy=' + "Price asc",
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+            // data: { 'toto': TownSearchApart},  // JSON.stringify(searchTerm)
+        success: function (result) {
+
+            $('#groupeResultSearch').html(result);
+        }
+      });
+     return false;
+    });
+    $("#SelectVehi").change(function () {
+        $("#SelectVehi option:selected").click();
+    });
+
+    $("select.SelectJob").change(function () {
+        var select = $(this).children("option:selected").val();
+        if (select != null) {
+            document.getElementById("SelectJob").onchange = function () {
+                localStorage['SelectJob'] = document.getElementById("selectJob").value;
+            }
+        }
+    })
+
+
     if (localStorage['selectJob']) {
         document.getElementById("selectJob").value = localStorage['selectJob'];
     };
-
-    if (document.getElementById("SelectFlat").value != null) {
-        document.getElementById("SelectFlat").onchange = function () {
-            localStorage['SelectFlat'] = document.getElementById("SelectFlat").value;
+    $("select.SelectFlat").change(function () {
+        var select = $(this).children("option:selected").val();
+        if (select != "") {
+            document.getElementById("SelectFlat").onchange = function () {
+                localStorage['SelectFlat'] = document.getElementById("SelectFlat").value;
+            }
         }
-    }
-    if (localStorage['SelectFlat'])
+    })
+
+    if (localStorage['SelectFlat']) {
         document.getElementById("SelectFlat").value = localStorage['SelectFlat'];
+    }
+
 
 
 </script>

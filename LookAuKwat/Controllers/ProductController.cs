@@ -56,6 +56,7 @@ namespace LookAuKwat.Controllers
             ViewBag.DateAscSort = sortBy == "Plus anciennes" ? "date asc" : "";
             ViewBag.DateDescSort = sortBy == "Plus recentes" ? "date desc" : "";
             IEnumerable<ProductModel> liste = dal.GetListProduct();
+          
             ViewBag.number = liste.Count();
             switch (sortBy)
             {
@@ -399,6 +400,22 @@ namespace LookAuKwat.Controllers
                             Console.WriteLine(e.ToString());
                         }
                         break;
+
+                    case "Vehicule":
+                        try
+                        {
+                            var resultVehicule = TempData["listeVehicule"] as List<VehiculeModel>;
+                            if(resultVehicule != null)
+                            foreach (var element in resultVehicule)
+                            {
+                                modelresult.ListePro.Add(element);
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.ToString());
+                        }
+                        break;
                 }
 
 
@@ -442,10 +459,14 @@ namespace LookAuKwat.Controllers
                 {
 
                     var result = TempData["listeSearchAsk"] as List<ProductModel>;
-                    foreach (var element in result)
+                    if(result != null)
+                    {
+ foreach (var element in result)
                     {
                         modelresult.ListePro.Add(element);
                     }
+                    }
+                   
                 }
                 catch (Exception e)
                 {
@@ -491,6 +512,7 @@ namespace LookAuKwat.Controllers
         {
             List<JobModel> result = TempData["listeJobJson"] as List<JobModel>;
             List<MultimediaModel> resultMultimedia = TempData["listeMulti_Json"] as List<MultimediaModel>;
+            List<VehiculeModel> resultVehicule = TempData["listeVehicule_Json"] as List<VehiculeModel>;
             List<ProductModel> resultSearchAsk = TempData["listeSearchAsk_json"] as List<ProductModel>;
             List<ApartmentRentalModel> resultImmobilier = TempData["listeApartJson"] as List<ApartmentRentalModel>;
             List<DataJsonProductViewModel> data = new List<DataJsonProductViewModel>() ;
@@ -543,6 +565,27 @@ namespace LookAuKwat.Controllers
                     case "Multimedia":
 
                         foreach (var element in resultMultimedia)
+                        {
+                            modelresult.ListePro.Add(element);
+                        }
+                        data = modelresult.ListePro.Select(s => new DataJsonProductViewModel
+                        {
+                            Title = s.Title,
+                            Coordinate = s.Coordinate,
+                            id = s.id,
+                            Price = s.Price,
+                            Description = s.Description,
+                            DateAdd = s.DateAdd.ToString(),
+                            Images = s.Images.Select(o => o.Image).ToList(),
+                            User = s.User,
+                            Street = s.Street,
+                            Town = s.Town
+                        }).ToList();
+                        break;
+
+                    case "Vehicule":
+
+                        foreach (var element in resultVehicule)
                         {
                             modelresult.ListePro.Add(element);
                         }
@@ -662,8 +705,8 @@ namespace LookAuKwat.Controllers
       
         private async Task configSendGridasync(contactUserViewModel message)
         {
-           
 
+            
             var apikey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
             //var apiKey = ConfigurationManager.AppSettings["mailPasswordSendGrid"];
             var client = new SendGridClient(apikey);

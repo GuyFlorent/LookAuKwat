@@ -3,6 +3,31 @@
 @{
     ViewBag.Title = "Détails de l'annonce catégorie emploi";
 }
+
+@{
+
+    TimeSpan elapsTime = DateTime.Now - Model.DateAdd;
+    string period = null;
+    int time = 0;
+
+    if (elapsTime.TotalMinutes < 60)
+    {
+        time = elapsTime.Minutes;
+        period = "minutes";
+    }
+    else if (elapsTime.TotalMinutes > 60 && elapsTime.TotalMinutes < 1440)
+    {
+        time = elapsTime.Hours;
+        period = "Heures";
+    }
+    else if (elapsTime.TotalMinutes > 1440)
+    {
+        time = elapsTime.Days;
+        period = "Jours";
+    }
+
+}
+
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
       integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
       crossorigin="" />
@@ -39,7 +64,7 @@
 
     <section class="col-md-8">
         <div class="row">
-            <div id="myCarousel" class="carousel slide col-sm-12"  data-interval="false" >
+            <div id="myCarousel" class="carousel slide col-sm-12" data-interval="false">
 
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
@@ -87,7 +112,7 @@
         <div class="row">
             <h3 class="product-title"><strong>@Model.Title</strong></h3>
             <div>
-                <label>Ajouté le : </label>  @Model.DateAdd.ToString("ddd, dd MMM yyy HH':'mm", new CultureInfo("fr-FR"))
+                <label>Ajoutée il y'a : </label>  @time.ToString() @period
 
             </div>
             <div class="rating">
@@ -208,10 +233,10 @@
 </script>
 
 <script type="text/javascript">
-  
+
     $(function () {
-       
-        
+
+
         $('#myCarousel').carousel({
             pause: true,
             interval: false

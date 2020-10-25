@@ -193,6 +193,7 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\VehiculeController.cs" />
+    <Compile Include="Controllers\VehiculeOfferSearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -227,6 +228,10 @@
     <Compile Include="Migrations\202010202007368_addVehiculeModel.cs" />
     <Compile Include="Migrations\202010202007368_addVehiculeModel.Designer.cs">
       <DependentUpon>202010202007368_addVehiculeModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010231223361_StateVehicule.cs" />
+    <Compile Include="Migrations\202010231223361_StateVehicule.Designer.cs">
+      <DependentUpon>202010231223361_StateVehicule.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -398,6 +403,7 @@
     <Content Include="Views\Vehicule\AddVehicule_PartialView.cshtml" />
     <Content Include="Views\Vehicule\VehiculeDetails_PartialView.cshtml" />
     <Content Include="Views\Vehicule\VehiculeDetail.cshtml" />
+    <Content Include="Views\VehiculeOfferSearch\SearchOfferVehicule_PartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -439,6 +445,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010202007368_addVehiculeModel.resx">
       <DependentUpon>202010202007368_addVehiculeModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010231223361_StateVehicule.resx">
+      <DependentUpon>202010231223361_StateVehicule.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

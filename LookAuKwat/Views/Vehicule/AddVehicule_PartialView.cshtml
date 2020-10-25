@@ -235,6 +235,12 @@
 
 <script type="text/javascript">
     $(function () {
+        //$(".modal").on("hidden.bs.modal", function () {
+        //    //$(".modal-body").html("");
+        //    document.getElementById("selectAddId").selectedIndex = "0";
+        //});
+
+
         $("#SearchOrAskVehiculeDiv").change(function () {
 
             if ($('#SearchOrAskVehicule').val() !== 'choisir' ) {
@@ -245,8 +251,9 @@
             }
         });
         $("#RubriqueVehiculeDiv").change(function () {
+            
 
-            if ($('#RubriqueVehicule').val() !== 'choisir' && $('#RubriqueVehicule').val() == 'Voitures') {
+            if ($('#RubriqueVehicule').val() !== 'choisir' && ($('#RubriqueVehicule').val() == 'Voitures' || $('#RubriqueVehicule').val() == 'Location voitures')) {
 
 
                 $("#BrandVehiculeAutoDiv").removeClass('hidden');
@@ -471,6 +478,19 @@
 
                 document.getElementById("BrandVehiculeBike").selectedIndex = "0";
 
+                document.getElementById("ModelVehiculeToyota").selectedIndex = "0";
+                document.getElementById("ModelVehiculeMazda").selectedIndex = "0";
+                document.getElementById("ModelVehiculeMercedes").selectedIndex = "0";
+                document.getElementById("ModelVehiculeHuyndrai").selectedIndex = "0";
+                document.getElementById("ModelVehiculeAutoEquipment").selectedIndex = "0";
+                document.getElementById("ModelVehiculeBikeEquipment").selectedIndex = "0";
+                document.getElementById("YearVehiculeDiv").selectedIndex = "0";
+                document.getElementById("MileageVehicule").selectedIndex = "0";
+                document.getElementById("NumberOfDoorVehicule").selectedIndex = "0";
+                document.getElementById("ColorVehicule").selectedIndex = "0";
+                document.getElementById("GearBoxVehicule").selectedIndex = "0";
+                
+
                 $("#BrandVehiculeBikeDiv").addClass('hidden');
 
                 //close other model
@@ -481,6 +501,16 @@
                 $("#ModelVehiculeHuyndraiDiv").addClass('hidden');
                 $("#ModelVehiculeBikeDiv").addClass('hidden');
                 $("#ModelVehiculeAutoEquipmentDiv").addClass('hidden');
+                $("#ModelVehiculeBikeEquipmentDiv").addClass('hidden');
+                $("#ModelVehiculeBikeDiv").addClass('hidden');
+                $("#TypeVehiculeDiv").addClass('hidden');
+                $("#PetrolVehiculeDiv").addClass('hidden');
+                $("#YearVehiculeDiv").addClass('hidden');
+                $("#FirstYearVehiculeDiv").addClass('hidden');
+                $("#MileageVehiculeDiv").addClass('hidden');
+                $("#NumberOfDoorVehiculeDiv").addClass('hidden');
+                $("#ColorVehiculeDiv").addClass('hidden');
+                $("#GearBoxVehiculeDiv").addClass('hidden');
                 $("#ModelVehiculeBikeEquipmentDiv").addClass('hidden');
 
                 $("#BrandVehiculeAutoDiv").change(function () {
@@ -508,6 +538,18 @@
 
                 document.getElementById("BrandVehiculeAuto").selectedIndex = "0";
 
+                document.getElementById("ModelVehiculeToyota").selectedIndex = "0";
+                document.getElementById("ModelVehiculeMazda").selectedIndex = "0";
+                document.getElementById("ModelVehiculeMercedes").selectedIndex = "0";
+                document.getElementById("ModelVehiculeHuyndrai").selectedIndex = "0";
+                document.getElementById("ModelVehiculeAutoEquipment").selectedIndex = "0";
+                document.getElementById("ModelVehiculeBikeEquipment").selectedIndex = "0";
+                document.getElementById("YearVehiculeDiv").selectedIndex = "0";
+                document.getElementById("MileageVehicule").selectedIndex = "0";
+                document.getElementById("NumberOfDoorVehicule").selectedIndex = "0";
+                document.getElementById("ColorVehicule").selectedIndex = "0";
+                document.getElementById("GearBoxVehicule").selectedIndex = "0";
+              
                 $("#BrandVehiculeAutoDiv").addClass('hidden');
 
                 //close other model
@@ -518,6 +560,17 @@
                 $("#ModelVehiculeHuyndraiDiv").addClass('hidden');
                 $("#ModelVehiculeAutoEquipmentDiv").addClass('hidden');
                 $("#ModelVehiculeBikeEquipmentDiv").addClass('hidden');
+
+                $("#ModelVehiculeAutoEquipmentDiv").addClass('hidden');
+                $("#TypeVehiculeDiv").addClass('hidden');
+                $("#PetrolVehiculeDiv").addClass('hidden');
+                $("#YearVehiculeDiv").addClass('hidden');
+                $("#FirstYearVehiculeDiv").addClass('hidden');
+                $("#MileageVehiculeDiv").addClass('hidden');
+                $("#NumberOfDoorVehiculeDiv").addClass('hidden');
+                $("#ColorVehiculeDiv").addClass('hidden');
+                $("#GearBoxVehiculeDiv").addClass('hidden');
+                $("#ModelVehiculeAutoEquipmentDiv").addClass('hidden');
 
                 $("#BrandVehiculeBikeDiv").change(function () {
 
@@ -564,7 +617,7 @@
             } else if ($('#StateVehicule').val() !== 'choisir' && ($('#RubriqueVehicule').val() !== 'Equipement Auto' || $('#RubriqueVehicule').val() !== 'Equipement Moto')
                 && $('#RubriqueVehicule').val() === 'Voitures') {
                 $("#TypeVehiculeDiv").removeClass('hidden');
-
+               
             }
         });
 

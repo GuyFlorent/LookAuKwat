@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LookAuKwat.Models;
+using Microsoft.Ajax.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +15,7 @@ namespace LookAuKwat.ViewModel
             IList<SelectListItem> list = new List<SelectListItem>()
             {
                 new SelectListItem() { Text = "Voitures", Value = "Voitures" },
+                new SelectListItem() { Text = "Location voitures", Value = "Location voitures" },
                 new SelectListItem() { Text = "Motos", Value = "Motos" },
                 new SelectListItem() { Text = "Equipement Auto", Value = "Equipement Auto" },
                 new SelectListItem() { Text = "Equipement Moto", Value = "Equipement Moto" }
@@ -345,5 +348,51 @@ namespace LookAuKwat.ViewModel
             };
             return list;
         }
+        
+        public static IEnumerable<SelectListItem> ModelVehiculeTotalList()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>();
+
+            foreach (var liste in ModelVehiculeAutoHyundaiList())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in ModelVehiculeAutoKiaList())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in ModelVehiculeAutoMazdaList())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in ModelVehiculeAutoMercedesList())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in ModelVehiculeAutoToyotaList())
+            {
+                list.Add(liste);
+            }
+           
+            return list.DistinctBy(x => x.Text);
+        }
+
+
+        public static IEnumerable<SelectListItem> BrandVehiculeTotalList()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>();
+
+            foreach (var liste in BrandVehiculeAutoList())
+            {
+                list.Add(liste);
+            }
+            foreach (var liste in BrandVehiculeMotoList())
+            {
+                list.Add(liste);
+            }
+           
+            return list.DistinctBy(x => x.Text);
+        }
+
     }
 }

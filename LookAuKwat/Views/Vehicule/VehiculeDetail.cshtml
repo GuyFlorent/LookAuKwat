@@ -1,7 +1,351 @@
-﻿
+﻿@model LookAuKwat.Models.VehiculeModel
+@using System.Globalization;
 @{
-    ViewBag.Title = "VehiculeDetail";
+    ViewBag.Title = "Détails Véhicule";
 }
 
-<h2>VehiculeDetail</h2>
+@{
 
+    TimeSpan elapsTime = DateTime.Now - Model.DateAdd;
+    string period = null;
+    int time = 0;
+  
+    if (elapsTime.TotalMinutes < 60)
+    {
+        time = elapsTime.Minutes;
+        period = "minutes";
+    }
+    else if (elapsTime.TotalMinutes > 60 && elapsTime.TotalMinutes < 1440)
+    {
+        time = elapsTime.Hours;
+        period = "Heures";
+    }
+    else if (elapsTime.TotalMinutes > 1440)
+    {
+        time = elapsTime.Days;
+        period = "Jours";
+    }
+
+    }
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin="" />
+
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+        crossorigin=""></script>
+
+<h2>Détails de l'annonce catégorie Véhicule</h2>
+<div id="MyModalContactJob" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">Envoyer un méssage à @Model.User.FirstName<span id="eventTitle"></span></h3>
+            </div>
+            <div class="modal-body">
+
+                @{
+                    var link = HttpContext.Current.Request.Url.AbsoluteUri;
+                    Html.RenderAction("ContactProductUser_PartialView", "Product", new { RecieverEmail = Model.User.Email, RecieverName = Model.User.UserName, Linkshare = link, Category = "Job" });
+
+
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="row">
+
+    <section class="col-md-8">
+        <div class="row">
+            <div id="myCarousel" class="carousel slide col-sm-12" data-ride="carousel">
+
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    @{
+
+                        for (int num = 1; num < Model.Images.Count; num++)
+                        {
+                            <li data-target="#myCarousel" data-slide-to="@num"></li>
+
+                        }
+
+                    }
+                </ol>
+                <!-- Wrapper for slides -->
+                <div class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        @{
+
+                            <div class="item active thumbnail">
+                                <a href="@Model.Images[0].Image" data-lightbox="mygallery"><img class="img-rounded img-responsive" src="@Model.Images[0].Image" alt="LookAuKwat" /></a>
+
+                            </div>
+                            for (int a = 1; a < Model.Images.Count; a++)
+                            {
+                                <div class="item thumbnail">
+                                    <a href="@Model.Images[a].Image" data-lightbox="mygallery"><img src="@Model.Images[a].Image" alt="LookAuKwat" class="img-rounded img-responsive" /></a>
+
+                                </div>
+                            }
+                        }
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <h3 class="product-title"><strong>@Model.Title</strong></h3>
+            <div>
+                <label>Ajoutée il y'a : </label>  @time.ToString() @period
+
+            </div>
+            <div class="rating">
+                <span class="review-no"><strong>@Model.ViewNumber vues</strong></span>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+
+
+            @if (Model.RubriqueVehicule == "Voitures" || Model.RubriqueVehicule == "Motos" || Model.RubriqueVehicule == "Equipement Auto"
+                    || Model.RubriqueVehicule == "Equipement Moto")
+            {
+                <div class=" col-xs-6 col-sm-6 col-md-4">
+                    @Html.LabelFor(model => model.RubriqueVehicule, htmlAttributes: new { @class = "control-label " })
+                    <p>@Model.RubriqueVehicule</p>
+
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-4">
+                    @Html.LabelFor(model => model.BrandVehicule, htmlAttributes: new { @class = "control-label " })
+                    <p>@Model.BrandVehicule</p>
+
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-4 price">
+                    <label class="control-label">Prix</label>
+
+                    <p><span>@Model.Price FCFA</span></p>
+
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-4">
+                    @Html.LabelFor(model => model.SearchOrAskJob, htmlAttributes: new { @class = "control-label " })
+                    <p>@Model.SearchOrAskJob</p>
+
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-4">
+                    @Html.LabelFor(model => model.StateVehicule, htmlAttributes: new { @class = "control-label " })
+                    <p>@Model.StateVehicule</p>
+
+                </div>
+                if (Model.RubriqueVehicule == "Equipement Auto")
+                {
+                    <div class="col-xs-6 col-sm-6 col-md-4">
+                        @Html.LabelFor(model => model.ModelAccessoryAutoVehicule, htmlAttributes: new { @class = "control-label " })
+                        <p>@Model.ModelAccessoryAutoVehicule</p>
+
+                    </div>
+                }
+                else if (Model.RubriqueVehicule == "Equipement Moto")
+                {
+                    <div class="col-xs-6 col-sm-6 col-md-4">
+                        @Html.LabelFor(model => model.ModelAccessoryAutoVehicule, htmlAttributes: new { @class = "control-label " })
+                        <p>@Model.ModelAccessoryBikeVehicule</p>
+
+                    </div>
+                }
+                if (Model.RubriqueVehicule == "Voitures" || Model.RubriqueVehicule == "Motos")
+                {
+                    <div class="col-xs-6 col-sm-6 col-md-4">
+                        @Html.LabelFor(model => model.ModelVehicule, htmlAttributes: new { @class = "control-label " })
+                        <p>@Model.ModelVehicule</p>
+
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-4">
+                        @Html.LabelFor(model => model.FirstYearVehicule, htmlAttributes: new { @class = "control-label " })
+                        <p>@Model.FirstYearVehicule</p>
+
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-4">
+                        @Html.LabelFor(model => model.MileageVehicule, htmlAttributes: new { @class = "control-label " })
+                        <p>@Model.MileageVehicule Km</p>
+
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-4">
+                        @Html.LabelFor(model => model.ColorVehicule, htmlAttributes: new { @class = "control-label " })
+                        <p>@Model.ColorVehicule</p>
+
+                    </div>
+
+                    if (Model.RubriqueVehicule == "Voitures")
+                    {
+                        <div class="col-xs-6 col-sm-6 col-md-4">
+                            @Html.LabelFor(model => model.TypeVehicule, htmlAttributes: new { @class = "control-label " })
+                            <p>@Model.TypeVehicule</p>
+
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-4">
+                            @Html.LabelFor(model => model.PetrolVehicule, htmlAttributes: new { @class = "control-label " })
+                            <p>@Model.PetrolVehicule</p>
+
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-4">
+                            @Html.LabelFor(model => model.NumberOfDoorVehicule, htmlAttributes: new { @class = "control-label " })
+                            <p>@Model.NumberOfDoorVehicule</p>
+
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-4">
+                            @Html.LabelFor(model => model.GearBoxVehicule, htmlAttributes: new { @class = "control-label " })
+                            <p>@Model.GearBoxVehicule</p>
+
+                        </div>
+                    }
+                }
+            }
+
+
+
+
+
+        </div>
+        <hr />
+        <div class="row">
+            <h3 class="product-title">Description</h3>
+            <p class="product-description" style="white-space:pre-wrap">@Model.Description</p>
+        </div>
+        <hr />
+        <div class="row">
+            <label>Ville : </label> @Model.Town , <label>Adresse : </label> @Model.Street
+            <div id="mapidDetailsJob" style="height:250px;"></div>
+        </div>
+        <hr />
+        <div class="row ">
+            <strong>Signaler l'annonce</strong>
+        </div>
+        <hr />
+        <div class="row">
+            <p><strong>Partager sur:</strong></p>
+            <p>
+                @*facebook sharing*@
+                <a href="javascript:void(o)" onclick="window.open('http://www.facebook.com/sharer/sharer.php?u=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id','facebook-share-dialog','toolbar=0,status=0,width=600,height=600');"> <img src="@Url.Content("~/UserImage/facebook.png ")" id="imgfb" alt="facebook" height="40" /></a> @*twitter sharing*@
+                <a href="http://twitter.com/share?url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id&title=@Model.Title&summary=@Model.Description" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img src="@Url.Content("~/UserImage/Twitter.png ")" id="imgtw" alt="twitter" height="40" /></a>
+                <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script> @*LinkedIn sharing*@
+                <a href="http://www.linkedin.com/shareArticle?mini=true&url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content("~/UserImage/linkedin.png ")" id="imgln" height="40" /></a> @*GooglePlus sharing*@
+                <a href="https://mail.google.com/mail/?view=cm&su=@Model.Title&to&body=Job disponible @Model.Description sur le lien : @HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="GooglePlus" src="@Url.Content("~/UserImage/Gmail.png ")" id="imggoogle" height="40" /></a>
+                <a href="http://compose.mail.yahoo.com/?&Subject=@Model.Title&To=&Body=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content("~/UserImage/Yahoo.png ")" id="imgln" height="40" /></a>
+
+                <a href="whatsapp://send?text=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" data-action="share/whatsapp/share"><img alt="whatsapp" src="@Url.Content("~/UserImage/whatsapp.png ")" id="imgln" height="40" /></a>
+            </p>
+        </div>
+        <hr />
+        <h3>Quelques annonce similaire qui peuvent vous intéréssez</h3>
+        <div class="row gallery MySlickCarouselJob">
+
+            @{
+                Html.RenderAction("SimilarProduct_PartialView", "Product", new { model = Model });
+            }
+        </div>
+    </section>
+    <section class="col-md-4">
+        <div class="row" style="border-radius: 25px;background: lightgray;padding: 20px;">
+            <img src="https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg" alt="photo du publicateur Lookaukwat" class="img-rounded" height="50" /> @Model.User.FirstName
+            <hr />
+            <button id="sendJobMessage" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
+            <button id="iconJobCall" class="btn btn-default"><span class="glyphicon glyphicon-phone"></span> Voir le numéro</button>
+            <a id="numJobCall" class="hidden" href="tel:@Model.User.PhoneNumber">@Model.User.PhoneNumber</a>
+        </div>
+        <div class="row" style="height:7px">
+            <div class="row alert alert-success js-alert-job hidden" role="alert">
+                Message envoyé avec succès !
+                Bonne chance à vous pour cet emploi
+            </div>
+        </div>
+    </section>
+</section>
+
+
+
+
+<script type="text/javascript">
+    var model = @Html.Raw(Json.Encode(Model.Coordinate));
+    var mymap = L.map('mapidDetailsJob');
+    console.log(model.Lat)
+    console.log(model.Lon)
+    mymap.setView([model.Lat, model.Lon], 13);
+
+    L.marker([model.Lat, model.Lon])
+       // .bindPopup(popup)
+                .addTo(mymap)
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11', /*mapbox/satellite-v9*/
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoiZ3V5d2FuZ3VldSIsImEiOiJjazc0amN4ZzkwOG14M2twYXhpbDZ6NjRwIn0.HU_TD-k9bLv6_ctUhyIRuw'
+    }).addTo(mymap);
+
+    var options = {
+        enableHighAccuracy: false,
+        timeout: 5000,
+        maximumAge: Infinity
+    };
+
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#iconJobCall').click(function () {
+            $(this).addClass("hidden");
+            $('#numJobCall').removeClass("hidden");
+        });
+        $('#sendJobMessage').click(function () {
+
+            $('#MyModalContactJob').modal();
+        });
+
+        $('.MySlickCarouselJob').slick({
+            centerMode: true,
+            centerPadding: '60px',
+            slidesToShow: 3,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 3
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 1
+                    }
+                }
+            ]
+        });
+
+
+    })
+</script>

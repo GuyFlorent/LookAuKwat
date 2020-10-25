@@ -4,6 +4,29 @@
     ViewBag.Title = "Détails de l'annonce catégorie immobilier";
 }
 
+@{
+
+    TimeSpan elapsTime = DateTime.Now - Model.DateAdd;
+    string period = null;
+    int time = 0;
+
+    if (elapsTime.TotalMinutes < 60)
+    {
+        time = elapsTime.Minutes;
+        period = "minutes";
+    }
+    else if (elapsTime.TotalMinutes > 60 && elapsTime.TotalMinutes < 1440)
+    {
+        time = elapsTime.Hours;
+        period = "Heures";
+    }
+    else if (elapsTime.TotalMinutes > 1440)
+    {
+        time = elapsTime.Days;
+        period = "Jours";
+    }
+
+}
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
       integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
@@ -67,7 +90,7 @@
                                 for (int a = 1; a < Model.Images.Count; a++)
                                 {
                                     <div class="item ">
-                                        <a href="@Model.Images[a].Image" data-lightbox="mygallery"><img height="400" src="@Model.Images[a].Image" alt="LookAuKwat" class="img-rounded img-responsive"/></a>
+                                        <a href="@Model.Images[a].Image" data-lightbox="mygallery"><img height="400" src="@Model.Images[a].Image" alt="LookAuKwat" class="img-rounded img-responsive" /></a>
 
                                     </div>
                                 }
@@ -89,7 +112,7 @@
             <div class="row">
                 <h3 class="product-title"><strong>@Model.Title</strong></h3>
                 <div>
-                    <label>Ajouté le : </label>  @Model.DateAdd.ToString("ddd, dd MMM yyy HH':'mm", new CultureInfo("fr-FR"))
+                    <label>Ajouté il y'a : </label>  @time.ToString() @period
 
                 </div>
                 <div class="rating">
@@ -123,7 +146,7 @@
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6">
                 @Html.LabelFor(model => model.ApartSurface, htmlAttributes: new { @class = "control-label " })
-                <p>@Model.ApartSurface</p>
+                <p>@Model.ApartSurface m2</p>
 
             </div>
 
