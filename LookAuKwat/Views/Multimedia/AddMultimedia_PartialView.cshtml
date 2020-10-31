@@ -373,12 +373,17 @@
 
                         $("#ModelInformatiquePhotocopyDiv").removeClass('hidden');
 
-                    }
+                    } 
                 })
                 $("#ModelInformatiquePhotocopyDiv").change(function () {
-                    if ($('#ModelInformatiquePhotocopy').val() !== 'choisir') {
+                    if ($('#ModelInformatiquePhotocopy').val() !== 'choisir' && ($('#ModelInformatiquePhotocopy').val() == 'Laptop 14 pouces' || $('#ModelInformatiquePhotocopy').val() == 'Laptop 15 pouces' ||
+                        $('#ModelInformatiquePhotocopy').val() == 'Laptop 16 pouces' || $('#ModelInformatiquePhotocopy').val() == 'Desktop' || $('#ModelInformatiquePhotocopy').val() == 'Desktop'
+                        || $('#ModelInformatiquePhotocopy').val() == 'Disque dur externe' || $('#ModelInformatiquePhotocopy').val() == 'Photocopieuse')) {
 
                         $("#CapacityDiv").removeClass('hidden');
+                    } else {
+                        $("#CapacityDiv").addClass('hidden');
+                        $("#TitleMultimediaDiv").removeClass('hidden');
                     }
                 })
 
@@ -1478,7 +1483,7 @@
                 $("#ModelTVDiv").change(function () {
                     if ($('#ModelTV').val() !== 'choisir') {
 
-                        $("#CapacityDiv").removeClass('hidden');
+                        $("#TitleMultimediaDiv").removeClass('hidden');
                     }
                 })
             } else if ($('#TypeMultimedia').val() !== 'choisir' && $('#TypeMultimedia').val() == 'Son') {
@@ -1549,7 +1554,7 @@
                 $("#ModelSonDiv").change(function () {
                     if ($('#ModelSon').val() !== 'choisir') {
 
-                        $("#CapacityDiv").removeClass('hidden');
+                        $("#TitleMultimediaDiv").removeClass('hidden');
                     }
                 })
 

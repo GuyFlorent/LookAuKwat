@@ -30,7 +30,7 @@ namespace LookAuKwat
             
             var apikey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");       
             var client = new SendGridClient(apikey);
-            var from = new EmailAddress("wanguy9@gmail.com", "(NoReply Here)");
+            var from = new EmailAddress("contact@lookaukwat.com", "(NoReply Here)");
             var subject = message.Subject;
             var to = new EmailAddress(message.Destination);
             var plainTextContent = message.Body;

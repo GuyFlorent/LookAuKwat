@@ -35,10 +35,50 @@ namespace LookAuKwat.Controllers
 
         public ActionResult searchOfferMultimedia(SeachJobViewModel model, int? pageNumber, string sortBy)
         {
+            //save same page when refresh page in ajax
+            if(pageNumber != null)
+            {
+                this.Session["pageMultimedia"] = pageNumber;
+                if (model != null)
+                    if (model.PriceMultimedia == 0)
+                    {
+                        model.PriceMultimedia = 1000000000;
+                    }
+                        
+                this.Session["modelMultimedia"] = model;
+              var  modell = this.Session["modelMultimedi"] as SeachJobViewModel;
+                if (modell != null)
+                    model = modell;
+                model.PageNumber = pageNumber;
+            }
+            else if (pageNumber == null)
+            {
+                var mod = this.Session["modelMultimedia"] as SeachJobViewModel;
+                if(mod != null && mod.TownMultimedia == model.TownMultimedia && mod.TypeMultimedia == model.TypeMultimedia &&
+                    mod.BrandMultimedia == model.BrandMultimedia && mod.ModelMultimedia == model.ModelMultimedia && 
+                    mod.Capacity == model.Capacity && mod.PriceMultimedia == model.PriceMultimedia)
+                {
+                    var page = this.Session["pageMultimedia"] as int?;
+                    var modell = this.Session["modelMultimedi"] as SeachJobViewModel;
+                    if (modell != null)
+                        model = modell;
+                    model.PageNumber = page;
+                }
+                else if(mod != null &&( mod.TownMultimedia != model.TownMultimedia || mod.TypeMultimedia != model.TypeMultimedia ||
+                  mod.BrandMultimedia != model.BrandMultimedia || mod.ModelMultimedia != model.ModelMultimedia ||
+                  mod.Capacity != model.Capacity || mod.PriceMultimedia != model.PriceMultimedia))
+                {
+                    this.Session["modelMultimedi"] = model;
+                    model.PageNumber = pageNumber;
+                }
+                
+            }
+
             model.CagtegorieSearch = "Multimedia";
             model.SearchOrAskJobJob = "J'offre";
             model.sortBy = sortBy;
-            model.PageNumber = pageNumber;
+            
+            
             List<MultimediaModel> liste = dal.GetListMultimedia().Where(m => m.Category.CategoryName == model.CagtegorieSearch && 
             m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
 

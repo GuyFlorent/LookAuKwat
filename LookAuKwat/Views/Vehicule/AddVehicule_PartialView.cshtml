@@ -78,24 +78,27 @@
         </div>
         <div class="form-group hidden" id="ModelVehiculeBikeDiv">
             @Html.LabelFor(model => model.ModelVehiculeBike, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ModelVehiculeBike, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.ModelVehiculeBike, new { htmlAttributes = new { @class = "form-control", placeholder = "EX:Sanili 4, Guidon,Plaquettes frein..." } })
                 @Html.ValidationMessageFor(model => model.ModelVehiculeBike, "", new { @class = "text-danger" })
+                <p class="col-md-2" id="spanMultimediaDescription" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
             </div>
         </div>
 
         <div class="form-group hidden" id="ModelVehiculeAutoEquipmentDiv">
             @Html.LabelFor(model => model.ModelVehiculeAutoEquipment, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ModelVehiculeAutoEquipment, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.ModelVehiculeAutoEquipment, new { htmlAttributes = new { @class = "form-control", placeholder = "EX: Moteur,Pneu,siège..." } })
                 @Html.ValidationMessageFor(model => model.ModelVehiculeAutoEquipment, "", new { @class = "text-danger" })
+                <p class="col-md-2" id="spanMultimediaDescription" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
             </div>
         </div>
         <div class="form-group hidden" id="ModelVehiculeBikeEquipmentDiv">
             @Html.LabelFor(model => model.ModelVehiculeBikeEquipment, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.ModelVehiculeBikeEquipment, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ModelVehiculeBikeEquipment, "", new { @class = "text-danger" })
+                <p class="col-md-2" id="spanMultimediaDescription" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
             </div>
         </div>
 
@@ -122,23 +125,26 @@
         </div>
         <div class="form-group hidden" id="YearVehiculeDiv">
             @Html.LabelFor(model => model.YearVehicule, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.YearVehicule, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.YearVehicule, new { htmlAttributes = new { @class = "form-control", placeholder = "Exemple: 2005" } })
                 @Html.ValidationMessageFor(model => model.YearVehicule, "", new { @class = "text-danger" })
+                <p class="col-md-2" id="spanMultimediaTitle" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
             </div>
         </div>
         <div class="form-group hidden" id="FirstYearVehiculeDiv">
             @Html.LabelFor(model => model.FirstYearVehicule, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FirstYearVehicule, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.FirstYearVehicule, new { htmlAttributes = new { @class = "form-control", placeholder = "Exemple: 11/2005" } })
                 @Html.ValidationMessageFor(model => model.FirstYearVehicule, "", new { @class = "text-danger" })
+                <p class="col-md-2" id="spanMultimediaTitle" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
             </div>
         </div>
         <div class="form-group hidden" id="MileageVehiculeDiv">
             @Html.LabelFor(model => model.MileageVehicule, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MileageVehicule, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.MileageVehicule, new { htmlAttributes = new { @class = "form-control", placeholder="Exemple: 98525" } })
                 @Html.ValidationMessageFor(model => model.MileageVehicule, "", new { @class = "text-danger" })
+                <p class="col-md-2" id="spanMultimediaTitle" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
             </div>
         </div>
         <div class="form-group hidden" id="NumberOfDoorVehiculeDiv">
@@ -166,7 +172,7 @@
         <div class="form-group hidden" id="TitleVehiculeDiv">
             @Html.LabelFor(model => model.TitleVehicule, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-8">
-                @Html.EditorFor(model => model.TitleVehicule, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.TitleVehicule, new { htmlAttributes = new { @class = "form-control", placeholder = "Voiture,Moto, pièces à vendre" } })
                 @Html.ValidationMessageFor(model => model.TitleVehicule, "", new { @class = "text-danger" })
             </div>
             <p class="col-md-2" id="spanMultimediaTitle" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
@@ -502,7 +508,6 @@
                 $("#ModelVehiculeBikeDiv").addClass('hidden');
                 $("#ModelVehiculeAutoEquipmentDiv").addClass('hidden');
                 $("#ModelVehiculeBikeEquipmentDiv").addClass('hidden');
-                $("#ModelVehiculeBikeDiv").addClass('hidden');
                 $("#TypeVehiculeDiv").addClass('hidden');
                 $("#PetrolVehiculeDiv").addClass('hidden');
                 $("#YearVehiculeDiv").addClass('hidden');
@@ -615,7 +620,7 @@
                 $("#YearVehiculeDiv").removeClass('hidden');
 
             } else if ($('#StateVehicule').val() !== 'choisir' && ($('#RubriqueVehicule').val() !== 'Equipement Auto' || $('#RubriqueVehicule').val() !== 'Equipement Moto')
-                && $('#RubriqueVehicule').val() === 'Voitures') {
+                && ($('#RubriqueVehicule').val() === 'Voitures' || $('#RubriqueVehicule').val() == 'Location voitures')) {
                 $("#TypeVehiculeDiv").removeClass('hidden');
                
             }

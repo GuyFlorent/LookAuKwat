@@ -188,6 +188,8 @@
     <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\JobOfferSearchController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ModeController.cs" />
+    <Compile Include="Controllers\ModeOfferSearchController.cs" />
     <Compile Include="Controllers\MultimediaController.cs" />
     <Compile Include="Controllers\MultimediaOfferSearchController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -233,6 +235,10 @@
     <Compile Include="Migrations\202010231223361_StateVehicule.Designer.cs">
       <DependentUpon>202010231223361_StateVehicule.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010271600136_ModeModel.cs" />
+    <Compile Include="Migrations\202010271600136_ModeModel.Designer.cs">
+      <DependentUpon>202010271600136_ModeModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApartmentRentalModel.cs" />
@@ -244,6 +250,7 @@
     <Compile Include="Models\JobModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MessageDetails.cs" />
+    <Compile Include="Models\ModeModel.cs" />
     <Compile Include="Models\MultimediaModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\ProductCoordinateModel.cs" />
@@ -258,10 +265,14 @@
     <Compile Include="ViewModel\ImageModelView.cs" />
     <Compile Include="ViewModel\JobEditViewModel.cs" />
     <Compile Include="ViewModel\JobViewModel.cs" />
+    <Compile Include="ViewModel\ModeViewModel.cs" />
     <Compile Include="ViewModel\MultimediaViewModel.cs" />
     <Compile Include="ViewModel\SeachJobViewModel.cs" />
     <Compile Include="ViewModel\SelectListMethod.cs" />
+    <Compile Include="ViewModel\SelectListMethodMode.cs" />
     <Compile Include="ViewModel\SelectListMethodVehicle.cs" />
+    <Compile Include="ViewModel\TemplateEmailConfirmation.cs" />
+    <Compile Include="ViewModel\TemplateUrl.cs" />
     <Compile Include="ViewModel\VehiculeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -309,12 +320,15 @@
     <Content Include="UserImage\googlePlus.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="UserImage\ico.jpg" />
     <Content Include="UserImage\Instagram.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="UserImage\linkedin.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="UserImage\logo_lookaukwat.png" />
+    <Content Include="UserImage\logo_lookaukwat2.png" />
     <Content Include="UserImage\lookaukwat_logo.jpg" />
     <Content Include="UserImage\notify.mp3" />
     <Content Include="UserImage\notify.ogg" />
@@ -404,6 +418,12 @@
     <Content Include="Views\Vehicule\VehiculeDetails_PartialView.cshtml" />
     <Content Include="Views\Vehicule\VehiculeDetail.cshtml" />
     <Content Include="Views\VehiculeOfferSearch\SearchOfferVehicule_PartialView.cshtml" />
+    <Content Include="Views\Mode\AddMode_PartialView.cshtml" />
+    <Content Include="Views\Mode\ModeDetails_PartialView.cshtml" />
+    <Content Include="Views\Account\ConfirmationEmailTemplate_PartialView.cshtml" />
+    <Content Include="Views\Shared\EmailError.cshtml" />
+    <Content Include="Views\ModeOfferSearch\SearchOfferMode_PartialView.cshtml" />
+    <Content Include="Views\Mode\ModeDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -448,6 +468,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010231223361_StateVehicule.resx">
       <DependentUpon>202010231223361_StateVehicule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010271600136_ModeModel.resx">
+      <DependentUpon>202010271600136_ModeModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

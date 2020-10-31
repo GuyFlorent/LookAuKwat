@@ -41,7 +41,7 @@ namespace LookAuKwat.Controllers
         public ActionResult SimilarProduct_PartialView(ProductModel model)
         {
             List<ProductModel> similarList = dal.GetListProduct().Where(l => l.Category.CategoryName == model.Category.CategoryName
-            && l.Town == model.Town && l.SearchOrAskJob == model.SearchOrAskJob && l.Title != model.Title).Take(4).ToList();
+            && l.Town == model.Town && l.SearchOrAskJob == model.SearchOrAskJob && l.id != model.id).Take(4).ToList();
             return PartialView(similarList);
         }
         public ActionResult ListProduct()
@@ -51,6 +51,7 @@ namespace LookAuKwat.Controllers
         }
         public ActionResult ListProduct_PartialView(int? pageNumber, string sortBy)
         {
+          
             ViewBag.PriceAscSort = String.IsNullOrEmpty(sortBy) ? "Price desc" : "";
             ViewBag.PriceDescSort = sortBy == "Prix croissant" ? "Price asc" : "";
             ViewBag.DateAscSort = sortBy == "Plus anciennes" ? "date asc" : "";
@@ -361,6 +362,7 @@ namespace LookAuKwat.Controllers
                         {
 
                             var result = TempData["listeJob"] as List<JobModel>;
+                            if(result != null)
                             foreach (var element in result)
                             {
                                 modelresult.ListePro.Add(element);
@@ -375,6 +377,7 @@ namespace LookAuKwat.Controllers
                         try
                         {
                             var resultImmobilier = TempData["listeApart"] as List<ApartmentRentalModel>;
+                            if(resultImmobilier != null)
                             foreach (var element in resultImmobilier)
                             {
                                 modelresult.ListePro.Add(element);
@@ -390,6 +393,7 @@ namespace LookAuKwat.Controllers
                         try
                         {
                             var resultMultimedia = TempData["listeMulti"] as List<MultimediaModel>;
+                            if(resultMultimedia != null)
                             foreach (var element in resultMultimedia)
                             {
                                 modelresult.ListePro.Add(element);
@@ -416,6 +420,21 @@ namespace LookAuKwat.Controllers
                             Console.WriteLine(e.ToString());
                         }
                         break;
+                    case "Mode":
+                        try
+                        {
+                            var resultMode = TempData["listeMode"] as List<ModeModel>;
+                            if (resultMode != null)
+                                foreach (var element in resultMode)
+                                {
+                                    modelresult.ListePro.Add(element);
+                                }
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.ToString());
+                        }
+                        break;
                 }
 
 
@@ -428,23 +447,23 @@ namespace LookAuKwat.Controllers
                 {
                     case "Price desc":
                         modelresult.ListePro = modelresult.ListePro.OrderByDescending(m => m.Price).ToList();
-                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 2);
                         break;
                     case "Price asc":
                         modelresult.ListePro = modelresult.ListePro.OrderBy(m => m.Price).ToList();
-                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 2);
                         break;
                     case "date desc":
                         modelresult.ListePro = modelresult.ListePro.OrderByDescending(m => m.id).ToList();
-                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 2);
                         break;
                     case "date asc":
                         modelresult.ListePro = modelresult.ListePro.OrderBy(m => m.id).ToList();
-                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 2);
                         break;
                     default:
                         modelresult.ListePro = modelresult.ListePro.OrderByDescending(x => x.id).ToList();
-                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 2);
                         break;
                 }
                 return PartialView(modelresult);
@@ -513,6 +532,7 @@ namespace LookAuKwat.Controllers
             List<JobModel> result = TempData["listeJobJson"] as List<JobModel>;
             List<MultimediaModel> resultMultimedia = TempData["listeMulti_Json"] as List<MultimediaModel>;
             List<VehiculeModel> resultVehicule = TempData["listeVehicule_Json"] as List<VehiculeModel>;
+            List<ModeModel> resultMode = TempData["listeMode_json"] as List<ModeModel>;
             List<ProductModel> resultSearchAsk = TempData["listeSearchAsk_json"] as List<ProductModel>;
             List<ApartmentRentalModel> resultImmobilier = TempData["listeApartJson"] as List<ApartmentRentalModel>;
             List<DataJsonProductViewModel> data = new List<DataJsonProductViewModel>() ;
@@ -522,7 +542,7 @@ namespace LookAuKwat.Controllers
                 switch (modelresult.CagtegorieSearch)
                 {
                     case "Emploi":
-
+                        if(result!= null)
                         foreach (var element in result)
                         {
                             modelresult.ListePro.Add(element);
@@ -542,7 +562,7 @@ namespace LookAuKwat.Controllers
                         }).ToList();
                         break;
                     case "Immobilier":
-
+                        if(resultImmobilier != null)
                         foreach (var element in resultImmobilier)
                         {
                             modelresult.ListePro.Add(element);
@@ -563,7 +583,7 @@ namespace LookAuKwat.Controllers
                         break;
 
                     case "Multimedia":
-
+                        if(resultMultimedia != null)
                         foreach (var element in resultMultimedia)
                         {
                             modelresult.ListePro.Add(element);
@@ -584,11 +604,31 @@ namespace LookAuKwat.Controllers
                         break;
 
                     case "Vehicule":
-
+                        if(resultVehicule != null)
                         foreach (var element in resultVehicule)
                         {
                             modelresult.ListePro.Add(element);
                         }
+                        data = modelresult.ListePro.Select(s => new DataJsonProductViewModel
+                        {
+                            Title = s.Title,
+                            Coordinate = s.Coordinate,
+                            id = s.id,
+                            Price = s.Price,
+                            Description = s.Description,
+                            DateAdd = s.DateAdd.ToString(),
+                            Images = s.Images.Select(o => o.Image).ToList(),
+                            User = s.User,
+                            Street = s.Street,
+                            Town = s.Town
+                        }).ToList();
+                        break;
+                    case "Mode":
+                        if (resultMode != null)
+                            foreach (var element in resultMode)
+                            {
+                                modelresult.ListePro.Add(element);
+                            }
                         data = modelresult.ListePro.Select(s => new DataJsonProductViewModel
                         {
                             Title = s.Title,
@@ -710,7 +750,7 @@ namespace LookAuKwat.Controllers
             var apikey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
             //var apiKey = ConfigurationManager.AppSettings["mailPasswordSendGrid"];
             var client = new SendGridClient(apikey);
-            var from = new EmailAddress("wanguy9@gmail.com", message.NameSender +"(NoReply Here)");
+            var from = new EmailAddress("contact@lookaukwat.com", message.NameSender +"(NoReply Here)");
             var subject = message.SubjectSender;
             var to = new EmailAddress(message.RecieverEmail, message.RecieverName);
             var plainTextContent = "<a href='lookaukwat.azurewebsites.net'><img src=" + @Url.Content("~/UserImage/lookaukwat_logo.jpg") + " alt='lien vers le site' style='height: 50px;' /><br/><br/> <strong style='height: 20px;'>LookAuKwat</strong></a> " +

@@ -1,18 +1,30 @@
 ﻿@{
     ViewBag.Title = "Déposer une annoce sur lookaukwat";
 }
-<br />
+<div class="sect sect--padding-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="site">
+                    <h1 class="site__title">Déposer une annonce sur LookAuKwat?</h1>
+                    <h2 class="site__subtitle">Choisir une catégorie</h2>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <section class="row">
     <div class="row">
-        <div class=" col-md-offset-4 form-group">
-            <h2 class="text-success">Ajouter une annonce sur LookAuKwat?</h2>
-            <label for="selectCategory">Choisir une catégorie</label>
+        <div class=" col-md-offset-5 form-group">
+            
             <select class="form-control Addcategory" id="selectAddId" data-show-icon="true">
-                <option>---Choisir---</option>
-                <option data-content="<i class='glyphicon glyphicon-briefcase'></i>">Emploi</option>
-                <option data-content="<i class='glyphicon glyphicon-home'></i>">Immobilier</option>
-                <option data-content="<i class='glyphicon glyphicon-home'></i>">Multimédia</option>
-                <option data-content="<i class='glyphicon glyphicon-home'></i>">Véhicule</option>
+                <option>≡ Choisir une catégorie</option>
+                <option data-content="<i class='glyphicon glyphicon-briefcase'></i>">👷 Emploi</option>
+                <option data-content="<i class='glyphicon glyphicon-home'></i>">🏠 Immobilier</option>
+                <option data-content="<i class='glyphicon glyphicon-home'></i>">💻 Multimédia</option>
+                <option data-content="<i class='glyphicon glyphicon-home'></i>">🚗 Véhicule</option>
+                <option data-content="<i class='glyphicon glyphicon-home'></i>">👚 Mode</option>
             </select>
         </div>
     </div>
@@ -104,6 +116,29 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div id="MyModalAddMode" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="color:Highlight">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Ajouter ou chercher tout type de biens dans la Mode<span id="eventTitle"></span></h4>
+                    </div>
+                    <div class="modal-body">
+
+                        @{
+                            Html.RenderAction("AddMode_PartialView", "Mode");
+                        }
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 <hr />
 <section>
@@ -137,20 +172,23 @@
         $("select.Addcategory").change(function () {
             var select = $(this).children("option:selected").val();
             console.log(select)
-            if (select == "Emploi") {
+            if (select == "👷 Emploi") {
                 $('#MyModalAddJob').modal();
-            } else if (select == "Immobilier") {
+            } else if (select == "🏠 Immobilier") {
                 $('#MyModalAddApartment').modal();
 
-            } else if (select == "Multimédia") {
+            } else if (select == "💻 Multimédia") {
                 $('#MyModalAddMultimedia').modal();
 
-            } else if (select == "Véhicule") {
+            } else if (select == "🚗 Véhicule") {
                 $('#MyModalAddVehicule').modal();
+
+            } else if (select == "👚 Mode") {
+                $('#MyModalAddMode').modal();
 
             }
         });
 
-
+        
     });
 </script>

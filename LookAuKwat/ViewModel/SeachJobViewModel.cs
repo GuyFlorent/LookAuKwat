@@ -79,5 +79,39 @@ namespace LookAuKwat.ViewModel
         [DisplayName("Recherche")]
         public string SearchTitleVehicule { get; set; }
 
+        // for mode
+        [DisplayName("Ville")]
+        public string TownMode { get; set; }
+        [DisplayName("Prix max")]
+        public int PriceMode { get; set; }
+        [DisplayName("Rubrique")]
+        public string RubriqueMode { get; set; }
+        [DisplayName("Type")]
+        public string TypeModeClothes { get; set; }
+        [DisplayName("Type")]
+        public string TypeModeShoes { get; set; }
+        [DisplayName("Type")]
+        public string TypeModeAccesorieLugages { get; set; }
+        [DisplayName("Type")]
+        public string TypeModeWatchJewelry { get; set; }
+        [DisplayName("Type")]
+        public string TypeModeBabyEquipment { get; set; }
+        [DisplayName("Type")]
+        public string TypeModeBabyClothes { get; set; }
+        [DisplayName("Marque")]
+        public string BrandModeClothes { get; set; }
+        [DisplayName("Marque")]
+        public string BrandModeShoes { get; set; }
+        [DisplayName("Univers")]
+        public string UniversMode { get; set; }
+        [DisplayName("Taille")]
+        public string SizeModeClothes { get; set; }
+        [DisplayName("Taille")]
+        public string SizeModeShoes { get; set; }
+
+        [DisplayName("Couleur")]
+        public string ColorMode { get; set; }
+        [DisplayName("Etat")]
+        public string StateMode { get; set; }
     }
 }

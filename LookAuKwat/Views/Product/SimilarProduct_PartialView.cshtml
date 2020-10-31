@@ -91,5 +91,43 @@
             </a>
         </div>
     }
+    else if (liste.Category.CategoryName == "Vehicule")
+    {
+        <div>
+            <a href="@Url.Action("VehiculeDetail", "Vehicule", new { id = liste.id }, null)">
+                <div>
+                    <div style="border-radius: 25px;background: lightgray;padding: 20px; height:260px" class="thumbnail">
+                        <div class="row">
+                            <img src="@liste.Images.Select(m=>m.Image).First()" alt="image du groupe @liste.Title" class="img-rounded img-responsive" />
+                        </div>
+                        <div class="row">
+                            <p><span>@liste.Title</span></p>
+                            <p class="price"><span>@liste.Price FCFA</span></p>
+                            <p class="bottom"><span>@liste.Town</span></p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+    else if (liste.Category.CategoryName == "Mode")
+    {
+        <div>
+            <a href="@Url.Action("ModeDetail", "Mode", new { id = liste.id }, null)">
+                <div>
+                    <div style="border-radius: 25px;background: lightgray;padding: 20px; height:260px" class="thumbnail">
+                        <div class="row">
+                            <img src="@liste.Images.Select(m=>m.Image).First()" alt="image du groupe @liste.Title" class="img-rounded img-responsive" />
+                        </div>
+                        <div class="row">
+                            <p><span>@liste.Title</span></p>
+                            <p class="price"><span>@liste.Price FCFA</span></p>
+                            <p class="bottom"><span>@liste.Town</span></p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
 }
 

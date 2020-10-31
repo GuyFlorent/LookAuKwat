@@ -73,9 +73,11 @@
                 <div class="site">
                     <h1 class="site__title">Vous recherchez des offres ou des demandes sur LookAuKwat?</h1>
                     <h2 class="site__subtitle">Trouver de bonnes affaires</h2>
+                    <a href="@Url.Action("Contact", "Home")" class=" btn btn-success">Déposer une annonce <span class="ico">+</span></a>
+                    <br /> <hr />
                     <div class="site__box-link">
                         @*<a class="btn btn--width" href="">Offres</a>
-                            <a class="btn btn--revert btn--width" href="">Demande</a>*@
+            <a class="btn btn--revert btn--width" href="">Demande</a>*@
                         @*<ul class="nav nav-pills site__box-link">*@
                         @*<li class="active">*@<a id="searchclick" class="btn  btn--width" href="#search" data-toggle="tab">Les offres</a>@*</li>*@
                         @*<li>*@<a id="askclick" class="btn btn--revert btn--width" href="#ask" data-toggle="tab">Les Demandes</a>@*</li>*@
@@ -100,7 +102,7 @@
         <div class="tab-pane active fade in" id="search">
             <div id="searchJob">
                 <div class="form-group">
-                    <label for="selectCategory" >Vous êtes dans les <strong>offres</strong>. Pour plus de filtre veuillez Choisir une catégorie :</label>
+                    <label for="selectCategory">Vous êtes dans les <strong>offres</strong>. Pour plus de filtre veuillez Choisir une catégorie :</label>
                     <select class="form-control searchcategory" data-show-icon="true" name="categori" id="categori">
                         <option>≡ Catégories</option>
                         <option>≡Toutes les catégories</option>
@@ -108,6 +110,7 @@
                         <option data-content="<i class='glyphicon glyphicon-home'></i>">🏠 Immobilier</option>
                         <option data-content="<i class='glyphicon glyphicon-home'></i>">💻 Multimédia</option>
                         <option data-content="<i class='glyphicon glyphicon-home'></i>">🚗 Véhicule</option>
+                        <option data-content="<i class='glyphicon glyphicon-home'></i>">👚 Mode</option>
                     </select>
                 </div>
                 <div id="JobId" class="hidden formulaire">
@@ -134,13 +137,19 @@
                     }
 
                 </div>
+                <div id="ModeId" class="hidden formulaire">
+                    @{
+                        Html.RenderAction("SearchOfferMode_PartialView", "ModeOfferSearch");
+                    }
+
+                </div>
 
             </div>
         </div>
         <div class="tab-pane fade " id="ask">
             <div id="askJob">
 
-                <div corners" style="border-radius: 25px;background: #ffd800;padding: 20px;">
+                <div class="formulaire">
                     @{
                         Html.RenderAction("SearchAskProduct_PartialView", "Product");
                     }
@@ -162,8 +171,8 @@
                         <div class="site">
 
                             <div class="site__box-link">
-                                <a id="List" class="btn btn--width" href="#ResulList" data-toggle="tab">Résultats Liste</a>
-                                <a id="Map" class="btn btn--revert btn--width" href="#ResultMap" data-toggle="tab">Résultats Carte</a>
+                                <a id="List" class="btn btn--width" href="#ResulList" data-toggle="tab"><i class="glyphicon glyphicon-list"></i> Vue liste</a>
+                                <a id="Map" class="btn btn--revert btn--width" href="#ResultMap" data-toggle="tab"><i class="glyphicon glyphicon-map-marker"></i> carte</a>
                             </div>
 
                         </div>
@@ -200,8 +209,8 @@
     <section id="AllCategoryResult" class="hidden">
 
         <ul class="nav nav-pills ">
-            <li class="active"><a class="btn btn--revert btn--width" href="#ResulListAll" data-toggle="tab">Résultats Liste</a></li>
-            <li><a class="btn btn--revert btn--width" href="#ResultMapAll" data-toggle="tab">Résultats Carte</a></li>
+            <li class="active"><a class="btn btn--revert btn--width" href="#ResulListAll" data-toggle="tab"><i class="glyphicon glyphicon-list"></i> Vue Liste</a></li>
+            <li><a class="btn btn--revert btn--width" href="#ResultMapAll" data-toggle="tab"><i class="glyphicon glyphicon-map-marker"></i> Vue Carte</a></li>
         </ul>
         <div class="tab-content" id="resultsAllCategory">
             <div class="tab-pane active  fade in" id="ResulListAll">
@@ -304,7 +313,7 @@
         if (textArray.length) setTimeout(type, newTextDelay + 250);
     });
     $(function () {
-        
+
 
 
 
@@ -350,11 +359,26 @@
             if (select == "≡ Catégories" || select == "" || select == null) {
 
                 localStorage.setItem("VehiculeResultHidden", "true");
+                localStorage.setItem("ModeResultHidden", "true");
+                localStorage.setItem("MultimediaResultHidden", "true");
+                localStorage.setItem("AllResultHidden", "true");
+                localStorage.setItem("JobResultHidden", "true");
+                localStorage.setItem("AppartResultHidden", "true");
+                localStorage.setItem("ModeResultHidden", "true");
+
+            }
+            if (select == "👚 Mode") {
+                $('#ModeId').removeClass('hidden');
+                localStorage.setItem("ModeResultHidden", "false");
+                localStorage.setItem("VehiculeResultHidden", "true");
                 localStorage.setItem("MultimediaResultHidden", "true");
                 localStorage.setItem("AllResultHidden", "true");
                 localStorage.setItem("JobResultHidden", "true");
                 localStorage.setItem("AppartResultHidden", "true");
 
+
+            } else {
+                $('#ModeId').addClass('hidden');
             }
             if (select == "🚗 Véhicule") {
                 $('#VehiculeId').removeClass('hidden');
@@ -363,7 +387,7 @@
                 localStorage.setItem("AllResultHidden", "true");
                 localStorage.setItem("JobResultHidden", "true");
                 localStorage.setItem("AppartResultHidden", "true");
-
+                localStorage.setItem("ModeResultHidden", "true");
 
             } else {
                 $('#VehiculeId').addClass('hidden');
@@ -375,6 +399,7 @@
                 localStorage.setItem("JobResultHidden", "true");
                 localStorage.setItem("AppartResultHidden", "true");
                 localStorage.setItem("VehiculeResultHidden", "true");
+                localStorage.setItem("ModeResultHidden", "true");
 
             } else {
                 $('#MultimediaId').addClass('hidden');
@@ -388,6 +413,7 @@
                 localStorage.setItem("AppartResultHidden", "true");
                 localStorage.setItem("MultimediaResultHidden", "true");
                 localStorage.setItem("VehiculeResultHidden", "true");
+                localStorage.setItem("ModeResultHidden", "true");
 
             } else {
                 $('#JobId').addClass('hidden');
@@ -399,6 +425,7 @@
                 localStorage.setItem("JobResultHidden", "true");
                 localStorage.setItem("AppartResultHidden", "true");
                 localStorage.setItem("MultimediaResultHidden", "true");
+                localStorage.setItem("ModeResultHidden", "true");
                 //$('#MultimediaId').addClass('hidden');
                // $('#JobId').addClass('hidden');
                // $('#ImmobilierId').addClass('hidden');
@@ -410,6 +437,7 @@
                 localStorage.setItem("MultimediaResultHidden", "true");
                 localStorage.setItem("AppartResultHidden", "false");
                 localStorage.setItem("VehiculeResultHidden", "true");
+                localStorage.setItem("ModeResultHidden", "true");
 
             } else {
                 $('#ImmobilierId').addClass('hidden');
@@ -465,6 +493,16 @@
             $('#jobSectionResult').removeClass('hidden');
 
             $('#submitVehicule').click();
+
+        };
+        if (localStorage.getItem("ModeResultHidden") == "true") {
+            $('#ModeId').addClass('hidden');
+            // $('#jobSectionResult').addClass('hidden');
+        } else {
+            $('#ModeId').removeClass('hidden');
+            $('#jobSectionResult').removeClass('hidden');
+
+            $('#submitMode').click();
 
         };
         //if (localStorage.getItem("NoChoicetHidden") == "true") {
@@ -548,6 +586,7 @@
         $('#submitJob').click(SubmitJobClick);
         $('#submitMulti').click(SubmitMultimediaClick);
         $('#submitVehicule').click(SubmitVehiculeClick);
+        $('#submitMode').click(SubmitModeClick);
         $('#btnSearchAskProduct').click(SubmitAskClick);
 
 
@@ -767,6 +806,71 @@
             mymapJob.invalidateSize();
     };
 
+    //for submit mode
+
+    function SubmitModeClick () {
+            $('#jobSectionResult').removeClass('hidden');
+            $('#AllCategoryResult').addClass('hidden');
+            ApartMarkers.clearLayers()
+            jobMarkers.clearLayers()
+
+              $.ajax({
+            type: "POST",
+            url: '@Url.Action("searchOfferMode_Json", "ModeOfferSearch")',
+            dataType: "json",
+            headers: {
+                //"api-key": searchServiceApiKey,
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify({
+
+                rubrique: $("#RubriqueMode").val(),
+                town: $("#TownMode").val(),
+                typeClothes: $("#TypeModeClothes").val(),
+                typeShoes: $("#TypeModeShoes").val(),
+                typeLuggages: $("#TypeModeAccesorieLugages").val(),
+                typeWatch: $("#TypeModeWatchJewelry").val(),
+                typeBabyEquipment: $("#TypeModeBabyEquipment").val(),
+                typeBabyClothes: $("#TypeModeBabyClothes").val(),
+                brandClothes: $("#BrandModeClothes").val(),
+                brandShoes: $("#BrandModeShoes").val(),
+                price: $("#PriceMode").val(),
+                state: $("#StateMode").val(),
+                color: $("#ColorMode").val(),
+                univers: $("#UniversMode").val(),
+                sizeSchoes: $("#SizeModeShoes").val(),
+                sizeClothes: $("#SizeModeClothes").val(),
+
+            }),
+                  success:
+                      function (data) {
+                          console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        console.log(data[i].Coordinate.Lat);
+
+                        var popup = '<div class="thumbnail"> <a class="img-rounded" href="' + data[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].Title + '">  <img id="ImageDetailIniById" src="' + data[i].Images[0] + '" alt="LookAuKwat ' + data[i].Title + '" height="40"></a> </div>' +
+                            '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data[i].Title +
+                            '<br/><b>Adresse : </b>' + data[i].Town +
+                            '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Vehicule/VehiculeDetail/' + data[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
+
+
+
+                        var markerjob = L.marker([data[i].Coordinate.Lat, data[i].Coordinate.Lon])
+                           .bindPopup(popup)
+                       // .addTo(mymapJob);
+
+                        jobMarkers.addLayer(markerjob)
+                          }
+                          // $("#mymapJob").load(" #mymapJob");
+                          mymapJob.addLayer(jobMarkers);
+                  },
+                  error: function (xhr) {
+                      console.log(xhr.responseText);
+                      alert("Une erreur est survenu  !");
+                  }
+              });
+            mymapJob.invalidateSize();
+    };
 </script>
 
 <script type="text/javascript">
@@ -811,7 +915,15 @@
                             '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
                             '<br/><b>ville : </b>' + data2[i].Town +
                             '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Vehicule/VehiculeDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
+                    } else if (data2[i].Category.CategoryName == "Mode") {
+
+                        var popup2 =
+                            '<div class="thumbnail"> <a class="img-rounded" href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="LookAuKwat ' + data2[i].Title + '" height="40"></a> </div>' +
+                            '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
+                            '<br/><b>ville : </b>' + data2[i].Town +
+                            '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Mode/ModeDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
                     }
+
                     L.marker([data2[i].Coordinate.Lat, data2[i].Coordinate.Lon])
                         .bindPopup(popup2)
                         .addTo(mymap);

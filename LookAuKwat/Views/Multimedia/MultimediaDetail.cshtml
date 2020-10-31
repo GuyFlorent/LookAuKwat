@@ -36,7 +36,7 @@
         integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
         crossorigin=""></script>
 
-<h2>Détails de l'annonce catégorie multimedia</h2>
+<h2>Détails de l'annonce catégorie multimédia 💻 📱 📺 🎮 🎧</h2>
 <div id="MyModalContactJob" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -64,7 +64,7 @@
 
     <section class="col-md-8">
         <div class="row">
-            <div id="myCarousel" class="carousel slide col-sm-12" data-ride="carousel">
+            <div id="myCarousel" class="carousel slide col-sm-12" data-interval="false">
 
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
@@ -80,7 +80,7 @@
                     }
                 </ol>
                 <!-- Wrapper for slides -->
-                <div class="carousel slide" data-ride="carousel">
+                <div class="carousel slide" data-interval="false">
                     <div class="carousel-inner">
                         @{
 
@@ -113,7 +113,7 @@
             <h3 class="product-title"><strong>@Model.Title</strong></h3>
             <div>
 
-                <label>Ajoutée il y'a : </label>  @time.ToString() @period
+                <label>Ajoutée il y'a : </label>  <span style="color:forestgreen">@time.ToString() @period</span>
 
             </div>
             <div class="rating">
@@ -131,18 +131,19 @@
             <div class="col-xs-6 col-sm-6 col-md-6">
                 @Html.LabelFor(model => model.Brand, htmlAttributes: new { @class = "control-label " })
                 <p>@Model.Brand</p>
-
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6">
                 @Html.LabelFor(model => model.Model, htmlAttributes: new { @class = "control-label " })
                 <p>@Model.Model</p>
-
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-6">
-                @Html.LabelFor(model => model.Capacity, htmlAttributes: new { @class = "control-label " })
-                <p>@Model.Capacity</p>
-
-            </div>
+            @if(Model.Capacity != null)
+            {
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            @Html.LabelFor(model => model.Capacity, htmlAttributes: new { @class = "control-label " })
+            <p>@Model.Capacity</p>
+        </div>
+            }
+            
             <div class="col-xs-6 col-sm-6 col-md-6 price">
                 <label class="control-label">Prix</label>
 
@@ -165,11 +166,12 @@
         <hr />
         <div class="row">
             <label>Ville : </label> @Model.Town , <label>Adresse : </label> @Model.Street
-            <div id="mapidDetailsJob" style="height:250px;"></div>
+            <div id="mapidDetailsMultimedia" style="height:250px;"></div>
         </div>
         <hr />
         <div class="row ">
-            <strong>Signaler l'annonce</strong>
+            <div class="col-xs-6 col-md-6"><strong>Signaler l'annonce</strong></div>
+            <div class="col-xs-6 col-md-6"><a href="mailto:contact@lookaukwat.com">contact@lookaukwat.com</a></div>
         </div>
         <hr />
         <div class="row">
@@ -199,7 +201,7 @@
         <div class="row" style="border-radius: 25px;background: lightgray;padding: 20px;">
             <img src="https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg" alt="photo du publicateur Lookaukwat" class="img-rounded" height="50" /> @Model.User.FirstName
             <hr />
-            <button id="sendJobMessage" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
+            <button id="sendJobMessage" class="btn btn-primary sendMultiMessage"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
             <button id="iconJobCall" class="btn btn-default"><span class="glyphicon glyphicon-phone"></span> Voir le numéro</button>
             <a id="numJobCall" class="hidden" href="tel:@Model.User.PhoneNumber">@Model.User.PhoneNumber</a>
         </div>
@@ -212,14 +214,55 @@
     </section>
 </section>
 
+<section class="row">
+    <nav class="main-nav">
+        <ul>
+            @*<li>
+                    <a href="#">
+                        <i class="fa fa-cloud fa-2x"></i>
+                        <span class="nav-text">
+                            News and Weather
+                        </span>
+                    </a>
+                </li>*@
+
+
+
+            <li class="has-subnav">
+                <a href="tel:@Model.User.PhoneNumber">
+                    <i class="fa fa-phone fa-2x"></i>
+                    <span class="nav-text ">
+                        Téléphone
+                    </span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a href="#">
+                    @*<i class="fa fa-exclamation-triangle fa-2x"></i>*@
+                    <span class="nav-text">
+                        @*Dangers*@
+                    </span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a href="#">
+                    <i class="fa fa-envelope fa-2x"></i>
+                    <span class="nav-text sendMultiMessage">
+                        Message
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</section>
+
 
 
 
 <script type="text/javascript">
     var model = @Html.Raw(Json.Encode(Model.Coordinate));
-    var mymap = L.map('mapidDetailsJob');
-    console.log(model.Lat)
-    console.log(model.Lon)
+    var mymap = L.map('mapidDetailsMultimedia');
+    mymap.scrollWheelZoom.disable();
     mymap.setView([model.Lat, model.Lon], 13);
 
     L.marker([model.Lat, model.Lon])
@@ -249,7 +292,7 @@
             $(this).addClass("hidden");
             $('#numJobCall').removeClass("hidden");
         });
-        $('#sendJobMessage').click(function () {
+        $('.sendMultiMessage').click(function () {
 
             $('#MyModalContactJob').modal();
         });

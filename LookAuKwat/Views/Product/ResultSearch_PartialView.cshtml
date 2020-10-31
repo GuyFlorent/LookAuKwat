@@ -43,7 +43,7 @@ else
                 }
                 else if (Model.CagtegorieSearch == "Multimedia")
                 {
-                    <select id="SelectMulti">
+                    <select class="SelectMulti" id="SelectMulti">
                         <option value="---Choisir---">---Choisir---</option>
                         <option id="AscendingMultiPrice" value="Tri par Prix croissant"> Tri par Prix croissant</option>
                         <option id="descendingMultiPrice" value="Tri par Prix décroissant">Tri par Prix décroissant</option>
@@ -53,7 +53,7 @@ else
                 }
                 else if (Model.CagtegorieSearch == "Vehicule")
                 {
-                    <select id="SelectVehi">
+                    <select class="SelectVehi" id="SelectVehi">
                         <option value="---Choisir---">---Choisir---</option>
                         <option id="AscendingVehiPrice" value="Tri par Prix croissant"> Tri par Prix croissant</option>
                         <option id="descendingVehiPrice" value="Tri par Prix décroissant">Tri par Prix décroissant</option>
@@ -61,8 +61,17 @@ else
                         <option id="MostLastestVehi" value="Tri par Plus recentes">Tri par Plus recentes</option>
                     </select>
                 }
-
-
+                else if (Model.CagtegorieSearch == "Mode")
+                {
+                    <select class="SelectMode" id="SelectMode">
+                        <option value="---Choisir---">---Choisir---</option>
+                        <option id="AscendingModePrice" value="Tri par Prix croissant"> Tri par Prix croissant</option>
+                        <option id="descendingModePrice" value="Tri par Prix décroissant">Tri par Prix décroissant</option>
+                        <option id="MostOlderMode" value="Tri par Plus anciennes">Tri par Plus anciennes</option>
+                        <option id="MostLastestMode" value="Tri par Plus recentes">Tri par Plus recentes</option>
+                    </select>
+                }
+               
                 @*<a id="AscendingPrice" class="btn">Tri par Prix croissant</a>
         <a id="descendingPrice" class="btn">Tri par Prix décroissantt</a>
         <a id="MostOlder" class="btn">Tri par Plus anciennes</a>
@@ -106,6 +115,10 @@ else
                             {
                                 <h3 class="panel-title">@Model.ListePro.Count <strong>Annonces</strong> disponibles dans la catégorie <strong>offres Véhicule</strong> :</h3>
                             }
+                            else if (Model.CagtegorieSearch == "Mode")
+                            {
+                                <h3 class="panel-title">@Model.ListePro.Count <strong>Annonces</strong> disponibles dans la catégorie <strong>offres Mode</strong> :</h3>
+                            }
                         }
                     }
                 </div>
@@ -147,7 +160,7 @@ else
                                         <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"> @liste.Town</span></h4>
                                         <p class="list-group-item-text pull-right text-success">Ajoutée il y'a @time.ToString() @period</p>
                                         <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
-                                        <p class="list-group-item-text text-left">Emploi</p>
+                                        <p class="list-group-item-text text-left">👷 Emploi</p>
                                         <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded" />
                                     </a>
                                 }
@@ -157,7 +170,7 @@ else
                                         <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"> @liste.Town</span></h4>
                                         <p class="list-group-item-text pull-right text-success">Ajoutée il y'a @time.ToString() @period</p>
                                         <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
-                                        <p class="list-group-item-text text-left">Immobilier</p>
+                                        <p class="list-group-item-text text-left">🏠 Immobilier</p>
                                         <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded" />
                                     </a>
                                 }
@@ -167,7 +180,7 @@ else
                                         <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"> @liste.Town</span></h4>
                                         <p class="list-group-item-text pull-right text-success">Ajoutée il y'a @time.ToString() @period</p>
                                         <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
-                                        <p class="list-group-item-text text-left">Multimédia</p>
+                                        <p class="list-group-item-text text-left">💻 Multimédia</p>
                                         <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded" />
                                     </a>
                                 }
@@ -177,7 +190,17 @@ else
                                         <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"> @liste.Town</span></h4>
                                         <p class="list-group-item-text pull-right text-success">Ajoutée il y'a @time.ToString() @period</p>
                                         <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
-                                        <p class="list-group-item-text text-left">Vehicule</p>
+                                        <p class="list-group-item-text text-left">🚗 Vehicule</p>
+                                        <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded" />
+                                    </a>
+                                }
+                                else if (liste.Category.CategoryName == "Mode")
+                                {
+                                    <a href="@Url.Action("ModeDetail", "Mode", new { id = liste.id }, null)" class="list-group-item">
+                                        <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"> @liste.Town</span></h4>
+                                        <p class="list-group-item-text pull-right text-success">Ajoutée il y'a @time.ToString() @period</p>
+                                        <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
+                                        <p class="list-group-item-text text-left">👚 Mode</p>
                                         <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded" />
                                     </a>
                                 }
@@ -188,33 +211,45 @@ else
                     }
                 </div>
             </div>
-            @if (Model.CagtegorieSearch == "Emploi")
-            {
+            @{
+                if (Model.CagtegorieSearch == "Vehicule")
+                {
 
-                @*Page @(Model.ListeProPagedList.PageCount< Model.ListeProPagedList.PageNumber ? 0 : Model.ListeProPagedList.PageNumber) sur @Model.ListeProPagedList.PageCount*@
-                @Html.PagedListPager(Model.ListeProPagedList, pageNumber => Url.Action("ResultSearchOfferJob_PartialView", "JobOfferSearch", new { pageNumber, sortBy = Request["sortBy"] }),
-     PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "groupeResultSearch" }))
-            }
-            @if (Model.CagtegorieSearch == "Immobilier")
-            {
+                    @*Page @(Model.ListeProPagedList.PageCount< Model.ListeProPagedList.PageNumber ? 0 : Model.ListeProPagedList.PageNumber) sur @Model.ListeProPagedList.PageCount*@
+                    @Html.PagedListPager(Model.ListeProPagedList, pageNumber => Url.Action("searchOfferVehicule", "VehiculeOfferSearch", new { pageNumber, sortBy = Request["sortBy"] }),
+         PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "groupeResultSearch" }))
+                }
+                else
 
-                @*Page @(Model.ListeProPagedList.PageCount< Model.ListeProPagedList.PageNumber ? 0 : Model.ListeProPagedList.PageNumber) sur @Model.ListeProPagedList.PageCount*@
-                @Html.PagedListPager(Model.ListeProPagedList, pageNumber => Url.Action("searchOfferAppart", "ApartmentRentalSearch", new { pageNumber, sortBy = Request["sortBy"] }),
-     PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "groupeResultSearch" }))
-            }
-            @if (Model.CagtegorieSearch == "Multimedia")
-            {
+                if (Model.CagtegorieSearch == "Emploi")
+                {
 
-                @*Page @(Model.ListeProPagedList.PageCount< Model.ListeProPagedList.PageNumber ? 0 : Model.ListeProPagedList.PageNumber) sur @Model.ListeProPagedList.PageCount*@
-                @Html.PagedListPager(Model.ListeProPagedList, pageNumber => Url.Action("searchOfferMultimedia", " MultimediaOfferSearch", new { pageNumber, sortBy = Request["sortBy"] }),
-     PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "groupeResultSearch" }))
-            }
-            @if (Model.CagtegorieSearch == "Vehicule")
-            {
+                    @*Page @(Model.ListeProPagedList.PageCount< Model.ListeProPagedList.PageNumber ? 0 : Model.ListeProPagedList.PageNumber) sur @Model.ListeProPagedList.PageCount*@
+                    @Html.PagedListPager(Model.ListeProPagedList, pageNumber => Url.Action("ResultSearchOfferJob_PartialView", "JobOfferSearch", new { pageNumber, sortBy = Request["sortBy"] }),
+         PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "groupeResultSearch" }))
+                }
+                else if (Model.CagtegorieSearch == "Immobilier")
+                {
 
-                @*Page @(Model.ListeProPagedList.PageCount< Model.ListeProPagedList.PageNumber ? 0 : Model.ListeProPagedList.PageNumber) sur @Model.ListeProPagedList.PageCount*@
-                @Html.PagedListPager(Model.ListeProPagedList, pageNumber => Url.Action("searchOfferVehicule", " VehiculeOfferSearch", new { pageNumber, sortBy = Request["sortBy"] }),
-     PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "groupeResultSearch" }))
+                    @*Page @(Model.ListeProPagedList.PageCount< Model.ListeProPagedList.PageNumber ? 0 : Model.ListeProPagedList.PageNumber) sur @Model.ListeProPagedList.PageCount*@
+                    @Html.PagedListPager(Model.ListeProPagedList, pageNumber => Url.Action("searchOfferAppart", "ApartmentRentalSearch", new { pageNumber, sortBy = Request["sortBy"] }),
+         PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "groupeResultSearch" }))
+                }
+                else if (Model.CagtegorieSearch == "Multimedia")
+                {
+
+                    @*Page @(Model.ListeProPagedList.PageCount< Model.ListeProPagedList.PageNumber ? 0 : Model.ListeProPagedList.PageNumber) sur @Model.ListeProPagedList.PageCount*@
+                    @Html.PagedListPager(Model.ListeProPagedList, pageNumber => Url.Action("searchOfferMultimedia", "MultimediaOfferSearch", new { pageNumber, sortBy = Request["sortBy"] }),
+         PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "groupeResultSearch" }))
+                }
+                else if (Model.CagtegorieSearch == "Mode")
+                {
+
+                    @*Page @(Model.ListeProPagedList.PageCount< Model.ListeProPagedList.PageNumber ? 0 : Model.ListeProPagedList.PageNumber) sur @Model.ListeProPagedList.PageCount*@
+                    @Html.PagedListPager(Model.ListeProPagedList, pageNumber => Url.Action("searchOfferMode", "ModeOfferSearch", new { pageNumber, sortBy = Request["sortBy"] }),
+         PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "groupeResultSearch" }))
+                }
+
             }
         </div>
         <div class="col-md-6">
@@ -458,7 +493,7 @@ else
          $.ajax({
              url: '@Url.Action("searchOfferMultimedia", "MultimediaOfferSearch")?TownMultimedia=' + TownMultimedia + '&TypeMultimedia=' + TypeMultimedia
                  + '&PriceMultimedia=' + PriceMultimedia + '&BrandMultimedia=' + BrandMultimedia + '&ModelMultimedia=' + ModelMultimedia
-                 + '&Capacity=' + Capacity + '&sortBy=' + "Price desc",
+                 + '&Capacity=' + Capacity + '&sortBy=' + "date desc",
         type: 'GET',
         contentType: 'application/json; charset=utf-8',
        // data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
@@ -480,7 +515,7 @@ else
          $.ajax({
              url: '@Url.Action("searchOfferMultimedia", "MultimediaOfferSearch")?TownMultimedia=' + TownMultimedia + '&TypeMultimedia=' + TypeMultimedia
                  + '&PriceMultimedia=' + PriceMultimedia + '&BrandMultimedia=' + BrandMultimedia + '&ModelMultimedia=' + ModelMultimedia
-                 + '&Capacity=' + Capacity  + '&sortBy=' + "Price asc",
+                 + '&Capacity=' + Capacity  + '&sortBy=' + "date asc",
         type: 'GET',
         contentType: 'application/json; charset=utf-8',
             // data: { 'toto': TownSearchApart},  // JSON.stringify(searchTerm)
@@ -545,7 +580,7 @@ else
 
          $.ajax({
              url: '@Url.Action("searchOfferVehicule", "VehiculeOfferSearch")?TownVehicule=' + TownVehicule + '&RubriqueVehicule=' + RubriqueVehicule
-                 + '&BrandVehicule=' + BrandVehicule + '&ModelVehicule=' + ModelVehicule + '&sortBy=' + "Price desc",
+                 + '&BrandVehicule=' + BrandVehicule + '&ModelVehicule=' + ModelVehicule + '&sortBy=' + "date desc",
         type: 'GET',
         contentType: 'application/json; charset=utf-8',
        // data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
@@ -565,7 +600,7 @@ else
 
          $.ajax({
              url: '@Url.Action("searchOfferVehicule", "VehiculeOfferSearch")?TownVehicule=' + TownVehicule + '&RubriqueVehicule=' + RubriqueVehicule
-                 + '&BrandVehicule=' + BrandVehicule + '&ModelVehicule=' + ModelVehicule + '&sortBy=' + "Price asc",
+                 + '&BrandVehicule=' + BrandVehicule + '&ModelVehicule=' + ModelVehicule + '&sortBy=' + "date asc",
         type: 'GET',
         contentType: 'application/json; charset=utf-8',
             // data: { 'toto': TownSearchApart},  // JSON.stringify(searchTerm)
@@ -576,35 +611,234 @@ else
       });
      return false;
     });
+    //for click sort
     $("#SelectVehi").change(function () {
         $("#SelectVehi option:selected").click();
     });
 
-    $("select.SelectJob").change(function () {
-        var select = $(this).children("option:selected").val();
-        if (select != null) {
-            document.getElementById("SelectJob").onchange = function () {
-                localStorage['SelectJob'] = document.getElementById("selectJob").value;
-            }
+// sort for Mode
+    
+    $('#AscendingModePrice').click(function () {
+        console.log("toto")
+         var TownMode = $('#TownMode').val();
+        var PriceMode = $('#PriceMode').val();
+        var RubriqueMode = $('#RubriqueMode').val();
+        var TypeModeClothes = $('#TypeModeClothes').val();
+        var TypeModeShoes = $('#TypeModeShoes').val();
+        var TypeModeAccesorieLugages = $('#TypeModeAccesorieLugages').val();
+        var TypeModeWatchJewelry = $('#TypeModeWatchJewelry').val();
+        var TypeModeBabyEquipment = $('#TypeModeBabyEquipment').val();
+        var TypeModeBabyClothes = $('#TypeModeBabyClothes').val();
+        var BrandModeClothes = $('#BrandModeClothes').val();
+        var BrandModeShoes = $('#BrandModeShoes').val();
+        var UniversMode = $('#UniversMode').val();
+        var SizeModeClothes = $('#SizeModeClothes').val();
+        var SizeModeShoes = $('#SizeModeShoes').val();
+        var ColorMode = $('#ColorMode').val();
+        var StateMode = $('#StateMode').val();
+
+         $.ajax({
+             url: '@Url.Action("searchOfferMode", "ModeOfferSearch")?TownMode=' + TownMode + '&PriceMode=' + PriceMode
+                 + '&RubriqueMode=' + RubriqueMode + '&TypeModeClothes=' + TypeModeClothes + '&TypeModeClothes=' + TypeModeClothes
+                 + '&TypeModeClothes=' + TypeModeClothes + '&TypeModeShoes=' + TypeModeShoes + '&TypeModeAccesorieLugages=' + TypeModeAccesorieLugages
+                 + '&TypeModeWatchJewelry=' + TypeModeWatchJewelry + '&TypeModeBabyEquipment=' + TypeModeBabyEquipment + '&TypeModeBabyClothes=' + TypeModeBabyClothes
+                 + '&BrandModeClothes=' + BrandModeClothes + '&BrandModeShoes=' + BrandModeShoes + '&UniversMode=' + UniversMode
+                 + '&SizeModeClothes=' + SizeModeClothes + '&SizeModeShoes=' + SizeModeShoes + '&ColorMode=' + ColorMode
+                 + '&StateMode=' + StateMode + '&sortBy=' + "Price asc",
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        //data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
+        success: function (result) {
+
+            $('#groupeResultSearch').html(result);
         }
-    })
+      });
+     return false;
+     });
 
+    $('#descendingModePrice').click(function() {
+        var TownMode = $('#TownMode').val();
+        var PriceMode = $('#PriceMode').val();
+        var RubriqueMode = $('#RubriqueMode').val();
+        var TypeModeClothes = $('#TypeModeClothes').val();
+        var TypeModeShoes = $('#TypeModeShoes').val();
+        var TypeModeAccesorieLugages = $('#TypeModeAccesorieLugages').val();
+        var TypeModeWatchJewelry = $('#TypeModeWatchJewelry').val();
+        var TypeModeBabyEquipment = $('#TypeModeBabyEquipment').val();
+        var TypeModeBabyClothes = $('#TypeModeBabyClothes').val();
+        var BrandModeClothes = $('#BrandModeClothes').val();
+        var BrandModeShoes = $('#BrandModeShoes').val();
+        var UniversMode = $('#UniversMode').val();
+        var SizeModeClothes = $('#SizeModeClothes').val();
+        var SizeModeShoes = $('#SizeModeShoes').val();
+        var ColorMode = $('#ColorMode').val();
+        var StateMode = $('#StateMode').val();
 
-    if (localStorage['selectJob']) {
-        document.getElementById("selectJob").value = localStorage['selectJob'];
-    };
-    $("select.SelectFlat").change(function () {
-        var select = $(this).children("option:selected").val();
-        if (select != "") {
-            document.getElementById("SelectFlat").onchange = function () {
-                localStorage['SelectFlat'] = document.getElementById("SelectFlat").value;
-            }
+         $.ajax({
+             url: '@Url.Action("searchOfferMode", "ModeOfferSearch")?TownMode=' + TownMode + '&PriceMode=' + PriceMode
+                 + '&RubriqueMode=' + RubriqueMode + '&TypeModeClothes=' + TypeModeClothes + '&TypeModeClothes=' + TypeModeClothes
+                 + '&TypeModeClothes=' + TypeModeClothes + '&TypeModeShoes=' + TypeModeShoes + '&TypeModeAccesorieLugages=' + TypeModeAccesorieLugages
+                 + '&TypeModeWatchJewelry=' + TypeModeWatchJewelry + '&TypeModeBabyEquipment=' + TypeModeBabyEquipment + '&TypeModeBabyClothes=' + TypeModeBabyClothes
+                 + '&BrandModeClothes=' + BrandModeClothes + '&BrandModeShoes=' + BrandModeShoes + '&UniversMode=' + UniversMode
+                 + '&SizeModeClothes=' + SizeModeClothes + '&SizeModeShoes=' + SizeModeShoes + '&ColorMode=' + ColorMode
+                 + '&StateMode=' + StateMode + '&sortBy=' + "Price desc",
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+        //data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
+        success: function (result) {
+
+            $('#groupeResultSearch').html(result);
         }
-    })
+      });
+     return false;
+     });
 
-    if (localStorage['SelectFlat']) {
-        document.getElementById("SelectFlat").value = localStorage['SelectFlat'];
-    }
+    $('#MostLastestMode').click(function() {
+         var TownMode = $('#TownMode').val();
+        var PriceMode = $('#PriceMode').val();
+        var RubriqueMode = $('#RubriqueMode').val();
+        var TypeModeClothes = $('#TypeModeClothes').val();
+        var TypeModeShoes = $('#TypeModeShoes').val();
+        var TypeModeAccesorieLugages = $('#TypeModeAccesorieLugages').val();
+        var TypeModeWatchJewelry = $('#TypeModeWatchJewelry').val();
+        var TypeModeBabyEquipment = $('#TypeModeBabyEquipment').val();
+        var TypeModeBabyClothes = $('#TypeModeBabyClothes').val();
+        var BrandModeClothes = $('#BrandModeClothes').val();
+        var BrandModeShoes = $('#BrandModeShoes').val();
+        var UniversMode = $('#UniversMode').val();
+        var SizeModeClothes = $('#SizeModeClothes').val();
+        var SizeModeShoes = $('#SizeModeShoes').val();
+        var ColorMode = $('#ColorMode').val();
+        var StateMode = $('#StateMode').val();
+
+         $.ajax({
+             url: '@Url.Action("searchOfferMode", "ModeOfferSearch")?TownMode=' + TownMode + '&PriceMode=' + PriceMode
+                 + '&RubriqueMode=' + RubriqueMode + '&TypeModeClothes=' + TypeModeClothes + '&TypeModeClothes=' + TypeModeClothes
+                 + '&TypeModeClothes=' + TypeModeClothes + '&TypeModeShoes=' + TypeModeShoes + '&TypeModeAccesorieLugages=' + TypeModeAccesorieLugages
+                 + '&TypeModeWatchJewelry=' + TypeModeWatchJewelry + '&TypeModeBabyEquipment=' + TypeModeBabyEquipment + '&TypeModeBabyClothes=' + TypeModeBabyClothes
+                 + '&BrandModeClothes=' + BrandModeClothes + '&BrandModeShoes=' + BrandModeShoes + '&UniversMode=' + UniversMode
+                 + '&SizeModeClothes=' + SizeModeClothes + '&SizeModeShoes=' + SizeModeShoes + '&ColorMode=' + ColorMode
+                 + '&StateMode=' + StateMode + '&sortBy=' + "date desc",
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+       // data: { 'toto': JobCity},  // JSON.stringify(searchTerm)
+        success: function (result) {
+
+            $('#groupeResultSearch').html(result);
+        }
+      });
+     return false;
+     });
+
+    $('#MostOlderMode').click(function() {
+       var TownMode = $('#TownMode').val();
+        var PriceMode = $('#PriceMode').val();
+        var RubriqueMode = $('#RubriqueMode').val();
+        var TypeModeClothes = $('#TypeModeClothes').val();
+        var TypeModeShoes = $('#TypeModeShoes').val();
+        var TypeModeAccesorieLugages = $('#TypeModeAccesorieLugages').val();
+        var TypeModeWatchJewelry = $('#TypeModeWatchJewelry').val();
+        var TypeModeBabyEquipment = $('#TypeModeBabyEquipment').val();
+        var TypeModeBabyClothes = $('#TypeModeBabyClothes').val();
+        var BrandModeClothes = $('#BrandModeClothes').val();
+        var BrandModeShoes = $('#BrandModeShoes').val();
+        var UniversMode = $('#UniversMode').val();
+        var SizeModeClothes = $('#SizeModeClothes').val();
+        var SizeModeShoes = $('#SizeModeShoes').val();
+        var ColorMode = $('#ColorMode').val();
+        var StateMode = $('#StateMode').val();
+
+         $.ajax({
+             url: '@Url.Action("searchOfferMode", "ModeOfferSearch")?TownMode=' + TownMode + '&PriceMode=' + PriceMode
+                 + '&RubriqueMode=' + RubriqueMode + '&TypeModeClothes=' + TypeModeClothes + '&TypeModeClothes=' + TypeModeClothes
+                 + '&TypeModeClothes=' + TypeModeClothes + '&TypeModeShoes=' + TypeModeShoes + '&TypeModeAccesorieLugages=' + TypeModeAccesorieLugages
+                 + '&TypeModeWatchJewelry=' + TypeModeWatchJewelry + '&TypeModeBabyEquipment=' + TypeModeBabyEquipment + '&TypeModeBabyClothes=' + TypeModeBabyClothes
+                 + '&BrandModeClothes=' + BrandModeClothes + '&BrandModeShoes=' + BrandModeShoes + '&UniversMode=' + UniversMode
+                 + '&SizeModeClothes=' + SizeModeClothes + '&SizeModeShoes=' + SizeModeShoes + '&ColorMode=' + ColorMode
+                 + '&StateMode=' + StateMode + '&sortBy=' + "date asc",
+        type: 'GET',
+        contentType: 'application/json; charset=utf-8',
+            // data: { 'toto': TownSearchApart},  // JSON.stringify(searchTerm)
+        success: function (result) {
+
+            $('#groupeResultSearch').html(result);
+        }
+      });
+     return false;
+    });
+
+
+    //For click mode
+    $("#SelectMode").change(function () {
+        $("#SelectMode option:selected").click();
+    });
+
+    //for local storage
+    //$("select.SelectJob").change(function () {
+    //    var select = $(this).children("option:selected").val();
+    //    if (select != null) {
+    //        document.getElementById("SelectJob").onchange = function () {
+    //            localStorage['SelectJob'] = document.getElementById("selectJob").value;
+    //        }
+    //    }
+    //})
+
+    ////storage filter Job
+    //if (localStorage['selectJob']) {
+    //    document.getElementById("selectJob").value = localStorage['selectJob'];
+    //};
+    //$("select.SelectFlat").change(function () {
+    //    var select = $(this).children("option:selected").val();
+    //    if (select != "") {
+    //        document.getElementById("SelectFlat").onchange = function () {
+    //            localStorage['SelectFlat'] = document.getElementById("SelectFlat").value;
+    //        }
+    //    }
+    //})
+
+    //if (localStorage['SelectFlat']) {
+    //    document.getElementById("SelectFlat").value = localStorage['SelectFlat'];
+    //}
+    ////storage filter multimedia
+    //$("select.SelectMulti").change(function () {
+    //    var select = $(this).children("option:selected").val();
+    //    if (select != "") {
+    //        document.getElementById("SelectMulti").onchange = function () {
+    //            localStorage['SelectMulti'] = document.getElementById("SelectMulti").value;
+    //        }
+    //    }
+    //})
+
+    //if (localStorage['SelectMulti']) {
+    //    document.getElementById("SelectMulti").value = localStorage['SelectMulti'];
+    //}
+    ////storage filter vehicule
+    //$("select.SelectVehi").change(function () {
+    //    var select = $(this).children("option:selected").val();
+    //    if (select != "") {
+    //        document.getElementById("SelectVehi").onchange = function () {
+    //            localStorage['SelectVehi'] = document.getElementById("SelectVehi").value;
+    //        }
+    //    }
+    //})
+
+    //if (localStorage['SelectVehi']) {
+    //    document.getElementById("SelectVehi").value = localStorage['SelectVehi'];
+    //}
+
+    ////storage filter mode
+    //$("select.SelectMode").change(function () {
+    //    var select = $(this).children("option:selected").val();
+    //    if (select != "") {
+    //        document.getElementById("SelectMode").onchange = function () {
+    //            localStorage['SelectMode'] = document.getElementById("SelectMode").value;
+    //        }
+    //    }
+    //})
+
+    //if (localStorage['SelectMode']) {
+    //    document.getElementById("SelectMode").value = localStorage['SelectMode'];
+    //}
 
 
 

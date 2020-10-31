@@ -80,6 +80,10 @@ namespace LookAuKwat.Models
                .Include(s => s.User)
                .Include(s => s.Category)
                .Include(s => s.Coordinate).ToList();
+            IEnumerable<ModeModel> listMode = dbb.Modes.Include(s => s.Images)
+              .Include(s => s.User)
+              .Include(s => s.Category)
+              .Include(s => s.Coordinate).ToList();
 
             foreach (var job in listjobs)
             {
@@ -100,6 +104,11 @@ namespace LookAuKwat.Models
             {
                 if (vehi != null)
                     liste.Add(vehi);
+            }
+            foreach (var mode in listMode)
+            {
+                if (mode != null)
+                    liste.Add(mode);
             }
             return liste;
 
@@ -125,6 +134,11 @@ namespace LookAuKwat.Models
                .Include(s => s.User)
                .Include(s => s.Category)
                .Include(s => s.Coordinate).ToList();
+            IEnumerable<ModeModel> listMode = dbb.Modes.Include(s => s.Images)
+              .Include(s => s.User)
+              .Include(s => s.Category)
+              .Include(s => s.Coordinate).ToList();
+
             if (listjobs.ToList().Count > 0)
             {
                 foreach (var job in listjobs)
@@ -155,6 +169,14 @@ namespace LookAuKwat.Models
                 {
                     if (vehi != null)
                         liste.Add(vehi);
+                }
+            }
+            if (listMode.ToList().Count > 0)
+            {
+                foreach (var mode in listMode)
+                {
+                    if (mode != null)
+                        liste.Add(mode);
                 }
             }
 
@@ -453,6 +475,44 @@ namespace LookAuKwat.Models
                .Include(s => s.Category)
                .Include(s => s.Coordinate).ToList();
             return listMulti;
+        }
+
+        public void AddMode(ModeModel model, string lat, string lon)
+        {
+            CategoryModel category = new CategoryModel
+            {
+                CategoryName = model.Category.CategoryName,
+
+            };
+
+            // dbb.Categories.Add(category);
+            model.Category = category;
+
+            ProductCoordinateModel coordinate = new ProductCoordinateModel
+            {
+                Lat = lat,
+                Lon = lon
+
+            };
+            // dbb.ProductCoordinates.Add(coordinate);
+            model.Coordinate = coordinate;
+
+            dbb.Modes.Add(model);
+            dbb.SaveChanges();
+        }
+
+        public void EditMode(ModeModel model, string lat, string lon)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ModeModel> GetListMode()
+        {
+            IEnumerable<ModeModel> listMode = dbb.Modes.Include(s => s.Images)
+                .Include(s => s.User)
+                .Include(s => s.Category)
+                .Include(s => s.Coordinate).ToList();
+            return listMode;
         }
     }
 }

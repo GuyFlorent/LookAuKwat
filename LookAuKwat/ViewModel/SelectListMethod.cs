@@ -219,7 +219,7 @@ namespace LookAuKwat.ViewModel
                 new SelectListItem() { Text = "Souris", Value = "Souris" },
                 new SelectListItem() { Text = "Imprimante", Value = "Imprimante" },
                 new SelectListItem() { Text = "Photocopieuse", Value = "Photocopieuse" },
-                new SelectListItem() { Text = "Imprimante", Value = "Imprimante" },
+                new SelectListItem() { Text = "Disque dur externe", Value = "Disque dur externe" },
                 new SelectListItem() { Text = "Logiciel", Value = "Logiciel" },
                 new SelectListItem() { Text = "Encre", Value = "Encre" },
                 new SelectListItem() { Text = "Autre", Value = "Autre" }

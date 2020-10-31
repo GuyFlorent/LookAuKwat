@@ -1,0 +1,326 @@
+﻿@model LookAuKwat.ViewModel.SeachJobViewModel
+@using LookAuKwat.ViewModel
+
+@using (Ajax.BeginForm("searchOfferMode", "ModeOfferSearch", new AjaxOptions
+{
+    HttpMethod = "GET",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "ResulList",
+    // OnFailure = "ErreurRecherche",
+    LoadingElementId = "charging"
+}
+         ))
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <h4 class="text-center">Filtrer votre <strong>recherche</strong> dans la catégorie <strong>Mode</strong></h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
+
+
+
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 ">
+            @Html.LabelFor(model => model.TownMode, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.TownMode, SelectListMethod.GetListTownCameroon(), "Toutes les villes", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TownMode, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-4" id="RubriqueModeSearchDiv">
+            @Html.LabelFor(model => model.RubriqueMode, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.RubriqueMode, SelectListMethodMode.RubriqueModeList(), "Toutes les rubriques", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.RubriqueMode, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-4" >
+            @Html.LabelFor(model => model.PriceMode, htmlAttributes: new { @class = "control-label col-md-9" })
+
+            @Html.EditorFor(model => model.PriceMode, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PriceMode, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 hidden" id="TypeModeClothesSearchDiv">
+            @Html.LabelFor(model => model.TypeModeClothes, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.TypeModeClothes, SelectListMethodMode.TypeClothesList(), "Tous type de vêtements", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TypeModeClothes, "", new { @class = "text-danger" })
+
+        </div>
+
+
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 hidden" id="TypeModeShoesSearchDiv">
+            @Html.LabelFor(model => model.TypeModeShoes, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.TypeModeShoes, SelectListMethodMode.TypeShoesList(), "Tous types de chaussures", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TypeModeShoes, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 hidden" id="TypeModeAccesorieLugagesSearchDiv">
+            @Html.LabelFor(model => model.TypeModeAccesorieLugages, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.TypeModeAccesorieLugages, SelectListMethodMode.TypeAccesorieLugagesList(), "Tout types", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TypeModeAccesorieLugages, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 hidden" id="TypeModeWatchJewelrySearchDiv">
+            @Html.LabelFor(model => model.TypeModeWatchJewelry, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.TypeModeWatchJewelry, SelectListMethodMode.TypeWatchJewelryList(), " tous Type de montre&Bijoux", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TypeModeWatchJewelry, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 hidden" id="TypeModeBabyEquipmentSearchDiv">
+            @Html.LabelFor(model => model.TypeModeBabyEquipment, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.TypeModeBabyEquipment, SelectListMethodMode.TypeBabyEquipmentList(), "Tous types équipements bb", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TypeModeBabyEquipment, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 hidden" id="TypeModeBabyClothesSearchDiv">
+            @Html.LabelFor(model => model.TypeModeBabyClothes, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.TypeModeBabyClothes, SelectListMethodMode.TypeBabyClothesList(), "Tous types vêtements bb", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TypeModeBabyClothes, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 hidden" id="BrandModeClothesSearchDiv">
+            @Html.LabelFor(model => model.BrandModeClothes, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.BrandModeClothes, SelectListMethodMode.BrandClothesList(), "Toutes les marques", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.BrandModeClothes, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 hidden" id="BrandModeShoesSearchDiv">
+            @Html.LabelFor(model => model.BrandModeShoes, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.BrandModeShoes, SelectListMethodMode.BrandShoesList(), "Toutes les marques", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.BrandModeShoes, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 hidden" id="UniversModeSearchDiv">
+            @Html.LabelFor(model => model.UniversMode, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.UniversMode, SelectListMethodMode.UniversList(), "Toutes les marques", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.UniversMode, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 hidden" id="SizeModeClothesSearchDiv">
+            @Html.LabelFor(model => model.SizeModeClothes, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.SizeModeClothes, SelectListMethodMode.SeizeClothesList(), "Toutes les tailles", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.SizeModeClothes, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 hidden" id="SizeModeShoesSearchDiv">
+            @Html.LabelFor(model => model.SizeModeShoes, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.SizeModeShoes, SelectListMethodMode.SizeShoesList(), "Toutes les tailles", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.SizeModeShoes, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 ">
+            @Html.LabelFor(model => model.ColorMode, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.ColorMode, SelectListMethodMode.ColorModeList(), "Toutes les couleurs", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ColorMode, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 ">
+            @Html.LabelFor(model => model.StateMode, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.StateMode, SelectListMethodMode.StateModeList(), "Tous les états", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.StateMode, "", new { @class = "text-danger" })
+
+        </div>
+
+
+    </div>
+
+        <button id="submitMode" type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-search"></span> <strong>Rechercher</strong>
+        </button>
+    </div>
+}
+
+<script type="text/javascript">
+    $(function () {
+
+        $("#RubriqueModeSearchDiv").change(function () {
+            console.log($('#RubriqueMode').val());
+            if ($('#RubriqueMode').val() !== 'Toutes les rubriques' && $('#RubriqueMode').val() == 'Vêtements') {
+
+
+                $("#TypeModeClothesSearchDiv").removeClass('hidden');
+                $("#BrandModeClothesSearchDiv").removeClass('hidden');
+                $("#SizeModeClothesSearchDiv").removeClass('hidden');
+                $("#UniversModeSearchDiv").removeClass('hidden');
+
+                //hidden those div
+                $("#TypeModeShoesSearchDiv").addClass('hidden');
+                $("#BrandModeShoesSearchDiv").addClass('hidden');
+                $("#SizeModeShoesSearchDiv").addClass('hidden');
+                $("#TypeModeAccesorieLugagesSearchDiv").addClass('hidden');
+                $("#TypeModeWatchJewelrySearchDiv").addClass('hidden');
+                $("#TypeModeBabyEquipmentSearchDiv").addClass('hidden');
+                $("#TypeModeBabyClothesSearchDiv").addClass('hidden');
+
+                //reset the select
+                document.getElementById("TypeModeShoes").selectedIndex = "0";
+                document.getElementById("BrandModeShoes").selectedIndex = "0";
+                document.getElementById("SizeModeShoes").selectedIndex = "0";
+                document.getElementById("TypeModeAccesorieLugages").selectedIndex = "0";
+                document.getElementById("TypeModeWatchJewelry").selectedIndex = "0";
+                document.getElementById("TypeModeBabyEquipment").selectedIndex = "0";
+                document.getElementById("TypeModeBabyClothes").selectedIndex = "0";
+
+            }
+            else if ($('#RubriqueMode').val() !== 'Toutes les rubriques' && $('#RubriqueMode').val() == 'Chaussures') {
+
+                $("#TypeModeShoesSearchDiv").removeClass('hidden');
+                $("#BrandModeShoesSearchDiv").removeClass('hidden');
+                $("#SizeModeShoesSearchDiv").removeClass('hidden');
+                $("#UniversModeSearchDiv").removeClass('hidden');
+
+                //hidden those div
+                $("#TypeModeClothesSearchDiv").addClass('hidden');
+                $("#BrandModeClothesSearchDiv").addClass('hidden');
+                $("#SizeModeClothesSearchDiv").addClass('hidden');
+                $("#TypeModeAccesorieLugagesSearchDiv").addClass('hidden');
+                $("#TypeModeWatchJewelrySearchDiv").addClass('hidden');
+                $("#TypeModeBabyEquipmentSearchDiv").addClass('hidden');
+                $("#TypeModeBabyClothesSearchDiv").addClass('hidden');
+
+                //reset the select
+                document.getElementById("TypeModeClothes").selectedIndex = "0";
+                document.getElementById("BrandModeClothes").selectedIndex = "0";
+                document.getElementById("SizeModeClothes").selectedIndex = "0";
+                document.getElementById("TypeModeAccesorieLugages").selectedIndex = "0";
+                document.getElementById("TypeModeWatchJewelry").selectedIndex = "0";
+                document.getElementById("TypeModeBabyEquipment").selectedIndex = "0";
+                document.getElementById("TypeModeBabyClothes").selectedIndex = "0";
+
+
+            }
+            else if ($('#RubriqueMode').val() !== 'Toutes les rubriques' && $('#RubriqueMode').val() == 'Accesoires & Bagagerie') {
+
+                $("#TypeModeAccesorieLugagesSearchDiv").removeClass('hidden');
+                $("#BrandModeClothesSearchDiv").removeClass('hidden');
+                $("#UniversModeSearchDiv").removeClass('hidden');
+
+                //hidden those div
+                $("#TypeModeShoesSearchDiv").addClass('hidden');
+                $("#BrandModeShoesSearchDiv").addClass('hidden');
+                $("#SizeModeShoesSearchDiv").addClass('hidden');
+                $("#TypeModeClothesSearchDiv").addClass('hidden');
+                $("#TypeModeWatchJewelrySearchDiv").addClass('hidden');
+                $("#TypeModeBabyEquipmentSearchDiv").addClass('hidden');
+                $("#TypeModeBabyClothesSearchDiv").addClass('hidden');
+
+                //reset the select
+                document.getElementById("TypeModeShoes").selectedIndex = "0";
+                document.getElementById("BrandModeShoes").selectedIndex = "0";
+                document.getElementById("SizeModeShoes").selectedIndex = "0";
+                document.getElementById("TypeModeClothes").selectedIndex = "0";
+                document.getElementById("TypeModeWatchJewelry").selectedIndex = "0";
+                document.getElementById("TypeModeBabyEquipment").selectedIndex = "0";
+                document.getElementById("TypeModeBabyClothes").selectedIndex = "0";
+
+            }
+            else if ($('#RubriqueMode').val() !== 'Toutes les rubriques' && $('#RubriqueMode').val() == 'Montres & Bijoux') {
+
+                $("#TypeModeWatchJewelrySearchDiv").removeClass('hidden');
+                $("#BrandModeClothesSearchDiv").removeClass('hidden');
+                $("#UniversModeSearchDiv").removeClass('hidden');
+
+                //hidden those div
+
+                $("#TypeModeShoesSearchDiv").addClass('hidden');
+                $("#BrandModeShoesSearchDiv").addClass('hidden');
+                $("#SizeModeShoesSearchDiv").addClass('hidden');
+                $("#TypeModeClothesSearchDiv").addClass('hidden');
+                $("#TypeModeAccesorieLugagesSearchDiv").addClass('hidden');
+                $("#TypeModeBabyEquipmentSearchDiv").addClass('hidden');
+                $("#TypeModeBabyClothesSearchDiv").addClass('hidden');
+
+                //reset the select
+                document.getElementById("TypeModeShoes").selectedIndex = "0";
+                document.getElementById("BrandModeShoes").selectedIndex = "0";
+                document.getElementById("SizeModeShoes").selectedIndex = "0";
+                document.getElementById("TypeModeAccesorieLugages").selectedIndex = "0";
+                document.getElementById("TypeModeClothes").selectedIndex = "0";
+                document.getElementById("TypeModeBabyEquipment").selectedIndex = "0";
+                document.getElementById("TypeModeBabyClothes").selectedIndex = "0";
+
+
+            } else if ($('#RubriqueMode').val() !== 'Toutes les rubriques' && $('#RubriqueMode').val() == 'Equipement bébé') {
+
+                $("#TypeModeBabyEquipmentSearchDiv").removeClass('hidden');
+                $("#BrandModeClothesSearchDiv").removeClass('hidden');
+
+
+                //hidden those div
+                $("#TypeModeShoesSearchDiv").addClass('hidden');
+                $("#BrandModeShoesSearchDiv").addClass('hidden');
+                $("#SizeModeShoesSearchDiv").addClass('hidden');
+                $("#TypeModeClothesSearchDiv").addClass('hidden');
+                $("#TypeModeAccesorieLugagesSearchDiv").addClass('hidden');
+                $("#TypeModeWatchJewelrySearchDiv").addClass('hidden');
+                $("#TypeModeBabyClothesSearchDiv").addClass('hidden');
+                $("#UniversModeSearchDiv").addClass('hidden');
+
+                //reset the select
+                document.getElementById("TypeModeShoes").selectedIndex = "0";
+                document.getElementById("BrandModeShoes").selectedIndex = "0";
+                document.getElementById("SizeModeShoes").selectedIndex = "0";
+                document.getElementById("TypeModeAccesorieLugages").selectedIndex = "0";
+                document.getElementById("TypeModeClothes").selectedIndex = "0";
+                document.getElementById("TypeModeWatchJewelry").selectedIndex = "0";
+                document.getElementById("TypeModeBabyClothes").selectedIndex = "0";
+
+            }
+            else if ($('#RubriqueMode').val() !== 'Toutes les rubriques' && $('#RubriqueMode').val() == 'Vêtements bébé') {
+                
+                $("#TypeModeBabyClothesSearchDiv").removeClass('hidden');
+                $("#BrandModeClothesSearchDiv").removeClass('hidden');
+
+
+                //hidden those div
+                $("#TypeModeShoesSearchDiv").addClass('hidden');
+                $("#BrandModeShoesSearchDiv").addClass('hidden');
+                $("#SizeModeShoesSearchDiv").addClass('hidden');
+                $("#TypeModeClothesSearchDiv").addClass('hidden');
+                $("#TypeModeAccesorieLugagesSearchDiv").addClass('hidden');
+                $("#TypeModeWatchJewelrySearchDiv").addClass('hidden');
+                $("#TypeModeBabyEquipmentSearchDiv").addClass('hidden');
+                $("#UniversModeSearchDiv").addClass('hidden');
+
+                //reset the select
+                document.getElementById("TypeModeShoes").selectedIndex = "0";
+                document.getElementById("BrandModeShoes").selectedIndex = "0";
+                document.getElementById("SizeModeShoes").selectedIndex = "0";
+                document.getElementById("TypeModeAccesorieLugages").selectedIndex = "0";
+                document.getElementById("TypeModeClothes").selectedIndex = "0";
+                document.getElementById("TypeModeWatchJewelry").selectedIndex = "0";
+                document.getElementById("TypeModeBabyEquipment").selectedIndex = "0";
+
+            }else if ($('#RubriqueMode').val() == '') {
+
+                $("#TypeModeShoesSearchDiv").addClass('hidden');
+                $("#BrandModeShoesSearchDiv").addClass('hidden');
+                $("#SizeModeShoesSearchDiv").addClass('hidden');
+                $("#TypeModeClothesSearchDiv").addClass('hidden');
+                $("#TypeModeAccesorieLugagesSearchDiv").addClass('hidden');
+                $("#TypeModeWatchJewelrySearchDiv").addClass('hidden');
+                $("#TypeModeBabyEquipmentSearchDiv").addClass('hidden');
+                $("#UniversModeSearchDiv").addClass('hidden');
+                $("#TypeModeBabyClothesSearchDiv").addClass('hidden');
+                $("#BrandModeClothesSearchDiv").addClass('hidden');
+                $("#SizeModeClothesSearchDiv").addClass('hidden');
+            }
+        })
+    })
+</script>

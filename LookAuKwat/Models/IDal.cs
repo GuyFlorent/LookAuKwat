@@ -42,5 +42,10 @@ namespace LookAuKwat.Models
         void AddVehicule(VehiculeModel model, string lat, string lon);
         void EditVehicule(VehiculeModel model, string lat, string lon);
         IEnumerable<VehiculeModel> GetListVehicule();
+
+        //For Mode model
+        void AddMode(ModeModel model, string lat, string lon);
+        void EditMode(ModeModel model, string lat, string lon);
+        IEnumerable<ModeModel> GetListMode();
     }
 }

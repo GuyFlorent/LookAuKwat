@@ -35,19 +35,45 @@ namespace LookAuKwat.Controllers
       
         public ActionResult ResultSearchOfferJob_PartialView(SeachJobViewModel model, int? pageNumber, string sortBy)
         {
-            //SeachJobViewModel model1 = new SeachJobViewModel();
-            //model1.ListePro = new List<ProductModel>();
-            //var lii = dal.GetListProduct();
-            //foreach (var li in dal.GetListProduct())
-            //{
-            //    if (!string.IsNullOrWhiteSpace(li.Title))
-            //        model1.ListePro.Add(li);
-            //}
-         
+
+            //save same page when refresh page in ajax
+            if (pageNumber != null)
+            {
+                this.Session["pageJob"] = pageNumber;
+                
+                this.Session["modelJob"] = model;
+                var modell = this.Session["modelJobNew"] as SeachJobViewModel;
+                if (modell != null)
+                    model = modell;
+                model.PageNumber = pageNumber;
+            }
+            else if (pageNumber == null)
+            {
+                var mod = this.Session["modelJob"] as SeachJobViewModel;
+                if (mod != null && mod.PriceMinSearch == model.PriceMinSearch && mod.PriceMaxSearch == model.PriceMaxSearch &&
+                    mod.TownSearch == model.TownSearch && mod.TypeContractJob == model.TypeContractJob &&
+                    mod.ActivitySectorJob == model.ActivitySectorJob)
+                {
+                    var page = this.Session["pageJob"] as int?;
+                    var modell = this.Session["modelJobNew"] as SeachJobViewModel;
+                    if (modell != null)
+                        model = modell;
+                    model.PageNumber = page;
+                }
+                else if (mod != null && (mod.PriceMinSearch != model.PriceMinSearch || mod.PriceMaxSearch != model.PriceMaxSearch ||
+                  mod.TownSearch != model.TownSearch || mod.TypeContractJob != model.TypeContractJob ||
+                  mod.ActivitySectorJob != model.ActivitySectorJob ))
+                {
+                    this.Session["modelJobNew"] = model;
+                    model.PageNumber = pageNumber;
+                }
+
+            }
+
             model.CagtegorieSearch = "Emploi";
             model.SearchOrAskJobJob = "J'offre";
             model.sortBy = sortBy;
-            model.PageNumber = pageNumber;
+            
             List<JobModel> liste = dal.GetListJob().Where(m => m.Category.CategoryName == model.CagtegorieSearch && m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
 
             if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <=0 && string.IsNullOrWhiteSpace(model.TownSearch)

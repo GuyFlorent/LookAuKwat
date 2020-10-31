@@ -36,7 +36,7 @@
         integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
         crossorigin=""></script>
 
-<h2>Détails de l'annonce catégorie immobilier</h2>
+<h2>Détails de l'annonce catégorie immobilier 🏠 </h2>
 
 <div id="MyModalContactApart" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -61,9 +61,9 @@
 <section class="row">
 
     <section class="col-md-8">
-        <div class="col-md-12" style="border-radius: 15px;background:#a5b5c5;background: lightgray !important; ">
+       
             <div class="row">
-                <div id="myCarousel" class="carousel slide col-sm-12" data-ride="carousel">
+                <div id="myCarousel" class="carousel slide col-sm-12" data-interval="false">
 
                     <!-- Indicators -->
                     <ol class="carousel-indicators">
@@ -79,18 +79,18 @@
                         }
                     </ol>
                     <!-- Wrapper for slides -->
-                    <div class="carousel slide" data-ride="carousel">
+                    <div class="carousel slide" data-interval="false">
                         <div class="carousel-inner">
                             @{
 
                                 <div class="item active">
-                                    <a href="@Model.Images[0].Image" data-lightbox="mygallery"><img class="img-rounded img-responsive" src="@Model.Images[0].Image" alt="LookAuKwat" /></a>
+                                    <a href="@Model.Images[0].Image" data-lightbox="mygallery"><img class="img-rounded imgBanner" style="width:100%; height:300px !important;" src="@Model.Images[0].Image" alt="LookAuKwat" /></a>
 
                                 </div>
                                 for (int a = 1; a < Model.Images.Count; a++)
                                 {
                                     <div class="item ">
-                                        <a href="@Model.Images[a].Image" data-lightbox="mygallery"><img height="400" src="@Model.Images[a].Image" alt="LookAuKwat" class="img-rounded img-responsive" /></a>
+                                        <a href="@Model.Images[a].Image" data-lightbox="mygallery"><img style="width:100%; height:300px !important;" src="@Model.Images[a].Image" alt="LookAuKwat" class="img-rounded imgBanner" /></a>
 
                                     </div>
                                 }
@@ -112,14 +112,14 @@
             <div class="row">
                 <h3 class="product-title"><strong>@Model.Title</strong></h3>
                 <div>
-                    <label>Ajouté il y'a : </label>  @time.ToString() @period
+                    <label>Ajoutée il y'a : </label> <span style="color:forestgreen">@time.ToString() @period</span>
 
                 </div>
                 <div class="rating">
                     <span class="review-no"><strong>@Model.ViewNumber vues</strong></span>
                 </div>
             </div>
-        </div>
+        
 
         <hr />
         <div class="row">
@@ -159,11 +159,12 @@
         <hr />
         <div class="row">
             <label>Ville : </label> @Model.Town , <label>Adresse : </label> @Model.Street
-            <div id="mapidDetailsJob" style="height:250px;"></div>
+            <div id="mapidDetailsApart" style="height:250px;"></div>
         </div>
         <hr />
-        <div class="row">
-            Signaler l'annonce
+        <div class="row ">
+            <div class="col-xs-6 col-md-6"><strong>Signaler l'annonce</strong></div>
+            <div class="col-xs-6 col-md-6"><a href="mailto:contact@lookaukwat.com">contact@lookaukwat.com</a></div>
         </div>
         <hr />
         <div class="row">
@@ -193,7 +194,7 @@
         <div id="ajaxImotarget" class="row" style="border-radius: 25px;background: lightgray;padding: 20px;">
             <img src="https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg" alt="photo du publicateur" class="img-rounded" height="50" /> @Model.User.FirstName
             <hr />
-            <button id="sendApartMessage" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
+            <button id="sendApartMessage" class="btn btn-primary sendApartMessage"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
             <button id="iconApartCall" class="btn btn-default"><span class="glyphicon glyphicon-phone"></span> Voir le numéro</button>
             <a id="numApartCall" class="hidden" href="tel:@Model.User.PhoneNumber">@Model.User.PhoneNumber</a>
         </div>
@@ -206,12 +207,53 @@
     </section>
 </section>
 
+<section class="row">
+    <nav class="main-nav">
+        <ul>
+            @*<li>
+                    <a href="#">
+                        <i class="fa fa-cloud fa-2x"></i>
+                        <span class="nav-text">
+                            News and Weather
+                        </span>
+                    </a>
+                </li>*@
+
+
+
+            <li class="has-subnav">
+                <a href="tel:@Model.User.PhoneNumber">
+                    <i class="fa fa-phone fa-2x"></i>
+                    <span class="nav-text ">
+                        Téléphone
+                    </span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a href="#">
+                    @*<i class="fa fa-exclamation-triangle fa-2x"></i>*@
+                    <span class="nav-text">
+                        @*Dangers*@
+                    </span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a href="#">
+                    <i class="fa fa-envelope fa-2x"></i>
+                    <span class="nav-text sendApartMessage">
+                        Message
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</section>
+
 
 <script type="text/javascript">
     var model = @Html.Raw(Json.Encode(Model.Coordinate));
-    var mymap = L.map('mapidDetailsJob');
-    console.log(model.Lat)
-    console.log(model.Lon)
+    var mymap = L.map('mapidDetailsApart');
+    mymap.scrollWheelZoom.disable();
     mymap.setView([model.Lat, model.Lon], 13);
 
     L.marker([model.Lat, model.Lon])
@@ -241,7 +283,7 @@
             $(this).addClass("hidden");
             $('#numApartCall').removeClass("hidden");
         });
-        $('#sendApartMessage').click(function () {
+        $('.sendApartMessage').click(function () {
 
             $('#MyModalContactApart').modal();
         });
@@ -275,5 +317,23 @@
                 }
             ]
         });
+
+      
+        $(window).resize(function () {
+            console.log(pagesize)
+           if (pagesize > 578) {
+                $('.imgBanner').css('height', '400px')
+            }
+        });
+            respWhenResize();
+      
     })
+    function respWhenResize() {
+
+        if (pagesize < 578) {
+            $('.imgBanner').css('height', '300px')
+        } else if (pagesize > 578) {
+            $('.imgBanner').css('height', '800px')
+        }
+    }
 </script>

@@ -32,6 +32,10 @@
                         {
                             Html.RenderAction("VehiculeDetails_PartialView", "Vehicule", new { model = item });
                         }
+                        else if (@item.Category.CategoryName == "Mode")
+                        {
+                            Html.RenderAction("ModeDetails_PartialView", "Mode", new { model = item });
+                        }
 
                     }
                 </div>
@@ -65,6 +69,12 @@
                             Html.RenderAction("EditMultimedia_PartialView", "Multimedia", new { multi = item });
                         }
                         else if (@item.Category.CategoryName == "Vehicule")
+                        {
+                            //Html.RenderAction("EditMultimedia_PartialView", "Multimedia", new { multi = item });
+                            <p> Pas encore disponible pour le moment</p>
+                            <p> Supprimer et dépposer une nouvelle annonce s'il vous plait !</p>
+                        }
+                        else if (@item.Category.CategoryName == "Mode")
                         {
                             //Html.RenderAction("EditMultimedia_PartialView", "Multimedia", new { multi = item });
                             <p> Pas encore disponible pour le moment</p>
@@ -128,7 +138,29 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                       @{
+                           string catLogo = null;
+                           var cat = Html.DisplayFor(modelItem => item.Category.CategoryName).ToString();
+                           if(cat == "Emploi")
+                           {
+                               catLogo = "👷 Emploi";
+                           } else if(cat == "Immobilier")
+                           {
+                               catLogo = "🏠 Immobilier";
+                           } else if(cat == "Multimedia")
+                           {
+                               catLogo = "💻 Multimédia";
+                           }
+                           else if (cat == "Vehicule")
+                           {
+                               catLogo = "🚗 Véhicule";
+                           }
+                           else if (cat == "Mode")
+                           {
+                               catLogo = "👚 Mode";
+                           }
+                       } 
+                        @catLogo
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Title)

@@ -34,11 +34,41 @@ namespace LookAuKwat.Controllers
 
         public ActionResult searchOfferVehicule(SeachJobViewModel model, int? pageNumber, string sortBy)
         {
-            
+            if (pageNumber != null)
+            {
+                this.Session["pageVehicule"] = pageNumber;
+                
+                this.Session["modelVehicule"] = model;
+                var modell = this.Session["modelVehiculeNewModel"] as SeachJobViewModel;
+                if (modell != null)
+                    model = modell;
+                model.PageNumber = pageNumber;
+            }
+            else if (pageNumber == null)
+            {
+                var mod = this.Session["modelVehicule"] as SeachJobViewModel;
+                if (mod != null && mod.TownVehicule == model.TownVehicule && mod.RubriqueVehicule == model.RubriqueVehicule &&
+                    mod.BrandVehicule == model.BrandVehicule && mod.ModelVehicule == model.ModelVehicule)
+                {
+                    var page = this.Session["pageVehicule"] as int?;
+                    var modell = this.Session["modelVehiculeNewModel"] as SeachJobViewModel;
+                    if (modell != null)
+                        model = modell;
+                    model.PageNumber = page;
+                }
+                else if (mod != null && (mod.TownVehicule != model.TownVehicule || mod.RubriqueVehicule != model.RubriqueVehicule ||
+                  mod.BrandVehicule != model.BrandVehicule || mod.ModelVehicule != model.ModelVehicule ))
+                {
+                    this.Session["modelVehiculeNewModel"] = model;
+                    model.PageNumber = pageNumber;
+                }
+
+            }
+
             model.CagtegorieSearch = "Vehicule";
             model.SearchOrAskJobJob = "J'offre";
             model.sortBy = sortBy;
-            model.PageNumber = pageNumber;
+            
             List<VehiculeModel> liste = dal.GetListVehicule().Where(m => m.Category.CategoryName == model.CagtegorieSearch &&
             m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
 

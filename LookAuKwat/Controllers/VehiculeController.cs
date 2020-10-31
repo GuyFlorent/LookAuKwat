@@ -117,7 +117,7 @@ namespace LookAuKwat.Controllers
                     string userId = User.Identity.GetUserId();
                     ApplicationUser user = dal.GetUserByStrId(userId);
 
-                    var fullAddress = $"{model.Town + "," + model.Street + ",Cameroon"}";
+                    var fullAddress = $"{ model.Street /*+ model.Town + "," + ",Cameroon"*/}";
                     var response = await httpClient.GetAsync("https://api.opencagedata.com/geocode/v1/json?q=" + fullAddress + "&key=a196040df44a4a41a471173aed07635c");
 
                     if (response.IsSuccessStatusCode)

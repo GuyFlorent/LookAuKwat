@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using LookAuKwat.Models;
+using LookAuKwat.ViewModel;
 
 namespace LookAuKwat.Controllers
 {
@@ -79,9 +80,12 @@ namespace LookAuKwat.Controllers
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
                 {
-                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirmation d'email re-envoyer");
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirmation d'email re-envoyer",model.Email);
                     ViewBag.errorMessage = "vous devez avoir une adresse email confirmée avant de vous connecter.";
-                    return View("Error");
+                    return View("EmailError");
+
+                    //ViewBag.errorMessage = "vous devez avoir une adresse email confirmée avant de vous connecter.";
+                    //return View("Error");
                 }
             }
 
@@ -175,7 +179,7 @@ namespace LookAuKwat.Controllers
                      // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                      //await UserManager.SendEmailAsync(user.Id, "Confirmez votre compte", "Confirmez votre compte en cliquant <a href=\"" + callbackUrl + "\">ici</a>");
 
-                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirmez votre compte");
+                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirmez votre compte", model.Email);
 
                     ViewBag.Message = "Vérifier votre email et confirmer, vous devez absolument confirmer " +
                         "avant de vous connecter et déposer votre première annonce.";
@@ -193,13 +197,15 @@ namespace LookAuKwat.Controllers
         }
 
         //Using in confirm email and login befor confirming email
-        private async Task<string> SendEmailConfirmationTokenAsync(string userID, string subject)
+        private async Task<string> SendEmailConfirmationTokenAsync(string userID, string subject, string UserEmail)
         {
             string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
             var callbackUrl = Url.Action("ConfirmEmail", "Account",
                new { userId = userID, code = code }, protocol: Request.Url.Scheme);
-            await UserManager.SendEmailAsync(userID, subject,
-               "Confirmez votre compte en cliquant <a href=\"" + callbackUrl + "\">ici</a>");
+            var EmailUrl = new TemplateUrl() { Url = callbackUrl, EmailUser = UserEmail };
+            var html = TemplateEmailConfirmation.EmailRegisterConfirmation(this, "ConfirmationEmailTemplate_PartialView", EmailUrl);
+            await UserManager.SendEmailAsync(userID, subject,html);
+               //"Confirmez votre compte en cliquant <a href=\"" + callbackUrl + "\">ici</a>"); 
 
             return callbackUrl;
         }

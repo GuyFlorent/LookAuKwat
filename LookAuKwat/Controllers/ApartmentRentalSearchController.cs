@@ -35,10 +35,44 @@ namespace LookAuKwat.Controllers
         
         public ActionResult searchOfferAppart(SeachJobViewModel model, int? pageNumber, string sortBy)
         {
+            if (pageNumber != null)
+            {
+                this.Session["pageAppart"] = pageNumber;
+
+                this.Session["modelAppart"] = model;
+                var modell = this.Session["modelAppartNewModel"] as SeachJobViewModel;
+                if (modell != null)
+                    model = modell;
+                model.PageNumber = pageNumber;
+            }
+            else if (pageNumber == null)
+            {
+                var mod = this.Session["modelAppart"] as SeachJobViewModel;
+                if (mod != null && mod.PriceMinSearch == model.PriceMinSearch && mod.PriceMaxSearch == model.PriceMaxSearch && 
+                    mod.TownSearch == model.TownSearch && mod.MinApartSurface == model.MinApartSurface && mod.MaxApartSurface == model.MaxApartSurface
+                    && mod.FurnitureOrNot == model.FurnitureOrNot && mod.Type == model.Type && mod.RoomNumber == model.RoomNumber)
+                {
+                    var page = this.Session["pageAppart"] as int?;
+                    var modell = this.Session["modelAppartNewModel"] as SeachJobViewModel;
+                    if (modell != null)
+                        model = modell;
+                    model.PageNumber = page;
+                }
+                else if (mod != null && (mod.PriceMinSearch != model.PriceMaxSearch || mod.PriceMaxSearch != model.PriceMaxSearch ||
+                  mod.TownSearch != model.TownSearch || mod.MinApartSurface != model.MinApartSurface || mod.MaxApartSurface == model.MaxApartSurface
+                  || mod.FurnitureOrNot == model.FurnitureOrNot || mod.Type == model.Type || mod.RoomNumber == model.RoomNumber))
+                {
+                    this.Session["modelAppartNewModel"] = model;
+                    model.PageNumber = pageNumber;
+                }
+
+            }
+
+
             model.CagtegorieSearch = "Immobilier";
             model.SearchOrAskJobJob = "J'offre";
             model.sortBy = sortBy;
-            model.PageNumber = pageNumber;
+           
             List<ApartmentRentalModel> liste = dal.GetListAppart().Where(m => m.Category.CategoryName == model.CagtegorieSearch && m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
 
             if (model.PriceMinSearch <= 0 && model.PriceMaxSearch <= 0 && string.IsNullOrWhiteSpace(model.TownSearch)

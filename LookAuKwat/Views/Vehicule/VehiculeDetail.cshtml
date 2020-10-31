@@ -36,7 +36,7 @@
         integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
         crossorigin=""></script>
 
-<h2>Détails de l'annonce catégorie Véhicule</h2>
+<h2>Détails de l'annonce catégorie Véhicule 🚗 🏍</h2>
 <div id="MyModalContactJob" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -112,7 +112,7 @@
         <div class="row">
             <h3 class="product-title"><strong>@Model.Title</strong></h3>
             <div>
-                <label>Ajoutée il y'a : </label>  @time.ToString() @period
+                <label>Ajoutée il y'a : </label>  <span style="color:forestgreen">@time.ToString() @period</span>
 
             </div>
             <div class="rating">
@@ -142,11 +142,7 @@
                     <p><span>@Model.Price FCFA</span></p>
 
                 </div>
-                <div class="col-xs-6 col-sm-6 col-md-4">
-                    @Html.LabelFor(model => model.SearchOrAskJob, htmlAttributes: new { @class = "control-label " })
-                    <p>@Model.SearchOrAskJob</p>
 
-                </div>
                 <div class="col-xs-6 col-sm-6 col-md-4">
                     @Html.LabelFor(model => model.StateVehicule, htmlAttributes: new { @class = "control-label " })
                     <p>@Model.StateVehicule</p>
@@ -216,6 +212,11 @@
                         </div>
                     }
                 }
+                <div class="col-xs-6 col-sm-6 col-md-4">
+                    @Html.LabelFor(model => model.SearchOrAskJob, htmlAttributes: new { @class = "control-label " })
+                    <p>@Model.SearchOrAskJob</p>
+
+                </div>
             }
 
 
@@ -227,15 +228,17 @@
         <div class="row">
             <h3 class="product-title">Description</h3>
             <p class="product-description" style="white-space:pre-wrap">@Model.Description</p>
+
         </div>
         <hr />
         <div class="row">
             <label>Ville : </label> @Model.Town , <label>Adresse : </label> @Model.Street
-            <div id="mapidDetailsJob" style="height:250px;"></div>
+            <div id="mapidDetailsVehicule" style="height:250px;"></div>
         </div>
         <hr />
         <div class="row ">
-            <strong>Signaler l'annonce</strong>
+            <div class="col-xs-6 col-md-6"><strong>Signaler l'annonce</strong></div>
+            <div class="col-xs-6 col-md-6"><a href="mailto:contact@lookaukwat.com">contact@lookaukwat.com</a></div>
         </div>
         <hr />
         <div class="row">
@@ -252,6 +255,7 @@
                 <a href="whatsapp://send?text=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" data-action="share/whatsapp/share"><img alt="whatsapp" src="@Url.Content("~/UserImage/whatsapp.png ")" id="imgln" height="40" /></a>
             </p>
         </div>
+
         <hr />
         <h3>Quelques annonce similaire qui peuvent vous intéréssez</h3>
         <div class="row gallery MySlickCarouselJob">
@@ -265,7 +269,7 @@
         <div class="row" style="border-radius: 25px;background: lightgray;padding: 20px;">
             <img src="https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg" alt="photo du publicateur Lookaukwat" class="img-rounded" height="50" /> @Model.User.FirstName
             <hr />
-            <button id="sendJobMessage" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
+            <button id="sendJobMessage" class="btn btn-primary sendJobMessage"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
             <button id="iconJobCall" class="btn btn-default"><span class="glyphicon glyphicon-phone"></span> Voir le numéro</button>
             <a id="numJobCall" class="hidden" href="tel:@Model.User.PhoneNumber">@Model.User.PhoneNumber</a>
         </div>
@@ -274,18 +278,64 @@
                 Message envoyé avec succès !
                 Bonne chance à vous pour cet emploi
             </div>
+
         </div>
+        
     </section>
+
+    @*<section class=" col-md-12 row"><div class=" navbar-fixed-bottom">
+    <button type="button" class="col-md-6 btn ">Contact</button>
+    <button type="button" class=" col-md-6 btn">Appel</button>
+</div></section>*@
+   
 </section>
 
+<section class="row">
+    <nav class="main-nav">
+        <ul>
+            @*<li>
+            <a href="#">
+                <i class="fa fa-cloud fa-2x"></i>
+                <span class="nav-text">
+                    News and Weather
+                </span>
+            </a>
+        </li>*@
 
 
+
+            <li class="has-subnav">
+                <a href="tel:@Model.User.PhoneNumber">
+                    <i class="fa fa-phone fa-2x"></i>
+                    <span class="nav-text ">
+                        Téléphone
+                    </span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a href="#">
+                    @*<i class="fa fa-exclamation-triangle fa-2x"></i>*@
+                    <span class="nav-text">
+                        @*Dangers*@
+                    </span>
+                </a>
+            </li>
+            <li class="has-subnav">
+                <a href="#">
+                    <i class="fa fa-envelope fa-2x"></i>
+                    <span class="nav-text sendJobMessage">
+                        Message
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</section>
 
 <script type="text/javascript">
     var model = @Html.Raw(Json.Encode(Model.Coordinate));
-    var mymap = L.map('mapidDetailsJob');
-    console.log(model.Lat)
-    console.log(model.Lon)
+    var mymap = L.map('mapidDetailsVehicule');
+    mymap.scrollWheelZoom.disable();
     mymap.setView([model.Lat, model.Lon], 13);
 
     L.marker([model.Lat, model.Lon])
@@ -315,7 +365,7 @@
             $(this).addClass("hidden");
             $('#numJobCall').removeClass("hidden");
         });
-        $('#sendJobMessage').click(function () {
+        $('.sendJobMessage').click(function () {
 
             $('#MyModalContactJob').modal();
         });
