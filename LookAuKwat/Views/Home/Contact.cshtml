@@ -1,194 +1,182 @@
-﻿@{
-    ViewBag.Title = "Déposer une annoce sur lookaukwat";
+﻿@model LookAuKwat.ViewModel.contactUserViewModel
+@{
+    ViewBag.Title = "Nous contacter";
 }
-<div class="sect sect--padding-top">
+
+<!--/ Intro Single star /-->
+<section class="intro-single ">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <div class="site">
-                    <h1 class="site__title">Déposer une annonce sur LookAuKwat?</h1>
-                    <h2 class="site__subtitle">Choisir une catégorie</h2>
-                    
+            <div class="col-md-12 col-lg-8">
+                <div class="title-single-box">
+                    <h1 class="title-single"><strong>N</strong><strong>o</strong><strong>u</strong><strong>s</strong><strong> C</strong><strong>o</strong><strong>n</strong><strong>t</strong><strong>a</strong><strong>c</strong><strong>t</strong><strong>e</strong><strong>r</strong></h1>
+                    <div class="row">
+                        <h3>Vous souhaitez obtenir plus d'informations sur une annonce ?</h3>
+                        <p>
+                            <img src="@Url.Content("~/UserImage/main_direction.png")" alt="" height="20" />
+                            Contactez le propriétaire via les coordonnées affichées sur les pages annonces
+                        </p>
+                    </div>
+                    <div class="row">
+                        <h3>
+                            Pour toute autre demande concernant le site internet <strong>Lookaukwat</strong>...</h3>
+                        <p>
+                            <img src="@Url.Content("~/UserImage/main_ecrit.png")" alt="" height="20" />
+                            Utilisez le formulaire de contact suivant :
+                        </p>
+                     </div>
                 </div>
             </div>
+            @*<div class="col-md-12 col-lg-4">
+                    <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="index.html">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                Contact
+                            </li>
+                        </ol>
+                    </nav>
+                </div>*@
         </div>
     </div>
-</div>
-<section class="row">
-    <div class="row">
-        <div class=" col-md-offset-5 form-group">
-            
-            <select class="form-control Addcategory" id="selectAddId" data-show-icon="true">
-                <option>≡ Choisir une catégorie</option>
-                <option data-content="<i class='glyphicon glyphicon-briefcase'></i>">👷 Emploi</option>
-                <option data-content="<i class='glyphicon glyphicon-home'></i>">🏠 Immobilier</option>
-                <option data-content="<i class='glyphicon glyphicon-home'></i>">💻 Multimédia</option>
-                <option data-content="<i class='glyphicon glyphicon-home'></i>">🚗 Véhicule</option>
-                <option data-content="<i class='glyphicon glyphicon-home'></i>">👚 Mode</option>
-            </select>
-        </div>
-    </div>
-    <div class="row">
-        <div id="MyModalAddJob" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" style="color:coral">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Ajouter ou chercher tout type d'emploi<span id="eventTitle"></span></h4>
+</section>
+<!--/ Intro Single End /-->
+<!--/ Contact Star /-->
+<section class="contact">
+    <div class="container">
+        <div class="row">
+            @*<div class="col-sm-12">
+                    <div class="contact-map box">
+                        <div id="map" class="contact-map">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.1422937950147!2d-73.98731968482413!3d40.75889497932681!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes+Square!5e0!3m2!1ses-419!2sve!4v1510329142834"
+                                    width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        </div>
                     </div>
-                    <div class="modal-body">
+                </div>*@
+            <div class="col-sm-12 section-t8">
+                <div class="row">
+                    <div class="col-md-7">
 
-                        @{
-                            Html.RenderAction("AddJobs_PartialView", "Job");
+                        @using( Html.BeginForm("ContactUs", "Product", new { RecieverEmail = "contact@lookaukwat.com", RecieverName = "Lookaukwat", Linkshare = "" }, FormMethod.Post, new { @class = "form-a contactForm " }))
+                       
+                        {
+
+                        @Html.AntiForgeryToken()
+                        <div id="sendmessage" class="text-success">@ViewBag.text</div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    @Html.EditorFor(model => model.NameSender, new { htmlAttributes = new { @class = "form-control form-control-lg form-control-a", placeholder = "Votre Nom" } })
+                                    @Html.ValidationMessageFor(model => model.NameSender, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    @Html.EditorFor(model => model.EmailSender, new { htmlAttributes = new { @class = "form-control form-control-lg form-control-a", placeholder = "Votre Email" } })
+                                    @Html.ValidationMessageFor(model => model.EmailSender, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                       
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.EditorFor(model => model.SubjectSender, new { htmlAttributes = new { @class = "form-control form-control-lg form-control-a", placeholder = "Votre Sujet" } })
+                                    @Html.ValidationMessageFor(model => model.SubjectSender, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-12 ">
+                                <div class="form-group">
+                                    @Html.TextAreaFor(model => model.Message,  new { @class = "form-control", placeholder = "Message", @cols = "45", @rows = "8" })
+                                    @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-a">Envoyer le Message</button>
+                            </div>
+                       </div>
                         }
-
+                       
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div id="MyModalAddApartment" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" style="color:darkturquoise">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Ajouter ou chercher tout type de biens immobiliers<span id="eventTitle"></span></h4>
-                    </div>
-                    <div class="modal-body">
-
-                        @{
-                            Html.RenderAction("AddApartment_PartialView", "ApartmentRental");
-                        }
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div id="MyModalAddMultimedia" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" style="color:Highlight">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Ajouter ou chercher tout type de biens multimédia<span id="eventTitle"></span></h4>
-                    </div>
-                    <div class="modal-body">
-
-                        @{
-                            Html.RenderAction("AddMultimedia_PartialView", "Multimedia");
-                        }
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div id="MyModalAddVehicule" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" style="color:Highlight">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Ajouter ou chercher tout type de biens dans les Véhicule<span id="eventTitle"></span></h4>
-                    </div>
-                    <div class="modal-body">
-
-                        @{
-                            Html.RenderAction("AddVehicule_PartialView", "Vehicule");
-                        }
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div id="MyModalAddMode" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" style="color:Highlight">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Ajouter ou chercher tout type de biens dans la Mode<span id="eventTitle"></span></h4>
-                    </div>
-                    <div class="modal-body">
-
-                        @{
-                            Html.RenderAction("AddMode_PartialView", "Mode");
-                        }
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    <div class="col-md-5 section-md-t3">
+                        <div class="icon-box section-b2">
+                            <div class="icon-box-icon">
+                                <span class="ion-ios-paper-plane"></span>
+                            </div>
+                            <div class="icon-box-content table-cell">
+                                <div class="icon-box-title">
+                                    <h4 class="icon-title"><span class="glyphicon glyphicon-send"></span> Dites Bonjour !</h4>
+                                </div>
+                                <div class="icon-box-content">
+                                    <p class="mb-1">
+                                        Email :
+                                        <span class="color-a"> contact@lookaukwat.com</span>
+                                    </p>
+                                    <p class="mb-1">
+                                        Téléphone/WhatSapp : 
+                                        <span class="color-a"> +237 6 57633039</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="icon-box section-b2">
+                           
+                            <div class="icon-box-content table-cell">
+                                <div class="icon-box-title">
+                                    <h4 class="icon-title"><i class="glyphicon glyphicon-map-marker"></i> Trouvez nous</h4>
+                                </div>
+                                <div class="icon-box-content">
+                                    <p class="mb-1">
+                                        Oyom-Abang, Yaoundé,
+                                        <br> Cameroun.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="icon-box">
+                           
+                            <div class="icon-box-content table-cell">
+                                <div class="icon-box-title">
+                                    <h4 class="icon-title"><span class="glyphicon glyphicon-share-alt"></span> Réseau social</h4>
+                                </div>
+                                <div class="icon-box-content">
+                                    <div class="socials-footer">
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <a href="https://www.facebook.com/Lookaukwat" class="link-one">
+                                                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="https://wa.me/237657633039" class="link-one">
+                                                    <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            
+                                            <li class="list-inline-item">
+            <a href="https://www.instagram.com/invites/contact/?i=1kob8nkudjdfs&utm_content=k98vom3" class="link-one">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li class="list-inline-item">
+            <a href="https://www.youtube.com/channel/UC_KQiclyZwb7Dji-Ixz3rxw" class="link-one">
+                <i class="fa fa-youtube" aria-hidden="true"></i>
+            </a>
+        </li>
+        @*<li class="list-inline-item">
+            <a href="#" class="link-one">
+                <i class="fa fa-dribbble" aria-hidden="true"></i>
+            </a>
+        </li>*@
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<hr />
-<section>
-    <div class="col-md-12">
-        <div class=" row">
-            <p>En <strong>version mobile</strong>, pour modifier <span class="btn btn-success glyphicon glyphicon-edit"></span> , voir les détails <span class="btn btn-danger glyphicon glyphicon-eye-open"></span>
-             et supprimer <span class="btn btn-danger glyphicon glyphicon-trash"></span> les annonces, il faut juste parcourir tout le tableau de la gauche vers la droite</p>
-        </div>
-        <div class="row" style="height:7px">
-            <div class="row alert alert-success js-alert hidden" role="alert">
-                Annonce ajoutée avec succès dans la liste !
-            </div>
-            <div class="row alert alert-success js-alert-Edit-product hidden" role="alert">
-                Annonce Modifiée avec succès dans la liste !
-            </div>
-            <div class="row alert alert-danger js-alert-delete-Initiative hidden" role="alert">
-                Annonce supprimée avec succès dans la liste !
-            </div>
-        </div>
-        <br />
-        <br />
-
-        @{
-            Html.RenderAction("GetListProductByUser_PartialView", "User");
-        }
-    </div>
-</section>
-
-<script type="text/javascript">
-    $(function () {
-        $("select.Addcategory").change(function () {
-            var select = $(this).children("option:selected").val();
-            console.log(select)
-            if (select == "👷 Emploi") {
-                $('#MyModalAddJob').modal();
-            } else if (select == "🏠 Immobilier") {
-                $('#MyModalAddApartment').modal();
-
-            } else if (select == "💻 Multimédia") {
-                $('#MyModalAddMultimedia').modal();
-
-            } else if (select == "🚗 Véhicule") {
-                $('#MyModalAddVehicule').modal();
-
-            } else if (select == "👚 Mode") {
-                $('#MyModalAddMode').modal();
-
-            }
-        });
-
-        
-    });
-</script>
+<!--/ Contact End /-->

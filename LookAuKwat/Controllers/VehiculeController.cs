@@ -65,6 +65,7 @@ namespace LookAuKwat.Controllers
             ModeleList.Add(Vehi.ModelVehiculeMazda);
             ModeleList.Add(Vehi.ModelVehiculeMercedes);
             ModeleList.Add(Vehi.ModelVehiculeToyota);
+           
           
             string Model = null;
             foreach (var modell in ModeleList)
@@ -98,8 +99,6 @@ namespace LookAuKwat.Controllers
                 NumberOfDoorVehicule = Vehi.NumberOfDoorVehicule,
                 ColorVehicule = Vehi.ColorVehicule,
                 GearBoxVehicule = Vehi.GearBoxVehicule,
-                ModelAccessoryAutoVehicule = Vehi.ModelVehiculeAutoEquipment,
-                ModelAccessoryBikeVehicule = Vehi.ModelVehiculeBikeEquipment,
                 DateAdd = DateTime.Now,
                 SearchOrAskJob = Vehi.SearchOrAskJobVehicule,
                 StateVehicule = Vehi.StateVehicule

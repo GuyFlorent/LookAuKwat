@@ -23,7 +23,7 @@ namespace LookAuKwat.ViewModel
         [Required(ErrorMessage = "L'adresse ne doit pas être vide")]
         [DisplayName("Quartier*")]
         public string StreetMultimedia { get; set; }
-
+        [Range(0, int.MaxValue, ErrorMessage = "seule les valeurs positives sont acceptées")]
         [DisplayName("Prix (FCFA)")]
         public int PriceMultimedia { get; set; }
         public DateTime DateAdd { get; set; }

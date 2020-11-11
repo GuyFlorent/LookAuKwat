@@ -4,6 +4,7 @@ using PagedList;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -17,8 +18,10 @@ namespace LookAuKwat.ViewModel
         public string TownSearch { get; set; }
         [DisplayName("Lieu")]
         public string StreetSearch { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "seule les valeurs positives sont acceptées")]
         [DisplayName("Salaire min")]
         public int PriceMinSearch { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "seule les valeurs positives sont acceptées")]
         [DisplayName("Salaire max")]
         public int PriceMaxSearch { get; set; }
         
@@ -50,8 +53,8 @@ namespace LookAuKwat.ViewModel
         //for multimedia
         [DisplayName("Ville*")]
         public string TownMultimedia { get; set; }
-        
 
+        [Range(0, int.MaxValue, ErrorMessage = "seule les valeurs positives sont acceptées")]
         [DisplayName("Prix maximal")]
         public int PriceMultimedia { get; set; }
         [DisplayName("Rubrique")]
@@ -82,6 +85,7 @@ namespace LookAuKwat.ViewModel
         // for mode
         [DisplayName("Ville")]
         public string TownMode { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "seule les valeurs positives sont acceptées")]
         [DisplayName("Prix max")]
         public int PriceMode { get; set; }
         [DisplayName("Rubrique")]

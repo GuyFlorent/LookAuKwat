@@ -87,9 +87,10 @@ namespace LookAuKwat.ViewModel
                  new SelectListItem() { Text = "Figuil", Value = "Figuil" },
                 new SelectListItem() { Text = "Makénéné", Value = "Makénéné" },
                  new SelectListItem() { Text = "Gazawa", Value = "Gazawa" },
-                new SelectListItem() { Text = "Tcholliré", Value = "Tcholliré" }
+                new SelectListItem() { Text = "Tcholliré", Value = "Tcholliré" },
+                new SelectListItem() { Text = "Edéa", Value = "Edéa" }
             };
-            return list;
+            return list.OrderBy(m =>m.Value);
         }
 
         public static IEnumerable<SelectListItem> ChooseSearchOrAsk()
@@ -129,13 +130,25 @@ namespace LookAuKwat.ViewModel
         {
             IList<SelectListItem> list = new List<SelectListItem>()
             {
+                 new SelectListItem() { Text = "Ingénieur", Value = "Ingénieur" },
                  new SelectListItem() { Text = "Agriculture", Value = "Agriculture" },
                 new SelectListItem() { Text = "Immobilier", Value = "Immobilier" },
+                new SelectListItem() { Text = "Corp médicale", Value = "Corp médicale" },
                  new SelectListItem() { Text = "Enseignement", Value = "Enseignement" },
                 new SelectListItem() { Text = "Hôtellerie/Restauration", Value = "Hôtellerie/Restauration" },
                 new SelectListItem() { Text = "Sport", Value = "Sport" },
                  new SelectListItem() { Text = "Technique", Value = "Technique" },
+                 new SelectListItem() { Text = "Maçonnerie", Value = "Maçonnerie" },
+                 new SelectListItem() { Text = "Couture", Value = "Couture" },
+                 new SelectListItem() { Text = "Sérigraphie", Value = "Sérigraphie" },
+                 new SelectListItem() { Text = "Infographie", Value = "Infographie" },
+                 new SelectListItem() { Text = "Electricien", Value = "Electricien" },
+                 new SelectListItem() { Text = "Mécanicien", Value = "Mécanicien" },
+                 new SelectListItem() { Text = "Taximan", Value = "Taximan" },
+                 new SelectListItem() { Text = "Bensikineur", Value = "Bensikineur" },
+                 new SelectListItem() { Text = "Comptable", Value = "Comptable" },
                  new SelectListItem() { Text = "Service à la personne", Value = "Service à la personne" },
+                 new SelectListItem() { Text = "Prestation de service", Value = "Prestation de service" },
                  new SelectListItem() { Text = "Autre", Value = "Autre" }
             };
             return list;
@@ -809,6 +822,23 @@ namespace LookAuKwat.ViewModel
 
             return list.DistinctBy(x =>x.Text);
         }
+    }
+
+    public class SelectListItemComparer : IEqualityComparer<SelectListItem>
+    {
+        public bool Equals(SelectListItem x, SelectListItem y)
+        {
+            return x.Text == y.Text && x.Value == y.Value;
+        }
+
+        public int GetHashCode(SelectListItem item)
+        {
+            int hashText = item.Text == null ? 0 : item.Text.GetHashCode();
+            int hashValue = item.Value == null ? 0 : item.Value.GetHashCode();
+            return hashText ^ hashValue;
+        }
+
+
     }
 
 }

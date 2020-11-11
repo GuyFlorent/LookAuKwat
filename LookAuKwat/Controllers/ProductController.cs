@@ -447,23 +447,23 @@ namespace LookAuKwat.Controllers
                 {
                     case "Price desc":
                         modelresult.ListePro = modelresult.ListePro.OrderByDescending(m => m.Price).ToList();
-                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 2);
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
                         break;
                     case "Price asc":
                         modelresult.ListePro = modelresult.ListePro.OrderBy(m => m.Price).ToList();
-                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 2);
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
                         break;
                     case "date desc":
                         modelresult.ListePro = modelresult.ListePro.OrderByDescending(m => m.id).ToList();
-                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 2);
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
                         break;
                     case "date asc":
                         modelresult.ListePro = modelresult.ListePro.OrderBy(m => m.id).ToList();
-                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 2);
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
                         break;
                     default:
                         modelresult.ListePro = modelresult.ListePro.OrderByDescending(x => x.id).ToList();
-                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 2);
+                        modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
                         break;
                 }
                 return PartialView(modelresult);
@@ -742,11 +742,35 @@ namespace LookAuKwat.Controllers
             return PartialView("ContactProductUser_PartialView",vm);
         }
 
-      
+        [HttpPost]
+        public async Task<ActionResult> ContactUs(contactUserViewModel vm)
+        {
+            string text = null;
+            if (ModelState.IsValid)
+            {
+                try
+                {
+
+
+                   await configSendGridasync(vm);
+                    
+                    text = "Message envoyé avec succès ";
+                }
+                catch (Exception ex)
+                {
+                    ModelState.Clear();
+                    text = $" désolé il y'a un problème {ex.Message}";
+                }
+            }
+
+            return RedirectToAction("Contact", "Home", new { text = text });
+        }
+
         private async Task configSendGridasync(contactUserViewModel message)
         {
 
             
+
             var apikey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
             //var apiKey = ConfigurationManager.AppSettings["mailPasswordSendGrid"];
             var client = new SendGridClient(apikey);

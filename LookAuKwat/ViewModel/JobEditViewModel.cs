@@ -22,6 +22,7 @@ namespace LookAuKwat.ViewModel
         [DisplayName("Quartier *")]
         public string StreetJob { get; set; }
         [Required(ErrorMessage = "Le salaire ne doit pas être vide")]
+        [Range(0, int.MaxValue, ErrorMessage = "seule les valeurs positives sont acceptées")]
         [DisplayName("Salaire *")]
         public int PriceJob { get; set; }
         public DateTime DateAddJob { get; set; }

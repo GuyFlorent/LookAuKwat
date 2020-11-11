@@ -1,4 +1,5 @@
 ﻿using LookAuKwat.Models;
+using LookAuKwat.ViewModel;
 //using LookAuKwat.SignalR.Hubs;
 using Microsoft.AspNet.Identity;
 using System;
@@ -35,16 +36,21 @@ namespace LookAuKwat.Controllers
             return View(user);
         }
         [Authorize]
-        public ActionResult Contact()
+        public ActionResult UserProfile()
         {
-            ViewBag.Message = "Your contact page.";
-
+           
             return View();
         }
 
         public ActionResult LegalMention()
         {
            
+            return View();
+        }
+
+        public ActionResult Contact(string text)
+        {
+            ViewBag.text = text;
             return View();
         }
     }

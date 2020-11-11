@@ -32,9 +32,9 @@ namespace LookAuKwat.Models
         public string StateVehicule { get; set; }
         [DisplayName("Transmission")]
         public string GearBoxVehicule { get; set; }
-        [DisplayName("Modèle")]
-        public string ModelAccessoryAutoVehicule { get; set; }
-        [DisplayName("Modèle")]
-        public string ModelAccessoryBikeVehicule { get; set; }
+        //[DisplayName("Modèle")]
+        //public string ModelAccessoryAutoVehicule { get; set; }
+        //[DisplayName("Modèle")]
+        //public string ModelAccessoryBikeVehicule { get; set; }
     }
 }

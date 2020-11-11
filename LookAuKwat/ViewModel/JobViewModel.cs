@@ -23,7 +23,7 @@ namespace LookAuKwat.ViewModel
         [Required(ErrorMessage = "L'adresse ne doit pas être vide")]
         [DisplayName("Quartier*")]
         public string Street { get; set; }
-        
+        [Range(0, int.MaxValue, ErrorMessage = "seule les valeurs positives sont acceptées")]
         [DisplayName("Salaire (FCFA)")]
         public int Price { get; set; }
         public string DateAdd { get; set; }

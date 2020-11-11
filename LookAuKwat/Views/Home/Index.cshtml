@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Lookaukwat, site de petites annonces gratuites au cameroun";
 }
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
@@ -72,8 +72,8 @@
             <div class="col-md-12">
                 <div class="site">
                     <h1 class="site__title">Vous recherchez des offres ou des demandes sur LookAuKwat?</h1>
-                    <h2 class="site__subtitle">Trouver de bonnes affaires</h2>
-                    <a href="@Url.Action("Contact", "Home")" class=" btn btn-success">Déposer une annonce <span class="ico">+</span></a>
+                    <h2 class="site__subtitle">Trouver de bonnes affaires sur <strong>lookaukwat</strong></h2>
+                    <a href="@Url.Action("UserProfile", "Home")" class=" btn btn-success">Déposer une annonce <span class="ico">+</span></a>
                     <br /> <hr />
                     <div class="site__box-link">
                         @*<a class="btn btn--width" href="">Offres</a>
@@ -104,13 +104,13 @@
                 <div class="form-group">
                     <label for="selectCategory">Vous êtes dans les <strong>offres</strong>. Pour plus de filtre veuillez Choisir une catégorie :</label>
                     <select class="form-control searchcategory" data-show-icon="true" name="categori" id="categori">
-                        <option>≡ Catégories</option>
-                        <option>≡Toutes les catégories</option>
-                        <option data-content="<i class='glyphicon glyphicon-briefcase'></i>">👷 Emploi</option>
-                        <option data-content="<i class='glyphicon glyphicon-home'></i>">🏠 Immobilier</option>
-                        <option data-content="<i class='glyphicon glyphicon-home'></i>">💻 Multimédia</option>
-                        <option data-content="<i class='glyphicon glyphicon-home'></i>">🚗 Véhicule</option>
-                        <option data-content="<i class='glyphicon glyphicon-home'></i>">👚 Mode</option>
+                        <option value="≡ Catégories" selected>≡ Catégories</option>
+                        <option value="≡Toutes les catégories">≡Toutes les catégories</option>
+                        <option value="👷 Emploi">👷 Emploi</option>
+                        <option value="🏠 Immobilier">🏠 Immobilier</option>
+                        <option value="💻 Multimédia">💻 Multimédia</option>
+                        <option value="🚗 Véhicule">🚗 Véhicule</option>
+                        <option value="👚 Mode">👚 Mode</option>
                     </select>
                 </div>
                 <div id="JobId" class="hidden formulaire">
@@ -222,8 +222,9 @@
                     }
                 </div>
                 <div class="col-md-6">
-                    @*<h1> totot ndc</h1>
-                        ici les prochun code pour les publicités*@
+                  <div class="row text-center">
+                      <a href="https://lookaukwat.azurewebsites.net/Job/JobDetail/27"><img src="@Url.Content("~/UserImage/PUB_PAPA.gif")" width="330" alt="lookaukwat géomètre" /></a>
+                  </div>
                 </div>
             </div>
 
@@ -344,20 +345,31 @@
 
         })
 
-        //var select = $("select.searchcategory").children("option:selected").val();
-        //consoloe.log(select);
-        //if (select == "Choisir une catégorie" || select == "" || select == null) {
-        //    $('#VehiculeId').addClass('hidden');
+        
+
+        //var select = $("#categori").val();
+      
+        //if (select == "≡ Catégories" || select == "" || select == null) {
         //    $('#MultimediaId').addClass('hidden');
-        //    $('#jobSectionResult').addClass('hidden');
+        //    $('#JobId').addClass('hidden');
+        //    $('#ImmobilierId').addClass('hidden');
+        //    $('#ModeId').addClass('hidden');
+        //    $('#VehiculeId').addClass('hidden');
         //    $('#AllCategoryResult').addClass('hidden');
+        //    $('#jobSectionResult').addClass('hidden');
         //}
 
         $("select.searchcategory").change(function () {
-            var select = $(this).children("option:selected").val();
-
+            var select = $("#categori").val();
+           
             if (select == "≡ Catégories" || select == "" || select == null) {
-
+                //$('#MultimediaId').addClass('hidden');
+                //$('#JobId').addClass('hidden');
+                //$('#ImmobilierId').addClass('hidden');
+                //$('#ModeId').addClass('hidden');
+                //$('#VehiculeId').addClass('hidden');
+                //$('#AllCategoryResult').addClass('hidden');
+                //$('#jobSectionResult').addClass('hidden');
                 localStorage.setItem("VehiculeResultHidden", "true");
                 localStorage.setItem("ModeResultHidden", "true");
                 localStorage.setItem("MultimediaResultHidden", "true");

@@ -24,6 +24,7 @@ namespace LookAuKwat.ViewModel
         [DisplayName("Quartier*")]
         public string StreetAppart { get; set; }
         [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "seule les valeurs positives sont acceptées")]
         [DisplayName("Prix(FCFA)")]
         public int PriceAppart { get; set; }
         public DateTime DateAddAppart { get; set; }

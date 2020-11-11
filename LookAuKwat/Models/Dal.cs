@@ -460,8 +460,8 @@ namespace LookAuKwat.Models
             model.NumberOfDoorVehicule = Vehi.NumberOfDoorVehicule;
             model.ColorVehicule = Vehi.ColorVehicule;
             model.GearBoxVehicule = Vehi.GearBoxVehicule;
-            model.ModelAccessoryAutoVehicule = Vehi.ModelAccessoryAutoVehicule;
-            model.ModelAccessoryBikeVehicule = Vehi.ModelAccessoryBikeVehicule;
+            //model.ModelAccessoryAutoVehicule = Vehi.ModelAccessoryAutoVehicule;
+            //model.ModelAccessoryBikeVehicule = Vehi.ModelAccessoryBikeVehicule;
             model.DateAdd = DateTime.Now;
             model.SearchOrAskJob = Vehi.SearchOrAskJob;
 

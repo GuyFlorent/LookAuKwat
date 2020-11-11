@@ -239,6 +239,10 @@
     <Compile Include="Migrations\202010271600136_ModeModel.Designer.cs">
       <DependentUpon>202010271600136_ModeModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011091308424_removePropertyVehicule.cs" />
+    <Compile Include="Migrations\202011091308424_removePropertyVehicule.Designer.cs">
+      <DependentUpon>202011091308424_removePropertyVehicule.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApartmentRentalModel.cs" />
@@ -307,7 +311,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="UserImage\adama_sanogo.jpg" />
     <Content Include="UserImage\ajax-loader.gif" />
+    <Content Include="UserImage\Alain.jpg" />
     <Content Include="UserImage\appartement-a-louer-2.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -320,6 +326,7 @@
     <Content Include="UserImage\googlePlus.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="UserImage\guy.jpg" />
     <Content Include="UserImage\ico.jpg" />
     <Content Include="UserImage\Instagram.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -329,10 +336,12 @@
     </Content>
     <Content Include="UserImage\logo_lookaukwat.png" />
     <Content Include="UserImage\logo_lookaukwat2.png" />
-    <Content Include="UserImage\lookaukwat_logo.jpg" />
+    <Content Include="UserImage\main_direction.png" />
+    <Content Include="UserImage\main_ecrit.png" />
     <Content Include="UserImage\notify.mp3" />
     <Content Include="UserImage\notify.ogg" />
     <Content Include="UserImage\notify.wav" />
+    <Content Include="UserImage\PUB_PAPA.gif" />
     <Content Include="UserImage\terrain-construction6.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -366,7 +375,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\UserProfile.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -424,6 +433,7 @@
     <Content Include="Views\Shared\EmailError.cshtml" />
     <Content Include="Views\ModeOfferSearch\SearchOfferMode_PartialView.cshtml" />
     <Content Include="Views\Mode\ModeDetail.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -471,6 +481,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010271600136_ModeModel.resx">
       <DependentUpon>202010271600136_ModeModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011091308424_removePropertyVehicule.resx">
+      <DependentUpon>202011091308424_removePropertyVehicule.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

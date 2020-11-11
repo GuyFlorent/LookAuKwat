@@ -1,7 +1,7 @@
 ﻿@model LookAuKwat.Models.JobModel
 @using System.Globalization;
 @{
-    ViewBag.Title = "Détails de l'annonce catégorie emploi";
+    ViewBag.Title =Model.Title+" "+Model.Street;
 }
 
 @{
@@ -85,13 +85,13 @@
                         @{
 
                             <div class="item active ">
-                                <a href="@Model.Images[0].Image" data-lightbox="mygallery"><img class="img-rounded img-responsive" src="@Model.Images[0].Image" alt="LookAuKat" /></a>
+                                <a href="@Model.Images[0].Image" data-lightbox="mygallery"><img class="img-rounded img-responsive" src="@Model.Images[0].Image" alt="Emploi @Model.SearchOrAskJob @Model.ActivitySector @Model.TypeContract LookAuKat" /></a>
 
                             </div>
                             for (int a = 1; a < Model.Images.Count; a++)
                             {
                                 <div class="item ">
-                                    <a href="@Model.Images[a].Image" data-lightbox="mygallery"><img src="@Model.Images[a].Image" alt="LookAuKat" class="img-rounded img-responsive" /></a>
+                                    <a href="@Model.Images[a].Image" data-lightbox="mygallery"><img src="@Model.Images[a].Image" alt="Emploi @Model.SearchOrAskJob @Model.ActivitySector @Model.TypeContract LookAuKat" class="img-rounded img-responsive" /></a>
 
                                 </div>
                             }
@@ -123,24 +123,24 @@
         <div class="row">
 
             <div class=" col-xs-6 col-sm-6 col-md-6">
-                @Html.LabelFor(model => model.ActivitySector, htmlAttributes: new { @class = "control-label " })
-                <p>@Model.ActivitySector</p>
+                @Html.LabelFor(model => model.ActivitySector, htmlAttributes: new { @class = "control-label labelColor" })
+                <p><strong>@Model.ActivitySector</strong></p>
 
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6">
-                @Html.LabelFor(model => model.TypeContract, htmlAttributes: new { @class = "control-label " })
-                <p>@Model.TypeContract</p>
+                @Html.LabelFor(model => model.TypeContract, htmlAttributes: new { @class = "control-label labelColor" })
+                <p><strong>@Model.TypeContract</strong></p>
 
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 price">
-                <label class="control-label">Salaire</label>
+                <label class="control-label labelColor">Salaire</label>
 
                 <p><span>@Model.Price FCFA</span></p>
 
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6">
-                @Html.LabelFor(model => model.SearchOrAskJob, htmlAttributes: new { @class = "control-label " })
-                <p>@Model.SearchOrAskJob</p>
+                @Html.LabelFor(model => model.SearchOrAskJob, htmlAttributes: new { @class = "control-label labelColor" })
+                <p><strong>@Model.SearchOrAskJob</strong></p>
 
             </div>
 
@@ -153,13 +153,13 @@
         </div>
         <hr />
         <div class="row">
-            <label>Ville : </label> @Model.Town , <label>Adresse : </label> @Model.Street
+            <label class="labelColor">Ville : </label><strong>@Model.Town</strong>, <label class="labelColor">Adresse : </label><strong>@Model.Street</strong> 
             <div id="mapidDetailsJob" style="height:250px;"></div>
         </div>
         <hr />
         <div class="row ">
             <div class="col-xs-6 col-md-6"><strong>Signaler l'annonce</strong></div>
-            <div class="col-xs-6 col-md-6"><a href="mailto:contact@lookaukwat.com">contact@lookaukwat.com</a></div>
+            <div class="col-xs-6 col-md-6"><a href="@Url.Action("Contact", "Home")">Ici</a></div>
         </div>
         <hr />
         <div class="row">

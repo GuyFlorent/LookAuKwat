@@ -182,7 +182,7 @@
         <div class="form-group hidden" id="DescriptionVehiculeDiv">
             @Html.LabelFor(model => model.DescriptionVehicule, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-8">
-                @Html.TextAreaFor(model => model.DescriptionVehicule, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.DescriptionVehicule,  new { @class = "form-control", @cols = "45", @rows = "5" })
                 @Html.ValidationMessageFor(model => model.DescriptionVehicule, "", new { @class = "text-danger" })
             </div>
             <p class="col-md-2" id="spanMultimediaDescription" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
@@ -738,14 +738,14 @@
 
 
         $('#btnAddVehicule').click(function () {
-            var x = document.forms["vehiculeform"]["TypeMultimedia"].value;
+           
             var y = document.forms["vehiculeform"]["TitleVehicule"].value;
             var z = document.forms["vehiculeform"]["DescriptionVehicule"].value;
             var u = document.forms["vehiculeform"]["StreetVehicule"].value;
             
+   
 
-
-            if (x !== "" && y !== "" && z !== "" && u !== "") {
+            if ( y !== "" && z !== "" && u !== "") {
 
                 $('#MyModalAddVehicule').modal('hide');
                 $(".js-alert").removeClass('hidden').delay(5000).queue(function () {

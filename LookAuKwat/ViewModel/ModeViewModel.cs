@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -14,7 +15,8 @@ namespace LookAuKwat.ViewModel
         public string SearchOrAskMode { get; set; }
         [DisplayName("Ville")]
         public string TownMode { get; set; }
-        [DisplayName("Prix")]
+        [Range(0, int.MaxValue, ErrorMessage = "seule les valeurs positives sont acceptées")]
+        [DisplayName("Prix(CFA)")]
         public int PriceMode { get; set; }
         [DisplayName("Titre de l'annoce")]
         public string TitleMode { get; set; }

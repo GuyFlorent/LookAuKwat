@@ -7,7 +7,7 @@
 
         @*<ul class="header__menu">*@
         <li class="header__el header__el--blue">
-            <a href="@Url.Action("UserDetails", "User", new {title = "Manage" })" class="btn btn--white">Hello @User.Identity.GetUserName()!</a>
+            <a href="@Url.Action("UserDetails", "User", new {title = "Manage" })" class="btn btn--white">@User.Identity.GetUserName()</a>
         </li>
         <li class="header__el header__el--blue"><a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn--white">Se déconnecter →</a></li>
 
