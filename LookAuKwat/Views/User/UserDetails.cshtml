@@ -7,7 +7,7 @@
 <h2>Details des informations</h2>
 
 <div>
-    
+
     <dl class="dl-horizontal">
 
         <dt>
@@ -39,14 +39,30 @@
 
 </div>
 <div class="row">
-    <div class="col-xs-3">
+    <div class="col-xs-6">
         @Html.ActionLink("Retour à l'accueil", "Index", "Home", null, new { @class = "btn btn-primary" })
     </div>
-    <div class="col-xs-offset-1 col-xs-3">
+    <div class=" col-xs-6">
         @Html.ActionLink("Modifier les informations", "UpdateUserInformations", "User", new { id = Model.Id }, new { @class = "btn btn-primary" })
     </div>
-    <div class="col-xs-offset-1 col-xs-3">
-        @Html.ActionLink("Mes annonces", "Contact", "Home",null,  new { @class = "btn btn-primary" })
+    <div class="col-xs-6">
+        @Html.ActionLink("Mes annonces", "UserProfile", "Home", null, new { @class = "btn btn-primary" })
     </div>
 
 </div>
+@if (Model.Email == "contact@lookaukwat.com" || Model.Email =="wangueujunior23@gmail.com")
+{
+    <hr />
+    <div class="row">
+        @Html.ActionLink("Admin", "Index", "Admin", null, new { @class = "btn btn-primary" })
+    </div>
+}
+
+@if (Model.Email == "contact@lookaukwat.com" || Model.Email == "wangueujunior23@gmail.com" || Model.Email == "ebanga.yannick@yahoo.fr"
+    || Model.Email == "bkstyle0905@gmail.com" || Model.Email == "danielnoukeu05@gmail.com" || Model.Email == "nembotromeo@gmail.com")
+{
+    <hr />
+    <div class="row">
+        @Html.ActionLink("Espace Agent Commercial", "Stat_Account_Agent", "Admin", new { userEmail = Model.Email }, new { @class = "btn btn-primary" })
+    </div>
+}

@@ -11,6 +11,15 @@ namespace LookAuKwat.Models
         List<ApplicationUser> GetUsersList();
         ApplicationUser GetUserByStrId(string id);
         void UpdateUserInformations(ApplicationUser user);
+        bool User_Email_Already_Exist(string number);
+        bool User_Number_Already_Exist(string email);
+        void Update_Date_First_Publish(ApplicationUser user);
+        void UpdateUserByAdmin(ApplicationUser user);
+        void DeleteUserByAdmin(ApplicationUser user);
+        //Parrain
+        List<ParrainModel> GetParrainList();
+        void  AddParrain(ParrainModel model);
+        void  DeletParrain(ParrainModel model);
         //Product
         IEnumerable<ProductModel> GetListProduct();
         IEnumerable<ProductModel> GetListAskProduct();

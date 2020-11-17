@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LookAuKwat.Models;
+using PagedList;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -15,5 +17,11 @@ namespace LookAuKwat.ViewModel
         [DisplayName("Ville")]
         public string TownSearchAsk { get; set; }
         public string sortBy { get; set; }
+        public List<ProductModel> ListePro { get; set; }
+        public IPagedList<ProductModel> ListeProPagedList { get; set; }
+        // for pagedList
+
+        public int? PageNumber { get; set; }
+       
     }
 }

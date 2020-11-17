@@ -1,0 +1,102 @@
+﻿@using PagedList;
+@using System.Globalization;
+@using PagedList.Mvc;
+@model IPagedList<LookAuKwat.Models.ParrainModel>
+
+@{
+    ViewBag.Title = "Liste de tout les agents";
+}
+
+<h2>Liste de tout les agents</h2>
+
+<h1>Ajouter un parrain ou agent
+    </h1>
+
+<div class="">
+    @{
+        Html.RenderAction("AddParrain_PartialView", "Admin");
+    }
+</div>
+<hr />
+<div class="formulaire">
+    @{
+        Html.RenderAction("SearchUser_PartialView", "Admin");
+    }
+
+</div>
+<hr />
+@if (Model.Count == 0)
+{
+
+    <p class="text-danger">Pas de résultats disponible !</p>
+
+}
+else
+{
+
+
+    <div class="panel-primary " id="ProductAdd">
+
+
+        <div class="panel-heading">
+            <h3 class="panel-title">Liste des Agents publicitaires</h3>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-condensed">
+                <tr>
+                    <th>
+                        prénom
+                    </th>
+                    <th>
+                        Email
+                    </th>
+
+                    <th>
+                        Date de création
+                    </th>
+
+                    <th>Gérer le compte</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ParrainFirstName)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ParrainEmail)
+                        </td>
+
+                        <td>
+                            @{
+                                //var st = DateTime.ParseExact(item.StartHour, "dd/MM/yyyy HH:mm", null);
+                                var date = item.Date_createParrain.ToString("ddd, dd MMM yyy HH':'mm", new CultureInfo("fr-FR"));
+
+                            }
+                            @date
+
+                        </td>
+
+                        <td>
+                            <a href="@Url.Action("Stat_Account_Agent", "Admin", new {userEmail =item.ParrainEmail })" class="btn btn-success" title="Modifier"><span class="glyphicon glyphicon-link"></span>Stats</a>
+                            <a id="btnModalEdit_@item.Id" class="btn btn-success" title="Modifier"><span class="glyphicon glyphicon-edit"></span></a>
+
+                            <a id="btnModalDetails_@item.Id" class="btn btn-info" title="Détails"><span class="glyphicon glyphicon-eye-open"></span></a>
+
+
+                            <a href="javascript:void(0);" data-id="@item.Id" id="deletePro_@item.Id" class="btn btn-danger deleteProduct_@item.Id" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+        </div>
+    </div>
+
+}
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) sur @Model.PageCount
+@Html.PagedListPager(Model, pageNumber => Url.Action("ListAllAgents", "Admin", new { pageNumber, sortBy = Request["sortBy"] }))

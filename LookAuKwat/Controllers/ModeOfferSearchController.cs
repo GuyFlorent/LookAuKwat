@@ -1,5 +1,6 @@
 ﻿using LookAuKwat.Models;
 using LookAuKwat.ViewModel;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,12 @@ namespace LookAuKwat.Controllers
             return View();
         }
 
+        public ActionResult FilterSearchMode(SeachJobViewModel model)
+        {
+
+            return View(model);
+        }
+
         public ActionResult SearchOfferMode_PartialView(SeachJobViewModel model)
         {
             model.PriceMode = 1000000000;
@@ -34,58 +41,62 @@ namespace LookAuKwat.Controllers
 
         public ActionResult searchOfferMode(SeachJobViewModel model, int? pageNumber, string sortBy)
         {
-            //save same page when refresh page in ajax
-            if (pageNumber != null)
-            {
-                this.Session["pageMode"] = pageNumber;
-                if (model != null)
-                    if (model.PriceMode == 0)
-                    {
-                        model.PriceMode = 1000000000;
-                    }
+            ////save same page when refresh page in ajax
+            //if (pageNumber != null)
+            //{
+            //    this.Session["pageMode"] = pageNumber;
+            //    if (model != null)
+            //        if (model.PriceMode == 0)
+            //        {
+            //            model.PriceMode = 1000000000;
+            //        }
 
-                this.Session["modelMode"] = model;
-                var modell = this.Session["modelModeNewModel"] as SeachJobViewModel;
-                if (modell != null)
-                    model = modell;
-                model.PageNumber = pageNumber;
-            }
-            else if (pageNumber == null)
-            {
-                var mod = this.Session["modelMode"] as SeachJobViewModel;
-                if (mod != null && mod.TownMode == model.TownMode && mod.RubriqueMode == model.RubriqueMode &&
-                    mod.TypeModeClothes == model.TypeModeClothes && mod.TypeModeShoes == model.TypeModeShoes &&
-                    mod.TypeModeWatchJewelry == model.TypeModeWatchJewelry && mod.TypeModeBabyEquipment == model.TypeModeBabyEquipment
-                    && mod.TypeModeBabyClothes == model.TypeModeBabyClothes && mod.BrandModeClothes == model.BrandModeClothes
-                    && mod.BrandModeShoes == model.BrandModeShoes && mod.SizeModeClothes == model.SizeModeClothes
-                    && mod.SizeModeShoes == model.SizeModeShoes && mod.PriceMode == model.PriceMode && mod.StateMode == model.StateMode
-                    && mod.ColorMode == model.ColorMode)
-                {
-                    var page = this.Session["pageMode"] as int?;
-                    var modell = this.Session["modelModeNewModel"] as SeachJobViewModel;
-                    if (modell != null)
-                        model = modell;
-                    model.PageNumber = page;
-                }
-                else if (mod != null && (mod.TownMode != model.TownMode || mod.RubriqueMode != model.RubriqueMode ||
-                    mod.TypeModeClothes != model.TypeModeClothes || mod.TypeModeShoes != model.TypeModeShoes ||
-                    mod.TypeModeWatchJewelry != model.TypeModeWatchJewelry || mod.TypeModeBabyEquipment != model.TypeModeBabyEquipment
-                    || mod.TypeModeBabyClothes != model.TypeModeBabyClothes || mod.BrandModeClothes != model.BrandModeClothes
-                    || mod.BrandModeShoes != model.BrandModeShoes || mod.SizeModeClothes != model.SizeModeClothes
-                    || mod.SizeModeShoes != model.SizeModeShoes || mod.PriceMode != model.PriceMode || mod.StateMode != model.StateMode
-                    || mod.ColorMode != model.ColorMode))
-                {
-                    this.Session["modelModeNewModel"] = model;
-                    model.PageNumber = pageNumber;
-                }
+            //    this.Session["modelMode"] = model;
+            //    var modell = this.Session["modelModeNewModel"] as SeachJobViewModel;
+            //    if (modell != null)
+            //        model = modell;
+            //    model.PageNumber = pageNumber;
+            //}
+            //else if (pageNumber == null)
+            //{
+            //    var mod = this.Session["modelMode"] as SeachJobViewModel;
+            //    if (mod != null && mod.TownMode == model.TownMode && mod.RubriqueMode == model.RubriqueMode &&
+            //        mod.TypeModeClothes == model.TypeModeClothes && mod.TypeModeShoes == model.TypeModeShoes &&
+            //        mod.TypeModeWatchJewelry == model.TypeModeWatchJewelry && mod.TypeModeBabyEquipment == model.TypeModeBabyEquipment
+            //        && mod.TypeModeBabyClothes == model.TypeModeBabyClothes && mod.BrandModeClothes == model.BrandModeClothes
+            //        && mod.BrandModeShoes == model.BrandModeShoes && mod.SizeModeClothes == model.SizeModeClothes
+            //        && mod.SizeModeShoes == model.SizeModeShoes && mod.PriceMode == model.PriceMode && mod.StateMode == model.StateMode
+            //        && mod.ColorMode == model.ColorMode)
+            //    {
+            //        var page = this.Session["pageMode"] as int?;
+            //        var modell = this.Session["modelModeNewModel"] as SeachJobViewModel;
+            //        if (modell != null)
+            //            model = modell;
+            //        model.PageNumber = page;
+            //    }
+            //    else if (mod != null && (mod.TownMode != model.TownMode || mod.RubriqueMode != model.RubriqueMode ||
+            //        mod.TypeModeClothes != model.TypeModeClothes || mod.TypeModeShoes != model.TypeModeShoes ||
+            //        mod.TypeModeWatchJewelry != model.TypeModeWatchJewelry || mod.TypeModeBabyEquipment != model.TypeModeBabyEquipment
+            //        || mod.TypeModeBabyClothes != model.TypeModeBabyClothes || mod.BrandModeClothes != model.BrandModeClothes
+            //        || mod.BrandModeShoes != model.BrandModeShoes || mod.SizeModeClothes != model.SizeModeClothes
+            //        || mod.SizeModeShoes != model.SizeModeShoes || mod.PriceMode != model.PriceMode || mod.StateMode != model.StateMode
+            //        || mod.ColorMode != model.ColorMode))
+            //    {
+            //        this.Session["modelModeNewModel"] = model;
+            //        model.PageNumber = pageNumber;
+            //    }
 
-            }
+            //}
+            ViewBag.PriceAscSort = String.IsNullOrEmpty(sortBy) ? "Price desc" : "";
+            ViewBag.PriceDescSort = sortBy == "Prix croissant" ? "Price asc" : "";
+            ViewBag.DateAscSort = sortBy == "Plus anciennes" ? "date asc" : "";
+            ViewBag.DateDescSort = sortBy == "Plus recentes" ? "date desc" : "";
 
             model.CagtegorieSearch = "Mode";
             model.SearchOrAskJobJob = "J'offre";
             model.sortBy = sortBy;
-
-
+            model.PageNumber = pageNumber;
+            
             List<ModeModel> liste = dal.GetListMode().Where(m => m.Category.CategoryName == model.CagtegorieSearch &&
             m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
             if (!string.IsNullOrWhiteSpace(model.TownMode))
@@ -107,6 +118,7 @@ namespace LookAuKwat.Controllers
             switch (model.RubriqueMode)
             {
                 case "Vêtements":
+                    liste = liste.Where(m => m.RubriqueMode == model.RubriqueMode).ToList();
                     if (!string.IsNullOrWhiteSpace(model.TypeModeClothes))
                     {
                         liste = liste.Where(m => m.TypeMode == model.TypeModeClothes).ToList();
@@ -121,6 +133,7 @@ namespace LookAuKwat.Controllers
                     }
                     break;
                 case "Chaussures":
+                    liste = liste.Where(m => m.RubriqueMode == model.RubriqueMode).ToList();
                     if (!string.IsNullOrWhiteSpace(model.TypeModeShoes))
                     {
                         liste = liste.Where(m => m.TypeMode == model.TypeModeShoes).ToList();
@@ -135,6 +148,7 @@ namespace LookAuKwat.Controllers
                     }
                     break;
                 case "Accesoires & Bagagerie":
+                    liste = liste.Where(m => m.RubriqueMode == model.RubriqueMode).ToList();
                     if (!string.IsNullOrWhiteSpace(model.TypeModeAccesorieLugages))
                     {
                         liste = liste.Where(m => m.TypeMode == model.TypeModeAccesorieLugages).ToList();
@@ -146,6 +160,7 @@ namespace LookAuKwat.Controllers
                     
                     break;
                 case "Montres & Bijoux":
+                    liste = liste.Where(m => m.RubriqueMode == model.RubriqueMode).ToList();
                     if (!string.IsNullOrWhiteSpace(model.TypeModeWatchJewelry))
                     {
                         liste = liste.Where(m => m.TypeMode == model.TypeModeWatchJewelry).ToList();
@@ -157,6 +172,7 @@ namespace LookAuKwat.Controllers
 
                     break;
                 case "Equipement bébé":
+                    liste = liste.Where(m => m.RubriqueMode == model.RubriqueMode).ToList();
                     if (!string.IsNullOrWhiteSpace(model.TypeModeBabyEquipment))
                     {
                         liste = liste.Where(m => m.TypeMode == model.TypeModeBabyEquipment).ToList();
@@ -168,6 +184,7 @@ namespace LookAuKwat.Controllers
 
                     break;
                 case "Vêtements bébé":
+                    liste = liste.Where(m => m.RubriqueMode == model.RubriqueMode).ToList();
                     if (!string.IsNullOrWhiteSpace(model.TypeModeBabyClothes))
                     {
                         liste = liste.Where(m => m.TypeMode == model.TypeModeBabyClothes).ToList();
@@ -185,7 +202,36 @@ namespace LookAuKwat.Controllers
             TempData["listeMode"] = liste;
 
             model.ListePro = new List<ProductModel>();
-            return RedirectToAction("ResultSearch_PartialView", "Product", model);
+
+            model.ListeProMode = TempData["listeMode"] as List<ModeModel>;
+
+            switch (model.sortBy)
+            {
+                case "Price desc":
+                    model.ListeProMode = model.ListeProMode.OrderByDescending(m => m.Price).ToList();
+                    model.ListeProPagedList = model.ListeProMode.ToPagedList(model.PageNumber ?? 1, 10);
+                    break;
+                case "Price asc":
+                    model.ListeProMode = model.ListeProMode.OrderBy(m => m.Price).ToList();
+                    model.ListeProPagedList = model.ListeProMode.ToPagedList(model.PageNumber ?? 1, 10);
+                    break;
+                case "date desc":
+                    model.ListeProMode = model.ListeProMode.OrderByDescending(m => m.id).ToList();
+                    model.ListeProPagedList = model.ListeProMode.ToPagedList(model.PageNumber ?? 1, 10);
+                    break;
+                case "date asc":
+                    model.ListeProMode = model.ListeProMode.OrderBy(m => m.id).ToList();
+                    model.ListeProPagedList = model.ListeProMode.ToPagedList(model.PageNumber ?? 1, 10);
+                    break;
+                default:
+                    model.ListeProMode = model.ListeProMode.OrderByDescending(x => x.id).ToList();
+                    model.ListeProPagedList = model.ListeProMode.ToPagedList(model.PageNumber ?? 1, 10);
+                    break;
+            }
+
+
+            return View("FilterSearchMode", model);
+            // return RedirectToAction("ResultSearch_PartialView", "Product", model);
 
         }
 

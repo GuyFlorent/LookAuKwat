@@ -225,21 +225,19 @@
         </div>
         <div class="form-group hidden" id="TitleMultimediaDiv">
             @Html.LabelFor(model => model.TitleMultimedia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-8">
+            <div class="col-md-10">
                 @Html.EditorFor(model => model.TitleMultimedia, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TitleMultimedia, "", new { @class = "text-danger" })
             </div>
-            <p class="col-md-2" id="spanMultimediaTitle" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
         </div>
 
 
         <div class="form-group hidden" id="DescriptionMultimediaDiv">
             @Html.LabelFor(model => model.DescriptionMultimedia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-8">
+            <div class="col-md-10">
                 @Html.TextAreaFor(model => model.DescriptionMultimedia, new { @class = "form-control", @cols = "45", @rows = "5" })
                 @Html.ValidationMessageFor(model => model.DescriptionMultimedia, "", new { @class = "text-danger" })
             </div>
-            <p class="col-md-2" id="spanMultimediaDescription" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
         </div>
 
         <div class="form-group hidden" id="TownMultimediaDiv">
@@ -1626,10 +1624,13 @@
                     }
                 })
 
-                $("#ModelSonDiv").change(function () {
-                    if ($('#ModelSon').val() !== 'choisir') {
+                $("#ModelOtherMultimediaDiv").change(function () {
+                    if ($('#ModelOtherMultimedia').val() !== 'choisir') {
 
-                        $("#CapacityDiv").removeClass('hidden');
+                        $("#TitleMultimediaDiv").removeClass('hidden');
+                        $("#TitleMultimediaDiv").removeClass('hidden');
+                        $("#DescriptionMultimediaDiv").removeClass('hidden');
+                        $("#TownMultimediaDiv").removeClass('hidden');
                     }
                 })
             }
@@ -1638,22 +1639,24 @@
                 if ($('#Capacity').val() !== 'choisir') {
 
                     $("#TitleMultimediaDiv").removeClass('hidden');
-                }
-            })
-
-            $("#TitleMultimediaDiv").change(function () {
-                if ($('#TitleMultimedia').val() !== 'choisir') {
-
                     $("#DescriptionMultimediaDiv").removeClass('hidden');
-                }
-            })
-
-            $("#DescriptionMultimediaDiv").change(function () {
-                if ($('#DescriptionMultimedia').val() !== 'choisir') {
-
                     $("#TownMultimediaDiv").removeClass('hidden');
                 }
             })
+
+            //$("#TitleMultimediaDiv").change(function () {
+            //    if ($('#TitleMultimedia').val() !== 'choisir') {
+
+            //        $("#DescriptionMultimediaDiv").removeClass('hidden');
+            //    }
+            //})
+
+            //$("#DescriptionMultimediaDiv").change(function () {
+            //    if ($('#DescriptionMultimedia').val() !== 'choisir') {
+
+            //        $("#TownMultimediaDiv").removeClass('hidden');
+            //    }
+            //})
 
             $("#TownMultimediaDiv").change(function () {
                 if ($('#TownMultimedia').val() !== 'choisir' && $('#SearchOrAskJobMultimedia').val() == 'J\'offre') {

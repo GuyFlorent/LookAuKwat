@@ -107,6 +107,13 @@ namespace LookAuKwat.Controllers
         }
 
         //
+        // GET: /Manage/AddPhoneNumber
+        public ActionResult AddPhoneNumberFirstRegister()
+        {
+            return View();
+        }
+
+        //
         // POST: /Manage/AddPhoneNumber
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -128,6 +135,29 @@ namespace LookAuKwat.Controllers
                 await UserManager.SmsService.SendAsync(message);
             }
             return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
+        }
+
+        // POST: /Manage/AddPhoneNumber
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddPhoneNumberFirstRegister(AddPhoneNumberViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            // Générer le jeton et l'envoyer
+            var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), model.Number);
+            if (UserManager.SmsService != null)
+            {
+                var message = new IdentityMessage
+                {
+                    Destination = model.Number,
+                    Body = "Votre code de sécurité est : " + code
+                };
+                await UserManager.SmsService.SendAsync(message);
+            }
+            return RedirectToAction("VerifyPhoneNumberFirstRegister", new { PhoneNumber = model.Number });
         }
 
         //
@@ -170,6 +200,15 @@ namespace LookAuKwat.Controllers
         }
 
         //
+        // GET: /Manage/VerifyPhoneNumber
+        public async Task<ActionResult> VerifyPhoneNumberFirstRegister(string phoneNumber)
+        {
+            var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
+            // Envoyer un SMS via le fournisseur SMS afin de vérifier le numéro de téléphone
+            return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
+        }
+
+        //
         // POST: /Manage/VerifyPhoneNumber
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -188,6 +227,30 @@ namespace LookAuKwat.Controllers
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
                 return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
+            }
+            //Si nous sommes arrivés là, quelque chose a échoué, réafficher le formulaire
+            ModelState.AddModelError("", "La vérification du téléphone a échoué");
+            return View(model);
+        }
+
+        // POST: /Manage/VerifyPhoneNumber
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> VerifyPhoneNumberFirstRegister(VerifyPhoneNumberViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var result = await UserManager.ChangePhoneNumberAsync(User.Identity.GetUserId(), model.PhoneNumber, model.Code);
+            if (result.Succeeded)
+            {
+                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                if (user != null)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                }
+                return RedirectToAction("Index","Home");
             }
             //Si nous sommes arrivés là, quelque chose a échoué, réafficher le formulaire
             ModelState.AddModelError("", "La vérification du téléphone a échoué");

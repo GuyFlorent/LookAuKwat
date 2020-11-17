@@ -1,7 +1,7 @@
 ﻿@model LookAuKwat.Models.ApartmentRentalModel
 @using System.Globalization;
 @{
-    ViewBag.Title = Model.Title + " "+Model.Street;
+    ViewBag.Title = "Offres immobilier" + Model.Title + " "+Model.Street;
 }
 
 @{
@@ -36,6 +36,10 @@
         integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
         crossorigin=""></script>
 
+<p>
+    @Html.ActionLink("Retour à l'accueil", "Index", "Home") <i class="fa fa-angle-right"></i> @Html.ActionLink(Model.Type, "searchOfferAppart", "ApartmentRentalSearch", new { Type = Model.Type }, null)
+    <i class="fa fa-angle-right"></i>  @Html.ActionLink(Model.Town, "searchOfferAppart", "ApartmentRentalSearch", new { Type = Model.Type, TownSearch = Model.Town }, null) <i class="fa fa-angle-right"></i> @Model.Title
+</p>
 <h2>Détails de l'annonce catégorie immobilier 🏠 </h2>
 
 <div id="MyModalContactApart" class="modal fade" role="dialog">

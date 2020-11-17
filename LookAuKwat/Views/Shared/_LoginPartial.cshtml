@@ -1,13 +1,16 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-    {
+    LookAuKwat.Models.IDal dal = new LookAuKwat.Models.Dal();
+    var user = dal.GetUsersList().FirstOrDefault(m => m.UserName == User.Identity.GetUserName());
+   
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
         @Html.AntiForgeryToken()
 
         @*<ul class="header__menu">*@
         <li class="header__el header__el--blue">
-            <a href="@Url.Action("UserDetails", "User", new {title = "Manage" })" class="btn btn--white">@User.Identity.GetUserName()</a>
+            <a href="@Url.Action("UserDetails", "User", new {title = "Manage" })" class="btn btn--white">Salut @user.FirstName !</a>
         </li>
         <li class="header__el header__el--blue"><a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn--white">Se déconnecter →</a></li>
 

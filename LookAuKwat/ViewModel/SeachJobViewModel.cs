@@ -1,4 +1,5 @@
-﻿using LookAuKwat.Models;
+﻿using LookAuKwat.Migrations;
+using LookAuKwat.Models;
 using Microsoft.Ajax.Utilities;
 using PagedList;
 using System;
@@ -7,6 +8,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using ModeModel = LookAuKwat.Models.ModeModel;
 
 namespace LookAuKwat.ViewModel
 {
@@ -19,13 +21,18 @@ namespace LookAuKwat.ViewModel
         [DisplayName("Lieu")]
         public string StreetSearch { get; set; }
         [Range(0, int.MaxValue, ErrorMessage = "seule les valeurs positives sont acceptées")]
-        [DisplayName("Salaire min")]
+        [DisplayName("Prix min")]
         public int PriceMinSearch { get; set; }
         [Range(0, int.MaxValue, ErrorMessage = "seule les valeurs positives sont acceptées")]
-        [DisplayName("Salaire max")]
+        [DisplayName("Prix max")]
         public int PriceMaxSearch { get; set; }
         
         public List<ProductModel> ListePro { get; set; }
+        public List<JobModel> ListeProJob { get; set; }
+        public List<ApartmentRentalModel> ListeProAppart { get; set; }
+        public List<MultimediaModel> ListeProMulti { get; set; }
+        public List<ModeModel> ListeProMode { get; set; }
+        public List<VehiculeModel> ListeProVehicule { get; set; }
         public IPagedList<ProductModel> ListeProPagedList { get; set; }
         // for pagedList
 
@@ -40,8 +47,10 @@ namespace LookAuKwat.ViewModel
         public string ActivitySectorJob { get; set; }
 
         //for Appartment Rental
+        [Range(0, int.MaxValue, ErrorMessage = "seule les valeurs positives sont acceptées")]
         [DisplayName("Surface min(m2)")]
         public int MinApartSurface { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "seule les valeurs positives sont acceptées")]
         [DisplayName("Surface max(m2)")]
         public int MaxApartSurface { get; set; }
         [DisplayName("Nombre de pièces minimale")]
@@ -106,7 +115,7 @@ namespace LookAuKwat.ViewModel
         public string BrandModeClothes { get; set; }
         [DisplayName("Marque")]
         public string BrandModeShoes { get; set; }
-        [DisplayName("Univers")]
+        [DisplayName("Sexe")]
         public string UniversMode { get; set; }
         [DisplayName("Taille")]
         public string SizeModeClothes { get; set; }
@@ -117,5 +126,12 @@ namespace LookAuKwat.ViewModel
         public string ColorMode { get; set; }
         [DisplayName("Etat")]
         public string StateMode { get; set; }
+
+
+        //for all product
+        [DisplayName("Ville")]
+        public string TownAllProduct { get; set; }
+        [DisplayName("Recherche")]
+        public string SearchTermAllProduct { get; set; }
     }
 }

@@ -4,53 +4,113 @@
     ViewBag.Title = "Se connecter à LookAuKwat";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title par : </h2>
 <div class="row">
     <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <h4>Utilisez un compte local pour vous connecter.</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
+        <ul class="nav nav-pills ">
+            <li class="active"><a id="EmailLogin" class="btn btn--revert btn--width" href="#LoginEmail" data-toggle="tab">Email</a></li>
+            <li><a id="smsLogin" class="btn btn--revert btn--width" href="#LoginSms" data-toggle="tab">Téléphone</a></li>
+        </ul>
+        <div class="tab-content" >
+            <div class="tab-pane active  fade in" id="LoginEmail">
+                <section id="loginForm">
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <h4>Utilisez un compte local pour vous connecter.</h4>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Se connecter" class="btn btn-success" />
-                    </div>
-                </div>
-                <p>Pas encore de compte?</p>
-                <p>
-                    @Html.ActionLink("Inscrire comme nouvel utilisateur en 2 minutes !", "Register",null,new { @class = "btn btn-primary" })
-                </p>
-                @* Activez ceci une fois que vous avez activé la confirmation du compte pour la fonctionnalité de réinitialisation du mot de passe*@
-                <p>
-                    @Html.ActionLink("Vous avez oublié votre mot de passe ?", "ForgotPassword")
-                </p>
-            }
-        </section>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(m => m.RememberMe)
+                                    @Html.LabelFor(m => m.RememberMe)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Se connecter" class="btn btn-success" />
+                            </div>
+                        </div>
+                        <p>Pas encore de compte?</p>
+                        <p>
+                            @Html.ActionLink("Inscrire comme nouvel utilisateur en 2 minutes !", "Register", null, new { @class = "btn btn-primary" })
+                        </p>
+                        @* Activez ceci une fois que vous avez activé la confirmation du compte pour la fonctionnalité de réinitialisation du mot de passe*@
+                        <p>
+                            @Html.ActionLink("Vous avez oublié votre mot de passe ?", "ForgotPassword")
+                        </p>
+                    }
+                </section>
+
+            </div>
+
+            <div class="tab-pane  fade " id="LoginSms">
+                <section class="loginForm">
+                    @using (Html.BeginForm("LoginWithPhone", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <h4>Utilisez un numéro de téléphone pour vous connecter.</h4>
+                        <p class="info">Mettre le code du pays suivie du numéro (Exemple Cameroun +237..., France +33...)</p>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Phone, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(m => m.RememberMe)
+                                    @Html.LabelFor(m => m.RememberMe)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Se connecter" class="btn btn-success" />
+                            </div>
+                        </div>
+                        <p>Pas encore de compte?</p>
+                        <p>
+                            @Html.ActionLink("Inscrire comme nouvel utilisateur en 2 minutes !", "Register", null, new { @class = "btn btn-primary" })
+                        </p>
+                        @* Activez ceci une fois que vous avez activé la confirmation du compte pour la fonctionnalité de réinitialisation du mot de passe*@
+                        <p>
+                            @Html.ActionLink("Vous avez oublié votre mot de passe ?", "ForgotPassword")
+                        </p>
+                    }
+                    </section>
+
+            </div>
+
+        </div>
+        
     </div>
     <div class="col-md-4">
         <section id="socialLoginForm">
@@ -62,3 +122,19 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script type="text/javascript">
+    $(function () {
+        $(function () {
+            $('#EmailLogin').click(function () {
+                $('#EmailLogin').removeClass("btn--revert");
+                $('#smsLogin').addClass("btn--revert");
+
+            })
+            $('#smsLogin').click(function () {
+                $('#smsLogin').removeClass("btn--revert");
+                $('#EmailLogin').addClass("btn--revert");
+
+            })
+    })
+</script>

@@ -1,4 +1,5 @@
-﻿using Microsoft.Ajax.Utilities;
+﻿using LookAuKwat.Models;
+using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,15 @@ namespace LookAuKwat.ViewModel
 {
     public static class SelectListMethod
     {
+        public static IEnumerable<SelectListItem> GetParrainList()
+        {
+            IDal dal = new Dal();
+            IList<SelectListItem> list = new List<SelectListItem>();
+            var liste = dal.GetParrainList().ToList();
+            list = liste.Select(x => new SelectListItem() { Value = x.ParrainEmail, Text = x.ParrainFirstName }).ToList();
+            return list.OrderBy(m => m.Text);
+        }
+       
         public static IEnumerable<SelectListItem> GetListTownCameroon()
         {
             IList<SelectListItem> list = new List<SelectListItem>()
@@ -121,7 +131,10 @@ namespace LookAuKwat.ViewModel
             IList<SelectListItem> list = new List<SelectListItem>()
             {
                  new SelectListItem() { Text = "Emploi", Value = "Emploi" },
-                new SelectListItem() { Text = "Immobilier", Value = "Immobilier" }
+                new SelectListItem() { Text = "Immobilier", Value = "Immobilier" },
+                new SelectListItem() { Text = "Multimedia", Value = "Multimedia" },
+                new SelectListItem() { Text = "Vehicule", Value = "Vehicule" },
+                new SelectListItem() { Text = "Mode", Value = "Mode" }
                 
             };
             return list;

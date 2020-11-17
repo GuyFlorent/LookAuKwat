@@ -2,15 +2,7 @@
 @using LookAuKwat.ViewModel
 
 
-@using (Ajax.BeginForm("ResultSearchAskProduct_PartialView", "Product", new AjaxOptions
-{
-    HttpMethod = "GET",
-    InsertionMode = InsertionMode.Replace,
-    UpdateTargetId = "ResulList",
-    // OnFailure = "ErreurRecherche",
-    LoadingElementId = "charging"
-}
-         ))
+@using (Html.BeginForm("ResultSearchAskProduct_PartialView", "Product" ))
 {
     @Html.AntiForgeryToken()
 
@@ -47,7 +39,7 @@
 
     </div>
 
-        <button id="btnSearchAskProduct" type="submit" class="btn btn-primary">
+        <button id="btnSearchAskProductt" type="submit" class="btn btn-primary">
             <span class="glyphicon glyphicon-search"></span> Rechercher
         </button>
     </div>

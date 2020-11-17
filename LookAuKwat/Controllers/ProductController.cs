@@ -49,15 +49,25 @@ namespace LookAuKwat.Controllers
             IEnumerable<ProductModel> liste = dal.GetListProduct();
             return View(liste);
         }
-        public ActionResult ListProduct_PartialView(int? pageNumber, string sortBy)
+
+        public ActionResult SearchAllProoduct(SeachJobViewModel model, int? pageNumber, string sortBy)
         {
-          
             ViewBag.PriceAscSort = String.IsNullOrEmpty(sortBy) ? "Price desc" : "";
             ViewBag.PriceDescSort = sortBy == "Prix croissant" ? "Price asc" : "";
             ViewBag.DateAscSort = sortBy == "Plus anciennes" ? "date asc" : "";
             ViewBag.DateDescSort = sortBy == "Plus recentes" ? "date desc" : "";
             IEnumerable<ProductModel> liste = dal.GetListProduct();
-          
+            if (!string.IsNullOrWhiteSpace(model.TownAllProduct))
+            {
+                liste = liste.Where(m => m.Town == model.TownAllProduct);
+            }
+            if (!string.IsNullOrWhiteSpace(model.SearchTermAllProduct))
+            {
+                liste = liste.Where(m => m.Title.ToLower().Contains(model.SearchTermAllProduct.ToLower())
+                || m.Description.ToLower().Contains(model.SearchTermAllProduct.ToLower()) || 
+                m.Street.ToLower().Contains(model.SearchTermAllProduct.ToLower()) || 
+                m.SearchOrAskJob.ToLower().Contains(model.SearchTermAllProduct.ToLower()));
+            }
             ViewBag.number = liste.Count();
             switch (sortBy)
             {
@@ -65,7 +75,7 @@ namespace LookAuKwat.Controllers
                     liste = liste.OrderByDescending(m => m.Price);
                     break;
                 case "Price asc":
-                    liste = liste.OrderBy(m=>m.Price);
+                    liste = liste.OrderBy(m => m.Price);
                     break;
                 case "date desc":
                     liste = liste.OrderByDescending(m => m.id);
@@ -77,22 +87,41 @@ namespace LookAuKwat.Controllers
                     liste = liste.OrderByDescending(x => x.id);
                     break;
             }
-
-            return PartialView(liste.ToPagedList(pageNumber ?? 1, 10));
+            model.ListePro = liste.ToList();
+            model.ListeProPagedList = liste.ToPagedList(pageNumber ?? 1, 10);
+            return View("ListeAllProduct",model);
         }
 
+        public ActionResult ListeAllProduct(SeachJobViewModel model)
+        {
+
+            return View(model);
+        }
+        public ActionResult SearchAllProduct_PartialView(SeachJobViewModel model)
+        {
+          
+            return PartialView(model);
+        }
+
+        //for ask only ask
         public ActionResult SearchAskProduct_PartialView(AskJobViewModel model)
         {
             return PartialView(model);
         }
-            public ActionResult ResultSearchAskProduct_PartialView(AskJobViewModel model, int? pageNumber, string sortBy)
+
+        public ActionResult FilterSearchAskProduct(AskJobViewModel model)
+        {
+            return View(model);
+        }
+        public ActionResult ResultSearchAskProduct_PartialView(AskJobViewModel model, int? pageNumber, string sortBy)
         {
             string searchOrAsk = "Je recherche";
-            //ViewBag.PriceAscSort = String.IsNullOrEmpty(sortBy) ? "Price desc" : "";
-            //ViewBag.PriceDescSort = sortBy == "Prix croissant" ? "Price asc" : "";
-            //ViewBag.DateAscSort = sortBy == "Plus anciennes" ? "date asc" : "";
-            //ViewBag.DateDescSort = sortBy == "Plus recentes" ? "date desc" : "";
+            ViewBag.PriceAscSort = String.IsNullOrEmpty(sortBy) ? "Price desc" : "";
+            ViewBag.PriceDescSort = sortBy == "Prix croissant" ? "Price asc" : "";
+            ViewBag.DateAscSort = sortBy == "Plus anciennes" ? "date asc" : "";
+            ViewBag.DateDescSort = sortBy == "Plus recentes" ? "date desc" : "";
             model.sortBy = sortBy;
+            model.PageNumber = pageNumber;
             List < ProductModel> liste = dal.GetListProduct().ToList();
             if (model.TitleSearchAsk == null && model.CagtegorieSearchAsk == null
                 && model.TownSearchAsk == null)
@@ -150,26 +179,36 @@ namespace LookAuKwat.Controllers
                 || m.Description.ToLower().Contains(model.TitleSearchAsk.ToLower())).ToList();
                 TempData["listeSearchAsk"] = liste;
             }
-            //switch (sortBy)
-            //{
-            //    case "Price desc":
-            //        liste = liste.OrderByDescending(m => m.Price).ToList();
-            //        break;
-            //    case "Price asc":
-            //        liste = liste.OrderBy(m => m.Price).ToList();
-            //        break;
-            //    case "date desc":
-            //        liste = liste.OrderByDescending(m => m.id).ToList();
-            //        break;
-            //    case "date asc":
-            //        liste = liste.OrderBy(m => m.id).ToList();
-            //        break;
-            //    default:
-            //        liste = liste.OrderByDescending(x => x.id).ToList();
-            //        break;
-            //}
 
-            return RedirectToAction("ResultSearch_PartialView", model );
+            model.ListePro = TempData["listeSearchAsk"] as List<ProductModel>;
+
+            switch (sortBy)
+            {
+                case "Price desc":
+                    liste = liste.OrderByDescending(m => m.Price).ToList();
+                    model.ListeProPagedList = liste.ToPagedList(pageNumber ?? 1, 10);
+                    break;
+                case "Price asc":
+                    liste = liste.OrderBy(m => m.Price).ToList();
+                    model.ListeProPagedList = liste.ToPagedList(pageNumber ?? 1, 10);
+                    break;
+                case "date desc":
+                    liste = liste.OrderByDescending(m => m.id).ToList();
+                    model.ListeProPagedList = liste.ToPagedList(pageNumber ?? 1, 10);
+                    break;
+                case "date asc":
+                    liste = liste.OrderBy(m => m.id).ToList();
+                    model.ListeProPagedList = liste.ToPagedList(pageNumber ?? 1, 10);
+                    break;
+                default:
+                    liste = liste.OrderByDescending(x => x.id).ToList();
+                    model.ListeProPagedList = liste.ToPagedList(pageNumber ?? 1, 10);
+                    break;
+            }
+           
+           
+
+            return View("FilterSearchAskProduct", model );
         }
 
         public ActionResult ResultSearchAsk_Jason(string category, string town, string title)
@@ -241,9 +280,21 @@ namespace LookAuKwat.Controllers
         }
 
 
-            public JsonResult listAllProductReturnJson()
+            public JsonResult listAllProductReturnJson(string town, string term)
         {
-            var data2 = dal.GetListProduct().Select(s => new DataJsonProductViewModel
+            List<ProductModel> liste = dal.GetListProduct().ToList();
+            if (!string.IsNullOrWhiteSpace(town))
+            {
+                liste = liste.Where(m => m.Town == town).ToList();
+            }
+            if (!string.IsNullOrWhiteSpace(term))
+            {
+                liste = liste.Where(m => m.Title.ToLower().Contains(term.ToLower())
+                || m.Description.ToLower().Contains(term.ToLower()) ||
+                m.Street.ToLower().Contains(term.ToLower()) ||
+                m.SearchOrAskJob.ToLower().Contains(term.ToLower())).ToList();
+            }
+            var data2 = liste.Select(s => new DataJsonProductViewModel
             {
                 Title = s.Title,
                 Coordinate = s.Coordinate,
@@ -657,6 +708,7 @@ namespace LookAuKwat.Controllers
                 }
                 data = modelresult.ListePro.Select(s => new DataJsonProductViewModel
                 {
+                    Category = s.Category,
                     Title = s.Title,
                     Coordinate = s.Coordinate,
                     id = s.id,
@@ -769,12 +821,12 @@ namespace LookAuKwat.Controllers
         private async Task configSendGridasync(contactUserViewModel message)
         {
 
-            
+           
 
             var apikey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
             //var apiKey = ConfigurationManager.AppSettings["mailPasswordSendGrid"];
             var client = new SendGridClient(apikey);
-            var from = new EmailAddress("contact@lookaukwat.com", message.NameSender +"(NoReply Here)");
+            var from = new EmailAddress("contact@lookaukwat.com", message.NameSender + "(Ne pas répondre ici)");
             var subject = message.SubjectSender;
             var to = new EmailAddress(message.RecieverEmail, message.RecieverName);
             var plainTextContent = "<a href='lookaukwat.azurewebsites.net'><img src=" + @Url.Content("~/UserImage/lookaukwat_logo.jpg") + " alt='lien vers le site' style='height: 50px;' /><br/><br/> <strong style='height: 20px;'>LookAuKwat</strong></a> " +

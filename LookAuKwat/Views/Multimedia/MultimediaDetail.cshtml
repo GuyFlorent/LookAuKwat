@@ -1,7 +1,7 @@
 ﻿@model LookAuKwat.Models.MultimediaModel
 @using System.Globalization;
 @{
-    ViewBag.Title = Model.Type + " " + Model.Brand + " " + Model.Model + " " + Model.Street;
+    ViewBag.Title ="Offres multimédia"+ Model.Type + " " + Model.Brand + " " + Model.Model + " " + Model.Street;
 
 }
 
@@ -36,6 +36,11 @@
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
         integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
         crossorigin=""></script>
+
+<p>
+    @Html.ActionLink("Retour à l'accueil", "Index", "Home") <i class="fa fa-angle-right"></i> @Html.ActionLink(Model.Type, "searchOfferMultimedia", "MultimediaOfferSearch", new { TypeMultimedia = Model.Type }, null)
+    <i class="fa fa-angle-right"></i>  @Html.ActionLink(Model.Town, "searchOfferMultimedia", "MultimediaOfferSearch", new { TypeMultimedia = Model.Type, TownMultimedia = Model.Town }, null) <i class="fa fa-angle-right"></i> @Model.Title
+</p>
 
 <h2>Détails de l'annonce catégorie multimédia 💻 📱 📺 🎮 🎧</h2>
 <div id="MyModalContactJob" class="modal fade" role="dialog">

@@ -2,65 +2,13 @@
     ViewBag.Title = "Lookaukwat, site de petites annonces gratuites au cameroun";
 }
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-      crossorigin="" />
+@*<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          crossorigin="" />
 
-<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-        crossorigin=""></script>
-
-<!--<section class="row">
-    <div id="myCarousel" class="carousel slide col-sm-12" data-ride="carousel">-->
-<!-- Indicators -->
-<!--<ol class="carousel-indicators">
-    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="1"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>
-    <li data-target="#myCarousel" data-slide-to="3"></li>
-    <li data-target="#myCarousel" data-slide-to="4"></li>
-</ol>-->
-<!-- Wrapper for slides -->
-<!--<div class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-        <div class="item active">
-            <a href="#"><img src="@Url.Content("~/UserImage/TrouverUnJob.JPG")" alt="Bienvenue LookAuKwat" class="img-rounded" /></a>
-
-        </div>
-
-        <div class="item">
-            <a href="#"><img src="@Url.Content("~/UserImage/appartement-a-louer-2.JPG")" alt="appartement à louer LookAuKwat" class="img-rounded" /></a>
-            <div class="carousel-caption">
-                <h4><strong>Je trouve mon logement</strong></h4>
-            </div>
-        </div>
-        <div class="item">
-            <img src="@Url.Content("~/UserImage/terrain-construction6.png")" alt="terrain à vendre LookAuKwat" class="img-rounded"/>
-
-        </div>
-        <div class="item">
-            <img src="@Url.Content("~/UserImage/VehiculeOcassion.JPG")" alt="Vehicule occasion LookAuKwat" class="img-rounded" />
-
-        </div>
-        <div class="item">
-            <img src="@Url.Content("~/UserImage/Vêtement.JPG")" alt="Vêtements lookaukwat" class="img-rounded"  />
-
-        </div>
-    </div>-->
-<!-- Left and right controls -->
-<!--<a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-
-    </div>
-</section>-->
-
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+            crossorigin=""></script>*@
 
 
 <div class="containe">
@@ -77,7 +25,7 @@
                     <br /> <hr />
                     <div class="site__box-link">
                         @*<a class="btn btn--width" href="">Offres</a>
-            <a class="btn btn--revert btn--width" href="">Demande</a>*@
+                            <a class="btn btn--revert btn--width" href="">Demande</a>*@
                         @*<ul class="nav nav-pills site__box-link">*@
                         @*<li class="active">*@<a id="searchclick" class="btn  btn--width" href="#search" data-toggle="tab">Les offres</a>@*</li>*@
                         @*<li>*@<a id="askclick" class="btn btn--revert btn--width" href="#ask" data-toggle="tab">Les Demandes</a>@*</li>*@
@@ -104,7 +52,7 @@
                 <div class="form-group">
                     <label for="selectCategory">Vous êtes dans les <strong>offres</strong>. Pour plus de filtre veuillez Choisir une catégorie :</label>
                     <select class="form-control searchcategory" data-show-icon="true" name="categori" id="categori">
-                        <option value="≡ Catégories" selected>≡ Catégories</option>
+                        <option value="≡ Choisir une catégorie" selected>≡ Choisir une catégorie</option>
                         <option value="≡Toutes les catégories">≡Toutes les catégories</option>
                         <option value="👷 Emploi">👷 Emploi</option>
                         <option value="🏠 Immobilier">🏠 Immobilier</option>
@@ -112,6 +60,12 @@
                         <option value="🚗 Véhicule">🚗 Véhicule</option>
                         <option value="👚 Mode">👚 Mode</option>
                     </select>
+                </div>
+                <div id="AllProduct" class="hidden formulaire">
+                    @{
+                        Html.RenderAction("SearchAllProduct_PartialView", "Product");
+                    }
+
                 </div>
                 <div id="JobId" class="hidden formulaire">
                     @{
@@ -160,114 +114,394 @@
     </div>
 
 </section>
-<hr />
-<section class="row">
 
-    <section id="jobSectionResult" class="row hidden">
-        <div class="sect sect--padding-top">
-            <div class="container">
+
+
+<section class="section-footer">
+    <div class="container">
+        <div class="row">
+            <div class=" col-xs-6 col-sm-6 col-md-6 section-md-t3">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="site">
+                    <div class=" col-xs-12 col-sm-12 col-md-6">
+                        <ul class="list-unstyled">
+                            <li class="item-list-a">
+                                <i></i> <a href="@Url.Action( "ResultSearchOfferJob_PartialView", "JobOfferSearch")""><strong>EMPLOI</strong></a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "ResultSearchOfferJob_PartialView", "JobOfferSearch")">Offres d'emploi</a>
+                            </li>
 
-                            <div class="site__box-link">
-                                <a id="List" class="btn btn--width" href="#ResulList" data-toggle="tab"><i class="glyphicon glyphicon-list"></i> Vue liste</a>
-                                <a id="Map" class="btn btn--revert btn--width" href="#ResultMap" data-toggle="tab"><i class="glyphicon glyphicon-map-marker"></i> carte</a>
-                            </div>
+                        </ul>
+                        <hr style="height:1px;border:none;color:#333;background-color:#333;"/>
+                        <ul class="list-unstyled">
+                            <li class="item-list-a">
+                                <a href="@Url.Action( "searchOfferAppart", "ApartmentRentalSearch")"><strong>IMMOBILIER</strong></a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferAppart", "ApartmentRentalSearch", new { FurnitureOrNot = "Meublé" })">Appartement meublé</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferAppart", "ApartmentRentalSearch", new { Type = "studio à louer" })">Studio à louer</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferAppart", "ApartmentRentalSearch", new { Type = "Maison à louer" })">Maison à louer</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferAppart", "ApartmentRentalSearch", new { Type = "Chambre à louer" })">Chambre à louer</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferAppart", "ApartmentRentalSearch", new { Type = "Terrain à vendre" })">Terrain à vendre</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferAppart", "ApartmentRentalSearch", new { Type = "Bureau à louer" })">Bureau à louer</a>
+                            </li>
+                        </ul>
+                        <hr style="height:1px;border:none;color:#333;background-color:#333;"/>
+                    </div>
 
+                    <div class=" col-xs-12 col-sm-12 col-md-6">
+                        <ul class="list-unstyled">
+                            <li class="item-list-a">
+                                <a href="@Url.Action( "searchOfferMode", "ModeOfferSearch")"><strong>Mode</strong></a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferMode", "ModeOfferSearch", new { RubriqueMode = "Vêtements" })">Vêtements</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferMode", "ModeOfferSearch", new { RubriqueMode = "Chaussures" })">Chaussures</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferMode", "ModeOfferSearch", new { RubriqueMode = "Accesoires & Bagagerie" })">Accésoires &  Bagagerie</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferMode", "ModeOfferSearch", new { RubriqueMode = "Montres_Bijoux" })">Montres & Bijoux</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferMode", "ModeOfferSearch", new { RubriqueMode = "Equipement bébé" })">Equipement bébé</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferMode", "ModeOfferSearch", new { RubriqueMode = "Vêtements bébé" })">Vêtements bébé</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class=" col-xs-6 col-sm-6 col-md-6 section-md-t3">
+                <div class="row">
+                    <div class=" col-xs-12 col-sm-12 col-md-6">
+                        <ul class="list-unstyled">
+                            <li class="item-list-a">
+                                <a href="@Url.Action( "searchOfferMultimedia", "MultimediaOfferSearch")"><strong>MULTIMEDIA</strong></a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferMultimedia", "MultimediaOfferSearch", new { TypeMultimedia = "Informatique" })">Informatique</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferMultimedia", "MultimediaOfferSearch", new { TypeMultimedia = "Console de jeux" })">Console de jeux</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferMultimedia", "MultimediaOfferSearch", new { TypeMultimedia = "Jeux vidéo" })">Jeux vidéo</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferMultimedia", "MultimediaOfferSearch", new { TypeMultimedia = "Téléphonie" })">Téléphonie</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferMultimedia", "MultimediaOfferSearch", new { TypeMultimedia = "Accésoires téléphonie" })">Accésoires téléphonie</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferMultimedia", "MultimediaOfferSearch", new { TypeMultimedia = "Téléviseur" })">Téléviseur</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferMultimedia", "MultimediaOfferSearch", new { TypeMultimedia = "Son" })">Son</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferMultimedia", "MultimediaOfferSearch", new { TypeMultimedia = "Photocopieuse" })">Photocopieuse</a>
+                            </li>
+                        </ul>
+                        <hr style="height:1px;border:none;color:#333;background-color:#333;"/>
+                    </div>
+                    <div class=" col-xs-12 col-sm-12 col-md-6">
+                        <ul class="list-unstyled">
+                            <li class="item-list-a">
+                                 <a href="@Url.Action( "searchOfferVehicule", "VehiculeOfferSearch")"><strong>VEHICULE</strong></a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferVehicule", "VehiculeOfferSearch", new { RubriqueVehicule = "Voitures" })">Voitures</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferVehicule", "VehiculeOfferSearch", new { RubriqueVehicule = "Location voitures" })">Location voitures</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferVehicule", "VehiculeOfferSearch", new { RubriqueVehicule = "Equipement Auto" })">Equipement Auto</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferVehicule", "VehiculeOfferSearch", new { RubriqueVehicule = "Motos" })">Motos</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferVehicule", "VehiculeOfferSearch", new { RubriqueVehicule = "Equipement Moto" })">Equipement Moto</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Bureau à louer</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+<!--/ footer Star /-->
+@*<section class="section-footer">
+    <div class="container">
+        <div class="row">
+           
+            <div class=" col-xs-6 col-sm-6 col-md-4 section-md-t3">
+                <div class="widget-a">
+                    <div class="w-header-a">
+                        <h3 class="w-title-a text-brand">Emploi</h3>
+                    </div>
+                    <div class="w-body-a">
+                        <div class="w-body-a">
+                            <ul class="list-unstyled">
+                                <li class="item-list-a">
+                                    <i class="fa fa-angle-right"></i> <a href="#">Offres d'emploi</a>
+                                </li>
+
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 section-md-t3">
+                <div class="widget-a">
+                    <div class="w-header-a">
+                        <h3 class="w-title-a text-brand">Immobilier</h3>
+                    </div>
+                    <div class="w-body-a">
+                        <ul class="list-unstyled">
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Appartement meublé</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">studio à louer</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Maison à louer</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Chambre à louer</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Terrain à vendre</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Bureau à louer</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 section-md-t3">
+                <div class="widget-a">
+                    <div class="w-header-a">
+                        <h3 class="w-title-a text-brand">Multimédia</h3>
+                    </div>
+                    <div class="w-body-a">
+                        <ul class="list-unstyled">
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Informatique</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Console de jeux</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Jeux vidéo</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Téléphonie</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Accésoires téphonie</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Téléviseur</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Son</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Photocopieuse</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 section-md-t3">
+                <div class="widget-a">
+                    <div class="w-header-a">
+                        <h3 class="w-title-a text-brand">Véhicule</h3>
+                    </div>
+                    <div class="w-body-a">
+                        <ul class="list-unstyled">
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Voitures</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Location voiture</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Equipement Auto</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Motos</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Equipement Moto</a>
+                            </li>
+                           
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-4 section-md-t3">
+                <div class="widget-a">
+                    <div class="w-header-a">
+                        <h3 class="w-title-a text-brand">Mode</h3>
+                    </div>
+                    <div class="w-body-a">
+                        <ul class="list-unstyled">
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Vêtements</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">China</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Hong Kong</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Argentina</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Singapore</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="#">Philippines</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-        @*<ul class="nav nav-pills ">
-                <li class="active"><a href="#ResulList" data-toggle="tab">Liste</a></li>
-                <li><a href="#ResultMap" data-toggle="tab">Carte</a></li>
-            </ul>*@
-        <img id="charging" src="~/UserImage/ajax-loader.gif" style="display: none" alt="Chargement en cours..." />
-        <div class="tab-content" id="resultsJobSearch">
-
-            <div class="tab-pane active  fade in" id="ResulList">
+    </div>
+</section>*@
 
 
-                <div class="row">
-                    @{
-                        Html.RenderAction("ResultSearch_PartialView", "Product");
-                    }
+<section class="row">
 
+    @*<section id="jobSectionResult" class="row hidden">
+            <div class="sect sect--padding-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="site">
+
+                                <div class="site__box-link">
+                                    <a id="List" class="btn btn--width" href="#ResulList" data-toggle="tab"><i class="glyphicon glyphicon-list"></i> Vue liste</a>
+                                    <a id="Map" class="btn btn--revert btn--width" href="#ResultMap" data-toggle="tab"><i class="glyphicon glyphicon-map-marker"></i> carte</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
+            <img id="charging" src="~/UserImage/ajax-loader.gif" style="display: none" alt="Chargement en cours..." />
+            <div class="tab-content" id="resultsJobSearch">
+
+                <div class="tab-pane active  fade in" id="ResulList">
 
 
-            <div class="tab-pane  fade " id="ResultMap">
-                <div id="mapid" style="height:480px"> </div>
-            </div>
-        </div>
-    </section>
+                    <div class="row">
+                        @{
+                            Html.RenderAction("ResultSearch_PartialView", "Product");
+                        }
 
-    <section id="AllCategoryResult" class="hidden">
-
-        <ul class="nav nav-pills ">
-            <li class="active"><a class="btn btn--revert btn--width" href="#ResulListAll" data-toggle="tab"><i class="glyphicon glyphicon-list"></i> Vue Liste</a></li>
-            <li><a class="btn btn--revert btn--width" href="#ResultMapAll" data-toggle="tab"><i class="glyphicon glyphicon-map-marker"></i> Vue Carte</a></li>
-        </ul>
-        <div class="tab-content" id="resultsAllCategory">
-            <div class="tab-pane active  fade in" id="ResulListAll">
-                <div class="col-md-6" id="groupe">
-
-
-                    @{
-                        Html.RenderAction("ListProduct_PartialView", "Product");
-                    }
+                    </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="row text-center">
-                      <a href="https://lookaukwat.azurewebsites.net/Job/JobDetail/27"><img src="@Url.Content("~/UserImage/PUB_PAPA.gif")" width="330" alt="lookaukwat géomètre" /></a>
-                  </div>
+
+
+
+                <div class="tab-pane  fade " id="ResultMap">
+                    <div id="mapid" style="height:480px"> </div>
                 </div>
             </div>
+        </section>*@
 
-            <div class="tab-pane  fade " id="ResultMapAll">
-                <div id="mapidAll" style="height:480px"> </div>
+    @*<section id="AllCategoryResult" class="hidden">
+
+            <ul class="nav nav-pills ">
+                <li class="active"><a class="btn btn--revert btn--width" href="#ResulListAll" data-toggle="tab"><i class="glyphicon glyphicon-list"></i> Vue Liste</a></li>
+                <li><a class="btn btn--revert btn--width" href="#ResultMapAll" data-toggle="tab"><i class="glyphicon glyphicon-map-marker"></i> Vue Carte</a></li>
+            </ul>
+            <div class="tab-content" id="resultsAllCategory">
+                <div class="tab-pane active  fade in" id="ResulListAll">
+                    <div class="col-md-6" id="groupe">
+
+
+                        @{
+                            Html.RenderAction("ListProduct_PartialView", "Product");
+                        }
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row text-center">
+                          <a href="https://lookaukwat.azurewebsites.net/Job/JobDetail/27"><img src="@Url.Content("~/UserImage/PUB_PAPA.gif")" width="330" alt="lookaukwat géomètre" /></a>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane  fade " id="ResultMapAll">
+                    <div id="mapidAll" style="height:480px"> </div>
+                </div>
+
             </div>
 
-        </div>
-
-    </section>
+        </section>*@
 
 
 </section>
 
 
 <script type="text/javascript">
-    var jobMarkers = L.layerGroup();
-    var ApartMarkers = L.layerGroup();
-    var mymapJob = L.map('mapid');
-    mymapJob.setView(["12.354722", "7.369722"], 5);
+    //var jobMarkers = L.layerGroup();
+    //var ApartMarkers = L.layerGroup();
+    //var mymapJob = L.map('mapid');
+    //mymapJob.setView(["12.354722", "7.369722"], 5);
 
 
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
-        id: 'mapbox/streets-v11', /*mapbox/satellite-v9*/
-        tileSize: 512,
-        zoomOffset: -1,
-        accessToken: 'pk.eyJ1IjoiZ3V5d2FuZ3VldSIsImEiOiJjazc0amN4ZzkwOG14M2twYXhpbDZ6NjRwIn0.HU_TD-k9bLv6_ctUhyIRuw'
-    }).addTo(mymapJob);
+    //L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    //    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    //    maxZoom: 18,
+    //    id: 'mapbox/streets-v11', /*mapbox/satellite-v9*/
+    //    tileSize: 512,
+    //    zoomOffset: -1,
+    //    accessToken: 'pk.eyJ1IjoiZ3V5d2FuZ3VldSIsImEiOiJjazc0amN4ZzkwOG14M2twYXhpbDZ6NjRwIn0.HU_TD-k9bLv6_ctUhyIRuw'
+    //}).addTo(mymapJob);
 
-    var options = {
-        enableHighAccuracy: false,
-        timeout: 5000,
-        maximumAge: Infinity
-    };
+    //var options = {
+    //    enableHighAccuracy: false,
+    //    timeout: 5000,
+    //    maximumAge: Infinity
+    //};
 
 
-    navigator.geolocation.getCurrentPosition(function (position) {
-        var lat = position.coords.latitude;
-        var long = position.coords.longitude;
-        mymapJob.setView([lat, long], 13);
-    }, null, options)
+    //navigator.geolocation.getCurrentPosition(function (position) {
+    //    var lat = position.coords.latitude;
+    //    var long = position.coords.longitude;
+    //    mymapJob.setView([lat, long], 13);
+    //}, null, options)
 
 
     //Typing script
@@ -345,10 +579,93 @@
 
         })
 
-        
+        $("select.searchcategory").change(function () {
+            var select = $(this).children("option:selected").val();
+            console.log(select)
+            if (select == "≡ Choisir une catégorie" || select == "" || select == null) {
+                $('#vehiculeid').addClass('hidden');
+                $('#ModeId').addClass('hidden');
+                $('#multimediaid').addClass('hidden');
+                $('#JobId').addClass('hidden');
+                $('#ImmobilierId').addClass('hidden');
+                $('#AllProduct').addClass('hidden');
+            }
+            if (select == "👚 Mode") {
+
+                $('#VehiculeId').addClass('hidden');
+                $('#ModeId').removeClass('hidden');
+                $('#multimediaid').addClass('hidden');
+                $('#JobId').addClass('hidden');
+                $('#ImmobilierId').addClass('hidden');
+                $('#AllProduct').addClass('hidden');
+            } else {
+                $('#ModeId').addClass('hidden');
+            }
+
+            if (select == "🚗 Véhicule") {
+
+                $('#VehiculeId').removeClass('hidden');
+                $('#ModeId').addClass('hidden');
+                $('#multimediaid').addClass('hidden');
+                $('#JobId').addClass('hidden');
+                $('#ImmobilierId').addClass('hidden');
+                $('#AllProduct').addClass('hidden');
+            } else {
+                $('#VehiculeId').addClass('hidden');
+            }
+
+            if (select == "💻 Multimédia") {
+
+                $('#VehiculeId').addClass('hidden');
+                $('#ModeId').addClass('hidden');
+                $('#MultimediaId').removeClass('hidden');
+                $('#JobId').addClass('hidden');
+                $('#ImmobilierId').addClass('hidden');
+                $('#AllProduct').addClass('hidden');
+            } else {
+                $('#MultimediaId').addClass('hidden');
+            }
+
+            if (select == "👷 Emploi") {
+
+                $('#VehiculeId').addClass('hidden');
+                $('#ModeId').addClass('hidden');
+                $('#multimediaid').addClass('hidden');
+                $('#JobId').removeClass('hidden');
+                $('#ImmobilierId').addClass('hidden');
+                $('#AllProduct').addClass('hidden');
+            } else {
+                $('#JobId').addClass('hidden');
+            }
+
+            if (select == "≡Toutes les catégories") {
+
+                $('#VehiculeId').addClass('hidden');
+                $('#ModeId').addClass('hidden');
+                $('#multimediaid').addClass('hidden');
+                $('#JobId').addClass('hidden');
+                $('#ImmobilierId').addClass('hidden');
+                $('#AllProduct').removeClass('hidden');
+            } else {
+                $('#AllProduct').addClass('hidden');
+            }
+
+            if (select == "🏠 Immobilier") {
+
+                $('#VehiculeId').addClass('hidden');
+                $('#ModeId').addClass('hidden');
+                $('#multimediaid').addClass('hidden');
+                $('#JobId').addClass('hidden');
+                $('#ImmobilierId').removeClass('hidden');
+                $('#AllProduct').addClass('hidden');
+            } else {
+                $('#ImmobilierId').addClass('hidden');
+            }
+        })
+
 
         //var select = $("#categori").val();
-      
+
         //if (select == "≡ Catégories" || select == "" || select == null) {
         //    $('#MultimediaId').addClass('hidden');
         //    $('#JobId').addClass('hidden');
@@ -359,164 +676,164 @@
         //    $('#jobSectionResult').addClass('hidden');
         //}
 
-        $("select.searchcategory").change(function () {
-            var select = $("#categori").val();
-           
-            if (select == "≡ Catégories" || select == "" || select == null) {
-                //$('#MultimediaId').addClass('hidden');
-                //$('#JobId').addClass('hidden');
-                //$('#ImmobilierId').addClass('hidden');
-                //$('#ModeId').addClass('hidden');
-                //$('#VehiculeId').addClass('hidden');
-                //$('#AllCategoryResult').addClass('hidden');
-                //$('#jobSectionResult').addClass('hidden');
-                localStorage.setItem("VehiculeResultHidden", "true");
-                localStorage.setItem("ModeResultHidden", "true");
-                localStorage.setItem("MultimediaResultHidden", "true");
-                localStorage.setItem("AllResultHidden", "true");
-                localStorage.setItem("JobResultHidden", "true");
-                localStorage.setItem("AppartResultHidden", "true");
-                localStorage.setItem("ModeResultHidden", "true");
+        //$("select.searchcategory").change(function () {
+        //    var select = $("#categori").val();
 
-            }
-            if (select == "👚 Mode") {
-                $('#ModeId').removeClass('hidden');
-                localStorage.setItem("ModeResultHidden", "false");
-                localStorage.setItem("VehiculeResultHidden", "true");
-                localStorage.setItem("MultimediaResultHidden", "true");
-                localStorage.setItem("AllResultHidden", "true");
-                localStorage.setItem("JobResultHidden", "true");
-                localStorage.setItem("AppartResultHidden", "true");
+        //    if (select == "≡ Catégories" || select == "" || select == null) {
+        //        //$('#MultimediaId').addClass('hidden');
+        //        //$('#JobId').addClass('hidden');
+        //        //$('#ImmobilierId').addClass('hidden');
+        //        //$('#ModeId').addClass('hidden');
+        //        //$('#VehiculeId').addClass('hidden');
+        //        //$('#AllCategoryResult').addClass('hidden');
+        //        //$('#jobSectionResult').addClass('hidden');
+        //        localStorage.setItem("VehiculeResultHidden", "true");
+        //        localStorage.setItem("ModeResultHidden", "true");
+        //        localStorage.setItem("MultimediaResultHidden", "true");
+        //        localStorage.setItem("AllResultHidden", "true");
+        //        localStorage.setItem("JobResultHidden", "true");
+        //        localStorage.setItem("AppartResultHidden", "true");
+        //        localStorage.setItem("ModeResultHidden", "true");
+
+        //    }
+        //    if (select == "👚 Mode") {
+        //        $('#ModeId').removeClass('hidden');
+        //        localStorage.setItem("ModeResultHidden", "false");
+        //        localStorage.setItem("VehiculeResultHidden", "true");
+        //        localStorage.setItem("MultimediaResultHidden", "true");
+        //        localStorage.setItem("AllResultHidden", "true");
+        //        localStorage.setItem("JobResultHidden", "true");
+        //        localStorage.setItem("AppartResultHidden", "true");
 
 
-            } else {
-                $('#ModeId').addClass('hidden');
-            }
-            if (select == "🚗 Véhicule") {
-                $('#VehiculeId').removeClass('hidden');
-                localStorage.setItem("VehiculeResultHidden", "false");
-                localStorage.setItem("MultimediaResultHidden", "true");
-                localStorage.setItem("AllResultHidden", "true");
-                localStorage.setItem("JobResultHidden", "true");
-                localStorage.setItem("AppartResultHidden", "true");
-                localStorage.setItem("ModeResultHidden", "true");
+        //    } else {
+        //        $('#ModeId').addClass('hidden');
+        //    }
+        //    if (select == "🚗 Véhicule") {
+        //        $('#VehiculeId').removeClass('hidden');
+        //        localStorage.setItem("VehiculeResultHidden", "false");
+        //        localStorage.setItem("MultimediaResultHidden", "true");
+        //        localStorage.setItem("AllResultHidden", "true");
+        //        localStorage.setItem("JobResultHidden", "true");
+        //        localStorage.setItem("AppartResultHidden", "true");
+        //        localStorage.setItem("ModeResultHidden", "true");
 
-            } else {
-                $('#VehiculeId').addClass('hidden');
-            }
-            if (select == "💻 Multimédia") {
-                $('#MultimediaId').removeClass('hidden');
-                localStorage.setItem("MultimediaResultHidden", "false");
-                localStorage.setItem("AllResultHidden", "true");
-                localStorage.setItem("JobResultHidden", "true");
-                localStorage.setItem("AppartResultHidden", "true");
-                localStorage.setItem("VehiculeResultHidden", "true");
-                localStorage.setItem("ModeResultHidden", "true");
+        //    } else {
+        //        $('#VehiculeId').addClass('hidden');
+        //    }
+        //    if (select == "💻 Multimédia") {
+        //        $('#MultimediaId').removeClass('hidden');
+        //        localStorage.setItem("MultimediaResultHidden", "false");
+        //        localStorage.setItem("AllResultHidden", "true");
+        //        localStorage.setItem("JobResultHidden", "true");
+        //        localStorage.setItem("AppartResultHidden", "true");
+        //        localStorage.setItem("VehiculeResultHidden", "true");
+        //        localStorage.setItem("ModeResultHidden", "true");
 
-            } else {
-                $('#MultimediaId').addClass('hidden');
-            }
+        //    } else {
+        //        $('#MultimediaId').addClass('hidden');
+        //    }
 
-            if (select == "👷 Emploi") {
-                $('#JobId').removeClass('hidden');
-               // $('#MultimediaId').addClass('hidden');
-                localStorage.setItem("AllResultHidden", "true");
-                localStorage.setItem("JobResultHidden", "false");
-                localStorage.setItem("AppartResultHidden", "true");
-                localStorage.setItem("MultimediaResultHidden", "true");
-                localStorage.setItem("VehiculeResultHidden", "true");
-                localStorage.setItem("ModeResultHidden", "true");
+        //    if (select == "👷 Emploi") {
+        //        $('#JobId').removeClass('hidden');
+        //       // $('#MultimediaId').addClass('hidden');
+        //        localStorage.setItem("AllResultHidden", "true");
+        //        localStorage.setItem("JobResultHidden", "false");
+        //        localStorage.setItem("AppartResultHidden", "true");
+        //        localStorage.setItem("MultimediaResultHidden", "true");
+        //        localStorage.setItem("VehiculeResultHidden", "true");
+        //        localStorage.setItem("ModeResultHidden", "true");
 
-            } else {
-                $('#JobId').addClass('hidden');
-            }
-            if (select == "≡Toutes les catégories") {
-                $('#jobSectionResult').addClass('hidden');
-                $('#AllCategoryResult').removeClass('hidden');
-                localStorage.setItem("AllResultHidden", "false");
-                localStorage.setItem("JobResultHidden", "true");
-                localStorage.setItem("AppartResultHidden", "true");
-                localStorage.setItem("MultimediaResultHidden", "true");
-                localStorage.setItem("ModeResultHidden", "true");
-                //$('#MultimediaId').addClass('hidden');
-               // $('#JobId').addClass('hidden');
-               // $('#ImmobilierId').addClass('hidden');
-            }
-            if (select == "🏠 Immobilier") {
-                $('#ImmobilierId').removeClass('hidden');
-                localStorage.setItem("AllResultHidden", "true");
-                localStorage.setItem("JobResultHidden", "true");
-                localStorage.setItem("MultimediaResultHidden", "true");
-                localStorage.setItem("AppartResultHidden", "false");
-                localStorage.setItem("VehiculeResultHidden", "true");
-                localStorage.setItem("ModeResultHidden", "true");
+        //    } else {
+        //        $('#JobId').addClass('hidden');
+        //    }
+        //    if (select == "≡Toutes les catégories") {
+        //        $('#jobSectionResult').addClass('hidden');
+        //        $('#AllCategoryResult').removeClass('hidden');
+        //        localStorage.setItem("AllResultHidden", "false");
+        //        localStorage.setItem("JobResultHidden", "true");
+        //        localStorage.setItem("AppartResultHidden", "true");
+        //        localStorage.setItem("MultimediaResultHidden", "true");
+        //        localStorage.setItem("ModeResultHidden", "true");
+        //        //$('#MultimediaId').addClass('hidden');
+        //       // $('#JobId').addClass('hidden');
+        //       // $('#ImmobilierId').addClass('hidden');
+        //    }
+        //    if (select == "🏠 Immobilier") {
+        //        $('#ImmobilierId').removeClass('hidden');
+        //        localStorage.setItem("AllResultHidden", "true");
+        //        localStorage.setItem("JobResultHidden", "true");
+        //        localStorage.setItem("MultimediaResultHidden", "true");
+        //        localStorage.setItem("AppartResultHidden", "false");
+        //        localStorage.setItem("VehiculeResultHidden", "true");
+        //        localStorage.setItem("ModeResultHidden", "true");
 
-            } else {
-                $('#ImmobilierId').addClass('hidden');
-            }
-        });
+        //    } else {
+        //        $('#ImmobilierId').addClass('hidden');
+        //    }
+        //});
 
-        if (localStorage.getItem("AllResultHidden") == "true") {
-            $('#AllCategoryResult').addClass('hidden');
-        } else {
-            $('#AllCategoryResult').removeClass('hidden');
-            $('#ImmobilierId').addClass('hidden');
-            $('#JobId').addClass('hidden');
-            $('#MultimediaId').addClass('hidden');
-            $('#jobSectionResult').addClass('hidden');
-            localStorage.setItem("VehiculeResultHidden", "true");
-        };
+        //if (localStorage.getItem("AllResultHidden") == "true") {
+        //    $('#AllCategoryResult').addClass('hidden');
+        //} else {
+        //    $('#AllCategoryResult').removeClass('hidden');
+        //    $('#ImmobilierId').addClass('hidden');
+        //    $('#JobId').addClass('hidden');
+        //    $('#MultimediaId').addClass('hidden');
+        //    $('#jobSectionResult').addClass('hidden');
+        //    localStorage.setItem("VehiculeResultHidden", "true");
+        //};
 
-        if (localStorage.getItem("JobResultHidden") == "true") {
-            $('#JobId').addClass('hidden');
-            $('#jobSectionResult').addClass('hidden');
-        } else {
-            $('#JobId').removeClass('hidden');
-            $('#jobSectionResult').removeClass('hidden');
+        //if (localStorage.getItem("JobResultHidden") == "true") {
+        //    $('#JobId').addClass('hidden');
+        //    $('#jobSectionResult').addClass('hidden');
+        //} else {
+        //    $('#JobId').removeClass('hidden');
+        //    $('#jobSectionResult').removeClass('hidden');
 
-           $('#submitJob').click();
-        };
+        //   $('#submitJob').click();
+        //};
 
-        if (localStorage.getItem("AppartResultHidden") == "true") {
-            $('#ImmobilierId').addClass('hidden');
-            // $('#jobSectionResult').addClass('hidden');
-        } else {
-            $('#ImmobilierId').removeClass('hidden');
-            $('#jobSectionResult').removeClass('hidden');
+        //if (localStorage.getItem("AppartResultHidden") == "true") {
+        //    $('#ImmobilierId').addClass('hidden');
+        //    // $('#jobSectionResult').addClass('hidden');
+        //} else {
+        //    $('#ImmobilierId').removeClass('hidden');
+        //    $('#jobSectionResult').removeClass('hidden');
 
-            $('#submitApart').click();
+        //    $('#submitApart').click();
 
-        };
-        if (localStorage.getItem("MultimediaResultHidden") == "true") {
-            $('#MultimediaId').addClass('hidden');
-            // $('#jobSectionResult').addClass('hidden');
-        } else {
-            $('#MultimediaId').removeClass('hidden');
-            $('#jobSectionResult').removeClass('hidden');
+        //};
+        //if (localStorage.getItem("MultimediaResultHidden") == "true") {
+        //    $('#MultimediaId').addClass('hidden');
+        //    // $('#jobSectionResult').addClass('hidden');
+        //} else {
+        //    $('#MultimediaId').removeClass('hidden');
+        //    $('#jobSectionResult').removeClass('hidden');
 
-            $('#submitMulti').click();
+        //    $('#submitMulti').click();
 
-        };
-        if (localStorage.getItem("VehiculeResultHidden") == "true") {
-            $('#VehiculeId').addClass('hidden');
-            // $('#jobSectionResult').addClass('hidden');
-        } else {
-            $('#VehiculeId').removeClass('hidden');
-            $('#jobSectionResult').removeClass('hidden');
+        //};
+        //if (localStorage.getItem("VehiculeResultHidden") == "true") {
+        //    $('#VehiculeId').addClass('hidden');
+        //    // $('#jobSectionResult').addClass('hidden');
+        //} else {
+        //    $('#VehiculeId').removeClass('hidden');
+        //    $('#jobSectionResult').removeClass('hidden');
 
-            $('#submitVehicule').click();
+        //    $('#submitVehicule').click();
 
-        };
-        if (localStorage.getItem("ModeResultHidden") == "true") {
-            $('#ModeId').addClass('hidden');
-            // $('#jobSectionResult').addClass('hidden');
-        } else {
-            $('#ModeId').removeClass('hidden');
-            $('#jobSectionResult').removeClass('hidden');
+        //};
+        //if (localStorage.getItem("ModeResultHidden") == "true") {
+        //    $('#ModeId').addClass('hidden');
+        //    // $('#jobSectionResult').addClass('hidden');
+        //} else {
+        //    $('#ModeId').removeClass('hidden');
+        //    $('#jobSectionResult').removeClass('hidden');
 
-            $('#submitMode').click();
+        //    $('#submitMode').click();
 
-        };
+        //};
         //if (localStorage.getItem("NoChoicetHidden") == "true") {
         //    $('#ImmobilierId').addClass('hidden');
         //    $('#JobId').addClass('hidden');
@@ -532,16 +849,16 @@
         //    document.getElementById("categori").options[localStorage.getItem('categori')].selected = true;
         //};
 
-        document.getElementById("categori").onchange = function () {
-            localStorage['categori'] = document.getElementById("categori").value;
-        }
-        window.onload = function () {
-            if (localStorage['categori'])
-                document.getElementById("categori").value = localStorage['categori'];
-        }
+        //document.getElementById("categori").onchange = function () {
+        //    localStorage['categori'] = document.getElementById("categori").value;
+        //}
+        //window.onload = function () {
+        //    if (localStorage['categori'])
+        //        document.getElementById("categori").value = localStorage['categori'];
+        //}
 
 
-        $('#submitApart').click(function () {
+        @*$('#submitApart').click(function () {
             $('#jobSectionResult').removeClass('hidden');
             $('#AllCategoryResult').addClass('hidden');
             localStorage.setItem("AllResultHidden", "true");
@@ -593,23 +910,23 @@
                   }
               });
             mymapJob.invalidateSize();
-        });
+        });*@
 
-        $('#submitJob').click(SubmitJobClick);
-        $('#submitMulti').click(SubmitMultimediaClick);
-        $('#submitVehicule').click(SubmitVehiculeClick);
-        $('#submitMode').click(SubmitModeClick);
-        $('#btnSearchAskProduct').click(SubmitAskClick);
+       // $('#submitJob').click(SubmitJobClick);
+       // $('#submitMulti').click(SubmitMultimediaClick);
+        //$('#submitVehicule').click(SubmitVehiculeClick);
+        //$('#submitMode').click(SubmitModeClick);
+        //$('#btnSearchAskProduct').click(SubmitAskClick);
 
 
-         $("a[href='#ResultMap']").on('shown.bs.tab', function (e) {
+         //$("a[href='#ResultMap']").on('shown.bs.tab', function (e) {
 
-             mymapJob.invalidateSize();
-         });
+         //    mymapJob.invalidateSize();
+         //});
 
     })
 
-        function SubmitJobClick () {
+        @*function SubmitJobClick () {
             $('#jobSectionResult').removeClass('hidden');
             $('#AllCategoryResult').addClass('hidden');
             ApartMarkers.clearLayers()
@@ -659,10 +976,10 @@
                   }
               });
             mymapJob.invalidateSize();
-    };
+    };*@
 
 
-    function SubmitAskClick () {
+    @*function SubmitAskClick () {
             $('#jobSectionResult').removeClass('hidden');
             $('#AllCategoryResult').addClass('hidden');
             ApartMarkers.clearLayers()
@@ -711,9 +1028,9 @@
                   }
               });
             mymapJob.invalidateSize();
-    };
+    };*@
 
-            function SubmitMultimediaClick () {
+            @*function SubmitMultimediaClick () {
             $('#jobSectionResult').removeClass('hidden');
             $('#AllCategoryResult').addClass('hidden');
             ApartMarkers.clearLayers()
@@ -764,9 +1081,9 @@
                   }
               });
             mymapJob.invalidateSize();
-    };
+    };*@
 
-    function SubmitVehiculeClick () {
+    @*function SubmitVehiculeClick () {
             $('#jobSectionResult').removeClass('hidden');
             $('#AllCategoryResult').addClass('hidden');
             ApartMarkers.clearLayers()
@@ -816,9 +1133,9 @@
                   }
               });
             mymapJob.invalidateSize();
-    };
+    };*@
 
-    //for submit mode
+    @*//for submit mode
 
     function SubmitModeClick () {
             $('#jobSectionResult').removeClass('hidden');
@@ -882,93 +1199,6 @@
                   }
               });
             mymapJob.invalidateSize();
-    };
+    };*@
 </script>
 
-<script type="text/javascript">
-    var mymap = L.map('mapidAll');
-    mymap.setView(["12.354722", "7.369722"], 5);
-    $("a[href='#ResultMapAll']").on('shown.bs.tab', function (e) {
-        mymap.invalidateSize();
-        $.ajax({
-            type: "POST",
-            url: '/Product/listAllProductReturnJson',
-
-            success: function (data2) {
-
-
-                for (var i = 0; i < data2.length; i++) {
-                    //console.log(data2[i]);
-                    if (data2[i].Category.CategoryName == "Emploi") {
-
-                        var popup2 =
-                            '<div class="thumbnail"> <a class="img-rounded" href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="photo de' + data2[i].Title + '" height="40"></a> </div>' +
-                            '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
-                            '<br/><b>ville : </b>' + data2[i].Town +
-                            '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Job/JobDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
-                    } else if (data2[i].Category.CategoryName == "Immobilier") {
-
-                        var popup2 =
-                            '<div class="thumbnail"> <a class="img-rounded" href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="LookAuKwat ' + data2[i].Title + '" height="40"></a> </div>' +
-                            '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
-                            '<br/><b>ville : </b>' + data2[i].Town +
-                            '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/ApartmentRental/ApartDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
-                    } else if (data2[i].Category.CategoryName == "Multimedia") {
-
-                        var popup2 =
-                            '<div class="thumbnail"> <a class="img-rounded" href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="LookAuKwat ' + data2[i].Title + '" height="40"></a> </div>' +
-                            '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
-                            '<br/><b>ville : </b>' + data2[i].Town +
-                            '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Multimedia/MultimediaDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
-                    } else if (data2[i].Category.CategoryName == "Vehicule") {
-
-                        var popup2 =
-                            '<div class="thumbnail"> <a class="img-rounded" href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="LookAuKwat ' + data2[i].Title + '" height="40"></a> </div>' +
-                            '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
-                            '<br/><b>ville : </b>' + data2[i].Town +
-                            '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Vehicule/VehiculeDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
-                    } else if (data2[i].Category.CategoryName == "Mode") {
-
-                        var popup2 =
-                            '<div class="thumbnail"> <a class="img-rounded" href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="LookAuKwat ' + data2[i].Title + '" height="40"></a> </div>' +
-                            '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
-                            '<br/><b>ville : </b>' + data2[i].Town +
-                            '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Mode/ModeDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
-                    }
-
-                    L.marker([data2[i].Coordinate.Lat, data2[i].Coordinate.Lon])
-                        .bindPopup(popup2)
-                        .addTo(mymap);
-                    // allGroup.addLayer(group);
-
-                }
-            },
-            error: function (xhr) {
-                console.log(xhr.responseText);
-                alert("Une erreur est survenu  !");
-            }
-        });
-    });
-
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
-        id: 'mapbox/streets-v11', /*mapbox/satellite-v9*/
-        tileSize: 512,
-        zoomOffset: -1,
-        accessToken: 'pk.eyJ1IjoiZ3V5d2FuZ3VldSIsImEiOiJjazc0amN4ZzkwOG14M2twYXhpbDZ6NjRwIn0.HU_TD-k9bLv6_ctUhyIRuw'
-    }).addTo(mymap);
-
-    var options = {
-        enableHighAccuracy: false,
-        timeout: 5000,
-        maximumAge: Infinity
-    };
-
-
-    navigator.geolocation.getCurrentPosition(function (position) {
-        var lat = position.coords.latitude;
-        var long = position.coords.longitude;
-        mymap.setView([lat, long], 10);
-    }, null, options)
-</script>

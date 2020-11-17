@@ -1,15 +1,7 @@
 ﻿@model LookAuKwat.ViewModel.SeachJobViewModel
 @using LookAuKwat.ViewModel
 
-@using (Ajax.BeginForm("searchOfferAppart", "ApartmentRentalSearch", new AjaxOptions
-{
-    HttpMethod = "GET",
-    InsertionMode = InsertionMode.Replace,
-    UpdateTargetId = "ResulList",
-    // OnFailure = "ErreurRecherche",
-     LoadingElementId = "charging"
-}
-         ))
+@using (Html.BeginForm("searchOfferAppart", "ApartmentRentalSearch" ))
 {
     @Html.AntiForgeryToken()
 
@@ -48,14 +40,14 @@
                 @Html.ValidationMessageFor(model => model.MaxApartSurface, "", new { @class = "text-danger" })
 
             </div>
-            <div class="form-group col-xs-6 col-sm-4 col-md-3">
+            <div class="form-group col-xs-6 col-sm-4 col-md-3" id="RoomNumberDiv">
                 @Html.LabelFor(model => model.RoomNumber, htmlAttributes: new { @class = "control-label" })
 
                 @Html.EditorFor(model => model.RoomNumber, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.RoomNumber, "", new { @class = "text-danger" })
 
             </div>
-            <div class="form-group col-xs-6 col-sm-4 col-md-3">
+            <div class="form-group col-xs-6 col-sm-4 col-md-3" id="FunitureOrNotDiv">
                 @Html.LabelFor(model => model.FurnitureOrNot, htmlAttributes: new { @class = "control-label" })
 
                 @Html.DropDownListFor(model => model.FurnitureOrNot, SelectListMethod.FurnitureOrNot(), "Tout", new { @class = "form-control" })
@@ -98,7 +90,7 @@
 
         </div>
        
-        <button id="submitApart" type="submit" class="btn btn-primary">
+        <button id="submitApartt" type="submit" class="btn btn-primary">
             <span class="glyphicon glyphicon-search"></span> <strong>Rechercher</strong>
         </button>
     </div>
@@ -109,3 +101,18 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script type="text/javascript">
+    $(function () {
+        $("#Type").change(function () {
+            console.log($("#Type").val());
+            if ($("#Type").val() == 'terrain à vendre') {
+                $("#RoomNumberDiv").addClass("hidden");
+                $("#FunitureOrNotDiv").addClass("hidden");
+            } else {
+                $("#RoomNumberDiv").removeClass("hidden");
+                $("#FunitureOrNotDiv").removeClass("hidden");
+            }
+        })
+    })
+</script>

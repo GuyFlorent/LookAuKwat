@@ -87,18 +87,18 @@
 
         <div class="form-group hidden" id="ModelVehiculeAutoEquipmentDiv">
             @Html.LabelFor(model => model.ModelVehiculeAutoEquipment, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-8">
+            <div class="col-md-10">
                 @Html.EditorFor(model => model.ModelVehiculeAutoEquipment, new { htmlAttributes = new { @class = "form-control", placeholder = "EX: Moteur,Pneu,siège..." } })
                 @Html.ValidationMessageFor(model => model.ModelVehiculeAutoEquipment, "", new { @class = "text-danger" })
-                <p class="col-md-2" id="spanMultimediaDescription" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
+                
             </div>
         </div>
         <div class="form-group hidden" id="ModelVehiculeBikeEquipmentDiv">
             @Html.LabelFor(model => model.ModelVehiculeBikeEquipment, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-8">
+            <div class="col-md-10">
                 @Html.EditorFor(model => model.ModelVehiculeBikeEquipment, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ModelVehiculeBikeEquipment, "", new { @class = "text-danger" })
-                <p class="col-md-2" id="spanMultimediaDescription" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
+                
             </div>
         </div>
 
@@ -125,26 +125,26 @@
         </div>
         <div class="form-group hidden" id="YearVehiculeDiv">
             @Html.LabelFor(model => model.YearVehicule, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-8">
+            <div class="col-md-10">
                 @Html.EditorFor(model => model.YearVehicule, new { htmlAttributes = new { @class = "form-control", placeholder = "Exemple: 2005" } })
                 @Html.ValidationMessageFor(model => model.YearVehicule, "", new { @class = "text-danger" })
-                <p class="col-md-2" id="spanMultimediaTitle" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
+                
             </div>
         </div>
         <div class="form-group hidden" id="FirstYearVehiculeDiv">
             @Html.LabelFor(model => model.FirstYearVehicule, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-8">
+            <div class="col-md-10">
                 @Html.EditorFor(model => model.FirstYearVehicule, new { htmlAttributes = new { @class = "form-control", placeholder = "Exemple: 11/2005" } })
                 @Html.ValidationMessageFor(model => model.FirstYearVehicule, "", new { @class = "text-danger" })
-                <p class="col-md-2" id="spanMultimediaTitle" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
+                
             </div>
         </div>
         <div class="form-group hidden" id="MileageVehiculeDiv">
             @Html.LabelFor(model => model.MileageVehicule, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-8">
+            <div class="col-md-10">
                 @Html.EditorFor(model => model.MileageVehicule, new { htmlAttributes = new { @class = "form-control", placeholder="Exemple: 98525" } })
                 @Html.ValidationMessageFor(model => model.MileageVehicule, "", new { @class = "text-danger" })
-                <p class="col-md-2" id="spanMultimediaTitle" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
+                
             </div>
         </div>
         <div class="form-group hidden" id="NumberOfDoorVehiculeDiv">
@@ -171,21 +171,21 @@
 
         <div class="form-group hidden" id="TitleVehiculeDiv">
             @Html.LabelFor(model => model.TitleVehicule, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-8">
+            <div class="col-md-10">
                 @Html.EditorFor(model => model.TitleVehicule, new { htmlAttributes = new { @class = "form-control", placeholder = "Voiture,Moto, pièces à vendre" } })
                 @Html.ValidationMessageFor(model => model.TitleVehicule, "", new { @class = "text-danger" })
             </div>
-            <p class="col-md-2" id="spanMultimediaTitle" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
+           
         </div>
 
 
         <div class="form-group hidden" id="DescriptionVehiculeDiv">
             @Html.LabelFor(model => model.DescriptionVehicule, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-8">
+            <div class="col-md-10">
                 @Html.TextAreaFor(model => model.DescriptionVehicule,  new { @class = "form-control", @cols = "45", @rows = "5" })
                 @Html.ValidationMessageFor(model => model.DescriptionVehicule, "", new { @class = "text-danger" })
             </div>
-            <p class="col-md-2" id="spanMultimediaDescription" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
+           
         </div>
 
         <div class="form-group hidden" id="TownVehiculeDiv">
@@ -524,16 +524,16 @@
 
 
                         $("#ModelVehiculeAutoEquipmentDiv").removeClass('hidden');
+                        $("#StateVehiculeDiv").removeClass('hidden');
+                        //$("#ModelVehiculeAutoEquipmentDiv").change(function () {
 
-                        $("#ModelVehiculeAutoEquipmentDiv").change(function () {
-
-                            if ($('#ModelVehiculeAutoEquipment').val() !== 'choisir') {
+                        //    if ($('#ModelVehiculeAutoEquipment').val() !== 'choisir') {
 
 
-                                $("#StateVehiculeDiv").removeClass('hidden');
+                        //        $("#StateVehiculeDiv").removeClass('hidden');
 
-                            }
-                        });
+                        //    }
+                        //});
                     }
                 });
             }
@@ -581,30 +581,32 @@
 
                     if ($('#BrandVehiculeBikeDiv').val() !== 'choisir') {
 
+                        $("#ModelVehiculeBikeEquipmentDiv").removeClass('hidden');
+                        $("#StateVehiculeDiv").removeClass('hidden');
 
-                        $("#ModelVehiculeBikeDiv").removeClass('hidden');
+                        //$("#ModelVehiculeBikeDiv").removeClass('hidden');
 
-                        $("#ModelVehiculeBikeDiv").change(function () {
-
-
-                            if ($('#ModelVehiculeBike').val() !== 'choisir') {
-
-
-                                $("#ModelVehiculeBikeEquipmentDiv").removeClass('hidden');
-
-                            }
-                        });
-
-                        $("#ModelVehiculeBikeEquipmentDiv").change(function () {
+                        //$("#ModelVehiculeBikeDiv").change(function () {
 
 
-                            if ($('#ModelVehiculeBikeEquipment').val() !== 'choisir') {
+                        //    if ($('#ModelVehiculeBike').val() !== 'choisir') {
 
 
-                                $("#StateVehiculeDiv").removeClass('hidden');
+                        //        $("#ModelVehiculeBikeEquipmentDiv").removeClass('hidden');
+                        //        $("#StateVehiculeDiv").removeClass('hidden');
+                        //    }
+                        //});
 
-                            }
-                        });
+                        //$("#ModelVehiculeBikeEquipmentDiv").change(function () {
+
+
+                        //    if ($('#ModelVehiculeBikeEquipment').val() !== 'choisir') {
+
+
+                        //        $("#StateVehiculeDiv").removeClass('hidden');
+
+                        //    }
+                        //});
                     }
                 });
             }
@@ -614,6 +616,8 @@
 
             if ($('#StateVehicule').val() !== 'choisir' && ($('#RubriqueVehicule').val() == 'Equipement Auto' || $('#RubriqueVehicule').val() == 'Equipement Moto')) {
                 $("#TitleVehiculeDiv").removeClass('hidden');
+                $("#DescriptionVehiculeDiv").removeClass('hidden');
+                $("#TownVehiculeDiv").removeClass('hidden');
 
             } else if ($('#StateVehicule').val() !== 'choisir' && ($('#RubriqueVehicule').val() !== 'Equipement Auto' || $('#RubriqueVehicule').val() !== 'Equipement Moto')
                 && $('#RubriqueVehicule').val() === 'Motos') {
@@ -638,42 +642,51 @@
 
         $("#PetrolVehiculeDiv").change(function () {
 
-            if ($('#PetrolVehicule').val() !== 'choisir') {
+            if ($('#PetrolVehicule').val() !== 'choisir' && $('#RubriqueVehicule').val() === 'Motos') {
 
                 $("#YearVehiculeDiv").removeClass('hidden');
-
-            }
-        });
-        $("#YearVehiculeDiv").change(function () {
-
-            if ($('#YearVehicule').val() !== 'choisir') {
-
                 $("#FirstYearVehiculeDiv").removeClass('hidden');
-
-            }
-        });
-
-        $("#FirstYearVehiculeDiv").change(function () {
-
-            if ($('#FirstYearVehicule').val() !== 'choisir') {
-
                 $("#MileageVehiculeDiv").removeClass('hidden');
-
-            }
-        });
-
-        $("#MileageVehiculeDiv").change(function () {
-
-            if ($('#MileageVehicule').val() !== 'choisir' && $('#RubriqueVehicule').val() === 'Motos') {
-
                 $("#ColorVehiculeDiv").removeClass('hidden');
+            } else if ($('#PetrolVehicule').val() !== 'choisir' && $('#RubriqueVehicule').val() !== 'Motos') {
 
-            } else if ($('#MileageVehicule').val() !== 'choisir' && $('#RubriqueVehicule').val() !== 'Motos') {
-
+                $("#YearVehiculeDiv").removeClass('hidden');
+                $("#FirstYearVehiculeDiv").removeClass('hidden');
+                $("#MileageVehiculeDiv").removeClass('hidden');
                 $("#NumberOfDoorVehiculeDiv").removeClass('hidden');
 
             }
         });
+        //$("#YearVehiculeDiv").change(function () {
+
+        //    if ($('#YearVehicule').val() !== 'choisir') {
+
+        //        $("#FirstYearVehiculeDiv").removeClass('hidden');
+
+        //    }
+        //});
+
+        //$("#FirstYearVehiculeDiv").change(function () {
+
+        //    if ($('#FirstYearVehicule').val() !== 'choisir') {
+
+        //        $("#MileageVehiculeDiv").removeClass('hidden');
+
+        //    }
+        //});
+
+        //$("#MileageVehiculeDiv").change(function () {
+
+        //    if ($('#MileageVehicule').val() !== 'choisir' && $('#RubriqueVehicule').val() === 'Motos') {
+
+        //        $("#ColorVehiculeDiv").removeClass('hidden');
+
+        //    } else if ($('#MileageVehicule').val() !== 'choisir' && $('#RubriqueVehicule').val() !== 'Motos') {
+
+        //        $("#NumberOfDoorVehiculeDiv").removeClass('hidden');
+
+        //    }
+        //});
 
         $("#NumberOfDoorVehiculeDiv").change(function () {
 
@@ -700,27 +713,28 @@
             if ($('#GearBoxVehicule').val() !== 'choisir') {
 
                 $("#TitleVehiculeDiv").removeClass('hidden');
-
-            }
-        });
-
-        $("#TitleVehiculeDiv").change(function () {
-
-            if ($('#TitleVehicule').val() !== 'choisir') {
-
                 $("#DescriptionVehiculeDiv").removeClass('hidden');
-
-            }
-        });
-
-        $("#DescriptionVehiculeDiv").change(function () {
-
-            if ($('#DescriptionVehicule').val() !== 'choisir') {
-
                 $("#TownVehiculeDiv").removeClass('hidden');
-
             }
         });
+
+        //$("#TitleVehiculeDiv").change(function () {
+
+        //    if ($('#TitleVehicule').val() !== 'choisir') {
+
+        //        $("#DescriptionVehiculeDiv").removeClass('hidden');
+
+        //    }
+        //});
+
+        //$("#DescriptionVehiculeDiv").change(function () {
+
+        //    if ($('#DescriptionVehicule').val() !== 'choisir') {
+
+        //        $("#TownVehiculeDiv").removeClass('hidden');
+
+        //    }
+        //});
 
         $("#TownVehiculeDiv").change(function () {
 

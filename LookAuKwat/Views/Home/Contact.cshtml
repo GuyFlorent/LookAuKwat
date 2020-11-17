@@ -3,6 +3,7 @@
     ViewBag.Title = "Nous contacter";
 }
 
+    <p>@Html.ActionLink("Retour à l'accueil", "Index", "Home") <i class="fa fa-angle-right"></i> Nous contacter</p>
 <!--/ Intro Single star /-->
 <section class="intro-single ">
     <div class="container">
@@ -19,12 +20,13 @@
                     </div>
                     <div class="row">
                         <h3>
-                            Pour toute autre demande concernant le site internet <strong>Lookaukwat</strong>...</h3>
+                            Pour toute autre demande concernant le site internet <strong>Lookaukwat</strong>...
+                        </h3>
                         <p>
                             <img src="@Url.Content("~/UserImage/main_ecrit.png")" alt="" height="20" />
                             Utilisez le formulaire de contact suivant :
                         </p>
-                     </div>
+                    </div>
                 </div>
             </div>
             @*<div class="col-md-12 col-lg-4">
@@ -59,44 +61,44 @@
                 <div class="row">
                     <div class="col-md-7">
 
-                        @using( Html.BeginForm("ContactUs", "Product", new { RecieverEmail = "contact@lookaukwat.com", RecieverName = "Lookaukwat", Linkshare = "" }, FormMethod.Post, new { @class = "form-a contactForm " }))
-                       
+                        @using (Html.BeginForm("ContactUs", "Product", new { RecieverEmail = "contact@lookaukwat.com", RecieverName = "Lookaukwat", Linkshare = "" }, FormMethod.Post, new { @class = "form-a contactForm " }))
+
                         {
 
-                        @Html.AntiForgeryToken()
-                        <div id="sendmessage" class="text-success">@ViewBag.text</div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    @Html.EditorFor(model => model.NameSender, new { htmlAttributes = new { @class = "form-control form-control-lg form-control-a", placeholder = "Votre Nom" } })
-                                    @Html.ValidationMessageFor(model => model.NameSender, "", new { @class = "text-danger" })
+                            @Html.AntiForgeryToken()
+                            <div id="sendmessage" class="text-success">@ViewBag.text</div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.NameSender, new { htmlAttributes = new { @class = "form-control form-control-lg form-control-a", placeholder = "Votre Nom" } })
+                                        @Html.ValidationMessageFor(model => model.NameSender, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.EmailSender, new { htmlAttributes = new { @class = "form-control form-control-lg form-control-a", placeholder = "Votre Email" } })
+                                        @Html.ValidationMessageFor(model => model.EmailSender, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.EditorFor(model => model.SubjectSender, new { htmlAttributes = new { @class = "form-control form-control-lg form-control-a", placeholder = "Votre Sujet" } })
+                                        @Html.ValidationMessageFor(model => model.SubjectSender, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-12 ">
+                                    <div class="form-group">
+                                        @Html.TextAreaFor(model => model.Message, new { @class = "form-control", placeholder = "Message", @cols = "45", @rows = "8" })
+                                        @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-a">Envoyer le Message</button>
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    @Html.EditorFor(model => model.EmailSender, new { htmlAttributes = new { @class = "form-control form-control-lg form-control-a", placeholder = "Votre Email" } })
-                                    @Html.ValidationMessageFor(model => model.EmailSender, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                       
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    @Html.EditorFor(model => model.SubjectSender, new { htmlAttributes = new { @class = "form-control form-control-lg form-control-a", placeholder = "Votre Sujet" } })
-                                    @Html.ValidationMessageFor(model => model.SubjectSender, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="col-md-12 ">
-                                <div class="form-group">
-                                    @Html.TextAreaFor(model => model.Message,  new { @class = "form-control", placeholder = "Message", @cols = "45", @rows = "8" })
-                                    @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-a">Envoyer le Message</button>
-                            </div>
-                       </div>
                         }
-                       
+
                     </div>
                     <div class="col-md-5 section-md-t3">
                         <div class="icon-box section-b2">
@@ -113,14 +115,14 @@
                                         <span class="color-a"> contact@lookaukwat.com</span>
                                     </p>
                                     <p class="mb-1">
-                                        Téléphone/WhatSapp : 
+                                        Téléphone/WhatSapp :
                                         <span class="color-a"> +237 6 57633039</span>
                                     </p>
                                 </div>
                             </div>
                         </div>
                         <div class="icon-box section-b2">
-                           
+
                             <div class="icon-box-content table-cell">
                                 <div class="icon-box-title">
                                     <h4 class="icon-title"><i class="glyphicon glyphicon-map-marker"></i> Trouvez nous</h4>
@@ -134,7 +136,7 @@
                             </div>
                         </div>
                         <div class="icon-box">
-                           
+
                             <div class="icon-box-content table-cell">
                                 <div class="icon-box-title">
                                     <h4 class="icon-title"><span class="glyphicon glyphicon-share-alt"></span> Réseau social</h4>
@@ -152,22 +154,22 @@
                                                     <i class="fa fa-whatsapp" aria-hidden="true"></i>
                                                 </a>
                                             </li>
-                                            
+
                                             <li class="list-inline-item">
-            <a href="https://www.instagram.com/invites/contact/?i=1kob8nkudjdfs&utm_content=k98vom3" class="link-one">
-                <i class="fa fa-instagram" aria-hidden="true"></i>
-            </a>
-        </li>
-        <li class="list-inline-item">
-            <a href="https://www.youtube.com/channel/UC_KQiclyZwb7Dji-Ixz3rxw" class="link-one">
-                <i class="fa fa-youtube" aria-hidden="true"></i>
-            </a>
-        </li>
-        @*<li class="list-inline-item">
-            <a href="#" class="link-one">
-                <i class="fa fa-dribbble" aria-hidden="true"></i>
-            </a>
-        </li>*@
+                                                <a href="https://www.instagram.com/invites/contact/?i=1kob8nkudjdfs&utm_content=k98vom3" class="link-one">
+                                                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="https://www.youtube.com/channel/UC_KQiclyZwb7Dji-Ixz3rxw" class="link-one">
+                                                    <i class="fa fa-youtube" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            @*<li class="list-inline-item">
+                                                    <a href="#" class="link-one">
+                                                        <i class="fa fa-dribbble" aria-hidden="true"></i>
+                                                    </a>
+                                                </li>*@
                                         </ul>
                                     </div>
                                 </div>

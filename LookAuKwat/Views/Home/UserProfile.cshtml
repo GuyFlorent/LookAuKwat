@@ -1,6 +1,8 @@
 ﻿@{
     ViewBag.Title = "Déposer une annonce en 2 minutes";
 }
+
+    <p>@Html.ActionLink("Retour à l'accueil", "Index", "Home") <i class="fa fa-angle-right"></i> Déposer une annonce</p>
 <div class="sect sect--padding-top">
     <div class="container">
         <div class="row">
@@ -8,7 +10,7 @@
                 <div class="site">
                     <h1 class="site__title">Déposer une <strong>annonce</strong> sur LookAuKwat?</h1>
                     <h2 class="site__subtitle">Choisir une catégorie</h2>
-                    
+
                 </div>
             </div>
         </div>
@@ -17,14 +19,14 @@
 <section class="row">
     <div class="row">
         <div class=" col-md-offset-5 form-group">
-            
+
             <select class="form-control Addcategory" id="selectAddId" data-show-icon="true">
                 <option>≡ Choisir une catégorie</option>
                 <option>👷 Emploi</option>
-                <option >🏠 Immobilier</option>
-                <option >💻 Multimédia</option>
+                <option>🏠 Immobilier</option>
+                <option>💻 Multimédia</option>
                 <option>🚗 Véhicule</option>
-                <option >👚 Mode</option>
+                <option>👚 Mode</option>
             </select>
         </div>
     </div>
@@ -144,8 +146,10 @@
 <section>
     <div class="col-md-12">
         <div class=" row">
-            <p>En <strong>version mobile</strong>, pour modifier <span class="btn btn-success glyphicon glyphicon-edit"></span> , voir les détails <span class="btn btn-danger glyphicon glyphicon-eye-open"></span>
-             et supprimer <span class="btn btn-danger glyphicon glyphicon-trash"></span> les annonces, il faut juste parcourir tout le tableau de la gauche vers la droite</p>
+            <p>
+                En <strong>version mobile</strong>, pour modifier <span class="btn btn-success glyphicon glyphicon-edit"></span> , voir les détails <span class="btn btn-danger glyphicon glyphicon-eye-open"></span>
+                et supprimer <span class="btn btn-danger glyphicon glyphicon-trash"></span> les annonces, il faut juste parcourir tout le tableau de la gauche vers la droite
+            </p>
         </div>
         <div class="row" style="height:7px">
             <div class="row alert alert-success js-alert hidden" role="alert">
@@ -189,6 +193,6 @@
             }
         });
 
-        
+
     });
 </script>

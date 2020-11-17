@@ -312,7 +312,7 @@ namespace LookAuKwat.Models
         {
             ApplicationUser userr = dbb.Users.FirstOrDefault(u => u.Id == user.Id);
             userr.FirstName = user.FirstName;
-            userr.PhoneNumber = user.PhoneNumber;
+           
             dbb.SaveChanges();
         }
 
@@ -513,6 +513,61 @@ namespace LookAuKwat.Models
                 .Include(s => s.Category)
                 .Include(s => s.Coordinate).ToList();
             return listMode;
+        }
+
+        public bool User_Number_Already_Exist(string number)
+        {
+             ApplicationUser cli = dbb.Users.FirstOrDefault(m => m.PhoneNumber == number);
+            if (cli == null)
+                return false;
+            return true;
+        }
+        public bool User_Email_Already_Exist(string email)
+        {
+            ApplicationUser cli = dbb.Users.FirstOrDefault(m => m.Email == email);
+            if (cli == null)
+                return false;
+            return true;
+        }
+
+        public List<ParrainModel> GetParrainList()
+        {
+            return dbb.Parrains.ToList();
+        }
+
+        public void AddParrain(ParrainModel model)
+        {
+            dbb.Parrains.Add(model);
+            dbb.SaveChanges();
+        }
+
+        public void DeletParrain(ParrainModel model)
+        {
+            dbb.Parrains.Remove(model);
+            dbb.SaveChanges();
+        }
+
+        public void Update_Date_First_Publish(ApplicationUser user)
+        {
+            ApplicationUser userr = dbb.Users.FirstOrDefault(u => u.Id == user.Id);
+            userr.Date_First_Publish = DateTime.Now;
+            dbb.SaveChanges();
+        }
+
+        public void UpdateUserByAdmin(ApplicationUser user)
+        {
+            ApplicationUser userr = dbb.Users.FirstOrDefault(u => u.Id == user.Id);
+            userr.FirstName = user.FirstName;
+            userr.PhoneNumber = user.PhoneNumber;
+            userr.Email = user.Email;
+            dbb.SaveChanges();
+        }
+
+        public void DeleteUserByAdmin(ApplicationUser user)
+        {
+            ApplicationUser userr = dbb.Users.FirstOrDefault(u => u.Id == user.Id);
+            dbb.Users.Remove(userr);
+            dbb.SaveChanges();
         }
     }
 }

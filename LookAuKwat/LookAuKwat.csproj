@@ -46,6 +46,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=1.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.1.1.2\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.1.2\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
     </Reference>
@@ -61,8 +67,13 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.1.2\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -115,6 +126,9 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio, Version=5.49.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.5.49.0\lib\net451\Twilio.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -182,6 +196,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ApartmentRentalController.cs" />
     <Compile Include="Controllers\ApartmentRentalSearchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -243,6 +258,18 @@
     <Compile Include="Migrations\202011091308424_removePropertyVehicule.Designer.cs">
       <DependentUpon>202011091308424_removePropertyVehicule.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011141734472_Admin_Model.cs" />
+    <Compile Include="Migrations\202011141734472_Admin_Model.Designer.cs">
+      <DependentUpon>202011141734472_Admin_Model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011141834375_modification_user.cs" />
+    <Compile Include="Migrations\202011141834375_modification_user.Designer.cs">
+      <DependentUpon>202011141834375_modification_user.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011160732417_dateForPublishAnnounce.cs" />
+    <Compile Include="Migrations\202011160732417_dateForPublishAnnounce.Designer.cs">
+      <DependentUpon>202011160732417_dateForPublishAnnounce.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApartmentRentalModel.cs" />
@@ -256,6 +283,7 @@
     <Compile Include="Models\MessageDetails.cs" />
     <Compile Include="Models\ModeModel.cs" />
     <Compile Include="Models\MultimediaModel.cs" />
+    <Compile Include="Models\ParrainModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\ProductCoordinateModel.cs" />
     <Compile Include="Models\VehiculeModel.cs" />
@@ -266,12 +294,15 @@
     <Compile Include="ViewModel\AskJobViewModel.cs" />
     <Compile Include="ViewModel\contactUserViewModel.cs" />
     <Compile Include="ViewModel\DataJsonProductViewModel.cs" />
+    <Compile Include="ViewModel\DataUser_Agent.cs" />
     <Compile Include="ViewModel\ImageModelView.cs" />
     <Compile Include="ViewModel\JobEditViewModel.cs" />
     <Compile Include="ViewModel\JobViewModel.cs" />
     <Compile Include="ViewModel\ModeViewModel.cs" />
     <Compile Include="ViewModel\MultimediaViewModel.cs" />
+    <Compile Include="ViewModel\ParrainViewModel.cs" />
     <Compile Include="ViewModel\SeachJobViewModel.cs" />
+    <Compile Include="ViewModel\SearchUser_Admin.cs" />
     <Compile Include="ViewModel\SelectListMethod.cs" />
     <Compile Include="ViewModel\SelectListMethodMode.cs" />
     <Compile Include="ViewModel\SelectListMethodVehicle.cs" />
@@ -408,7 +439,7 @@
     <Content Include="Views\ApartmentRental\AddApartment_PartialView.cshtml" />
     <Content Include="Views\ApartmentRental\ApartmentDetails_PartialView.cshtml" />
     <Content Include="Views\ApartmentRental\EditApartment_PartialView.cshtml" />
-    <Content Include="Views\Product\ListProduct_PartialView.cshtml" />
+    <Content Include="Views\Product\SearchAllProduct_PartialView.cshtml" />
     <Content Include="Views\ApartmentRentalSearch\SearchOfferAppart_PartialView.cshtml" />
     <Content Include="Views\ApartmentRental\ApartDetail.cshtml" />
     <Content Include="Views\Product\ContactProductUser_PartialView.cshtml" />
@@ -434,6 +465,23 @@
     <Content Include="Views\ModeOfferSearch\SearchOfferMode_PartialView.cshtml" />
     <Content Include="Views\Mode\ModeDetail.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\JobOfferSearch\FilterSearchJob.cshtml" />
+    <Content Include="Views\ApartmentRentalSearch\FilterSearchAppart.cshtml" />
+    <Content Include="Views\MultimediaOfferSearch\FilterSearchMultimedia.cshtml" />
+    <Content Include="Views\Product\ListeAllProduct.cshtml" />
+    <Content Include="Views\ModeOfferSearch\FilterSearchMode.cshtml" />
+    <Content Include="Views\VehiculeOfferSearch\FilterSearchVehicule.cshtml" />
+    <Content Include="Views\Product\FilterSearchAskProduct.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\ListAllUser.cshtml" />
+    <Content Include="Views\Admin\SearchUser_PartialView.cshtml" />
+    <Content Include="Views\Admin\ListAllAgents.cshtml" />
+    <Content Include="Views\Admin\AddParrain_PartialView.cshtml" />
+    <Content Include="Views\Admin\Stat_Account_Agent.cshtml" />
+    <Content Include="Views\Admin\UpdateUserInformations.cshtml" />
+    <Content Include="Views\Admin\DeleteUser.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumberFirstRegister.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumberFirstRegister.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -485,6 +533,18 @@
     <EmbeddedResource Include="Migrations\202011091308424_removePropertyVehicule.resx">
       <DependentUpon>202011091308424_removePropertyVehicule.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011141734472_Admin_Model.resx">
+      <DependentUpon>202011141734472_Admin_Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011141834375_modification_user.resx">
+      <DependentUpon>202011141834375_modification_user.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011160732417_dateForPublishAnnounce.resx">
+      <DependentUpon>202011160732417_dateForPublishAnnounce.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

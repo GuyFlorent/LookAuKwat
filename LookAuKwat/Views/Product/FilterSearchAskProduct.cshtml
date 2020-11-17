@@ -1,0 +1,354 @@
+﻿@using PagedList;
+@using System.Globalization;
+@using PagedList.Mvc;
+@model LookAuKwat.ViewModel.AskJobViewModel
+
+@{
+    ViewBag.Title = "Demandes "+Model.CagtegorieSearchAsk+ " "+ Model.TownSearchAsk + Model.TitleSearchAsk;
+}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin="" />
+
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+        crossorigin=""></script>
+
+<p>@Html.ActionLink("Retour à l'accueil", "Index", "Home") <i class="fa fa-angle-right"></i> Filtres dans les Demandes</p>
+<section>
+    <div class="tab-content">
+        <div class="tab-pane active fade in" id="search">
+            <div id="searchJob">
+                <div class="form-group">
+                    <label for="selectCategory">Vous êtes dans les <strong>offres</strong>. Pour plus de filtres veuillez Choisir une catégorie :</label>
+                    
+                </div>
+                <div class="formulaire">
+                    @{
+                        Html.RenderAction("SearchAskProduct_PartialView", "Product");
+                    }
+
+                </div>
+            </div>
+        </div>
+        @*<div class="tab-pane fade " id="ask">
+            <div id="askJob">
+
+                <div class="formulaire">
+                    @{
+                        Html.RenderAction("SearchAskProduct_PartialView", "Product");
+                    }
+
+                </div>
+            </div>
+        </div>*@
+    </div>
+</section>
+
+<section id="jobSectionResult" class="row ">
+    <div class="sect sect--padding-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site">
+
+                        <div class="site__box-link">
+                            <a id="List" class="btn btn--width" href="#ResulList" data-toggle="tab"><i class="glyphicon glyphicon-list"></i> Vue liste</a>
+                            <a id="Map" class="btn btn--revert btn--width" href="#ResultMap" data-toggle="tab"><i class="glyphicon glyphicon-map-marker"></i> carte</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<ul class="nav nav-pills ">
+            <li class="active"><a href="#ResulList" data-toggle="tab">Liste</a></li>
+            <li><a href="#ResultMap" data-toggle="tab">Carte</a></li>
+        </ul>*@
+    @*<img id="charging" src="~/UserImage/ajax-loader.gif" style="display: none" alt="Chargement en cours..." />*@
+    <div class="preload">
+        <img src="https://i.imgur.com/KUJoe.gif">
+    </div>
+    <div class="tab-content" id="resultsJobSearch">
+
+        <div class="tab-pane active  fade in" id="ResulList">
+
+
+            <div class="row">
+                @*@{
+                        Html.RenderAction("ResultSearch_PartialView", "Product");
+                    }*@
+                @if (Model.ListePro.Count == 0)
+                {
+
+                    <p class="text-danger">Pas de résultats disponible !</p>
+
+                }
+                else
+                {
+                    <div class="col-md-12" id="groupeResultSearch">
+                        <div class="col-md-6">
+                            <div>
+
+
+                                <label class="col-md-2">
+                                    Tri :
+                                </label>
+
+                            </div>
+
+                            <select class="SelectJob" id="SelectJob">
+                                <option value="---Choisir---">---Choisir---</option>
+                                <option id="AscendingPrice" value="Tri par Prix croissant"> Tri par Prix croissant</option>
+                                <option id="descendingPrice" value="Tri par Prix décroissant">Tri par Prix décroissant</option>
+                                <option id="MostOlder" value="Tri par Plus anciennes">Tri par Plus anciennes</option>
+                                <option id="MostLastest" value="Tri par Plus recentes">Tri par Plus recentes</option>
+                            </select>
+
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">@Model.ListePro.Count <strong>Annonces</strong> disponibles dans la rubrique des demandes :</h3>
+                                </div>
+                                <div class="list-group">
+
+                                    @foreach (var liste in Model.ListeProPagedList)
+                                    {
+                                        TimeSpan elapsTime = DateTime.Now - liste.DateAdd;
+                                        string period = null;
+                                        int time = 0;
+
+                                        if (elapsTime.TotalMinutes < 60)
+                                        {
+                                            time = elapsTime.Minutes;
+                                            period = "minutes";
+                                        }
+                                        else if (elapsTime.TotalMinutes > 60 && elapsTime.TotalMinutes < 1440)
+                                        {
+                                            time = elapsTime.Hours;
+                                            period = "Heures";
+                                        }
+                                        else if (elapsTime.TotalMinutes > 1440)
+                                        {
+                                            time = elapsTime.Days;
+                                            period = "Jours";
+                                        }
+
+                                        if (liste.Category.CategoryName != null)
+                                        {
+                                            try
+                                            {
+
+
+
+                                                if (liste.Category.CategoryName == "Emploi")
+                                                {
+                                                    <a href="@Url.Action("JobDetail", "Job", new { id = liste.id }, null)" class="list-group-item">
+                                                        <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"> @liste.Town</span></h4>
+                                                        <p class="list-group-item-text pull-right text-success">Ajoutée il y'a @time.ToString() @period</p>
+                                                        <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
+                                                        <p class="list-group-item-text text-left">👷 Emploi</p>
+                                                        <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded" />
+                                                    </a>
+                                                }
+                                                else if (liste.Category.CategoryName == "Immobilier")
+                                                {
+                                                    <a href="@Url.Action("ApartDetail", "ApartmentRental", new { id = liste.id }, null)" class="list-group-item">
+                                                        <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"> @liste.Town</span></h4>
+                                                        <p class="list-group-item-text pull-right text-success">Ajoutée il y'a @time.ToString() @period</p>
+                                                        <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
+                                                        <p class="list-group-item-text text-left">🏠 Immobilier</p>
+                                                        <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
+                                                    </a>
+                                                }
+                                                else if (liste.Category.CategoryName == "Multimedia")
+                                                {
+                                                    <a href="@Url.Action("MultimediaDetail", "Multimedia", new { id = liste.id }, null)" class="list-group-item">
+                                                        <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"> @liste.Town</span></h4>
+                                                        <p class="list-group-item-text pull-right text-success">Ajoutée il y'a @time.ToString() @period</p>
+                                                        <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
+                                                        <p class="list-group-item-text text-left">💻 Multimédia</p>
+                                                        <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
+                                                    </a>
+                                                }
+                                                else if (liste.Category.CategoryName == "Vehicule")
+                                                {
+                                                    <a href="@Url.Action("VehiculeDetail", "Vehicule", new { id = liste.id }, null)" class="list-group-item">
+                                                        <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"> @liste.Town</span></h4>
+                                                        <p class="list-group-item-text pull-right text-success">Ajoutée il y'a @time.ToString() @period</p>
+                                                        <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
+                                                        <p class="list-group-item-text text-left">🚗 Vehicule</p>
+                                                        <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
+                                                    </a>
+                                                }
+                                                else if (liste.Category.CategoryName == "Mode")
+                                                {
+                                                    <a href="@Url.Action("ModeDetail", "Mode", new { id = liste.id }, null)" class="list-group-item">
+                                                        <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"> @liste.Town</span></h4>
+                                                        <p class="list-group-item-text pull-right text-success">Ajoutée il y'a @time.ToString() @period</p>
+                                                        <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
+                                                        <p class="list-group-item-text text-left">👚 Mode</p>
+                                                        <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
+                                                    </a>
+                                                }
+                                            }
+                                            catch (Exception e) { Console.WriteLine(e); }
+
+                                        }
+                                    }
+                                </div>
+                            </div>
+
+                            Page @(Model.ListeProPagedList.PageCount < Model.PageNumber ? 0 : Model.PageNumber) sur @Model.ListeProPagedList.PageCount
+                            @Html.PagedListPager(Model.ListeProPagedList, pageNumber => Url.Action("SearchAllProoduct", "Product", new { pageNumber, sortBy = Request["sortBy"] }))
+
+                        </div>
+                        <div class="col-md-6">
+                            @*<h1> Publicitéx</h1>*@
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="tab-pane  fade " id="ResultMap">
+            <div id="mapid" style="height:480px"> </div>
+        </div>
+
+    </div>
+</section>
+
+<script type="text/javascript">
+    var jobMarkers = L.layerGroup();
+    var ApartMarkers = L.layerGroup();
+    var mymapJob = L.map('mapid');
+    mymapJob.setView(["12.354722", "7.369722"], 5);
+
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11', /*mapbox/satellite-v9*/
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoiZ3V5d2FuZ3VldSIsImEiOiJjazc0amN4ZzkwOG14M2twYXhpbDZ6NjRwIn0.HU_TD-k9bLv6_ctUhyIRuw'
+    }).addTo(mymapJob);
+
+    var options = {
+        enableHighAccuracy: false,
+        timeout: 5000,
+        maximumAge: Infinity
+    };
+
+
+    navigator.geolocation.getCurrentPosition(function (position) {
+        var lat = position.coords.latitude;
+        var long = position.coords.longitude;
+        mymapJob.setView([lat, long], 13);
+    }, null, options)
+
+    $(function () {
+            //for loading
+        $(".preload").fadeOut(2000, function () {
+            $(".content").fadeIn(1000);
+        });
+            //for result
+            $('#List').click(function () {
+                $('#List').removeClass("btn--revert");
+                $('#Map').addClass("btn--revert");
+
+            })
+            $('#Map').click(function () {
+                $('#Map').removeClass("btn--revert");
+                $('#List').addClass("btn--revert");
+
+            })
+
+
+        $('#Map').click(SubmitAskClick);
+        $("a[href='#ResultMap']").on('shown.bs.tab', function (e) {
+
+            mymapJob.invalidateSize();
+        });
+    })
+
+     function SubmitAskClick () {
+            $('#jobSectionResult').removeClass('hidden');
+            $('#AllCategoryResult').addClass('hidden');
+            ApartMarkers.clearLayers()
+            jobMarkers.clearLayers()
+
+              $.ajax({
+            type: "POST",
+            url: '@Url.Action("ResultSearchAsk_Jason", "Product")',
+            dataType: "json",
+            headers: {
+                //"api-key": searchServiceApiKey,
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify({
+
+                category: $("#CagtegorieSearchAsk").val(),
+                town: $("#TownSearchAsk").val(),
+                title: $("#TitleSearchAsk").val(),
+
+            }),
+                  success:
+                      function (data) {
+
+                          for (var i = 0; i < data.length; i++) {
+                              console.log(data[i].Coordinate.Lat, data[i].Coordinate.Lon)
+                              console.log(data[i].Category.CategoryName)
+                        if (data[i].Category.CategoryName == "Emploi") {
+
+                            var popup2 =
+                                '<div class="thumbnail"> <a class="img-rounded" href="' + data[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].Title + '">  <img id="ImageDetailIniById" src="' + data[i].Images[0] + '" alt="photo de' + data[i].Title + '" height="40"></a> </div>' +
+                                '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data[i].Title +
+                                '<br/><b>ville : </b>' + data[i].Town +
+                                '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Job/JobDetail/' + data[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
+                        } else if (data[i].Category.CategoryName == "Immobilier") {
+
+                            var popup2 =
+                                '<div class="thumbnail"> <a class="img-rounded" href="' + data[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].Title + '">  <img id="ImageDetailIniById" src="' + data[i].Images[0] + '" alt="LookAuKwat ' + data[i].Title + '" height="40"></a> </div>' +
+                                '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data[i].Title +
+                                '<br/><b>ville : </b>' + data[i].Town +
+                                '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/ApartmentRental/ApartDetail/' + data[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
+                        } else if (data[i].Category.CategoryName == "Multimedia") {
+
+                            var popup2 =
+                                '<div class="thumbnail"> <a class="img-rounded" href="' + data[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].Title + '">  <img id="ImageDetailIniById" src="' + data[i].Images[0] + '" alt="LookAuKwat ' + data[i].Title + '" height="40"></a> </div>' +
+                                '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data[i].Title +
+                                '<br/><b>ville : </b>' + data[i].Town +
+                                '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Multimedia/MultimediaDetail/' + data[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
+                        } else if (data[i].Category.CategoryName == "Vehicule") {
+
+                            var popup2 =
+                                '<div class="thumbnail"> <a class="img-rounded" href="' + data[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].Title + '">  <img id="ImageDetailIniById" src="' + data[i].Images[0] + '" alt="LookAuKwat ' + data[i].Title + '" height="40"></a> </div>' +
+                                '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data[i].Title +
+                                '<br/><b>ville : </b>' + data[i].Town +
+                                '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Vehicule/VehiculeDetail/' + data[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
+                        } else if (data[i].Category.CategoryName == "Mode") {
+
+                            var popup2 =
+                                '<div class="thumbnail"> <a class="img-rounded" href="' + data[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].Title + '">  <img id="ImageDetailIniById" src="' + data[i].Images[0] + '" alt="LookAuKwat ' + data2[i].Title + '" height="40"></a> </div>' +
+                                '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data[i].Title +
+                                '<br/><b>ville : </b>' + data[i].Town +
+                                '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Mode/ModeDetail/' + data[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
+                        }
+
+                              var markerjob = L.marker([data[i].Coordinate.Lat, data[i].Coordinate.Lon])
+                            .bindPopup(popup2)
+                       // .addTo(mymapJob);
+
+                        jobMarkers.addLayer(markerjob)
+                          }
+                          // $("#mymapJob").load(" #mymapJob");
+                          mymapJob.addLayer(jobMarkers);
+                  },
+                  error: function (xhr) {
+                      console.log(xhr.responseText);
+                      alert("Une erreur est survenu  !");
+                  }
+              });
+            mymapJob.invalidateSize();
+    };
+</script>

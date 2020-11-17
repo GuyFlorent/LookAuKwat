@@ -63,6 +63,7 @@ namespace LookAuKwat.Models
         [Required]
         [Phone]
         [Display(Name = "Numéro de téléphone")]
+        [System.Web.Mvc.Remote("Checked_IfNumber_AlreadyExist_FirstRegister", "User", ErrorMessage = "Ce numéro de téléphone existe déjà !")]
         public string Number { get; set; }
     }
 

@@ -18,15 +18,18 @@ namespace LookAuKwat.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
-        public AccountController()
+        
+        
+        
+        public AccountController() 
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+           
         }
 
         public ApplicationSignInManager SignInManager
@@ -107,6 +110,36 @@ namespace LookAuKwat.Controllers
             }
         }
 
+
+        //
+        // POST: /Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> LoginWithPhone(LoginViewModel model, string returnUrl)
+        {
+            IDal dal = new Dal();
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = dal.GetUsersList().FirstOrDefault(m => m.PhoneNumber == model.Phone);
+
+            if(user != null)
+            {
+                var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
+                if(result == SignInStatus.Success)
+                return RedirectToLocal(returnUrl);
+            }
+            else
+            {
+                ModelState.AddModelError("", "Tentative de connexion non valide.");
+                return View("Login",model);
+            }
+            return View("Login", model);
+        }
+
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
@@ -163,11 +196,62 @@ namespace LookAuKwat.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterWithSmS(RegisterViewModel model)
+        {
+         
+                ParrainModel parrain = null;
+                ApplicationUser user = null;
+                  var rand = new Random();
+            var randd = rand.Next(1000000).ToString();
+                //add Parrain when register if exist
+                if (!string.IsNullOrWhiteSpace(model.ParrainName))
+                {
+                    IDal dal = new Dal();
+                    parrain = dal.GetParrainList().FirstOrDefault(m => m.ParrainEmail == model.ParrainName);
+                    user = new ApplicationUser {UserName = "Mtest"+ randd + "@mail.cm",Email= "Mtest" + randd + "@mail.cm", FirstName = model.FirstName, Parrain_Id = parrain.Id, Date_Create_Account = DateTime.Now };
+                }
+                else
+                {
+                    user = new ApplicationUser { UserName = "Mtest" + randd + "@mail.cm", Email = "Mtest" + randd + "@mail.cm", FirstName = model.FirstName, Date_Create_Account = DateTime.Now };
+                }
+
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    //If everythings is ok then ask to user to confirm sms
+                    return RedirectToAction("AddPhoneNumberFirstRegister", "Manage");
+
+                }
+                AddErrors(result);
+            
+            // Si nous sommes arrivés là, un échec s’est produit. Réafficher le formulaire
+            return View(model);
+        }
+
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email.ToLower(), Email = model.Email.ToLower(), PhoneNumber = model.Phone, FirstName = model.FirstName };
+                ParrainModel parrain = null;
+                ApplicationUser user = null;
+                //add Parrain when register if exist
+                if (!string.IsNullOrWhiteSpace(model.ParrainName))
+                {
+                    IDal dal = new Dal();
+                     parrain = dal.GetParrainList().FirstOrDefault(m => m.ParrainEmail == model.ParrainName);
+                    user = new ApplicationUser { UserName = model.Email.ToLower(), Email = model.Email.ToLower(), PhoneNumber = model.Phone, FirstName = model.FirstName, Parrain_Id = parrain.Id, Date_Create_Account = DateTime.Now };
+                }
+                else
+                {
+                    user = new ApplicationUser { UserName = model.Email.ToLower(), Email = model.Email.ToLower(), PhoneNumber = model.Phone, FirstName = model.FirstName, Date_Create_Account = DateTime.Now };
+                }
+               
+                
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

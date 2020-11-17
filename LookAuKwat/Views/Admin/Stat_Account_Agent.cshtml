@@ -1,0 +1,114 @@
+﻿@using PagedList;
+@using System.Globalization;
+@using PagedList.Mvc;
+@model IPagedList<LookAuKwat.ViewModel.DataUser_Agent>
+
+@{
+    ViewBag.Title = "Statistiques et salaires des agents";
+}
+
+<h1>Statistiques et salaires de l'agent publicitaire</h1>
+
+<h2>Bienvenue @ViewBag.FirstName</h2>
+
+@if (Model.Count == 0)
+{
+
+    <p class="text-danger">Pas de résultats disponible !</p>
+    <p class="text-danger">Vous n'avez pas encore parrainé une personne!</p>
+    <p class="text-danger">Commencez maintenant et vous verez vos statistiques ici!</p>
+
+}
+else
+{
+
+
+    <div class="panel-primary " id="ProductAdd">
+
+
+        <div class="panel-heading">
+            <h3 class="panel-title">Historique du parrainage</h3>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-condensed">
+                <tr>
+                    <th>
+                        prénom
+                    </th>
+                    <th>
+                        Téléphone
+                    </th>
+                    <th>
+                        Confirmation Téléphone
+                    </th>
+                    <th>
+                        Date de création
+                    </th>
+                    <th>
+                        Date de 1er publication
+                    </th>
+                    <th>
+                        Confirmation Email
+                    </th>
+
+                    <th>
+                        Déposé Annonce
+                    </th>
+
+                    <th>Prix</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ConfirmPhoneNumber)
+                </td>
+                <td>
+                    @{
+                        //var st = DateTime.ParseExact(item.StartHour, "dd/MM/yyyy HH:mm", null);
+                        var date = item.DateCreation.ToString("ddd, dd MMM yyy HH':'mm", new CultureInfo("fr-FR"));
+
+                    }
+                    @date
+                </td>
+                <td>
+                    @{
+
+                        var dateFirstPublish = item.DateFirstPublish?.ToString("ddd, dd MMM yyy HH':'mm", new CultureInfo("fr-FR"));
+
+                    }
+                    @dateFirstPublish
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ConfirmEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ConfirmPublish)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.price) FCFA
+                </td>
+            </tr>
+                }
+
+            </table>
+
+        </div>
+    </div>
+
+}
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) sur @Model.PageCount
+@Html.PagedListPager(Model, pageNumber => Url.Action("Stat_Account_Agent", "Admin", new { pageNumber, sortBy = Request["sortBy"] }))
+<hr />
+<label>Salaire Total : </label><strong> @ViewBag.Totalprice FCFA </strong>
+<p class="text-info">Vous aurez plus de détails de vos salaires plus recu dans les prochains jours</p>

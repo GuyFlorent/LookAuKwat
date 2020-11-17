@@ -6,7 +6,7 @@ namespace LookAuKwat.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "Courrier électronique")]
+        [Display(Name = "Adresse email")]
         public string Email { get; set; }
     }
 
@@ -42,16 +42,19 @@ namespace LookAuKwat.Models
     public class ForgotViewModel
     {
         [Required]
-        [Display(Name = "Courrier électronique")]
+        [Display(Name = "Adresse email")]
         public string Email { get; set; }
     }
 
     public class LoginViewModel
     {
-        [Required]
-        [Display(Name = "Courrier électronique")]
+        //[Required]
+        [Display(Name = "Adresse email")]
         [EmailAddress]
         public string Email { get; set; }
+        [Phone]
+        [Display(Name = "Numéro de téléphone")]
+        public string Phone { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -67,13 +70,17 @@ namespace LookAuKwat.Models
         [Required]
         [Display(Name = "Prénom")]
         public string FirstName { get; set; }
+        [Display(Name = "Prénom du parrain")]
+        public string ParrainName { get; set; }
         [Required]
         [Display(Name = "Numéro de téléphone")]
+        [System.Web.Mvc.Remote("Checked_IfNumber_AlreadyExist", "User", ErrorMessage = "Ce numéro de téléphone existe déjà !")]
         //[RegularExpression(@"^(?:\d{10}|00\d{11}|\+\d{2}\d{9})$", ErrorMessage = "Numéro incorect ! ex:06...,01..., +33... , + 49..., 0033...")]
         public string Phone { get; set; }
         [Required]
         [EmailAddress]
         [Display(Name = "Adresse email")]
+        [System.Web.Mvc.Remote("Checked_IfEmail_AlreadyExist", "User", ErrorMessage = "Cette adresse Email existe déjà !")]
         public string Email { get; set; }
 
         [Required]
@@ -92,7 +99,7 @@ namespace LookAuKwat.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Courrier électronique")]
+        [Display(Name = "Adresse email")]
         public string Email { get; set; }
 
         [Required]

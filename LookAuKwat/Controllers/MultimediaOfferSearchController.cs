@@ -1,5 +1,6 @@
 ﻿using LookAuKwat.Models;
 using LookAuKwat.ViewModel;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,12 @@ namespace LookAuKwat.Controllers
             return View();
         }
 
+        public ActionResult FilterSearchMultimedia(SeachJobViewModel model)
+        {
+
+            return View(model);
+        }
+
         public ActionResult SearchOfferMultimedia_PartialView(SeachJobViewModel model)
         {
             model.PriceMultimedia = 1000000000;
@@ -35,50 +42,56 @@ namespace LookAuKwat.Controllers
 
         public ActionResult searchOfferMultimedia(SeachJobViewModel model, int? pageNumber, string sortBy)
         {
-            //save same page when refresh page in ajax
-            if(pageNumber != null)
-            {
-                this.Session["pageMultimedia"] = pageNumber;
-                if (model != null)
-                    if (model.PriceMultimedia == 0)
-                    {
-                        model.PriceMultimedia = 1000000000;
-                    }
+
+            ////save same page when refresh page in ajax
+            //if(pageNumber != null)
+            //{
+            //    this.Session["pageMultimedia"] = pageNumber;
+            //    if (model != null)
+            //        if (model.PriceMultimedia == 0)
+            //        {
+            //            model.PriceMultimedia = 1000000000;
+            //        }
                         
-                this.Session["modelMultimedia"] = model;
-              var  modell = this.Session["modelMultimedi"] as SeachJobViewModel;
-                if (modell != null)
-                    model = modell;
-                model.PageNumber = pageNumber;
-            }
-            else if (pageNumber == null)
-            {
-                var mod = this.Session["modelMultimedia"] as SeachJobViewModel;
-                if(mod != null && mod.TownMultimedia == model.TownMultimedia && mod.TypeMultimedia == model.TypeMultimedia &&
-                    mod.BrandMultimedia == model.BrandMultimedia && mod.ModelMultimedia == model.ModelMultimedia && 
-                    mod.Capacity == model.Capacity && mod.PriceMultimedia == model.PriceMultimedia)
-                {
-                    var page = this.Session["pageMultimedia"] as int?;
-                    var modell = this.Session["modelMultimedi"] as SeachJobViewModel;
-                    if (modell != null)
-                        model = modell;
-                    model.PageNumber = page;
-                }
-                else if(mod != null &&( mod.TownMultimedia != model.TownMultimedia || mod.TypeMultimedia != model.TypeMultimedia ||
-                  mod.BrandMultimedia != model.BrandMultimedia || mod.ModelMultimedia != model.ModelMultimedia ||
-                  mod.Capacity != model.Capacity || mod.PriceMultimedia != model.PriceMultimedia))
-                {
-                    this.Session["modelMultimedi"] = model;
-                    model.PageNumber = pageNumber;
-                }
+            //    this.Session["modelMultimedia"] = model;
+            //  var  modell = this.Session["modelMultimedi"] as SeachJobViewModel;
+            //    if (modell != null)
+            //        model = modell;
+            //    model.PageNumber = pageNumber;
+            //}
+            //else if (pageNumber == null)
+            //{
+            //    var mod = this.Session["modelMultimedia"] as SeachJobViewModel;
+            //    if(mod != null && mod.TownMultimedia == model.TownMultimedia && mod.TypeMultimedia == model.TypeMultimedia &&
+            //        mod.BrandMultimedia == model.BrandMultimedia && mod.ModelMultimedia == model.ModelMultimedia && 
+            //        mod.Capacity == model.Capacity && mod.PriceMultimedia == model.PriceMultimedia)
+            //    {
+            //        var page = this.Session["pageMultimedia"] as int?;
+            //        var modell = this.Session["modelMultimedi"] as SeachJobViewModel;
+            //        if (modell != null)
+            //            model = modell;
+            //        model.PageNumber = page;
+            //    }
+            //    else if(mod != null &&( mod.TownMultimedia != model.TownMultimedia || mod.TypeMultimedia != model.TypeMultimedia ||
+            //      mod.BrandMultimedia != model.BrandMultimedia || mod.ModelMultimedia != model.ModelMultimedia ||
+            //      mod.Capacity != model.Capacity || mod.PriceMultimedia != model.PriceMultimedia))
+            //    {
+            //        this.Session["modelMultimedi"] = model;
+            //        model.PageNumber = pageNumber;
+            //    }
                 
-            }
+            //}
+
+            ViewBag.PriceAscSort = String.IsNullOrEmpty(sortBy) ? "Price desc" : "";
+            ViewBag.PriceDescSort = sortBy == "Prix croissant" ? "Price asc" : "";
+            ViewBag.DateAscSort = sortBy == "Plus anciennes" ? "date asc" : "";
+            ViewBag.DateDescSort = sortBy == "Plus recentes" ? "date desc" : "";
 
             model.CagtegorieSearch = "Multimedia";
             model.SearchOrAskJobJob = "J'offre";
             model.sortBy = sortBy;
-            
-            
+            model.PageNumber = pageNumber;
+
             List<MultimediaModel> liste = dal.GetListMultimedia().Where(m => m.Category.CategoryName == model.CagtegorieSearch && 
             m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
 
@@ -548,7 +561,37 @@ namespace LookAuKwat.Controllers
             }
 
             model.ListePro = new List<ProductModel>();
-            return RedirectToAction("ResultSearch_PartialView", "Product", model);
+
+            model.ListeProMulti = TempData["listeMulti"] as List<MultimediaModel>;
+
+            switch (model.sortBy)
+            {
+                case "Price desc":
+                    model.ListeProMulti = model.ListeProMulti.OrderByDescending(m => m.Price).ToList();
+                    model.ListeProPagedList = model.ListeProMulti.ToPagedList(model.PageNumber ?? 1, 10);
+                    break;
+                case "Price asc":
+                    model.ListeProMulti = model.ListeProMulti.OrderBy(m => m.Price).ToList();
+                    model.ListeProPagedList = model.ListeProMulti.ToPagedList(model.PageNumber ?? 1, 10);
+                    break;
+                case "date desc":
+                    model.ListeProMulti = model.ListeProMulti.OrderByDescending(m => m.id).ToList();
+                    model.ListeProPagedList = model.ListeProMulti.ToPagedList(model.PageNumber ?? 1, 10);
+                    break;
+                case "date asc":
+                    model.ListeProMulti = model.ListeProMulti.OrderBy(m => m.id).ToList();
+                    model.ListeProPagedList = model.ListeProMulti.ToPagedList(model.PageNumber ?? 1, 10);
+                    break;
+                default:
+                    model.ListeProMulti = model.ListeProMulti.OrderByDescending(x => x.id).ToList();
+                    model.ListeProPagedList = model.ListeProMulti.ToPagedList(model.PageNumber ?? 1, 10);
+                    break;
+            }
+
+
+            return View("FilterSearchMultimedia", model);
+
+            // return RedirectToAction("ResultSearch_PartialView", "Product", model);
 
         }
 

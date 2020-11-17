@@ -1,15 +1,7 @@
 ﻿@model LookAuKwat.ViewModel.SeachJobViewModel
 @using LookAuKwat.ViewModel
 
-@using (Ajax.BeginForm("searchOfferVehicule", "VehiculeOfferSearch", new AjaxOptions
-{
-    HttpMethod = "GET",
-    InsertionMode = InsertionMode.Replace,
-    UpdateTargetId = "ResulList",
-    // OnFailure = "ErreurRecherche",
-    LoadingElementId = "charging"
-}
-         ))
+@using (Html.BeginForm("searchOfferVehicule", "VehiculeOfferSearch" ))
 {
     @Html.AntiForgeryToken()
 
@@ -63,7 +55,7 @@
 
         </div>
 
-        <button id="submitVehicule" type="submit" class="btn btn-primary">
+        <button id="submitVehiculee" type="submit" class="btn btn-primary">
             <span class="glyphicon glyphicon-search"></span> <strong>Rechercher</strong>
         </button>
     </div>

@@ -42,7 +42,7 @@ namespace LookAuKwat.ViewModel
         public string BrandModeClothes { get; set; }
         [DisplayName("Marque")]
         public string BrandModeShoes { get; set; }
-        [DisplayName("Univers")]
+        [DisplayName("Sexe")]
         public string UniversMode { get; set; }
         [DisplayName("Taille")]
         public string SizeModeClothes { get; set; }

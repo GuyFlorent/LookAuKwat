@@ -1,0 +1,9 @@
+﻿@model LookAuKwat.ViewModel.SearchUser_Admin
+
+@using (Html.BeginForm("ListAllUser", "Admin", FormMethod.Get))
+{
+    <div class="form-group">
+        @Html.TextBoxFor(m => m.term, new { @class = "input-sm form-control", placeholder = "Rechercher", type = "search", @style = "display:inline-block; width:200px" })
+        <button type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-eye-open"></span> Chercher</button>
+    </div>
+}

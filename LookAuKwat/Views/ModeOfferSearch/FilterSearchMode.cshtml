@@ -1,0 +1,434 @@
+﻿@using PagedList;
+@using System.Globalization;
+@using PagedList.Mvc;
+@model LookAuKwat.ViewModel.SeachJobViewModel
+
+@{
+    if (string.IsNullOrWhiteSpace(Model.TownMode))
+    {
+        ViewBag.Title = "Offres Mode " + "Tout le Cameroun" + " " + Model.RubriqueMode + " " + Model.TypeModeAccesorieLugages + " " + Model.TypeModeBabyClothes
+            + " " + Model.TypeModeBabyEquipment + " " + Model.TypeModeClothes + " " + Model.TypeModeShoes + " " + Model.TypeModeWatchJewelry
+            + " " + Model.BrandModeClothes + " " + Model.BrandModeShoes + " " + Model.UniversMode + " " + Model.SizeModeClothes + " " + Model.SizeModeShoes
+            + " " + Model.ColorMode + " " + Model.StateMode;
+    }
+    else
+    {
+        ViewBag.Title = "Offres Mode " + Model.TownMode + " " + Model.RubriqueMode + " " + Model.TypeModeAccesorieLugages + " " + Model.TypeModeBabyClothes
+            + " " + Model.TypeModeBabyEquipment + " " + Model.TypeModeClothes + " " + Model.TypeModeShoes + " " + Model.TypeModeWatchJewelry
+            + " " + Model.BrandModeClothes + " " + Model.BrandModeShoes + " " + Model.UniversMode + " " + Model.SizeModeClothes + " " + Model.SizeModeShoes
+            + " " + Model.ColorMode + " " + Model.StateMode;
+    }
+}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin="" />
+
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+        crossorigin=""></script>
+
+<p>@Html.ActionLink("Retour à l'accueil", "Index", "Home") <i class="fa fa-angle-right"></i> Filtres dans la catégorie Mode</p>
+<section>
+    <div class="tab-content">
+        <div class="tab-pane active fade in" id="search">
+            <div id="searchJob">
+                <div class="form-group">
+                    <label for="selectCategory">Vous êtes dans les <strong>offres</strong>. Pour plus de filtre veuillez Choisir une catégorie :</label>
+                    <select class=" form-control searchcategory" data-show-icon="true" name="categori" id="categori">
+                       
+                        <option>≡Toutes les catégories</option>
+                        <option data-content="<i class='glyphicon glyphicon-briefcase'></i>">👷 Emploi</option>
+                        <option data-content="<i class='glyphicon glyphicon-home'></i>">🏠 Immobilier</option>
+                        <option data-content="<i class='glyphicon glyphicon-home'></i>" >💻 Multimédia</option>
+                        <option data-content="<i class='glyphicon glyphicon-home'></i>">🚗 Véhicule</option>
+                        <option data-content="<i class='glyphicon glyphicon-home'></i>" selected>👚 Mode</option>
+                    </select>
+                </div>
+                <div id="AllProduct" class="hidden formulaire">
+                    @{
+                        Html.RenderAction("SearchAllProduct_PartialView", "Product");
+                    }
+
+                </div>
+                <div id="JobId" class="hidden formulaire">
+                    @{
+                        Html.RenderAction("SearchOfferJob_PartialView", "JobOfferSearch");
+                    }
+
+                </div>
+                <div id="ImmobilierId" class="hidden formulaire">
+                    @{
+                        Html.RenderAction("SearchOfferAppart_PartialView", "ApartmentRentalSearch");
+                    }
+
+                </div>
+                <div id="MultimediaId" class="hidden formulaire">
+                    @{
+                        Html.RenderAction("SearchOfferMultimedia_PartialView", "MultimediaOfferSearch");
+                    }
+
+                </div>
+                <div id="VehiculeId" class="hidden formulaire">
+                    @{
+                        Html.RenderAction("SearchOfferVehicule_PartialView", "VehiculeOfferSearch");
+                    }
+
+                </div>
+                <div id="ModeId" class=" formulaire">
+                    @{
+                        Html.RenderAction("SearchOfferMode_PartialView", "ModeOfferSearch");
+                    }
+
+                </div>
+
+            </div>
+        </div>
+        @*<div class="tab-pane fade " id="ask">
+                <div id="askJob">
+
+                    <div class="formulaire">
+                        @{
+                            Html.RenderAction("SearchAskProduct_PartialView", "Product");
+                        }
+
+                    </div>
+                </div>
+            </div>*@
+    </div>
+</section>
+
+<section id="jobSectionResult" class="row ">
+    <div class="sect sect--padding-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="site">
+
+                        <div class="site__box-link">
+                            <a id="List" class="btn btn--width" href="#ResulList" data-toggle="tab"><i class="glyphicon glyphicon-list"></i> Vue liste</a>
+                            <a id="Map" class="btn btn--revert btn--width" href="#ResultMap" data-toggle="tab"><i class="glyphicon glyphicon-map-marker"></i> carte</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<ul class="nav nav-pills ">
+            <li class="active"><a href="#ResulList" data-toggle="tab">Liste</a></li>
+            <li><a href="#ResultMap" data-toggle="tab">Carte</a></li>
+        </ul>*@
+    @*<img id="charging" src="~/UserImage/ajax-loader.gif" style="display: none" alt="Chargement en cours..." />*@
+    <div class="preload">
+        <img src="https://i.imgur.com/KUJoe.gif">
+    </div>
+    <div class="tab-content" id="resultsJobSearch">
+
+        <div class="tab-pane active  fade in" id="ResulList">
+
+
+            <div class="row">
+                @*@{
+                        Html.RenderAction("ResultSearch_PartialView", "Product");
+                    }*@
+                @if (Model.ListeProMode.Count == 0)
+                {
+
+                    <p class="text-danger">Pas de résultats disponible !</p>
+
+                }
+                else
+                {
+                    <div class="col-md-12" id="groupeResultSearch">
+                        <div class="col-md-6">
+                            <div>
+
+
+                                <label class="col-md-2">
+                                    Tri :
+                                </label>
+
+                            </div>
+
+                            <select class="form-control" onchange="location = this.value;">
+                                <option value="---Choisir---">---Choisir---</option>
+                                <option id="AscendingModePrice" value="@Url.Action( "searchOfferMode", "ModeOfferSearch", new { sortBy = "Price asc" })"> Tri par Prix croissant</option>
+                                <option id="descendingModePrice" value="@Url.Action( "searchOfferMode", "ModeOfferSearch", new { sortBy = "Price desc" })">Tri par Prix décroissant</option>
+                                <option id="MostOlderMode" value="@Url.Action( "searchOfferMode", "ModeOfferSearch", new { sortBy = "date asc" })">Tri par Plus anciennes</option>
+                                <option id="MostLastestMode" value="@Url.Action( "searchOfferMode", "ModeOfferSearch", new { sortBy = "date desc" })">Tri par Plus recentes</option>
+                            </select>
+                            <br />
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    @{
+                                        if (Model.CagtegorieSearch != null)
+                                        {
+
+
+                                            if (Model.CagtegorieSearch == "Mode")
+                                            {
+                                                <h3 class="panel-title">@Model.ListeProMode.Count <strong>Annonces</strong> disponibles dans la catégorie <strong>offres Mode</strong> :</h3>
+                                            }
+                                        }
+                                    }
+                                </div>
+                                <div class="list-group">
+
+                                    @foreach (var liste in Model.ListeProPagedList)
+                                    {
+                                        TimeSpan elapsTime = DateTime.Now - liste.DateAdd;
+                                        string period = null;
+                                        int time = 0;
+
+                                        if (elapsTime.TotalMinutes < 60)
+                                        {
+                                            time = elapsTime.Minutes;
+                                            period = "minutes";
+                                        }
+                                        else if (elapsTime.TotalMinutes > 60 && elapsTime.TotalMinutes < 1440)
+                                        {
+                                            time = elapsTime.Hours;
+                                            period = "Heures";
+                                        }
+                                        else if (elapsTime.TotalMinutes > 1440)
+                                        {
+                                            time = elapsTime.Days;
+                                            period = "Jours";
+                                        }
+
+
+                                        try
+                                        {
+
+                                            <a href="@Url.Action("ModeDetail", "Mode", new { id = liste.id }, null)" class="list-group-item">
+                                                <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"> @liste.Town</span></h4>
+                                                <p class="list-group-item-text pull-right text-success">Ajoutée il y'a @time.ToString() @period</p>
+                                                <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
+                                                <p class="list-group-item-text text-left">👚 Mode</p>
+                                                <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
+                                            </a>
+
+
+                                        }
+                                        catch (Exception e) { Console.WriteLine(e); }
+
+                                    }
+                                </div>
+                            </div>
+
+                            Page @(Model.ListeProPagedList.PageCount < Model.PageNumber ? 0 : Model.PageNumber) sur @Model.ListeProPagedList.PageCount
+                            @Html.PagedListPager(Model.ListeProPagedList, pageNumber => Url.Action("searchOfferMode", "ModeOfferSearch", new { pageNumber, sortBy = Request["sortBy"] }))
+
+                        </div>
+                        <div class="col-md-6">
+                            @*<h1> Publicitéx</h1>*@
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="tab-pane  fade " id="ResultMap">
+            <div id="mapid" style="height:480px"> </div>
+        </div>
+
+    </div>
+</section>
+
+<script type="text/javascript">
+    var jobMarkers = L.layerGroup();
+    var ApartMarkers = L.layerGroup();
+    var mymapJob = L.map('mapid');
+    mymapJob.setView(["12.354722", "7.369722"], 5);
+
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11', /*mapbox/satellite-v9*/
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoiZ3V5d2FuZ3VldSIsImEiOiJjazc0amN4ZzkwOG14M2twYXhpbDZ6NjRwIn0.HU_TD-k9bLv6_ctUhyIRuw'
+    }).addTo(mymapJob);
+
+    var options = {
+        enableHighAccuracy: false,
+        timeout: 5000,
+        maximumAge: Infinity
+    };
+
+
+    navigator.geolocation.getCurrentPosition(function (position) {
+        var lat = position.coords.latitude;
+        var long = position.coords.longitude;
+        mymapJob.setView([lat, long], 13);
+    }, null, options)
+
+    $(function () {
+       
+            //for loading
+        $(".preload").fadeOut(2000, function () {
+            $(".content").fadeIn(1000);
+        });
+            //for result
+            $('#List').click(function () {
+                $('#List').removeClass("btn--revert");
+                $('#Map').addClass("btn--revert");
+
+            })
+            $('#Map').click(function () {
+                $('#Map').removeClass("btn--revert");
+                $('#List').addClass("btn--revert");
+
+            })
+
+            $("select.searchcategory").change(function () {
+                var select = $(this).children("option:selected").val();
+               
+                if (select == "👚 Mode") {
+
+                    $('#VehiculeId').addClass('hidden');
+                    $('#ModeId').removeClass('hidden');
+                    $('#MultimediaId').addClass('hidden');
+                    $('#JobId').addClass('hidden');
+                    $('#ImmobilierId').addClass('hidden');
+                    $('#AllProduct').addClass('hidden');
+                } else {
+                    $('#ModeId').addClass('hidden');
+                }
+
+                if (select == "🚗 Véhicule") {
+
+                    $('#VehiculeId').removeClass('hidden');
+                    $('#ModeId').addClass('hidden');
+                    $('#MultimediaId').addClass('hidden');
+                    $('#JobId').addClass('hidden');
+                    $('#ImmobilierId').addClass('hidden');
+                    $('#AllProduct').addClass('hidden');
+                } else {
+                    $('#VehiculeId').addClass('hidden');
+                }
+
+                if (select == "💻 Multimédia") {
+
+                    $('#VehiculeId').addClass('hidden');
+                    $('#ModeId').addClass('hidden');
+                    $('#MultimediaId').removeClass('hidden');
+                    $('#JobId').addClass('hidden');
+                    $('#ImmobilierId').addClass('hidden');
+                    $('#AllProduct').addClass('hidden');
+                } else {
+                    $('#MultimediaId').addClass('hidden');
+                }
+
+                if (select == "👷 Emploi") {
+
+                    $('#VehiculeId').addClass('hidden');
+                    $('#ModeId').addClass('hidden');
+                    $('#MultimediaId').addClass('hidden');
+                    $('#JobId').removeClass('hidden');
+                    $('#ImmobilierId').addClass('hidden');
+                    $('#AllProduct').addClass('hidden');
+                } else {
+                    $('#JobId').addClass('hidden');
+                }
+
+                if (select == "≡Toutes les catégories") {
+
+                    $('#VehiculeId').addClass('hidden');
+                    $('#ModeId').addClass('hidden');
+                    $('#multimediaid').addClass('hidden');
+                    $('#JobId').addClass('hidden');
+                    $('#ImmobilierId').addClass('hidden');
+                    $('#AllProduct').removeClass('hidden');
+                } else {
+                    $('#AllProduct').addClass('hidden');
+                }
+
+                if (select == "🏠 Immobilier") {
+
+                    $('#VehiculeId').addClass('hidden');
+                    $('#ModeId').addClass('hidden');
+                    $('#MultimediaId').addClass('hidden');
+                    $('#JobId').addClass('hidden');
+                    $('#ImmobilierId').removeClass('hidden');
+                    $('#AllProduct').addClass('hidden');
+                } else {
+                    $('#ImmobilierId').addClass('hidden');
+                }
+            })
+
+
+
+        $('#Map').click(SubmitModeClick);
+        $("a[href='#ResultMap']").on('shown.bs.tab', function (e) {
+
+            mymapJob.invalidateSize();
+        });
+    })
+
+      //for submit mode
+
+    function SubmitModeClick () {
+           
+            ApartMarkers.clearLayers()
+            jobMarkers.clearLayers()
+
+              $.ajax({
+            type: "POST",
+            url: '@Url.Action("searchOfferMode_Json", "ModeOfferSearch")',
+            dataType: "json",
+            headers: {
+                //"api-key": searchServiceApiKey,
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify({
+
+                rubrique: $("#RubriqueMode").val(),
+                town: $("#TownMode").val(),
+                typeClothes: $("#TypeModeClothes").val(),
+                typeShoes: $("#TypeModeShoes").val(),
+                typeLuggages: $("#TypeModeAccesorieLugages").val(),
+                typeWatch: $("#TypeModeWatchJewelry").val(),
+                typeBabyEquipment: $("#TypeModeBabyEquipment").val(),
+                typeBabyClothes: $("#TypeModeBabyClothes").val(),
+                brandClothes: $("#BrandModeClothes").val(),
+                brandShoes: $("#BrandModeShoes").val(),
+                price: $("#PriceMode").val(),
+                state: $("#StateMode").val(),
+                color: $("#ColorMode").val(),
+                univers: $("#UniversMode").val(),
+                sizeSchoes: $("#SizeModeShoes").val(),
+                sizeClothes: $("#SizeModeClothes").val(),
+
+            }),
+                  success:
+                      function (data) {
+                          console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        console.log(data[i].Coordinate.Lat);
+
+                        var popup = '<div class="thumbnail"> <a class="img-rounded img-responsive" href="' + data[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].Title + '">  <img id="ImageDetailIniById" src="' + data[i].Images[0] + '" alt="LookAuKwat ' + data[i].Title + '" height="40"></a> </div>' +
+                            '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data[i].Title +
+                            '<br/><b>Adresse : </b>' + data[i].Town +
+                            '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Mode/ModeDetail/' + data[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
+
+
+
+                        var markerjob = L.marker([data[i].Coordinate.Lat, data[i].Coordinate.Lon])
+                           .bindPopup(popup)
+                       // .addTo(mymapJob);
+
+                        jobMarkers.addLayer(markerjob)
+                          }
+                          // $("#mymapJob").load(" #mymapJob");
+                          mymapJob.addLayer(jobMarkers);
+                  },
+                  error: function (xhr) {
+                      console.log(xhr.responseText);
+                      alert("Une erreur est survenu  !");
+                  }
+              });
+            mymapJob.invalidateSize();
+    };
+
+</script>

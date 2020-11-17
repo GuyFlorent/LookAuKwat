@@ -38,7 +38,12 @@ namespace LookAuKwat.Controllers
         [Authorize]
         public ActionResult UserProfile()
         {
-           
+            //string id = User.Identity.GetUserId();
+            //ApplicationUser user = dal.GetUserByStrId(id);
+            //if (user.Email.StartsWith("Mtest") && user.PhoneNumberConfirmed == false)
+            //{
+            //    return RedirectToAction("AddPhoneNumberFirstRegister", "Manage");
+            //}
             return View();
         }
 

@@ -14,6 +14,9 @@ using LookAuKwat.Models;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Diagnostics;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using Twilio.Types;
 
 namespace LookAuKwat
 {
@@ -30,7 +33,7 @@ namespace LookAuKwat
             
             var apikey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");       
             var client = new SendGridClient(apikey);
-            var from = new EmailAddress("contact@lookaukwat.com", "(NoReply Here)");
+            var from = new EmailAddress("contact@lookaukwat.com", "(Ne pas répondre ici)");
             var subject = message.Subject;
             var to = new EmailAddress(message.Destination);
             var plainTextContent = message.Body;
@@ -60,7 +63,44 @@ namespace LookAuKwat
         public Task SendAsync(IdentityMessage message)
         {
             // Connectez votre service SMS ici pour envoyer un message texte.
+
+            var accountSid = System.Configuration.ConfigurationManager.AppSettings["SMSAccountIdentification"];
+            var authToken = System.Configuration.ConfigurationManager.AppSettings["SMSAccountPassword"];
+            var fromNumber = System.Configuration.ConfigurationManager.AppSettings["SMSAccountFrom"];
+
+            TwilioClient.Init(accountSid, authToken);
+            if (message.Destination.StartsWith("+"))
+            {
+
+                try
+                {
+                    MessageResource result = MessageResource.Create(
+               new PhoneNumber(message.Destination),
+               from: new PhoneNumber(fromNumber),
+               body: message.Body
+               );
+
+
+
+                    //Status is one of Queued, Sending, Sent, Failed or null if the number is not valid
+                    Trace.TraceInformation(result.Status.ToString());
+                }
+                catch (Exception e) { Console.WriteLine(e.ToString()); }
+            }
+            //Twilio doesn't currently have an async API, so return success.
             return Task.FromResult(0);
+
+
+
+            //var soapSms = new LookAuKwat.ASPSMSX2.ASPSMSX2SoapClient("ASPSMSX2Soap");
+            //soapSms.SendSimpleTextSMS(
+            //    System.Configuration.ConfigurationManager.AppSettings["ASPSMSUSERKEY"],
+            //    System.Configuration.ConfigurationManager.AppSettings["ASPSMSPASSWORD"],
+            //    message.Destination,
+            //    System.Configuration.ConfigurationManager.AppSettings["ASPSMSORIGINATOR"],
+            //    message.Body);
+            //soapSms.Close();
+            //return Task.FromResult(0);
         }
     }
 

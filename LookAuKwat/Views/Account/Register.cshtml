@@ -1,57 +1,202 @@
 ﻿@model LookAuKwat.Models.RegisterViewModel
+@using LookAuKwat.ViewModel
 @{
     ViewBag.Title = "S'inscrire";
 }
 
-<h2>@ViewBag.Title sur <strong>LookAuKwat</strong> en <span class="text-success">2 minutes</span>.</h2>
+<h2>@ViewBag.Title sur <strong>LookAuKwat</strong> en <span class="text-success">2 minutes</span> </h2>
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Créez un nouveau compte.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+<h3>Choisir la confirmation de compte par email ou par sms</h3>
+<div class="sect sect--padding-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="site">
+
+                    <div class="site__box-link">
+                        <a id="EmailRegister" class="btn btn--width" href="#RegisterConFirmEmail" data-toggle="tab">Email</a>
+                        <a id="SmsRegister" class="btn btn--revert btn--width" href="#RegisterConFirmSMS" data-toggle="tab">SMS</a>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Phone, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
-        </div>
+</div>
+
+<div class="tab-content" id="">
+    <div class="tab-pane active  fade in" id="RegisterConFirmEmail">
+
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <h4>Créez un nouveau compte.</h4>
+            <hr />
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Phone, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="checkbox">
+                        <input class="" type="checkbox" id="scales" name="scales" onclick="See_Parrain_Name_Function()" />
+                        <label for="scales">Avez vous été parrainé ?</label>
+
+                    </div>
+                </div>
+
+            </div>
+            <div style="display:none" class=" form-group" id="parrain">
+                @Html.LabelFor(m => m.ParrainName, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.ParrainName, SelectListMethod.GetParrainList(), "------Choisir------", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-success" value="S'inscrire" />
+                </div>
+            </div>
+            <p>Avez vous déja compte?</p>
+            <p>
+                @Html.ActionLink("Connectez vous!", "Login", null, new { @class = "btn btn-primary" })
+            </p>
+        }
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
+
+    <div class="tab-pane  fade " id="RegisterConFirmSMS">
+
+
+        @using (Html.BeginForm("RegisterWithSmS", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <h4>Créez un nouveau compte.</h4>
+            <hr />
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                </div>
+            </div>
+            
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="checkbox">
+                        <input class="" type="checkbox" id="scaless" name="scales" onclick="See_Parrain_Name_FunctionSms()" />
+                        <label for="scaless">Avez vous été parrainé ?</label>
+
+                    </div>
+                </div>
+
+            </div>
+            <div style="display:none" class=" form-group" id="parrainn">
+                @Html.LabelFor(m => m.ParrainName, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.ParrainName, SelectListMethod.GetParrainList(), "------Choisir------", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-success" value="S'inscrire" />
+                </div>
+            </div>
+            <p>Avez vous déja compte?</p>
+            <p>
+                @Html.ActionLink("Connectez vous!", "Login", null, new { @class = "btn btn-primary" })
+            </p>
+        }
+
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-success" value="S'inscrire" />
-        </div>
-    </div>
-    <p>Avez vous déja compte?</p>
-    <p>
-        @Html.ActionLink("Connectez vous!", "Login", null, new {@class = "btn btn-primary" })
-    </p>
-}
+
+</div>
+
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script type="text/javascript">
+    function See_Parrain_Name_Function() {
+
+        var check = document.getElementById("scales");
+        var parrain = document.getElementById("parrain");
+        if (check.checked == true) {
+            parrain.style.display = "block";
+        } else if (check.checked == false) {
+
+            $('select').prop('selectedIndex', 0);
+            parrain.style.display = "none";
+
+        }
+    }
+
+    function See_Parrain_Name_FunctionSms() {
+
+        var check = document.getElementById("scaless");
+        var parrain = document.getElementById("parrainn");
+        if (check.checked == true) {
+            parrain.style.display = "block";
+        } else if (check.checked == false) {
+
+            $('select').prop('selectedIndex', 0);
+            parrain.style.display = "none";
+
+        }
+    }
+
+    $(function () {
+        $('#EmailRegister').click(function () {
+            $('#EmailRegister').removeClass("btn--revert");
+            $('#SmsRegister').addClass("btn--revert");
+
+        })
+        $('#SmsRegister').click(function () {
+            $('#SmsRegister').removeClass("btn--revert");
+            $('#EmailRegister').addClass("btn--revert");
+
+        })
+    })
+
+</script>

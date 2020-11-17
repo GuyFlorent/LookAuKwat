@@ -1,5 +1,6 @@
 ﻿using LookAuKwat.Models;
 using LookAuKwat.ViewModel;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,11 @@ namespace LookAuKwat.Controllers
             return View();
         }
 
+        public ActionResult FilterSearchVehicule(SeachJobViewModel model)
+        {
+
+            return View(model);
+        }
         public ActionResult SearchOfferVehicule_PartialView(SeachJobViewModel model)
         {
             
@@ -34,41 +40,47 @@ namespace LookAuKwat.Controllers
 
         public ActionResult searchOfferVehicule(SeachJobViewModel model, int? pageNumber, string sortBy)
         {
-            if (pageNumber != null)
-            {
-                this.Session["pageVehicule"] = pageNumber;
-                
-                this.Session["modelVehicule"] = model;
-                var modell = this.Session["modelVehiculeNewModel"] as SeachJobViewModel;
-                if (modell != null)
-                    model = modell;
-                model.PageNumber = pageNumber;
-            }
-            else if (pageNumber == null)
-            {
-                var mod = this.Session["modelVehicule"] as SeachJobViewModel;
-                if (mod != null && mod.TownVehicule == model.TownVehicule && mod.RubriqueVehicule == model.RubriqueVehicule &&
-                    mod.BrandVehicule == model.BrandVehicule && mod.ModelVehicule == model.ModelVehicule)
-                {
-                    var page = this.Session["pageVehicule"] as int?;
-                    var modell = this.Session["modelVehiculeNewModel"] as SeachJobViewModel;
-                    if (modell != null)
-                        model = modell;
-                    model.PageNumber = page;
-                }
-                else if (mod != null && (mod.TownVehicule != model.TownVehicule || mod.RubriqueVehicule != model.RubriqueVehicule ||
-                  mod.BrandVehicule != model.BrandVehicule || mod.ModelVehicule != model.ModelVehicule ))
-                {
-                    this.Session["modelVehiculeNewModel"] = model;
-                    model.PageNumber = pageNumber;
-                }
+            //if (pageNumber != null)
+            //{
+            //    this.Session["pageVehicule"] = pageNumber;
 
-            }
+            //    this.Session["modelVehicule"] = model;
+            //    var modell = this.Session["modelVehiculeNewModel"] as SeachJobViewModel;
+            //    if (modell != null)
+            //        model = modell;
+            //    model.PageNumber = pageNumber;
+            //}
+            //else if (pageNumber == null)
+            //{
+            //    var mod = this.Session["modelVehicule"] as SeachJobViewModel;
+            //    if (mod != null && mod.TownVehicule == model.TownVehicule && mod.RubriqueVehicule == model.RubriqueVehicule &&
+            //        mod.BrandVehicule == model.BrandVehicule && mod.ModelVehicule == model.ModelVehicule)
+            //    {
+            //        var page = this.Session["pageVehicule"] as int?;
+            //        var modell = this.Session["modelVehiculeNewModel"] as SeachJobViewModel;
+            //        if (modell != null)
+            //            model = modell;
+            //        model.PageNumber = page;
+            //    }
+            //    else if (mod != null && (mod.TownVehicule != model.TownVehicule || mod.RubriqueVehicule != model.RubriqueVehicule ||
+            //      mod.BrandVehicule != model.BrandVehicule || mod.ModelVehicule != model.ModelVehicule ))
+            //    {
+            //        this.Session["modelVehiculeNewModel"] = model;
+            //        model.PageNumber = pageNumber;
+            //    }
+
+            //}
+
+
+            ViewBag.PriceAscSort = String.IsNullOrEmpty(sortBy) ? "Price desc" : "";
+            ViewBag.PriceDescSort = sortBy == "Prix croissant" ? "Price asc" : "";
+            ViewBag.DateAscSort = sortBy == "Plus anciennes" ? "date asc" : "";
+            ViewBag.DateDescSort = sortBy == "Plus recentes" ? "date desc" : "";
 
             model.CagtegorieSearch = "Vehicule";
             model.SearchOrAskJobJob = "J'offre";
             model.sortBy = sortBy;
-            
+            model.PageNumber = pageNumber;
             List<VehiculeModel> liste = dal.GetListVehicule().Where(m => m.Category.CategoryName == model.CagtegorieSearch &&
             m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
 
@@ -174,7 +186,36 @@ namespace LookAuKwat.Controllers
 
 
             model.ListePro = new List<ProductModel>();
-            return RedirectToAction("ResultSearch_PartialView", "Product", model);
+
+            model.ListeProVehicule = TempData["listeVehicule"] as List<VehiculeModel>;
+
+            switch (model.sortBy)
+            {
+                case "Price desc":
+                    model.ListeProVehicule = model.ListeProVehicule.OrderByDescending(m => m.Price).ToList();
+                    model.ListeProPagedList = model.ListeProVehicule.ToPagedList(model.PageNumber ?? 1, 10);
+                    break;
+                case "Price asc":
+                    model.ListeProVehicule = model.ListeProVehicule.OrderBy(m => m.Price).ToList();
+                    model.ListeProPagedList = model.ListeProVehicule.ToPagedList(model.PageNumber ?? 1, 10);
+                    break;
+                case "date desc":
+                    model.ListeProVehicule = model.ListeProVehicule.OrderByDescending(m => m.id).ToList();
+                    model.ListeProPagedList = model.ListeProVehicule.ToPagedList(model.PageNumber ?? 1, 10);
+                    break;
+                case "date asc":
+                    model.ListeProVehicule = model.ListeProVehicule.OrderBy(m => m.id).ToList();
+                    model.ListeProPagedList = model.ListeProVehicule.ToPagedList(model.PageNumber ?? 1, 10);
+                    break;
+                default:
+                    model.ListeProVehicule = model.ListeProVehicule.OrderByDescending(x => x.id).ToList();
+                    model.ListeProPagedList = model.ListeProVehicule.ToPagedList(model.PageNumber ?? 1, 10);
+                    break;
+            }
+
+
+            return View("FilterSearchVehicule", model);
+            // return RedirectToAction("ResultSearch_PartialView", "Product", model);
 
         }
 

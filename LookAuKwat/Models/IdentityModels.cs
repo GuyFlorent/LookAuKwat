@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -12,7 +13,12 @@ namespace LookAuKwat.Models
     {
         [DisplayName("Prénom")]
         public string FirstName { get; set; }
-       
+
+        public int? Parrain_Id { get; set; }
+        [DisplayName("Date de création de compte")]
+        public DateTime Date_Create_Account { get; set; }
+        [DisplayName("Date de 1er publication")]
+        public DateTime? Date_First_Publish { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Notez qu'authenticationType doit correspondre à l'élément défini dans CookieAuthenticationOptions.AuthenticationType
@@ -34,6 +40,7 @@ namespace LookAuKwat.Models
         public DbSet<MultimediaModel> Multimedia { get; set; }
         public DbSet<VehiculeModel> Vehicules { get; set; }
         public DbSet<ModeModel> Modes { get; set; }
+        public DbSet<ParrainModel> Parrains { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

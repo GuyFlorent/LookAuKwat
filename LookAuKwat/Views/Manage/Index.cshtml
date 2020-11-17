@@ -36,7 +36,7 @@
              
              Décommentez le bloc suivant après avoir configuré l'authentification à 2 facteurs
         *@
-        @*  
+          
             <dt>Numéro de téléphone :</dt>
             <dd>
                 @(Model.PhoneNumber ?? "None")
@@ -52,10 +52,10 @@
                 }
                 else
                 {
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
-                }
-            </dd>
-        *@
+                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")</text>
+    }
+</dd>
+        
         <dt>Authentification à 2 facteurs :</dt>
         <dd>
             <p>

@@ -130,7 +130,11 @@ namespace LookAuKwat.Controllers
                         model.User = user;
                         model.Category = new CategoryModel { CategoryName = "Multimedia" };
                         dal.AddMultimedia(model, latt, lonn);
-
+                        //check if email is confirm and update date of publish announce for agent pay
+                        if (user.EmailConfirmed == true && user.Date_First_Publish == null)
+                        {
+                            dal.Update_Date_First_Publish(user);
+                        }
 
                         return RedirectToAction("GetListProductByUser_PartialView", "User");
                     }

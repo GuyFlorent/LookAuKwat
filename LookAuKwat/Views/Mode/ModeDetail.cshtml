@@ -1,7 +1,7 @@
 ﻿@model LookAuKwat.Models.ModeModel
 @using System.Globalization;
 @{
-    ViewBag.Title = Model.RubriqueMode+" "+Model.TypeMode+" "+Model.BrandMode+" "+Model.UniversMode+ " "+Model.Street ;
+    ViewBag.Title = "Offres mode" + Model.RubriqueMode+" "+Model.TypeMode+" "+Model.BrandMode+" "+Model.UniversMode+ " "+Model.Street ;
 }
 
 @{
@@ -36,6 +36,10 @@
         integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
         crossorigin=""></script>
 
+<p>
+    @Html.ActionLink("Retour à l'accueil", "Index", "Home") <i class="fa fa-angle-right"></i> @Html.ActionLink(Model.RubriqueMode, "searchOfferMode", "ModeOfferSearch", new { RubriqueMode = Model.RubriqueMode }, null)
+    <i class="fa fa-angle-right"></i>  @Html.ActionLink(Model.Town, "searchOfferMode", "ModeOfferSearch", new { RubriqueMode = Model.RubriqueMode, TownMode = Model.Town }, null) <i class="fa fa-angle-right"></i> @Model.Title
+</p>
 <h2>Détails de l'annonce catégorie mode 👚 👟 ⌚</h2>
 <div id="MyModalContactJob" class="modal fade" role="dialog">
     <div class="modal-dialog">
