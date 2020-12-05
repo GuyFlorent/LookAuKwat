@@ -1,0 +1,51 @@
+﻿@model LookAuKwat.ViewModel.HouseViewModel
+@using LookAuKwat.ViewModel
+@{
+    ViewBag.Title = "Déposer une annonce catégorie Maison";
+}
+
+<h2>Déposer une annonce catégorie Maison</h2>
+<br />
+<h3>Vueillez choisir une rubrique s'il vous plaît</h3>
+
+@using (Html.BeginForm("AddIndex","House"))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SearchOrAskJob, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.DropDownListFor(model => model.SearchOrAskJob, SelectListMethod.ChooseSearchOrAsk(), "Choisir", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.SearchOrAskJob, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.RubriqueHouse, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.DropDownListFor(model => model.RubriqueHouse, SelectListMethodHouse.RubriqueHouseList(), "Choisir", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.RubriqueHouse, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group ">
+        <div class="col-md-offset-4 col-md-8">
+            <button type="submit" class="btn btn-success">Suivant <span class="glyphicon glyphicon-menu-right"></span></button>
+        </div>
+    </div>
+</div>
+
+}
+<p>Page 0 sur 2</p>
+
+<script type="text/javascript">
+    $(function () {
+         $("#export-btn").click(function(event){
+       event.preventDefault();
+             window.location.href = "@Url.Action("AddAmmeblement", "House")" + "?SearchOrAskJob=" + $("#SearchOrAskJob").val() + "&RubriqueHouse=" + $("#RubriqueHouse").val();
+    });
+    })
+</script>

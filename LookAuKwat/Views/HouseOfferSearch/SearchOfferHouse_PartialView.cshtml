@@ -1,0 +1,296 @@
+﻿@model LookAuKwat.ViewModel.SeachJobViewModel
+@using LookAuKwat.ViewModel
+
+@using (Html.BeginForm("searchOfferHouse", "HouseOfferSearch"))
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <h4 class="text-center">Filtrer votre <strong>recherche</strong> dans la catégorie <strong>Maison</strong></h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
+
+
+
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 ">
+            @Html.LabelFor(model => model.TownHouse, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.TownHouse, SelectListMethod.GetListTownCameroon(), "Toutes les villes", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TownHouse, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-4" id="RubriqueHouseSearchDiv">
+            @Html.LabelFor(model => model.RubriqueHouse, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.RubriqueHouse, SelectListMethodHouse.RubriqueHouseList(), "Toutes les rubriques", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.RubriqueHouse, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-4">
+            @Html.LabelFor(model => model.PriceHouse, htmlAttributes: new { @class = "control-label col-md-9" })
+
+            @Html.EditorFor(model => model.PriceHouse, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PriceHouse, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 hidden" id="TypeHouseAmmeublementClothesSearchDiv">
+            @Html.LabelFor(model => model.TypeHouseAmmeublement, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.TypeHouseAmmeublement, SelectListMethodHouse.TypeAmebleumentHouseList(), "Tous ammeublements", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TypeHouseAmmeublement, "", new { @class = "text-danger" })
+
+        </div>
+
+
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 hidden" id="TypeHouseCuisineSearchDiv">
+            @Html.LabelFor(model => model.TypeHouseCuisine, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.TypeHouseCuisine, SelectListMethodHouse.TypeOutilTableHouseList(), "Tous arts de table", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TypeHouseCuisine, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 hidden" id="TypeHouseDecorationSearchDiv">
+            @Html.LabelFor(model => model.TypeHouseDecoration, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.TypeHouseDecoration, SelectListMethodHouse.TypeDecorationHouseList(), "Toutes décorations", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TypeHouseDecoration, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 hidden" id="TypeHouseLingeSearchDiv">
+            @Html.LabelFor(model => model.TypeHouseLinge, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.TypeHouseLinge, SelectListMethodHouse.TypeLingeHouseList(), " tous linge de table", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TypeHouseLinge, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 hidden" id="FabricMaterialeHouseAmmeublementDecoSearchDiv">
+            @Html.LabelFor(model => model.FabricMaterialeHouseAmmeublementDeco, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.FabricMaterialeHouseAmmeublementDeco, SelectListMethodHouse.FabricMaterialAmmeblementDecorationList(), "Toutes les matières", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.FabricMaterialeHouseAmmeublementDeco, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 hidden" id="FabricMaterialeHouseCuisineSearchDiv">
+            @Html.LabelFor(model => model.FabricMaterialeHouseCuisine, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.FabricMaterialeHouseCuisine, SelectListMethodHouse.FabricMaterialOutilTableList(), "Toutes les matières", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.FabricMaterialeHouseCuisine, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 hidden" id="FabricMaterialeHouseLingeSearchDiv">
+            @Html.LabelFor(model => model.FabricMaterialeHouseLinge, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.FabricMaterialeHouseLinge, SelectListMethodHouse.FabricMaterialLingeList(), "Toutes les matières", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.FabricMaterialeHouseLinge, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 ">
+            @Html.LabelFor(model => model.ColorHouse, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.ColorHouse, SelectListMethodVehicle.ColorVehiculeList(), "Toutes les couleurs", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ColorHouse, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-4 ">
+            @Html.LabelFor(model => model.StateHouse, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @Html.DropDownListFor(model => model.StateHouse, SelectListMethodHouse.StateHouseList(), "Tous les états", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.StateHouse, "", new { @class = "text-danger" })
+
+        </div>
+
+
+    </div>
+
+        <button id="submitHouse"  type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-search"></span> <strong>Rechercher @*(<span class="badge"></span> Résultats)*@</strong>
+        </button>
+    </div>
+}
+
+<script type="text/javascript">
+    $(function () {
+
+        $("#RubriqueHouseSearchDiv").change(function () {
+
+            if ($('#RubriqueHouse').val() !== 'Toutes les rubriques' && $('#RubriqueHouse').val() == 'Ameublement') {
+
+
+                $("#TypeHouseAmmeublementClothesSearchDiv").removeClass('hidden');
+                $("#FabricMaterialeHouseAmmeublementDecoSearchDiv").removeClass('hidden');
+
+
+                //hidden those div
+                $("#TypeHouseCuisineSearchDiv").addClass('hidden');
+                $("#TypeHouseDecorationSearchDiv").addClass('hidden');
+                $("#TypeHouseLingeSearchDiv").addClass('hidden');
+                $("#FabricMaterialeHouseCuisineSearchDiv").addClass('hidden');
+                $("#FabricMaterialeHouseLingeSearchDiv").addClass('hidden');
+
+
+                //reset the select
+                document.getElementById("TypeHouseCuisine").selectedIndex = "0";
+                document.getElementById("TypeHouseDecoration").selectedIndex = "0";
+                document.getElementById("TypeHouseLinge").selectedIndex = "0";
+                document.getElementById("FabricMaterialeHouseCuisine").selectedIndex = "0";
+                document.getElementById("FabricMaterialeHouseLinge").selectedIndex = "0";
+
+
+            }
+            else if ($('#RubriqueHouse').val() !== 'Toutes les rubriques' && $('#RubriqueHouse').val() == 'Cuisine') {
+
+                $("#TypeHouseCuisineSearchDiv").removeClass('hidden');
+                $("#FabricMaterialeHouseCuisineSearchDiv").removeClass('hidden');
+
+
+                //hidden those div
+                $("#TypeHouseAmmeublementClothesSearchDiv").addClass('hidden');
+                $("#TypeHouseDecorationSearchDiv").addClass('hidden');
+                $("#TypeHouseLingeSearchDiv").addClass('hidden');
+                $("#FabricMaterialeHouseAmmeublementDecoSearchDiv").addClass('hidden');
+                $("#FabricMaterialeHouseLingeSearchDiv").addClass('hidden');
+
+
+                //reset the select
+                document.getElementById("TypeHouseAmmeublement").selectedIndex = "0";
+                document.getElementById("TypeHouseDecoration").selectedIndex = "0";
+                document.getElementById("TypeHouseLinge").selectedIndex = "0";
+                document.getElementById("FabricMaterialeHouseAmmeublementDeco").selectedIndex = "0";
+                document.getElementById("FabricMaterialeHouseLinge").selectedIndex = "0";
+
+            }
+            else if ($('#RubriqueHouse').val() !== 'Toutes les rubriques' && $('#RubriqueHouse').val() == 'Linge de maison') {
+
+                $("#TypeHouseLingeSearchDiv").removeClass('hidden');
+                $("#FabricMaterialeHouseLingeSearchDiv").removeClass('hidden');
+
+
+                //hidden those div
+                $("#TypeHouseAmmeublementClothesSearchDiv").addClass('hidden');
+                $("#TypeHouseDecorationSearchDiv").addClass('hidden');
+                $("#TypeHouseCuisineSearchDiv").addClass('hidden');
+                $("#FabricMaterialeHouseAmmeublementDecoSearchDiv").addClass('hidden');
+                $("#FabricMaterialeHouseCuisineSearchDiv").addClass('hidden');
+
+
+                //reset the select
+                document.getElementById("TypeHouseAmmeublement").selectedIndex = "0";
+                document.getElementById("TypeHouseDecoration").selectedIndex = "0";
+                document.getElementById("TypeHouseCuisine").selectedIndex = "0";
+                document.getElementById("FabricMaterialeHouseAmmeublementDeco").selectedIndex = "0";
+                document.getElementById("FabricMaterialeHouseCuisine").selectedIndex = "0";
+            }
+            else if ($('#RubriqueHouse').val() !== 'Toutes les rubriques' && $('#RubriqueHouse').val() == 'Décoration') {
+
+                $("#TypeHouseDecorationSearchDiv").removeClass('hidden');
+                $("#FabricMaterialeHouseAmmeublementDecoSearchDiv").removeClass('hidden');
+
+
+                //hidden those div
+                $("#TypeHouseAmmeublementClothesSearchDiv").addClass('hidden');
+                $("#TypeHouseLingeSearchDiv").addClass('hidden');
+                $("#TypeHouseCuisineSearchDiv").addClass('hidden');
+                $("#FabricMaterialeHouseLingeSearchDiv").addClass('hidden');
+                $("#FabricMaterialeHouseCuisineSearchDiv").addClass('hidden');
+
+
+                //reset the select
+                document.getElementById("TypeHouseAmmeublement").selectedIndex = "0";
+                document.getElementById("TypeHouseLinge").selectedIndex = "0";
+                document.getElementById("TypeHouseCuisine").selectedIndex = "0";
+                document.getElementById("FabricMaterialeHouseLinge").selectedIndex = "0";
+                document.getElementById("FabricMaterialeHouseCuisine").selectedIndex = "0";
+
+
+            } else if ($('#RubriqueHouse').val() !== 'Toutes les rubriques' && ($('#RubriqueHouse').val() == 'Electroménager'
+                || $('#RubriqueHouse').val() == 'Bricolage' || $('#RubriqueHouse').val() == 'Jardinage' || $('#RubriqueHouse').val() == '')) {
+
+                $("#TypeHouseDecorationSearchDiv").addClass('hidden');
+                $("#FabricMaterialeHouseAmmeublementDecoSearchDiv").addClass('hidden');
+
+
+                //hidden those div
+                $("#TypeHouseAmmeublementClothesSearchDiv").addClass('hidden');
+                $("#TypeHouseLingeSearchDiv").addClass('hidden');
+                $("#TypeHouseCuisineSearchDiv").addClass('hidden');
+                $("#FabricMaterialeHouseLingeSearchDiv").addClass('hidden');
+                $("#FabricMaterialeHouseCuisineSearchDiv").addClass('hidden');
+
+
+                //reset the select
+                document.getElementById("TypeHouseAmmeublement").selectedIndex = "0";
+                document.getElementById("TypeHouseLinge").selectedIndex = "0";
+                document.getElementById("TypeHouseCuisine").selectedIndex = "0";
+                document.getElementById("FabricMaterialeHouseLinge").selectedIndex = "0";
+                document.getElementById("FabricMaterialeHouseCuisine").selectedIndex = "0";
+                document.getElementById("TypeHouseDecoration").selectedIndex = "0";
+                document.getElementById("FabricMaterialeHouseAmmeublementDeco").selectedIndex = "0";
+
+            }
+
+        })
+       // ResultHouseSpan();
+        //$("#TownHouse").change(ResultHouseSpan);
+        //$("#TypeHouseAmmeublement").change(ResultHouseSpan);
+        //$("#BrandMultimedia").change(ResultHouseSpan);
+        //$("#TypeHouseCuisine").change(ResultHouseSpan);
+        //$("#TypeHouseDecoration").change(ResultHouseSpan);
+        //$("#TypeHouseLinge").change(ResultHouseSpan);
+        //$("#FabricMaterialeHouseAmmeublementDeco").change(ResultHouseSpan);
+        //$("#FabricMaterialeHouseCuisine").change(ResultHouseSpan);
+        //$("#FabricMaterialeHouseLinge").change(ResultHouseSpan);
+        //$("#ColorHouse").change(ResultHouseSpan);
+        //$("#StateHouse").change(ResultHouseSpan);
+
+
+        //$('#PriceHouse').on('input', function () {
+        //    ResultHouseSpan();
+        //});
+       
+    })
+
+     @*function ResultHouseSpan() {
+
+       $.ajax({
+            type: "POST",
+            url: '@Url.Action("searchOfferHouseSpan_Json", "HouseOfferSearch")',
+            dataType: "json",
+            headers: {
+                //"api-key": searchServiceApiKey,
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify({
+
+                town: $("#TownHouse").val(),
+                rubrique: $("#RubriqueHouse").val(),
+                maxPrice: $("#PriceHouse").val(),
+                typeHouseAmmeublement: $("#TypeHouseAmmeublement").val(),
+                typeHouseCuisine: $("#TypeHouseCuisine").val(),
+                typeHouseDecoration: $("#TypeHouseDecoration").val(),
+                typeHouseLinge: $("#TypeHouseLinge").val(),
+                fabricMaterialeHouseAmmeublementDeco: $("#FabricMaterialeHouseAmmeublementDeco").val(),
+                fabricMaterialeHouseCuisine: $("#FabricMaterialeHouseCuisine").val(),
+                fabricMaterialeHouseLinge: $("#FabricMaterialeHouseLinge").val(),
+                colorHouse: $("#ColorHouse").val(),
+                stateHouse: $("#StateHouse").val(),
+            }),
+            success: function (data) {
+
+                var $badge = $("#submitHouse").find('.badge')
+                    //number = Object.keys(data).length;
+                $badge.text(data);
+
+           }
+           //,
+           // error: function (xhr) {
+           //     console.log(xhr.responseText);
+           //     alert("Une erreur est survenu  !");
+           // }
+        })
+    }*@
+</script>

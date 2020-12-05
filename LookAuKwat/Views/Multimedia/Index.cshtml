@@ -1,0 +1,43 @@
+﻿@model LookAuKwat.ViewModel.MultimediaViewModel
+@using LookAuKwat.ViewModel
+
+@{
+    ViewBag.Title = "Déposer une annonce catégorie Multimédia";
+}
+
+    <h2>Déposer une annonce catégorie Multimédia</h2> <br />
+    <h3>Vueillez choisir une rubrique s'il vous plaît !</h3>
+
+@using (Html.BeginForm("IndexRoute", "Multimedia"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SearchOrAskJobMultimedia, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SearchOrAskJobMultimedia, SelectListMethod.ChooseSearchOrAsk(), "Choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SearchOrAskJobMultimedia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group ">
+            @Html.LabelFor(model => model.TypeMultimedia, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.TypeMultimedia, SelectListMethod.TypeMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TypeMultimedia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-success">Suivant <span class="glyphicon glyphicon-menu-right"></span></button>
+            </div>
+        </div>
+    </div>
+}
+<p>Page 0 sur 2</p>

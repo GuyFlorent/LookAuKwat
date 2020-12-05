@@ -29,7 +29,7 @@ namespace LookAuKwat.Controllers
         // GET: Vehicule
         public ActionResult Index()
         {
-            return View();
+            return View(new VehiculeViewModel());
         }
 
         public ActionResult AddVehicule_PartialView()
@@ -105,7 +105,7 @@ namespace LookAuKwat.Controllers
 
              
     };
-
+            string success = null;
 
             if (ModelState.IsValid)
             {
@@ -133,20 +133,24 @@ namespace LookAuKwat.Controllers
                         model.User = user;
                         model.Category = new CategoryModel { CategoryName = "Vehicule" };
                         dal.AddVehicule(model, latt, lonn);
-                        //check if email is confirm and update date of publish announce for agent pay
-                        if (user.EmailConfirmed == true && user.Date_First_Publish == null)
+                        //check if email or phone is confirm and update date of publish announce for agent pay
+                        if ((user.EmailConfirmed == true || user.PhoneNumberConfirmed == true) && user.Date_First_Publish == null)
                         {
                             dal.Update_Date_First_Publish(user);
                         }
 
-                        return RedirectToAction("GetListProductByUser_PartialView", "User");
+                        // success = "Annonce ajoutée avec succès dans la liste !";
+                        //return RedirectToAction("UserProfile", "Home", new { message = success });
+                        // return RedirectToAction("GetListProductByUser_PartialView", "User");
+                        return RedirectToAction("AddImage", "Job", new { id = model.id });
                     }
 
 
                 }
 
             }
-            return View(Vehi);
+            success = "Désolé une erreur s'est produite!";
+            return RedirectToAction("UserProfile", "Home", new { message = success });
         }
 
         private List<ImageProcductModel> ImageAdd(ImageModelView userImage)
@@ -191,6 +195,15 @@ namespace LookAuKwat.Controllers
 
                         image.SaveAs(FileName);
 
+                    }
+                    else
+                    {
+                        ImageProcductModel picture = new ImageProcductModel
+                        {
+                            id = Guid.NewGuid(),
+                            Image = "https://particulier-employeur.fr/wp-content/themes/fepem/img/general/avatar.png"
+                        };
+                        liste.Add(picture);
                     }
 
                 }
@@ -276,9 +289,13 @@ namespace LookAuKwat.Controllers
 
         public ActionResult VehiculeDetail(int id)
         {
-            VehiculeModel model = dal.GetListVehicule().FirstOrDefault(e => e.id == id);
+            VehiculeModel model = dal.GetListVehiculeWithNoInclude().FirstOrDefault(e => e.id == id);
             model.ViewNumber++;
             dal.UpdateNumberView(model);
+            if (model.Images.Count > 1)
+            {
+                model.Images = model.Images.Where(m => !m.Image.StartsWith("http")).ToList();
+            }
             return View(model);
         }
 

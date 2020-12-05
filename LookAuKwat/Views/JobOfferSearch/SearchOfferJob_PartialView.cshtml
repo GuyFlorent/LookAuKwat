@@ -76,7 +76,7 @@
     </div>
 
         <button id="submitJobb" type="submit" class="btn btn-primary">
-            <span class="glyphicon glyphicon-search"></span> <strong>Rechercher</strong>
+            <span class="glyphicon glyphicon-search"></span> <strong>Rechercher @*(<span class="badge"></span> Résultats)*@</strong>
         </button>
     </div>
 }
@@ -87,33 +87,50 @@
 }
 
 <script type="text/javascript">
-    $(function () {
-        $("#submitJob").on('click','button',
-            function () {
-                alert('je suis la')
+    //$(function () {
+    //   // ResultJobSpan();
+    //    $("#ActivitySectorJob").change(ResultJobSpan);
+    //    $("#TownSearchJob").change(ResultJobSpan);
+    //    $("#TypeContractJob").change(ResultJobSpan);
+        
+    //    $('#PriceMinSearchJob').on('input', function () {
+    //        ResultJobSpan();
+    //    });
+    //    $('#PriceMaxSearchJob').on('input', function () {
+    //        ResultJobSpan();
+    //    });
+    //});
+
+    @*function ResultJobSpan() {
+
         $.ajax({
-            type: "GET",
-            url: '@Url.Action("ResultSearchOfferJob_Jason", "JobOfferSearch")',
+            type: "POST",
+            url: '@Url.Action("ResultJobSpan_Jason", "JobOfferSearch")',
             dataType: "json",
             headers: {
                 //"api-key": searchServiceApiKey,
                 "Content-Type": "application/json"
             },
             data: JSON.stringify({
-                top: 5,
 
                 sector: $("#ActivitySectorJob").val(),
-                town: $(".TownSearchJob").val(),
+                town: $("#TownSearchJob").val(),
                 contract: $("#TypeContractJob").val(),
                 minPrice: $("#PriceMinSearchJob").val(),
                 maxPrice: $("#PriceMaxSearchJob").val(),
             }),
             success: function (data) {
-               
-                }
-            });
-        
-       
-    });
-});
+
+                var $badge = $("#submitJobb").find('.badge')
+                    //number = Object.keys(data).length;
+                $badge.text(data);
+
+            }
+            //,
+            //error: function (xhr) {
+            //    console.log(xhr.responseText);
+            //    alert("Une erreur est survenu  !");
+            //}
+        })
+    }*@
 </script>

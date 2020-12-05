@@ -15,13 +15,13 @@
 
 }
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+@*<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
       integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
       crossorigin="" />
 
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
         integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-        crossorigin=""></script>
+        crossorigin=""></script>*@
 
 <p>@Html.ActionLink("Retour à l'accueil", "Index", "Home") <i class="fa fa-angle-right"></i> Filtres dans toutes les catégories</p>
 <section>
@@ -38,6 +38,7 @@
                         <option data-content="<i class='glyphicon glyphicon-home'></i>">💻 Multimédia</option>
                         <option data-content="<i class='glyphicon glyphicon-home'></i>">🚗 Véhicule</option>
                         <option data-content="<i class='glyphicon glyphicon-home'></i>">👚 Mode</option>
+                        <option data-content="<i class='glyphicon glyphicon-home'></i>">🛋️ Maison</option>
                     </select>
                 </div>
                 <div id="AllProduct" class=" formulaire">
@@ -76,6 +77,12 @@
                     }
 
                 </div>
+                <div id="HouseId" class="hidden formulaire">
+                @{
+                    Html.RenderAction("SearchOfferHouse_PartialView", "HouseOfferSearch");
+                }
+
+            </div>
 
             </div>
         </div>
@@ -102,8 +109,8 @@
                     <div class="site">
 
                         <div class="site__box-link">
-                            <a id="List" class="btn btn--width" href="#ResulList" data-toggle="tab"><i class="glyphicon glyphicon-list"></i> Vue liste</a>
-                            <a id="Map" class="btn btn--revert btn--width" href="#ResultMap" data-toggle="tab"><i class="glyphicon glyphicon-map-marker"></i> carte</a>
+                            <a id="List" class="btn btn--width" href="#ResulList" @*data-toggle="tab"*@><i class="glyphicon glyphicon-list"></i> Vue liste</a>
+                            <a id="Map" class="btn btn--revert btn--width" href="@Url.Action("listAllProductViewMapReturnJson","Product",new {TownAllProduct = Model.TownAllProduct, SearchTermAllProduct = Model.SearchTermAllProduct })" @*data-toggle="tab"*@><i class="glyphicon glyphicon-map-marker"></i> carte</a>
                         </div>
 
                     </div>
@@ -119,9 +126,9 @@
     <div class="preload">
         <img src="https://i.imgur.com/KUJoe.gif">
     </div>
-    <div class="tab-content" id="resultsJobSearch">
+    @*<div class="tab-content" id="resultsJobSearch">
 
-        <div class="tab-pane active  fade in" id="ResulList">
+        <div class="tab-pane active  fade in" id="ResulList">*@
 
 
             <div class="row">
@@ -249,6 +256,16 @@
                                                         <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
                                                     </a>
                                                 }
+                                                else if (liste.Category.CategoryName == "Maison")
+                                                {
+                                                    <a href="@Url.Action("HouseDetail", "House", new { id = liste.id }, null)" class="list-group-item">
+                                                        <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"><strong> @liste.Town</strong></span></h4>
+                                                        <p class="list-group-item-text pull-right text-success"> Ajoutée il y'a @time.ToString() @period</p>
+                                                        <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
+                                                        <p class="list-group-item-text text-left"><strong>🛋️ Maison</strong></p>
+                                                        <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
+                                                    </a>
+                                                }
                                             }
                                             catch (Exception e) { Console.WriteLine(e); }
                                         }
@@ -268,41 +285,41 @@
                     </div>
                 }
             </div>
-        </div>
-        <div class="tab-pane  fade " id="ResultMap">
+        @*</div>*@
+        @*<div class="tab-pane  fade " id="ResultMap">
             <div id="mapiAll" style="height:480px"> </div>
-        </div>
+        </div>*@
 
-    </div>
+    @*</div>*@
 </section>
 <script type="text/javascript">
-    var jobMarkers = L.layerGroup();
-    var ApartMarkers = L.layerGroup();
-    var mymapJob = L.map('mapiAll');
-    mymapJob.setView(["12.354722", "7.369722"], 5);
+    //var jobMarkers = L.layerGroup();
+    //var ApartMarkers = L.layerGroup();
+    //var mymapJob = L.map('mapiAll');
+    //mymapJob.setView(["12.354722", "7.369722"], 5);
 
 
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
-        id: 'mapbox/streets-v11', /*mapbox/satellite-v9*/
-        tileSize: 512,
-        zoomOffset: -1,
-        accessToken: 'pk.eyJ1IjoiZ3V5d2FuZ3VldSIsImEiOiJjazc0amN4ZzkwOG14M2twYXhpbDZ6NjRwIn0.HU_TD-k9bLv6_ctUhyIRuw'
-    }).addTo(mymapJob);
+    //L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    //    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    //    maxZoom: 18,
+    //    id: 'mapbox/streets-v11', /*mapbox/satellite-v9*/
+    //    tileSize: 512,
+    //    zoomOffset: -1,
+    //    accessToken: 'pk.eyJ1IjoiZ3V5d2FuZ3VldSIsImEiOiJjazc0amN4ZzkwOG14M2twYXhpbDZ6NjRwIn0.HU_TD-k9bLv6_ctUhyIRuw'
+    //}).addTo(mymapJob);
 
-    var options = {
-        enableHighAccuracy: false,
-        timeout: 5000,
-        maximumAge: Infinity
-    };
+    //var options = {
+    //    enableHighAccuracy: false,
+    //    timeout: 5000,
+    //    maximumAge: Infinity
+    //};
 
 
-    navigator.geolocation.getCurrentPosition(function (position) {
-        var lat = position.coords.latitude;
-        var long = position.coords.longitude;
-        mymapJob.setView([lat, long], 13);
-    }, null, options)
+    //navigator.geolocation.getCurrentPosition(function (position) {
+    //    var lat = position.coords.latitude;
+    //    var long = position.coords.longitude;
+    //    mymapJob.setView([lat, long], 13);
+    //}, null, options)
 
 
     $(function () {
@@ -327,6 +344,19 @@
         $("select.searchcategory").change(function () {
             var select = $(this).children("option:selected").val();
 
+            if (select == "🛋️ Maison") {
+
+                $('#VehiculeId').addClass('hidden');
+                $('#HouseId').removeClass('hidden');
+                $('#ModeId').addClass('hidden');
+                $('#MultimediaId').addClass('hidden');
+                $('#JobId').addClass('hidden');
+                $('#ImmobilierId').addClass('hidden');
+                $('#AllProduct').addClass('hidden');
+            } else {
+                $('#HouseId').addClass('hidden');
+            }
+
             if (select == "👚 Mode") {
 
                 $('#VehiculeId').addClass('hidden');
@@ -335,6 +365,7 @@
                 $('#JobId').addClass('hidden');
                 $('#ImmobilierId').addClass('hidden');
                 $('#AllProduct').addClass('hidden');
+                $('#HouseId').addClass('hidden');
             } else {
                 $('#ModeId').addClass('hidden');
             }
@@ -347,6 +378,7 @@
                 $('#JobId').addClass('hidden');
                 $('#ImmobilierId').addClass('hidden');
                 $('#AllProduct').addClass('hidden');
+                $('#HouseId').addClass('hidden');
             } else {
                 $('#VehiculeId').addClass('hidden');
             }
@@ -359,6 +391,7 @@
                 $('#JobId').addClass('hidden');
                 $('#ImmobilierId').addClass('hidden');
                 $('#AllProduct').addClass('hidden');
+                $('#HouseId').addClass('hidden');
             } else {
                 $('#MultimediaId').addClass('hidden');
             }
@@ -371,6 +404,7 @@
                 $('#JobId').removeClass('hidden');
                 $('#ImmobilierId').addClass('hidden');
                 $('#AllProduct').addClass('hidden');
+                $('#HouseId').addClass('hidden');
             } else {
                 $('#JobId').addClass('hidden');
             }
@@ -383,6 +417,7 @@
                 $('#JobId').addClass('hidden');
                 $('#ImmobilierId').addClass('hidden');
                 $('#AllProduct').removeClass('hidden');
+                $('#HouseId').addClass('hidden');
             } else {
                 $('#AllProduct').addClass('hidden');
             }
@@ -395,6 +430,7 @@
                 $('#JobId').addClass('hidden');
                 $('#ImmobilierId').removeClass('hidden');
                 $('#AllProduct').addClass('hidden');
+                $('#HouseId').addClass('hidden');
             } else {
                 $('#ImmobilierId').addClass('hidden');
             }
@@ -402,88 +438,88 @@
         //$("#TownAllProduct").change(SearchAll)
 
 
-        $('#Map').click(SearchAll);
-        $("a[href='#ResultMap']").on('shown.bs.tab', function (e) {
+        //$('#Map').click(SearchAll);
+        //$("a[href='#ResultMap']").on('shown.bs.tab', function (e) {
 
-            mymapJob.invalidateSize();
-        });
+        //    mymapJob.invalidateSize();
+        //});
     })
 
-    function SearchAll() {
-        ApartMarkers.clearLayers()
-        jobMarkers.clearLayers()
-        $.ajax({
-            type: "POST",
-            url: '/Product/listAllProductReturnJson',
-            dataType: "json",
-            headers: {
-                //"api-key": searchServiceApiKey,
-                "Content-Type": "application/json"
-            },
-            data: JSON.stringify({
+    //function SearchAll() {
+    //    ApartMarkers.clearLayers()
+    //    jobMarkers.clearLayers()
+    //    $.ajax({
+    //        type: "POST",
+    //        url: '/Product/listAllProductReturnJson',
+    //        dataType: "json",
+    //        headers: {
+    //            //"api-key": searchServiceApiKey,
+    //            "Content-Type": "application/json"
+    //        },
+    //        data: JSON.stringify({
 
-                town: $("#TownAllProduct").val(),
-                term: $("#SearchTermAllProduct").val(),
+    //            town: $("#TownAllProduct").val(),
+    //            term: $("#SearchTermAllProduct").val(),
 
 
-            }),
-            success: function (data2) {
-               
-                //var $badge = $("#submitAllProduct").find('.badge'),
-                //    number = Object.keys(data2).length;
-                //$badge.text(number);
-                for (var i = 0; i < data2.length; i++) {
-                    //console.log(data2[i]);
-                    if (data2[i].Category.CategoryName == "Emploi") {
+    //        }),
+    //        success: function (data2) {
+    //            console.log(data2);
+    //            //var $badge = $("#submitAllProduct").find('.badge'),
+    //            //    number = Object.keys(data2).length;
+    //            //$badge.text(number);
+    //            for (var i = 0; i < data2.length; i++) {
+    //                console.log(data2[i]);
+    //                if (data2[i].Category.CategoryName == "Emploi") {
 
-                        var popup2 =
-                            '<div class="thumbnail"> <a class="img-rounded img-responsive" href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="photo de' + data2[i].Title + '" height="40"></a> </div>' +
-                            '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
-                            '<br/><b>ville : </b>' + data2[i].Town +
-                            '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Job/JobDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
-                    } else if (data2[i].Category.CategoryName == "Immobilier") {
+    //                    var popup2 =
+    //                        '<div class="thumbnail"> <a  href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img class="img-rounded img-responsive" id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="photo de' + data2[i].Title + '" style="Height:130px;"></a> </div>' +
+    //                        '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
+    //                        '<br/><b>ville : </b>' + data2[i].Town +
+    //                        '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Job/JobDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
+    //                } else if (data2[i].Category.CategoryName == "Immobilier") {
 
-                        var popup2 =
-                            '<div class="thumbnail"> <a class="img-rounded img-responsive" href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="LookAuKwat ' + data2[i].Title + '" height="40"></a> </div>' +
-                            '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
-                            '<br/><b>ville : </b>' + data2[i].Town +
-                            '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/ApartmentRental/ApartDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
-                    } else if (data2[i].Category.CategoryName == "Multimedia") {
+    //                    var popup2 =
+    //                        '<div class="thumbnail"> <a  href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img class="img-rounded img-responsive" id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="LookAuKwat ' + data2[i].Title + '" style="Height:130px;"></a> </div>' +
+    //                        '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
+    //                        '<br/><b>ville : </b>' + data2[i].Town +
+    //                        '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/ApartmentRental/ApartDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
+    //                } else if (data2[i].Category.CategoryName == "Multimedia") {
 
-                        var popup2 =
-                            '<div class="thumbnail"> <a class="img-rounded img-responsive" href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="LookAuKwat ' + data2[i].Title + '" height="40"></a> </div>' +
-                            '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
-                            '<br/><b>ville : </b>' + data2[i].Town +
-                            '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Multimedia/MultimediaDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
-                    } else if (data2[i].Category.CategoryName == "Vehicule") {
+    //                    var popup2 =
+    //                        '<div class="thumbnail"> <a  href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img class="img-rounded img-responsive" id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="LookAuKwat ' + data2[i].Title + '" style="Height:130px;"></a> </div>' +
+    //                        '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
+    //                        '<br/><b>ville : </b>' + data2[i].Town +
+    //                        '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Multimedia/MultimediaDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
+    //                } else if (data2[i].Category.CategoryName == "Vehicule") {
 
-                        var popup2 =
-                            '<div class="thumbnail"> <a class="img-rounded img-responsive" href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="LookAuKwat ' + data2[i].Title + '" height="40"></a> </div>' +
-                            '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
-                            '<br/><b>ville : </b>' + data2[i].Town +
-                            '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Vehicule/VehiculeDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
-                    } else if (data2[i].Category.CategoryName == "Mode") {
+    //                    var popup2 =
+    //                        '<div class="thumbnail"> <a  href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img class="img-rounded img-responsive" id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="LookAuKwat ' + data2[i].Title + '" style="Height:130px;"></a> </div>' +
+    //                        '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
+    //                        '<br/><b>ville : </b>' + data2[i].Town +
+    //                        '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Vehicule/VehiculeDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
+    //                } else if (data2[i].Category.CategoryName == "Mode") {
 
-                        var popup2 =
-                            '<div class="thumbnail"> <a class="img-rounded img-responsive" href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="LookAuKwat ' + data2[i].Title + '" height="40"></a> </div>' +
-                            '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
-                            '<br/><b>ville : </b>' + data2[i].Town +
-                            '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Mode/ModeDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
-                    }
+    //                    var popup2 =
+    //                        '<div class="thumbnail"> <a  href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img class="img-rounded img-responsive" id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="LookAuKwat ' + data2[i].Title + '" style="Height:130px;"></a> </div>' +
+    //                        '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
+    //                        '<br/><b>ville : </b>' + data2[i].Town +
+    //                        '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Mode/ModeDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
+    //                }
 
-                    L.marker([data2[i].Coordinate.Lat, data2[i].Coordinate.Lon])
-                        .bindPopup(popup2)
-                        .addTo(mymapJob);
-                    // allGroup.addLayer(group);
+    //                L.marker([data2[i].Coordinate.Lat, data2[i].Coordinate.Lon])
+    //                    .bindPopup(popup2)
+    //                    .addTo(mymapJob);
+    //                // allGroup.addLayer(group);
 
-                }
-            },
-            error: function (xhr) {
-                console.log(xhr.responseText);
-                alert("Une erreur est survenu  !");
-            }
-        })
-    }
+    //            }
+    //        },
+    //        error: function (xhr) {
+    //            console.log(xhr.responseText);
+    //            alert("Une erreur est survenu  !");
+    //        }
+    //    })
+    //}
 
 </script>
 

@@ -63,7 +63,7 @@
     </div>
 
         <button id="submitMultii" type="submit" class="btn btn-primary">
-            <span class="glyphicon glyphicon-search"></span> <strong>Rechercher</strong>
+            <span class="glyphicon glyphicon-search"></span> <strong>Rechercher (<span class="badge"></span> Résultats)</strong>
         </button>
     </div>
 }
@@ -75,6 +75,21 @@
 }
 
 <script type="text/javascript">
+    $(function () {
+       // ResultMultimediaSpan();
+        //$("#TownMultimedia").change(ResultMultimediaSpan);
+        //$("#TypeMultimedia").change(ResultMultimediaSpan);
+        //$("#BrandMultimedia").change(ResultMultimediaSpan);
+        //$("#Capacity").change(ResultMultimediaSpan);
+       
+
+        //$('#ModelMultimedia').on('input', function () {
+        //    ResultMultimediaSpan();
+        //});
+        //$('#PriceMultimedia').on('input', function () {
+        //    ResultMultimediaSpan();
+        //});
+    })
     $("#ModelMultimedia").autocomplete({
         source: function (request, response) {
         $.ajax({
@@ -116,4 +131,38 @@
                     .data('selected-item', ''); //clear the selected item
             }
         });
+
+    @*function ResultMultimediaSpan() {
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ResultSearchOfferMultimediaSpan_Jason", "MultimediaOfferSearch")',
+            dataType: "json",
+            headers: {
+                //"api-key": searchServiceApiKey,
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify({
+
+                type: $("#TypeMultimedia").val(),
+                town: $("#TownMultimedia").val(),
+                brand: $("#BrandMultimedia").val(),
+                modele: $("#ModelMultimedia").val(),
+                capacity: $("#Capacity").val(),
+                maxPrice: $("#PriceMultimedia").val(),
+            }),
+            success: function (data) {
+
+                var $badge = $("#submitMultii").find('.badge')
+                    //number = Object.keys(data).length;
+                $badge.text(data);
+
+            }
+            //,
+            //error: function (xhr) {
+            //    console.log(xhr.responseText);
+            //    alert("Une erreur est survenu  !");
+            //}
+        })
+    }*@
 </script>

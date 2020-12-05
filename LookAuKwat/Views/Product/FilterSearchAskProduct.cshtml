@@ -191,6 +191,16 @@
                                                         <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
                                                     </a>
                                                 }
+                                                else if (liste.Category.CategoryName == "Maison")
+                                                {
+                                                    <a href="@Url.Action("HouseDetail", "House", new { id = liste.id }, null)" class="list-group-item">
+                                                        <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"> @liste.Town</span></h4>
+                                                        <p class="list-group-item-text pull-right text-success">Ajoutée il y'a @time.ToString() @period</p>
+                                                        <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
+                                                        <p class="list-group-item-text text-left">🛋️ Maison</p>
+                                                        <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
+                                                    </a>
+                                                }
                                             }
                                             catch (Exception e) { Console.WriteLine(e); }
 
@@ -200,7 +210,7 @@
                             </div>
 
                             Page @(Model.ListeProPagedList.PageCount < Model.PageNumber ? 0 : Model.PageNumber) sur @Model.ListeProPagedList.PageCount
-                            @Html.PagedListPager(Model.ListeProPagedList, pageNumber => Url.Action("SearchAllProoduct", "Product", new { pageNumber, sortBy = Request["sortBy"] }))
+                            @Html.PagedListPager(Model.ListeProPagedList, pageNumber => Url.Action("ResultSearchAskProduct_PartialView", "Product", new { pageNumber, sortBy = Request["sortBy"] }))
 
                         </div>
                         <div class="col-md-6">
@@ -272,8 +282,7 @@
     })
 
      function SubmitAskClick () {
-            $('#jobSectionResult').removeClass('hidden');
-            $('#AllCategoryResult').addClass('hidden');
+            
             ApartMarkers.clearLayers()
             jobMarkers.clearLayers()
 

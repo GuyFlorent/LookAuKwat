@@ -1,37 +1,6 @@
 ﻿@model List<LookAuKwat.Models.ProductModel>
 
 
-@*<div class="panel panel-success">
-    <div class="panel-heading">
-        <h3 class="panel-title">@Model.ToList().Count annonces disponibles dans toutes les catégories :</h3>
-    </div>
-    <div class="list-group">
-        @foreach (var liste in Model)
-        {
-            if (liste.Category.CategoryName == "Emploi")
-            {
-                <a href="@Url.Action("JobDetail", "Job", new { id = liste.id }, null)" class="list-group-item">
-                    <h4 class="list-group-item-heading"> @liste.Title Ville:<span class="text-info"> @liste.Town</span></h4>
-                    <p class="list-group-item-text pull-right"> Ajoutée le @liste.DateAdd</p>
-                    <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
-                    <p class="list-group-item-text text-left">@liste.Category.CategoryName</p>
-                    <img src="@liste.Images.Select(m=>m.Image).First()" alt="image du groupe @liste.Title" style="height:150px" class="img-rounded" />
-                </a>
-            }
-            else if (liste.Category.CategoryName == "Immobilier")
-            {
-                <a href="@Url.Action("ApartDetail", "ApartmentRental", new { id = liste.id }, null)" class="list-group-item">
-                    <h4 class="list-group-item-heading"> @liste.Title Ville:<span class="text-info"> @liste.Town</span></h4>
-                    <p class="list-group-item-text pull-right"> Ajoutée le @liste.DateAdd</p>
-                    <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
-                    <p class="list-group-item-text text-left">@liste.Category.CategoryName</p>
-                    <img src="@liste.Images.Select(m=>m.Image).First()" alt="image du groupe @liste.Title" style="height:150px" class="img-rounded" />
-                </a>
-            }
-        }
-    </div>
-    </div>*@
-
 @foreach (var liste in Model)
 {
     if (liste.Category.CategoryName == "Emploi")
@@ -41,7 +10,7 @@
                 <div>
                     <div style="border-radius: 25px;background: lightgray;padding: 20px; height:260px" class="thumbnail">
                         <div class="row">
-                            <img src="@liste.Images.Select(m=>m.Image).First()" alt="image du groupe @liste.Title" class="img-rounded img-responsive" />
+                            <img src="@liste.Images.Select(m=>m.Image).First()" style="height:130px" alt="image du groupe @liste.Title" class="img-rounded img-responsive" />
                         </div>
                         <div class="row">
                             <h4><span>@liste.Title</span></h4>
@@ -60,7 +29,7 @@
                 <div>
                     <div style="border-radius: 25px;background: lightgray;padding: 20px; height:260px" class="thumbnail">
                         <div class="row">
-                            <img src="@liste.Images.Select(m=>m.Image).First()" alt="image du groupe @liste.Title" class="img-rounded img-responsive" />
+                            <img src="@liste.Images.Select(m=>m.Image).First()" style="height:130px" alt="image du groupe @liste.Title" class="img-rounded img-responsive" />
                         </div>
                         <div class="row">
                             <p><span>@liste.Title</span></p>
@@ -79,7 +48,7 @@
                 <div>
                     <div style="border-radius: 25px;background: lightgray;padding: 20px; height:260px" class="thumbnail">
                         <div class="row">
-                            <img src="@liste.Images.Select(m=>m.Image).First()" alt="image du groupe @liste.Title" class="img-rounded img-responsive" />
+                            <img src="@liste.Images.Select(m=>m.Image).First()" style="height:130px" alt="image du groupe @liste.Title" class="img-rounded img-responsive" />
                         </div>
                         <div class="row">
                             <p><span>@liste.Title</span></p>
@@ -98,7 +67,7 @@
                 <div>
                     <div style="border-radius: 25px;background: lightgray;padding: 20px; height:260px" class="thumbnail">
                         <div class="row">
-                            <img src="@liste.Images.Select(m=>m.Image).First()" alt="image du groupe @liste.Title" class="img-rounded img-responsive" />
+                            <img src="@liste.Images.Select(m=>m.Image).First()" style="height:130px" alt="image du groupe @liste.Title" class="img-rounded img-responsive" />
                         </div>
                         <div class="row">
                             <p><span>@liste.Title</span></p>
@@ -117,7 +86,26 @@
                 <div>
                     <div style="border-radius: 25px;background: lightgray;padding: 20px; height:260px" class="thumbnail">
                         <div class="row">
-                            <img src="@liste.Images.Select(m=>m.Image).First()" alt="image du groupe @liste.Title" class="img-rounded img-responsive" />
+                            <img src="@liste.Images.Select(m=>m.Image).First()" style="height:130px" alt="image du groupe @liste.Title" class="img-rounded img-responsive" />
+                        </div>
+                        <div class="row">
+                            <p><span>@liste.Title</span></p>
+                            <p class="price"><span>@liste.Price FCFA</span></p>
+                            <p class="bottom"><span>@liste.Town</span></p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+    else if (liste.Category.CategoryName == "Maison")
+    {
+        <div>
+            <a href="@Url.Action("HouseDetail", "House", new { id = liste.id }, null)">
+                <div>
+                    <div style="border-radius: 25px;background: lightgray;padding: 20px; height:260px" class="thumbnail">
+                        <div class="row">
+                            <img src="@liste.Images.Select(m=>m.Image).First()" style="height:130px" alt="image du groupe @liste.Title" class="img-rounded img-responsive" />
                         </div>
                         <div class="row">
                             <p><span>@liste.Title</span></p>

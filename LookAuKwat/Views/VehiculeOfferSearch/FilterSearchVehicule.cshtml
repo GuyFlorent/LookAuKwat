@@ -29,13 +29,15 @@
                 <div class="form-group">
                     <label for="selectCategory">Vous êtes dans les <strong>offres</strong>. Pour plus de filtres veuillez Choisir une catégorie :</label>
                     <select class=" form-control searchcategory" data-show-icon="true" name="categori" id="categori">
-                  
+
                         <option>≡Toutes les catégories</option>
                         <option data-content="<i class='glyphicon glyphicon-briefcase'></i>">👷 Emploi</option>
                         <option data-content="<i class='glyphicon glyphicon-home'></i>">🏠 Immobilier</option>
                         <option data-content="<i class='glyphicon glyphicon-home'></i>">💻 Multimédia</option>
                         <option data-content="<i class='glyphicon glyphicon-home'></i>" selected>🚗 Véhicule</option>
                         <option data-content="<i class='glyphicon glyphicon-home'></i>">👚 Mode</option>
+                        <option data-content="<i class='glyphicon glyphicon-home'></i>">🛋️ Maison</option>
+
                     </select>
                 </div>
                 <div id="AllProduct" class="hidden formulaire">
@@ -71,6 +73,12 @@
                 <div id="ModeId" class="hidden formulaire">
                     @{
                         Html.RenderAction("SearchOfferMode_PartialView", "ModeOfferSearch");
+                    }
+
+                </div>
+                <div id="HouseId" class="hidden formulaire">
+                    @{
+                        Html.RenderAction("SearchOfferHouse_PartialView", "HouseOfferSearch");
                     }
 
                 </div>
@@ -277,7 +285,7 @@
 
             $("select.searchcategory").change(function () {
                 var select = $(this).children("option:selected").val();
-                console.log(select)
+              
                 if (select == "≡ Choisir une catégorie" || select == "" || select == null) {
                     $('#vehiculeid').addClass('hidden');
                     $('#ModeId').addClass('hidden');
@@ -286,6 +294,20 @@
                     $('#ImmobilierId').addClass('hidden');
                     $('#AllProduct').addClass('hidden');
                 }
+
+                if (select == "🛋️ Maison") {
+
+                    $('#VehiculeId').addClass('hidden');
+                    $('#HouseId').removeClass('hidden');
+                    $('#ModeId').addClass('hidden');
+                    $('#MultimediaId').addClass('hidden');
+                    $('#JobId').addClass('hidden');
+                    $('#ImmobilierId').addClass('hidden');
+                    $('#AllProduct').addClass('hidden');
+                } else {
+                    $('#HouseId').addClass('hidden');
+                }
+
                 if (select == "👚 Mode") {
 
                     $('#VehiculeId').addClass('hidden');
@@ -306,6 +328,7 @@
                     $('#JobId').addClass('hidden');
                     $('#ImmobilierId').addClass('hidden');
                     $('#AllProduct').addClass('hidden');
+                    $('#HouseId').addClass('hidden');
                 } else {
                     $('#VehiculeId').addClass('hidden');
                 }
@@ -318,6 +341,7 @@
                     $('#JobId').addClass('hidden');
                     $('#ImmobilierId').addClass('hidden');
                     $('#AllProduct').addClass('hidden');
+                    $('#HouseId').addClass('hidden');
                 } else {
                     $('#MultimediaId').addClass('hidden');
                 }
@@ -330,6 +354,7 @@
                     $('#JobId').removeClass('hidden');
                     $('#ImmobilierId').addClass('hidden');
                     $('#AllProduct').addClass('hidden');
+                    $('#HouseId').addClass('hidden');
                 } else {
                     $('#JobId').addClass('hidden');
                 }
@@ -342,6 +367,7 @@
                     $('#JobId').addClass('hidden');
                     $('#ImmobilierId').addClass('hidden');
                     $('#AllProduct').removeClass('hidden');
+                    $('#HouseId').addClass('hidden');
                 } else {
                     $('#AllProduct').addClass('hidden');
                 }
@@ -354,6 +380,7 @@
                     $('#JobId').addClass('hidden');
                     $('#ImmobilierId').removeClass('hidden');
                     $('#AllProduct').addClass('hidden');
+                    $('#HouseId').addClass('hidden');
                 } else {
                     $('#ImmobilierId').addClass('hidden');
                 }
@@ -396,7 +423,7 @@
                     for (var i = 0; i < data.length; i++) {
                         console.log(data[i].Coordinate.Lat);
 
-                        var popup = '<div class="thumbnail"> <a class="img-rounded img-responsive" href="' + data[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].Title + '">  <img id="ImageDetailIniById" src="' + data[i].Images[0] + '" alt="LookAuKwat ' + data[i].Title + '" height="40"></a> </div>' +
+                        var popup = '<div class="thumbnail"> <a  href="' + data[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].Title + '">  <img class="img-rounded img-responsive" id="ImageDetailIniById" src="' + data[i].Images[0] + '" alt="LookAuKwat ' + data[i].Title + '" style="Height:130px"></a> </div>' +
                             '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data[i].Title +
                             '<br/><b>Adresse : </b>' + data[i].Town +
                             '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Vehicule/VehiculeDetail/' + data[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'

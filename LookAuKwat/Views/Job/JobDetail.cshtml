@@ -1,7 +1,7 @@
 ﻿@model LookAuKwat.Models.JobModel
 @using System.Globalization;
 @{
-    ViewBag.Title = "Offres d\'emploi" + Model.Title+" "+Model.Street;
+    ViewBag.Title = "Offres d\'emploi " + Model.Title+" "+Model.Street;
 }
 
 @{
@@ -47,7 +47,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h3 class="modal-title">Envoyer un méssage à @Model.User.FirstName<span id="eventTitle"></span></h3>
+                <h3 class="modal-title">Envoyer un message à @Model.User.FirstName<span id="eventTitle"></span></h3>
             </div>
             <div class="modal-body">
 
@@ -89,7 +89,7 @@
                     <div class="carousel-inner">
                         @{
 
-                            <div class="item active ">
+                            <div class="item active thumbnail">
                                 <a href="@Model.Images[0].Image" data-lightbox="mygallery"><img class="img-rounded img-responsive" src="@Model.Images[0].Image" alt="Emploi @Model.SearchOrAskJob @Model.ActivitySector @Model.TypeContract LookAuKat" /></a>
 
                             </div>
@@ -181,21 +181,35 @@
                 <a href="whatsapp://send?text=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" data-action="share/whatsapp/share"><img alt="whatsapp" src="@Url.Content("~/UserImage/whatsapp.png ")" id="imgln" height="40" /></a>
             </p>
         </div>
-        <hr />
+        @*<hr />
         <h3>Quelques annonce similaire qui peuvent vous intéréssez</h3>
         <div class="row gallery MySlickCarouselJob">
 
             @{
                 Html.RenderAction("SimilarProduct_PartialView", "Product", new { model = Model });
             }
-        </div>
+        </div>*@
     </section>
     <section class="col-md-4">
         <div class="row" style="border-radius: 25px;background: lightgray;padding: 20px;">
             <img src="https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg" alt="photo du publicateur Lookaukwat" class="img-rounded" height="50" /> @Model.User.FirstName
             <hr />
-            <button id="sendJobMessage" class="btn btn-primary sendJobMessage"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
-            <button id="iconJobCall" class="btn btn-default"><span class="glyphicon glyphicon-phone"></span> Voir le numéro</button>
+            @{
+                if ((Model.User.EmailConfirmed == true && Model.User.PhoneNumber != null) || (Model.User.PhoneNumberConfirmed == true && Model.User.Email != null && !Model.User.Email.StartsWith("Mtest")))
+                {
+                    <button id="sendJobMessage" class="btn btn-primary sendJobMessage"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
+                    <button id="iconJobCall" class="btn btn-default"><span class="glyphicon glyphicon-phone"></span> Voir le numéro</button>
+                }
+                else if (Model.User.PhoneNumberConfirmed == true)
+                {
+                    <button id="iconJobCall" class="btn btn-default"><span class="glyphicon glyphicon-phone"></span> Voir le numéro</button>
+                }
+                else if (Model.User.EmailConfirmed == true)
+                {
+                    <button id="sendJobMessage" class="btn btn-primary sendJobMessage"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
+                }
+            }
+
             <a id="numJobCall" class="hidden" href="tel:@Model.User.PhoneNumber">@Model.User.PhoneNumber</a>
         </div>
         <div class="row" style="height:7px">
@@ -211,40 +225,67 @@
     <nav class="main-nav">
         <ul>
             @*<li>
-                    <a href="#">
-                        <i class="fa fa-cloud fa-2x"></i>
-                        <span class="nav-text">
-                            News and Weather
-                        </span>
-                    </a>
-                </li>*@
+            <a href="#">
+                <i class="fa fa-cloud fa-2x"></i>
+                <span class="nav-text">
+                    News and Weather
+                </span>
+            </a>
+        </li>*@
 
+            @{
+                if ((Model.User.EmailConfirmed == true && Model.User.PhoneNumber != null) || (Model.User.PhoneNumberConfirmed == true && Model.User.Email != null && !Model.User.Email.StartsWith("Mtest")))
+                {
+                    <li class="has-subnav">
+                        <a href="tel:@Model.User.PhoneNumber">
+                            <i class="fa fa-phone fa-2x"></i>
+                            <span class="nav-text ">
+                                Téléphone
+                            </span>
+                        </a>
+                    </li>
+                    <li class="has-subnav">
+                        <a href="#">
+                            @*<i class="fa fa-exclamation-triangle fa-2x"></i>*@
+                            <span class="nav-text">
+                                @*Dangers*@
+                            </span>
+                        </a>
+                    </li>
+                    <li class="has-subnav">
+                        <a href="#">
+                            <i class="fa fa-envelope fa-2x"></i>
+                            <span class="nav-text sendJobMessage">
+                                Message
+                            </span>
+                        </a>
+                    </li>
+                }
 
+                else if (Model.User.PhoneNumberConfirmed == true)
+                {
+                    <li class="has-subnav">
+                        <a href="tel:@Model.User.PhoneNumber">
+                            <i class="fa fa-phone fa-2x"></i>
+                            <span class="nav-text ">
+                                Téléphone
+                            </span>
+                        </a>
+                    </li>
+                }
+                else if (Model.User.EmailConfirmed == true)
+                {
+        <li class="has-subnav">
+            <a href="#">
+                <i class="fa fa-envelope fa-2x"></i>
+                <span class="nav-text sendJobMessage">
+                    Message
+                </span>
+            </a>
+        </li>
+                }
+            }
 
-            <li class="has-subnav">
-                <a href="tel:@Model.User.PhoneNumber">
-                    <i class="fa fa-phone fa-2x"></i>
-                    <span class="nav-text ">
-                        Téléphone
-                    </span>
-                </a>
-            </li>
-            <li class="has-subnav">
-                <a href="#">
-                    @*<i class="fa fa-exclamation-triangle fa-2x"></i>*@
-                    <span class="nav-text">
-                        @*Dangers*@
-                    </span>
-                </a>
-            </li>
-            <li class="has-subnav">
-                <a href="#">
-                    <i class="fa fa-envelope fa-2x"></i>
-                    <span class="nav-text sendJobMessage">
-                        Message
-                    </span>
-                </a>
-            </li>
         </ul>
     </nav>
 </section>
@@ -296,31 +337,31 @@
             $('#MyModalContactJob').modal();
         });
 
-        $('.MySlickCarouselJob').slick({
-            centerMode: true,
-            centerPadding: '60px',
-            slidesToShow: 3,
-            responsive: [
-                {
-                    breakpoint: 768,
-                    settings: {
-                        arrows: false,
-                        centerMode: true,
-                        centerPadding: '40px',
-                        slidesToShow: 3
-                    }
-                },
-                {
-                    breakpoint: 480,
-                    settings: {
-                        arrows: false,
-                        centerMode: true,
-                        centerPadding: '40px',
-                        slidesToShow: 1
-                    }
-                }
-            ]
-        });
+        //$('.MySlickCarouselJob').slick({
+        //    centerMode: true,
+        //    centerPadding: '60px',
+        //    slidesToShow: 3,
+        //    responsive: [
+        //        {
+        //            breakpoint: 768,
+        //            settings: {
+        //                arrows: false,
+        //                centerMode: true,
+        //                centerPadding: '40px',
+        //                slidesToShow: 3
+        //            }
+        //        },
+        //        {
+        //            breakpoint: 480,
+        //            settings: {
+        //                arrows: false,
+        //                centerMode: true,
+        //                centerPadding: '40px',
+        //                slidesToShow: 1
+        //            }
+        //        }
+        //    ]
+        //});
 
 
     })

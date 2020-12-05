@@ -91,7 +91,7 @@
         </div>
        
         <button id="submitApartt" type="submit" class="btn btn-primary">
-            <span class="glyphicon glyphicon-search"></span> <strong>Rechercher</strong>
+            <span class="glyphicon glyphicon-search"></span> <strong>Rechercher @*(<span class="badge"></span> Résultats)*@</strong>
         </button>
     </div>
 }
@@ -114,5 +114,64 @@
                 $("#FunitureOrNotDiv").removeClass("hidden");
             }
         })
+
+       // ResultAppartSpan();
+        //$("#Type").change(ResultAppartSpan);
+        //$("#TownSearch").change(ResultAppartSpan);
+        //$("#FurnitureOrNot").change(ResultAppartSpan);
+
+        //$('.PriceMinSearchApart').on('input', function () {
+        //    ResultAppartSpan();
+        //});
+        //$('.PriceMaxSearchApart').on('input', function () {
+        //    ResultAppartSpan();
+        //});
+        //$('#MinApartSurface').on('input', function () {
+        //    ResultAppartSpan();
+        //});
+        //$('#MaxApartSurface').on('input', function () {
+        //    ResultAppartSpan();
+        //});
+
+        //$('#RoomNumber').on('input', function () {
+        //    ResultAppartSpan();
+        //});
+
     })
+
+    @*function ResultAppartSpan() {
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ResultSearchOfferApartSpan_Jason", "ApartmentRentalSearch")',
+            dataType: "json",
+            headers: {
+                //"api-key": searchServiceApiKey,
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify({
+
+                type: $("#Type").val(),
+                town: $(".TownSearchApart").val(),
+                minSurface: $("#MinApartSurface").val(),
+                maxSurface: $("#MaxApartSurface").val(),
+                minPrice: $(".PriceMinSearchApart").val(),
+                maxPrice: $(".PriceMaxSearchApart").val(),
+                furnitureOrNot: $("#FurnitureOrNot").val(),
+                roomNumber: $("#RoomNumber").val(),
+            }),
+            success: function (data) {
+
+                var $badge = $("#submitApartt").find('.badge')
+                    //number = Object.keys(data2).length;
+                $badge.text(data);
+
+            }
+            //,
+            //error: function (xhr) {
+            //    console.log(xhr.responseText);
+            //    alert("Une erreur est survenu  !");
+            //}
+        })
+    }*@
 </script>

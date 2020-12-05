@@ -56,7 +56,7 @@
         </div>
 
         <button id="submitVehiculee" type="submit" class="btn btn-primary">
-            <span class="glyphicon glyphicon-search"></span> <strong>Rechercher</strong>
+            <span class="glyphicon glyphicon-search"></span> <strong>Rechercher (<span class="badge"></span> Résultats)</strong>
         </button>
     </div>
 }
@@ -68,6 +68,17 @@
 }
 
 <script type="text/javascript">
+    $(function () {
+       //// ResultVehiculeSpan();
+       // $("#TownVehicule").change(ResultVehiculeSpan);
+       // $("#RubriqueVehicule").change(ResultVehiculeSpan);
+       // $("#BrandVehicule").change(ResultVehiculeSpan);
+
+       // $('#ModelVehicule').on('input', function () {
+       //     ResultVehiculeSpan();
+       // });
+    })
+
     $("#ModelVehicule").autocomplete({
         source: function (request, response) {
         $.ajax({
@@ -109,4 +120,38 @@
                     .data('selected-item', ''); //clear the selected item
             }
         });
+
+    @*function ResultVehiculeSpan() {
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("searchOfferVehiculeSpan_Json", "VehiculeOfferSearch")',
+            dataType: "json",
+            headers: {
+                //"api-key": searchServiceApiKey,
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify({
+
+                rubrique: $("#RubriqueVehicule").val(),
+                town: $("#TownVehicule").val(),
+                brand: $("#BrandVehicule").val(),
+                modele: $("#ModelVehicule").val(),
+
+            }),
+            success: function (data) {
+
+                var $badge = $("#submitVehiculee").find('.badge')
+                    //number = Object.keys(data).length;
+                $badge.text(data);
+
+            }
+            //,
+            //error: function (xhr) {
+            //    console.log(xhr.responseText);
+            //    alert("Une erreur est survenu  !");
+            //}
+        })
+    }*@
 </script>
+

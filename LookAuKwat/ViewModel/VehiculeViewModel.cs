@@ -14,13 +14,14 @@ namespace LookAuKwat.ViewModel
         [Required(ErrorMessage = "Le titre de l'annonce ne doit pas être vide")]
 
         [DisplayName("Titre de l'annonce*")]
+        [StringLength(50)]
         public string TitleVehicule { get; set; }
         [Required(ErrorMessage = "La description ne doit pas être vide")]
         [DisplayName("Description")]
         public string DescriptionVehicule { get; set; }
         [DisplayName("Ville")]
         public string TownVehicule { get; set; }
-        [Required(ErrorMessage = "L'adresse ne doit pas être vide")]
+        [Required(ErrorMessage = "Le quartier ne doit pas être vide")]
         [DisplayName("Quartier*")]
         public string StreetVehicule { get; set; }
         [Range(0, int.MaxValue, ErrorMessage = "seule les valeurs positives sont acceptées")]

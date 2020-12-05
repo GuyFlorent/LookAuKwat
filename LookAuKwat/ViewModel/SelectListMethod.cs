@@ -134,10 +134,11 @@ namespace LookAuKwat.ViewModel
                 new SelectListItem() { Text = "Immobilier", Value = "Immobilier" },
                 new SelectListItem() { Text = "Multimedia", Value = "Multimedia" },
                 new SelectListItem() { Text = "Vehicule", Value = "Vehicule" },
-                new SelectListItem() { Text = "Mode", Value = "Mode" }
+                new SelectListItem() { Text = "Mode", Value = "Mode" },
+                new SelectListItem() { Text = "Maison", Value = "Maison" }
                 
             };
-            return list;
+            return list.OrderBy(m => m.Value); 
         }
         public static IEnumerable<SelectListItem> GetListActivitySector()
         {
@@ -162,6 +163,10 @@ namespace LookAuKwat.ViewModel
                  new SelectListItem() { Text = "Comptable", Value = "Comptable" },
                  new SelectListItem() { Text = "Service à la personne", Value = "Service à la personne" },
                  new SelectListItem() { Text = "Prestation de service", Value = "Prestation de service" },
+                 new SelectListItem() { Text = "Commnication", Value = "Commnication" },
+                 new SelectListItem() { Text = "Commercial", Value = "Commercial" },
+                 new SelectListItem() { Text = "Sécurité", Value = "Sécurité" },
+                 new SelectListItem() { Text = "Administration", Value = "Administration" },
                  new SelectListItem() { Text = "Autre", Value = "Autre" }
             };
             return list;
@@ -184,6 +189,9 @@ namespace LookAuKwat.ViewModel
             IList<SelectListItem> list = new List<SelectListItem>()
             {
                 
+                new SelectListItem() { Text = "Appartement à louer", Value = "Appartement à louer" },
+                new SelectListItem() { Text = "Entrepot à louer", Value = "Entrepot à louer" },
+                new SelectListItem() { Text = "Boutique à louer", Value = "Boutique à louer" },
                 new SelectListItem() { Text = "Chambre à louer", Value = "Chambre à louer" },
                  new SelectListItem() { Text = "studio à louer", Value = "studio à louer" },
                   new SelectListItem() { Text = "Maison à louer", Value = "Maison à louer" },
@@ -208,6 +216,7 @@ namespace LookAuKwat.ViewModel
                 new SelectListItem() { Text = "Accésoires téléphonie", Value = "Accésoires téléphonie" },
                 new SelectListItem() { Text = "Téléviseur", Value = "Téléviseur" },
                 new SelectListItem() { Text = "Son", Value = "Son" },
+                new SelectListItem() { Text = "Image & Camera vidéo", Value = "Image & Camera vidéo" },
                 new SelectListItem() { Text = "Photocopieuse", Value = "Photocopieuse" },
                 
                 new SelectListItem() { Text = "Autre", Value = "Autre" }
@@ -278,6 +287,7 @@ namespace LookAuKwat.ViewModel
         {
             IList<SelectListItem> list = new List<SelectListItem>()
             {
+                 new SelectListItem() { Text = "PS5", Value = "PS5" },
                  new SelectListItem() { Text = "PS4 Pro", Value = "PS4 Pro" },
                 new SelectListItem() { Text = "PS4", Value = "PS4" },
                 new SelectListItem() { Text = "PS3", Value = "PS3" },
@@ -707,6 +717,7 @@ namespace LookAuKwat.ViewModel
         {
             IList<SelectListItem> list = new List<SelectListItem>()
             {
+                new SelectListItem() { Text = "Aucune", Value = "Aucune" },
                 new SelectListItem() { Text = "2 Go", Value = "2 Go" },
                 new SelectListItem() { Text = "4 Go", Value = "4 Go" },
                 new SelectListItem() { Text = "6 Go", Value = "6 Go" },

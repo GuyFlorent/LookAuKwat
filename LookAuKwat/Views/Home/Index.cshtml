@@ -59,6 +59,7 @@
                         <option value="💻 Multimédia">💻 Multimédia</option>
                         <option value="🚗 Véhicule">🚗 Véhicule</option>
                         <option value="👚 Mode">👚 Mode</option>
+                        <option value="🛋️ Maison">🛋️ Maison</option>
                     </select>
                 </div>
                 <div id="AllProduct" class="hidden formulaire">
@@ -97,6 +98,12 @@
                     }
 
                 </div>
+                <div id="HouseId" class="hidden formulaire">
+                    @{
+                        Html.RenderAction("SearchOfferHouse_PartialView", "HouseOfferSearch");
+                    }
+
+                </div>
 
             </div>
         </div>
@@ -125,7 +132,7 @@
                     <div class=" col-xs-12 col-sm-12 col-md-6">
                         <ul class="list-unstyled">
                             <li class="item-list-a">
-                                <i></i> <a href="@Url.Action( "ResultSearchOfferJob_PartialView", "JobOfferSearch")""><strong>EMPLOI</strong></a>
+                                <i></i> <a href="@Url.Action( "ResultSearchOfferJob_PartialView", "JobOfferSearch")"><strong>EMPLOI</strong></a>
                             </li>
                             <li class="item-list-a">
                                 <i class="fa fa-angle-right"></i> <a href="@Url.Action( "ResultSearchOfferJob_PartialView", "JobOfferSearch")">Offres d'emploi</a>
@@ -174,13 +181,40 @@
                                 <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferMode", "ModeOfferSearch", new { RubriqueMode = "Accesoires & Bagagerie" })">Accésoires &  Bagagerie</a>
                             </li>
                             <li class="item-list-a">
-                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferMode", "ModeOfferSearch", new { RubriqueMode = "Montres_Bijoux" })">Montres & Bijoux</a>
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferMode", "ModeOfferSearch", new { RubriqueMode = "Montres & Bijoux" })">Montres & Bijoux</a>
                             </li>
                             <li class="item-list-a">
                                 <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferMode", "ModeOfferSearch", new { RubriqueMode = "Equipement bébé" })">Equipement bébé</a>
                             </li>
                             <li class="item-list-a">
                                 <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferMode", "ModeOfferSearch", new { RubriqueMode = "Vêtements bébé" })">Vêtements bébé</a>
+                            </li>
+                        </ul>
+                        <hr style="height:1px;border:none;color:#333;background-color:#333;" />
+                        <ul class="list-unstyled">
+                            <li class="item-list-a">
+                                <a href="@Url.Action( "searchOfferHouse", "HouseOfferSearch")"><strong>Maison</strong></a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferHouse", "HouseOfferSearch", new { RubriqueHouse = "Ameublement" })">Ameublement</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferHouse", "HouseOfferSearch", new { RubriqueHouse = "Electroménager" })">Electroménager</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferHouse", "HouseOfferSearch", new { RubriqueHouse = "Cuisine" })">Cuisine</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferHouse", "HouseOfferSearch", new { RubriqueHouse = "Décoration" })">Décoration</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferHouse", "HouseOfferSearch", new { RubriqueHouse = "Linge de maison" })">Linge de maison</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferHouse", "HouseOfferSearch", new { RubriqueHouse = "Bricolage" })">Bricolage</a>
+                            </li>
+                            <li class="item-list-a">
+                                <i class="fa fa-angle-right"></i> <a href="@Url.Action( "searchOfferHouse", "HouseOfferSearch", new { RubriqueHouse = "Jardinage" })">Jardinage</a>
                             </li>
                         </ul>
                     </div>
@@ -590,6 +624,20 @@
                 $('#ImmobilierId').addClass('hidden');
                 $('#AllProduct').addClass('hidden');
             }
+
+            if (select == "🛋️ Maison") {
+
+                $('#VehiculeId').addClass('hidden');
+                $('#HouseId').removeClass('hidden');
+                $('#ModeId').addClass('hidden');
+                $('#MultimediaId').addClass('hidden');
+                $('#JobId').addClass('hidden');
+                $('#ImmobilierId').addClass('hidden');
+                $('#AllProduct').addClass('hidden');
+            } else {
+                $('#HouseId').addClass('hidden');
+            }
+
             if (select == "👚 Mode") {
 
                 $('#VehiculeId').addClass('hidden');
@@ -598,6 +646,7 @@
                 $('#JobId').addClass('hidden');
                 $('#ImmobilierId').addClass('hidden');
                 $('#AllProduct').addClass('hidden');
+                $('#HouseId').addClass('hidden');
             } else {
                 $('#ModeId').addClass('hidden');
             }
@@ -610,6 +659,7 @@
                 $('#JobId').addClass('hidden');
                 $('#ImmobilierId').addClass('hidden');
                 $('#AllProduct').addClass('hidden');
+                $('#HouseId').addClass('hidden');
             } else {
                 $('#VehiculeId').addClass('hidden');
             }
@@ -622,6 +672,7 @@
                 $('#JobId').addClass('hidden');
                 $('#ImmobilierId').addClass('hidden');
                 $('#AllProduct').addClass('hidden');
+                $('#HouseId').addClass('hidden');
             } else {
                 $('#MultimediaId').addClass('hidden');
             }
@@ -634,6 +685,7 @@
                 $('#JobId').removeClass('hidden');
                 $('#ImmobilierId').addClass('hidden');
                 $('#AllProduct').addClass('hidden');
+                $('#HouseId').addClass('hidden');
             } else {
                 $('#JobId').addClass('hidden');
             }
@@ -646,6 +698,7 @@
                 $('#JobId').addClass('hidden');
                 $('#ImmobilierId').addClass('hidden');
                 $('#AllProduct').removeClass('hidden');
+                $('#HouseId').addClass('hidden');
             } else {
                 $('#AllProduct').addClass('hidden');
             }
@@ -658,6 +711,7 @@
                 $('#JobId').addClass('hidden');
                 $('#ImmobilierId').removeClass('hidden');
                 $('#AllProduct').addClass('hidden');
+                $('#HouseId').addClass('hidden');
             } else {
                 $('#ImmobilierId').addClass('hidden');
             }

@@ -1,0 +1,140 @@
+﻿@model LookAuKwat.Models.ProductModel
+@{
+    ViewBag.Title = "Ajouter des images dans la catégorie " + Model.Category.CategoryName;
+}
+
+<h2>Ajouter des images dans la catégorie @Model.Category.CategoryName</h2>
+<p class="text-info">Vous pouvez ajouter une ou trois(3) images au maximun.</p>
+<div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-4">
+        <div class="row">
+            <form name="addImageForm" onsubmit="return false" enctype="multipart/form-data">
+                Image 1:
+                <input type="file" class="hidden" name="ImageFile" id="ImageFile" accept="image/*" onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0]);AddImage(this); desableInput(this)" multiple>
+               
+            </form>
+        </div>
+        <div class="row">
+            <label for="ImageFile"> <img id="output" src="@Url.Content("~/UserImage/add-image.png")" width="100" height="100">  </label>
+</div>
+
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-4">
+        <div class="row">
+            <form name="addImageForm" onsubmit="return false" enctype="multipart/form-data">
+                Image 2:
+                <input type="file" class="hidden" name="ImageFile2" id="ImageFile2" accept="image/*" onchange="document.getElementById('output2').src = window.URL.createObjectURL(this.files[0]);AddImage2(this); desableInput2(this)" multiple>
+               
+            </form>
+        </div>
+        <div class="row">
+            <label for="ImageFile2"> <img id="output2" src="@Url.Content("~/UserImage/add-image.png")" width="100" height="100"> </label>
+</div>
+
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-4">
+        <div class="row">
+            <form name="addImageForm" onsubmit="return false" enctype="multipart/form-data">
+               Image 3:
+                <input class="hidden" type="file" name="ImageFile3" id="ImageFile3" accept="image/*" onchange="document.getElementById('output3').src = window.URL.createObjectURL(this.files[0]);AddImage3(this); desableInput3(this)" multiple>
+                
+            </form>
+        </div>
+        <div class="row">
+            <label for="ImageFile3"> <img id="output3" src="@Url.Content("~/UserImage/add-image.png")" width="100" height="100"> </label>
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    @Html.ActionLink("Valider", "UserProfile", "Home", new { message = "Annoce ajoutée avec succès dans la liste" }, new { @class = "btn btn-success" })
+
+</div>
+
+
+<script type="text/javascript">
+
+        //function readUrl() {
+        //    document.getElementById('output').src = window.URL.createObjectURL(files[0])
+        //}
+
+        function desableInput() {
+            document.getElementById("ImageFile").disabled = true;
+        }
+        function desableInput2() {
+            document.getElementById("ImageFile2").disabled = true;
+        }
+        function desableInput3() {
+            document.getElementById("ImageFile3").disabled = true;
+        }
+
+        function AddImage() {
+        var f = ImageFile.files[0];
+        var fileName = f.name.split('.')[0];
+        var img = new Image();
+        img.src = URL.createObjectURL(f);
+        img.onload = function () {
+            var canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+            canvas.toBlob(function (blob) {
+                console.info(blob.size);
+                var f2 = new File([blob], fileName + ".jpeg");
+                var xhr = new XMLHttpRequest();
+                var form = new FormData();
+                form.append("ImageFile", f2);
+                xhr.open("POST", "@Url.Action("AddImage", "Job", new {id = Model.id })");
+                xhr.send(form);
+            }, 'image/jpeg', 0.5);
+        }
+        }
+
+         function AddImage2() {
+        var f = ImageFile2.files[0];
+        var fileName = f.name.split('.')[0];
+        var img = new Image();
+        img.src = URL.createObjectURL(f);
+        img.onload = function () {
+            var canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+            canvas.toBlob(function (blob) {
+                console.info(blob.size);
+                var f2 = new File([blob], fileName + ".jpeg");
+                var xhr = new XMLHttpRequest();
+                var form = new FormData();
+                form.append("ImageFile", f2);
+                xhr.open("POST", "@Url.Action("AddImage", "Job", new {id = Model.id })");
+                xhr.send(form);
+            }, 'image/jpeg', 0.5);
+        }
+    }
+
+     function AddImage3() {
+        var f = ImageFile3.files[0];
+        var fileName = f.name.split('.')[0];
+        var img = new Image();
+        img.src = URL.createObjectURL(f);
+        img.onload = function () {
+            var canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+            canvas.toBlob(function (blob) {
+                console.info(blob.size);
+                var f2 = new File([blob], fileName + ".jpeg");
+                var xhr = new XMLHttpRequest();
+                var form = new FormData();
+                form.append("ImageFile", f2);
+                xhr.open("POST", "@Url.Action("AddImage", "Job", new {id = Model.id })");
+                xhr.send(form);
+            }, 'image/jpeg', 0.5);
+        }
+    }
+</script>

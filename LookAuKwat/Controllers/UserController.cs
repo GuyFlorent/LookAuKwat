@@ -26,13 +26,12 @@ namespace LookAuKwat.Controllers
             return View();
         }
 
-        public ActionResult GetListProductByUser_PartialView()
+        public ActionResult GetListProductByUser_PartialView(string id)
         {
-            string id = User.Identity.GetUserId();
+            //string id = User.Identity.GetUserId();
             if (!string.IsNullOrWhiteSpace(id))
             {
-                IEnumerable<ProductModel> liste = dal.GetListUserProduct(id).OrderByDescending(m =>m.DateAdd
-                );
+                IEnumerable<ProductModel> liste = dal.GetListUserProduct(id).OrderByDescending(m =>m.DateAdd);
                 return PartialView(liste);
             }
             

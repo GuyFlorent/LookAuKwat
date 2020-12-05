@@ -1,0 +1,166 @@
+﻿@model LookAuKwat.ViewModel.MultimediaViewModel
+@using LookAuKwat.ViewModel
+
+@{
+    ViewBag.Title = "Déposer une annonce catégorie Multimédia et validation";
+}
+
+    <h2>Déposer une annonce catégorie Multimédia et validation</h2>
+
+@using (Html.BeginForm("AddMultimedia", "Multimedia", new
+{
+    TypeMultimedia = Model.TypeMultimedia,
+    SearchOrAskJobMultimedia = Model.SearchOrAskJobMultimedia,
+    BrandConsoleGame = Model.BrandConsoleGame,
+    BrandInformatiquePhotocopi = Model.BrandInformatiquePhotocopi,
+    BrandPhoneAccesories = Model.BrandPhoneAccesories,
+    BrandSon = Model.BrandSon,
+    BrandTv = Model.BrandTv,
+    BrandOtherMultimedia = Model.BrandOtherMultimedia,
+    ModelAlcatelPhoneAccesorie = Model.ModelAlcatelPhoneAccesorie,
+    ModelApplePhoneAccesorie = Model.ModelApplePhoneAccesorie,
+    ModelAzusPhoneAccesorie = Model.ModelAzusPhoneAccesorie,
+    ModelConsoleGame = Model.ModelConsoleGame,
+    ModelHonorPhoneAccesorie = Model.ModelHonorPhoneAccesorie,
+    ModelHTCPhoneAccesorie = Model.ModelHTCPhoneAccesorie,
+    ModelHuaweiPhoneAccesorie = Model.ModelHuaweiPhoneAccesorie,
+    ModelInformatiquePhotocopy = Model.ModelInformatiquePhotocopy,
+    ModelLenovoPhoneAccesorie = Model.ModelLenovoPhoneAccesorie,
+    ModelLGPhoneAccesorie = Model.ModelLGPhoneAccesorie,
+    ModelMicrosoftPhoneAccesorie = Model.ModelMicrosoftPhoneAccesorie,
+    ModelMotorolaPhoneAccesorie = Model.ModelMotorolaPhoneAccesorie,
+    ModelOnePlusPhoneAccesorie = Model.ModelOnePlusPhoneAccesorie,
+    ModelOtherMultimedia = Model.ModelOtherMultimedia,
+    ModelSamsungPhoneAccesorie = Model.ModelSamsungPhoneAccesorie,
+    ModelSon = Model.ModelSon,
+    ModelSonyPhoneAccesorie = Model.ModelSonyPhoneAccesorie,
+    ModelTV = Model.ModelTV,
+    ModelWikoPhoneAccesorie = Model.ModelWikoPhoneAccesorie,
+    ModelXaomiPhoneAccesorie = Model.ModelXaomiPhoneAccesorie,
+    ModelZTEPhoneAccesorie = Model.ModelZTEPhoneAccesorie,
+    Capacity = Model.Capacity,
+    PriceMultimedia = Model.PriceMultimedia
+}, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <div class="form-group ">
+            @Html.LabelFor(model => model.TitleMultimedia, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TitleMultimedia, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TitleMultimedia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DescriptionMultimedia, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.DescriptionMultimedia, new { @class = "form-control", @cols = "45", @rows = "5" })
+                @Html.ValidationMessageFor(model => model.DescriptionMultimedia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TownMultimedia, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.TownMultimedia, SelectListMethod.GetListTownCameroon(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TownMultimedia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <p class=" col-md-offset-2 text-info">Veuillez choisir une adresse de la liste après votre saisie.</p>
+            <div class="form-group">
+
+                @Html.LabelFor(model => model.StreetMultimedia, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.StreetMultimedia, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.StreetMultimedia, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-group hidden ">
+            @Html.LabelFor(model => model.Imageproduct.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            @*<label class="control-label col-md-2" for="#imagesJobs"></label>*@
+            <div class="col-md-6">
+
+                <input type="file" name="ImageFile" accept="image/*" multiple="multiple" @*onchange="readURL(this);"*@>
+                <p class="text-info">Vous pouvez sélectionner à la fois une ou trois(3) images au maximun.</p>
+            </div>
+            @*<div style="height:50px " class="col-md-4">
+                    <img id="InitiativeImageUpToDate" src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt="photo de initiative" height="50" />
+                </div>*@
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-success">Suivant <span class="glyphicon glyphicon-menu-right"></span></button>
+            </div>
+        </div>
+    </div>
+}
+<p>Page 2 sur 2</p>
+<script type="text/javascript">
+    $(function () {
+         $("#StreetMultimedia").autocomplete({
+        source: function (request, response) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ShowAddress", "Job")',
+            dataType: "json",
+            headers: {
+                //"api-key": searchServiceApiKey,
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify({
+                top: 5,
+
+               // country: $("#Country").val(),
+                town: $("#TownMultimedia").val(),
+                 // zipcode: $("#ZipCode").val(),
+                term: request.term
+            }),
+            success: function (data) {
+                if (data && data.length > 0) {
+                      var parsedDate = $.parseJSON(data);
+
+                        response((parsedDate["results"]).map(feature => feature["formatted"]));
+
+                    }
+                }
+            });
+            },
+            select: function (event, ui) {
+                //remember the selected item
+                $('#StreetMultimedia')
+                    .data('selected-item', ui.item.label);
+            },
+        minLength: 3,
+        position: {
+            //my: "left top",
+            //at: "left-23 bottom+10"
+            my: "left top",
+  at: "left-3 bottom+0",
+            of: "#StreetMultimedia"
+            },
+            appendTo: "#MyModalAddMultimedia"
+        }).blur(function () {
+            var value = $('#StreetMultimedia').val();
+            //check if the input's value matches the selected item
+            if (value != $('#StreetMultimedia').data('selected-item')) {
+                //they don't, the user must have typed something else
+                $('#StreetMultimedia')
+                    .val('') //clear the input's text
+                    .data('selected-item', ''); //clear the selected item
+            }
+        });
+    })
+</script>

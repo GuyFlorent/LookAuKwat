@@ -81,7 +81,7 @@
             <div class="col-md-8">
                 @Html.EditorFor(model => model.ModelVehiculeBike, new { htmlAttributes = new { @class = "form-control", placeholder = "EX:Sanili 4, Guidon,Plaquettes frein..." } })
                 @Html.ValidationMessageFor(model => model.ModelVehiculeBike, "", new { @class = "text-danger" })
-                <p class="col-md-2" id="spanMultimediaDescription" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>
+                @*<p class="col-md-2" id="spanMultimediaDescription" style="color:lightgreen">Suivant <span class="glyphicon glyphicon-plus"></span></p>*@
             </div>
         </div>
 
@@ -224,7 +224,7 @@
             <div class="col-md-6">
 
                 <input type="file" name="ImageFile" accept="image/*" multiple="multiple" @*onchange="readURL(this);"*@>
-                <p class="text-info">Vous pouvez sélectionner à la fois une ou plusieurs images.</p>
+                <p class="text-info">Vous pouvez sélectionner à la fois une ou trois(3) images au maximun.</p>
             </div>
             @*<div style="height:50px " class="col-md-4">
                 <img id="InitiativeImageUpToDate" src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt="photo de initiative" height="50" />
@@ -465,18 +465,19 @@
 
                         $("#ModelVehiculeBikeDiv").removeClass('hidden');
 
-                    }
-                });
-
-                $("#ModelVehiculeBikeDiv").change(function () {
-
-                    if ($('#ModelVehiculeBike').val() !== 'choisir') {
-
-
                         $("#StateVehiculeDiv").removeClass('hidden');
-
                     }
                 });
+
+                //$("#ModelVehiculeBikeDiv").change(function () {
+
+                //    if ($('#ModelVehiculeBike').val() !== 'choisir') {
+
+
+                //        $("#StateVehiculeDiv").removeClass('hidden');
+
+                //    }
+                //});
             }
             else if ($('#RubriqueVehicule').val() !== 'choisir' && $('#RubriqueVehicule').val() == 'Equipement Auto') {
 
@@ -621,7 +622,7 @@
 
             } else if ($('#StateVehicule').val() !== 'choisir' && ($('#RubriqueVehicule').val() !== 'Equipement Auto' || $('#RubriqueVehicule').val() !== 'Equipement Moto')
                 && $('#RubriqueVehicule').val() === 'Motos') {
-                $("#YearVehiculeDiv").removeClass('hidden');
+                $("#PetrolVehiculeDiv").removeClass('hidden');
 
             } else if ($('#StateVehicule').val() !== 'choisir' && ($('#RubriqueVehicule').val() !== 'Equipement Auto' || $('#RubriqueVehicule').val() !== 'Equipement Moto')
                 && ($('#RubriqueVehicule').val() === 'Voitures' || $('#RubriqueVehicule').val() == 'Location voitures')) {
@@ -701,6 +702,8 @@
             if ($('#ColorVehicule').val() !== 'choisir' && $('#RubriqueVehicule').val() === 'Motos') {
 
                 $("#TitleVehiculeDiv").removeClass('hidden');
+                $("#DescriptionVehiculeDiv").removeClass('hidden');
+                $("#TownVehiculeDiv").removeClass('hidden');
 
             } else if ($('#ColorVehicule').val() !== 'choisir' && $('#RubriqueVehicule').val() !== 'Motos') {
 

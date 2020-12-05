@@ -60,45 +60,45 @@ else
 
                 @foreach (var item in Model)
                 {
-            <tr>
+                    <tr>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Phone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ConfirmPhoneNumber)
-                </td>
-                <td>
-                    @{
-                        //var st = DateTime.ParseExact(item.StartHour, "dd/MM/yyyy HH:mm", null);
-                        var date = item.DateCreation.ToString("ddd, dd MMM yyy HH':'mm", new CultureInfo("fr-FR"));
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ConfirmPhoneNumber)
+                        </td>
+                        <td>
+                            @{
+                                //var st = DateTime.ParseExact(item.StartHour, "dd/MM/yyyy HH:mm", null);
+                                var date = item.DateCreation.ToString("ddd, dd MMM yyy HH':'mm", new CultureInfo("fr-FR"));
 
-                    }
-                    @date
-                </td>
-                <td>
-                    @{
+                            }
+                            @date
+                        </td>
+                        <td>
+                            @{
 
-                        var dateFirstPublish = item.DateFirstPublish?.ToString("ddd, dd MMM yyy HH':'mm", new CultureInfo("fr-FR"));
+                                var dateFirstPublish = item.DateFirstPublish?.ToString("ddd, dd MMM yyy HH':'mm", new CultureInfo("fr-FR"));
 
-                    }
-                    @dateFirstPublish
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ConfirmEmail)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ConfirmPublish)
-                </td>
+                            }
+                            @dateFirstPublish
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ConfirmEmail)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ConfirmPublish)
+                        </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.price) FCFA
-                </td>
-            </tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.price) FCFA
+                        </td>
+                    </tr>
                 }
 
             </table>
@@ -108,7 +108,144 @@ else
 
 }
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) sur @Model.PageCount
-@Html.PagedListPager(Model, pageNumber => Url.Action("Stat_Account_Agent", "Admin", new { pageNumber, sortBy = Request["sortBy"] }))
+@Html.PagedListPager(Model, pageNumber => Url.Action("Stat_Account_Agent", "Admin", new { userEmail = ViewBag.Email, pageNumber, sortBy = Request["sortBy"] }))
 <hr />
 <label>Salaire Total : </label><strong> @ViewBag.Totalprice FCFA </strong>
 <p class="text-info">Vous aurez plus de détails de vos salaires plus recu dans les prochains jours</p>
+
+@{
+    if (DateTime.Now >= new DateTime(2020, 11, 27, 0, 0, 0))
+    {
+        <div class="row">
+            <div class="col-md-4">
+                Salaire du mois de <strong>Novembre 2020</strong> 
+            </div>
+            <div class="col-md-8 pull-right">
+                @Html.ActionLink("Télécharger ici", "PrintOneReceipt", "Admin", new { email = ViewBag.Email, month = "Novembre" }, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    }
+    if (DateTime.Now >= new DateTime(2020, 12, 27, 0, 0, 0))
+    {
+        <div class="row">
+            <div class="col-md-4">
+                Salaire du mois de <strong>Decembre 2020</strong>
+            </div>
+            <div class="col-md-8 pull-right">
+                @Html.ActionLink("Télécharger ici", "PrintOneReceipt", "Admin", new { email = ViewBag.Email, month = "Decembre" }, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    }
+    if (DateTime.Now >= new DateTime(2021, 1, 27, 0, 0, 0))
+    {
+        <div class="row">
+            <div class="col-md-4">
+                Salaire du mois de <strong>Janvier 2021</strong>
+            </div>
+            <div class="col-md-8 pull-right">
+                @Html.ActionLink("Télécharger ici", "PrintOneReceipt", "Admin", new { email = ViewBag.Email, month = "Janvier" }, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    }
+    if (DateTime.Now >= new DateTime(2021, 2, 27, 0, 0, 0))
+    {
+        <div class="row">
+            <div class="col-md-4">
+                Salaire du mois de <strong>Février 2021</strong>
+            </div>
+            <div class="col-md-8 pull-right">
+                @Html.ActionLink("Télécharger ici", "PrintOneReceipt", "Admin", new { email = ViewBag.Email, month = "Février" }, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    }
+    if (DateTime.Now >= new DateTime(2021, 3, 27, 0, 0, 0))
+    {
+        <div class="row">
+            <div class="col-md-4">
+                Salaire du mois de <strong>Mars 2021</strong>
+            </div>
+            <div class="col-md-8 pull-right">
+                @Html.ActionLink("Télécharger ici", "PrintOneReceipt", "Admin", new { email = ViewBag.Email, month = "Mars" }, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    }
+    if (DateTime.Now >= new DateTime(2021, 4, 27, 0, 0, 0))
+    {
+        <div class="row">
+            <div class="col-md-4">
+                Salaire du mois de <strong>Avril 2021</strong>
+            </div>
+            <div class="col-md-8 pull-right">
+                @Html.ActionLink("Télécharger ici", "PrintOneReceipt", "Admin", new { email = ViewBag.Email, month = "Avril" }, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    }
+    if (DateTime.Now >= new DateTime(2021, 5, 27, 0, 0, 0))
+    {
+        <div class="row">
+            <div class="col-md-4">
+                Salaire du mois de <strong>Mai 2021</strong>
+            </div>
+            <div class="col-md-8 pull-right">
+                @Html.ActionLink("Télécharger ici", "PrintOneReceipt", "Admin", new { email = ViewBag.Email, month = "Mai" }, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    }
+    if (DateTime.Now >= new DateTime(2021, 6, 27, 0, 0, 0))
+    {
+        <div class="row">
+            <div class="col-md-4">
+                Salaire du mois de <strong>Juin 2021</strong>
+            </div>
+            <div class="col-md-8 pull-right">
+                @Html.ActionLink("Télécharger ici", "PrintOneReceipt", "Admin", new { email = ViewBag.Email, month = "Juin" }, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    }
+    if (DateTime.Now >= new DateTime(2021, 7, 27, 0, 0, 0))
+    {
+        <div class="row">
+            <div class="col-md-4">
+                Salaire du mois de <strong>Juillet 2021</strong>
+            </div>
+            <div class="col-md-8 pull-right">
+                @Html.ActionLink("Télécharger ici", "PrintOneReceipt", "Admin", new { email = ViewBag.Email, month = "Juillet" }, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    }
+    if (DateTime.Now >= new DateTime(2021, 8, 27, 0, 0, 0))
+    {
+        <div class="row">
+            <div class="col-md-4">
+                Salaire du mois de <strong>Août 2021</strong>
+            </div>
+            <div class="col-md-8 pull-right">
+                @Html.ActionLink("Télécharger ici", "PrintOneReceipt", "Admin", new { email = ViewBag.Email, month = "Août" }, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    }
+    if (DateTime.Now >= new DateTime(2021, 9, 27, 0, 0, 0))
+    {
+        <div class="row">
+            <div class="col-md-4">
+                Salaire du mois de <strong>Septembre 2021</strong>
+            </div>
+            <div class="col-md-8 pull-right">
+                @Html.ActionLink("Télécharger ici", "PrintOneReceipt", "Admin", new { email = ViewBag.Email, month = "Septembre" }, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    }
+    if (DateTime.Now >= new DateTime(2021, 10, 27, 0, 0, 0))
+    {
+        <div class="row">
+            <div class="col-md-4">
+                Salaire du mois de <strong>Octobre 2021</strong>
+            </div>
+            <div class="col-md-8 pull-right">
+                @Html.ActionLink("Télécharger ici", "PrintOneReceipt", "Admin", new { email = ViewBag.Email, month = "Octobre" }, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    }
+}
+
+

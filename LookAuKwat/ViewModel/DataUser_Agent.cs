@@ -10,6 +10,7 @@ namespace LookAuKwat.ViewModel
     {
         [DisplayName("Prenom")]
         public string FirstName { get; set; }
+        public string ParainEmail { get; set; }
         [DisplayName("Téléphone")]
         public string Phone { get; set; }
         [DisplayName("Confirmation Email")]

@@ -20,17 +20,18 @@
     <div class="row">
         <div class=" col-md-offset-5 form-group">
 
-            <select class="form-control Addcategory" id="selectAddId" data-show-icon="true">
+            <select class="form-control Addcategory" id="selectAddId" data-show-icon="true" onchange="location = this.value;">
                 <option>≡ Choisir une catégorie</option>
-                <option>👷 Emploi</option>
-                <option>🏠 Immobilier</option>
-                <option>💻 Multimédia</option>
-                <option>🚗 Véhicule</option>
-                <option>👚 Mode</option>
+                <option value="@Url.Action( "Index", "Job")">👷 Emploi</option>
+                <option value="@Url.Action( "Index", "ApartmentRental")">🏠 Immobilier</option>
+                <option value="@Url.Action( "Index", "Multimedia")">💻 Multimédia (Info,Téléphonie,Tv...)</option>
+                <option value="@Url.Action( "Index", "Vehicule")">🚗 Véhicule</option>
+                <option value="@Url.Action( "Index", "Mode")">👚 Mode</option>
+                <option value="@Url.Action( "Index", "House")">🛋️ Maison (meubles,électroménager...)</option>
             </select>
         </div>
     </div>
-    <div class="row">
+    @*<div class="row">
         <div id="MyModalAddJob" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -140,7 +141,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
 </section>
 <hr />
 <section>
@@ -152,6 +153,10 @@
             </p>
         </div>
         <div class="row" style="height:7px">
+           
+            <div class="row alert alert-success js-alert-Edit-product " role="alert">
+                @ViewBag.Succes
+            </div>
             <div class="row alert alert-success js-alert hidden" role="alert">
                 Annonce ajoutée avec succès dans la liste !
             </div>
@@ -166,12 +171,12 @@
         <br />
 
         @{
-            Html.RenderAction("GetListProductByUser_PartialView", "User");
+            Html.RenderAction("GetListProductByUser_PartialView", "User",new { id = ViewBag.UserId });
         }
     </div>
 </section>
 
-<script type="text/javascript">
+@*<script type="text/javascript">
     $(function () {
         $("select.Addcategory").change(function () {
             var select = $(this).children("option:selected").val();
@@ -195,4 +200,4 @@
 
 
     });
-</script>
+</script>*@

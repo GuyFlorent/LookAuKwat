@@ -36,14 +36,19 @@ namespace LookAuKwat.Controllers
             return View(user);
         }
         [Authorize]
-        public ActionResult UserProfile()
+        public ActionResult UserProfile( string message)
         {
-            //string id = User.Identity.GetUserId();
-            //ApplicationUser user = dal.GetUserByStrId(id);
-            //if (user.Email.StartsWith("Mtest") && user.PhoneNumberConfirmed == false)
-            //{
-            //    return RedirectToAction("AddPhoneNumberFirstRegister", "Manage");
-            //}
+            string id = User.Identity.GetUserId();
+            ApplicationUser user = dal.GetUserByStrId(id);
+            if (user.Email.StartsWith("Mtest") && user.PhoneNumberConfirmed == false)
+            {
+                return RedirectToAction("AddPhoneNumberFirstRegister", "Manage");
+            }
+            if (!string.IsNullOrWhiteSpace(message))
+            {
+                ViewBag.Succes = message;
+            }
+            ViewBag.UserId = id;
             return View();
         }
 

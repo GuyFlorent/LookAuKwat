@@ -29,7 +29,7 @@ namespace LookAuKwat.Controllers
         // GET: ApartmentRental
         public ActionResult Index()
         {
-            return View();
+            return View(new ApartmentRentalViewModel());
         }
 
         public ActionResult AddApartment_PartialView()
@@ -40,6 +40,7 @@ namespace LookAuKwat.Controllers
         [HttpPost]
         public async Task<ActionResult> AddAppartment(ApartmentRentalViewModel apart, ImageModelView userImage)
         {
+            string success = null;
             ApartmentRentalModel model = new ApartmentRentalModel()
             {
                 id = apart.Id,
@@ -85,20 +86,23 @@ namespace LookAuKwat.Controllers
                         model.Category = new CategoryModel { CategoryName = "Immobilier" };
                         dal.AddAppartment(model, latt, lonn);
 
-                        //check if email is confirm and update date of publish announce for agent pay
-                        if(user.EmailConfirmed == true && user.Date_First_Publish == null)
+                        //check if email or phone is confirm and update date of publish announce for agent pay
+                        if((user.EmailConfirmed == true || user.PhoneNumberConfirmed == true ) && user.Date_First_Publish == null)
                         {
                             dal.Update_Date_First_Publish(user);
                         }
-
-                        return RedirectToAction("GetListProductByUser_PartialView", "User");
+                        // success = "Annonce ajoutée avec succès dans la liste !";
+                        //return RedirectToAction("UserProfile", "Home", new { message = success });
+                        //return RedirectToAction("GetListProductByUser_PartialView", "User");
+                        return RedirectToAction("AddImage","Job", new { id = model.id });
                     }
 
 
                 }
 
             }
-            return View(apart);
+               success = "Désolé une erreur s'est produite!";
+            return RedirectToAction("UserProfile", "Home", new { message = success });
         }
 
         public ActionResult EditApartment_PartialView(ApartmentRentalModel apart)
@@ -242,6 +246,15 @@ namespace LookAuKwat.Controllers
                         image.SaveAs(FileName);
 
                     }
+                    else
+                    {
+                        ImageProcductModel picture = new ImageProcductModel
+                        {
+                            id = Guid.NewGuid(),
+                            Image = "https://particulier-employeur.fr/wp-content/themes/fepem/img/general/avatar.png"
+                        };
+                        liste.Add(picture);
+                    }
 
                 }
                 return liste;
@@ -321,9 +334,14 @@ namespace LookAuKwat.Controllers
 
         public ActionResult ApartDetail(int id)
         {
-            ApartmentRentalModel model = dal.GetListAppart().FirstOrDefault(e => e.id == id);
+            ApartmentRentalModel model = dal.GetListAppartWithNoInclude().FirstOrDefault(e => e.id == id);
             model.ViewNumber++;
             dal.UpdateNumberView(model);
+
+            if (model.Images.Count > 1)
+            {
+                model.Images = model.Images.Where(m => !m.Image.StartsWith("http")).ToList();
+            }
             return View(model);
         }
     }

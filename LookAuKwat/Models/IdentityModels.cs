@@ -41,6 +41,7 @@ namespace LookAuKwat.Models
         public DbSet<VehiculeModel> Vehicules { get; set; }
         public DbSet<ModeModel> Modes { get; set; }
         public DbSet<ParrainModel> Parrains { get; set; }
+        public DbSet<HouseModel> Houses { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

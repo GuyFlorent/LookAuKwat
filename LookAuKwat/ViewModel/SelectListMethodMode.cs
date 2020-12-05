@@ -363,6 +363,7 @@ namespace LookAuKwat.ViewModel
             {
                 new SelectListItem() { Text = "Femme", Value = "Femme" },
                 new SelectListItem() { Text = "Maternité", Value = "Maternité" },
+                new SelectListItem() { Text = "Mixte", Value = "Mixte" },
                 new SelectListItem() { Text = "Homme", Value = "Homme" },
                 new SelectListItem() { Text = "Enfant", Value = "Enfant" },
                  

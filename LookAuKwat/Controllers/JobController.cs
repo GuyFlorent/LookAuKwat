@@ -29,7 +29,7 @@ namespace LookAuKwat.Controllers
         // GET: Job
         public ActionResult Index()
         {
-            return View();
+            return View(new JobViewModel());
         }
         public ActionResult AddJobs_PartialView()
         {
@@ -39,6 +39,7 @@ namespace LookAuKwat.Controllers
         [HttpPost]
         public async Task<ActionResult> AddJobs_PartialView(JobViewModel job, ImageModelView userImage)
         {
+            string success = null;
             JobModel model = new JobModel()
             {
                 id = job.id,
@@ -82,25 +83,58 @@ namespace LookAuKwat.Controllers
                         model.User = user;
                         model.Category = new CategoryModel { CategoryName = "Emploi" };
                         dal.AddJob(model, latt, lonn);
-                        //check if email is confirm and update date of publish announce for agent pay
-                        if (user.EmailConfirmed == true && user.Date_First_Publish == null)
+                        //check if email or phone is confirm and update date of publish announce for agent pay
+                        if ((user.EmailConfirmed == true || user.PhoneNumberConfirmed == true) && user.Date_First_Publish == null)
                         {
                             dal.Update_Date_First_Publish(user);
                         }
-
-                        return RedirectToAction("GetListProductByUser_PartialView", "User");
+                       
+                        return RedirectToAction("AddImage", new { id = model.id });
+                        // return RedirectToAction("GetListProductByUser_PartialView", "User");
                     }
 
 
                 }
 
             }
-            return View(job);
+            success = "Désolé une erreur s'est produite!";
+            return RedirectToAction("UserProfile", "Home", new { message = success });
         }
 
         public ActionResult EditJob_PartialView(JobModel job)
         {
 
+            if (job.id == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (job == null)
+            {
+                return HttpNotFound();
+            }
+            JobEditViewModel model = new JobEditViewModel()
+            {
+                JobEditid = job.id,
+                TitleJob = job.Title,
+                Coordinate = job.Coordinate,
+                DescriptionJob = job.Description,
+                TypeContractJob = job.TypeContract,
+                TownJob = job.Town,
+                PriceJob = job.Price,
+                StreetJob = job.Street,
+                ActivitySectorJob = job.ActivitySector,
+                DateAddJob = DateTime.Now,
+                SearchOrAskJobJob = job.SearchOrAskJob,
+                listeImageJob = job.Images
+
+            };
+
+            return PartialView(model);
+        }
+
+        [HttpGet]
+        public ActionResult EditJob(JobModel job)
+        {
             if (job.id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -191,6 +225,34 @@ namespace LookAuKwat.Controllers
             return View(job);
         }
 
+        [HttpGet]
+        public ActionResult AddImage(int id)
+        {
+            ProductModel model = dal.GetListProductWhithNoInclude().FirstOrDefault(m => m.id == id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult AddImage(ProductModel model, ImageModelView userImage)
+        {
+            try
+            {
+                ProductModel modell = dal.GetListProductWhithNoInclude().FirstOrDefault(m => m.id == model.id);
+
+
+                List<ImageProcductModel> images = ImageEdit(userImage, modell);
+                modell.Images = images;
+                dal.AddImage(modell);
+
+                return Json(new { Result = "OK" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
+
+
+        }
         public ActionResult JobDetails_PartialView(JobModel model)
         {
 
@@ -241,6 +303,15 @@ namespace LookAuKwat.Controllers
 
                         image.SaveAs(FileName);
 
+                    }
+                    else
+                    {
+                        ImageProcductModel picture = new ImageProcductModel
+                        {
+                            id = Guid.NewGuid(),
+                            Image = "https://particulier-employeur.fr/wp-content/themes/fepem/img/general/avatar.png"
+                        };
+                        liste.Add(picture);
                     }
 
                 }
@@ -333,9 +404,15 @@ namespace LookAuKwat.Controllers
 
         public ActionResult JobDetail(int id)
         {
-            JobModel model = dal.GetListJob().FirstOrDefault(e => e.id == id);
+            JobModel model = dal.GetListJobWithNoInclude().FirstOrDefault(e => e.id == id);
             model.ViewNumber++;
             dal.UpdateNumberView(model);
+          
+            if (model.Images.Count > 1)
+            {
+                model.Images = model.Images.Where(m=> !m.Image.StartsWith("http")).ToList();
+            }
+            
             return View(model);
         }
 

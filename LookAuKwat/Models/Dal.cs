@@ -61,6 +61,10 @@ namespace LookAuKwat.Models
             dbb.Dispose();
         }
 
+        public IEnumerable<int> GetListIdProduct()
+        {
+            return dbb.Products.Select(s => s.id);
+        }
         public IEnumerable<ProductModel> GetListProduct()
         {
             List<ProductModel> liste = new List<ProductModel>();
@@ -81,6 +85,10 @@ namespace LookAuKwat.Models
                .Include(s => s.Category)
                .Include(s => s.Coordinate).ToList();
             IEnumerable<ModeModel> listMode = dbb.Modes.Include(s => s.Images)
+              .Include(s => s.User)
+              .Include(s => s.Category)
+              .Include(s => s.Coordinate).ToList();
+            IEnumerable<HouseModel> listHouse = dbb.Houses.Include(s => s.Images)
               .Include(s => s.User)
               .Include(s => s.Category)
               .Include(s => s.Coordinate).ToList();
@@ -110,34 +118,69 @@ namespace LookAuKwat.Models
                 if (mode != null)
                     liste.Add(mode);
             }
+            foreach (var house in listHouse)
+            {
+                if (house != null)
+                    liste.Add(house);
+            }
             return liste;
+
+        }
+
+        public IEnumerable<ProductModel> GetListProductWhithNoInclude()
+        {
+            //List<ProductModel> liste = new List<ProductModel>();
+            //IEnumerable<JobModel> listjobs = dbb.Jobs.ToList();
+            //IEnumerable<ApartmentRentalModel> listapart = dbb.ApartmentRentals.ToList();
+            //IEnumerable<MultimediaModel> listMulti = dbb.Multimedia.ToList();
+            //IEnumerable<VehiculeModel> listVehi = dbb.Vehicules.ToList();
+            //IEnumerable<ModeModel> listMode = dbb.Modes.ToList();
+            //IEnumerable<HouseModel> listHouse = dbb.Houses.ToList();
+
+            //foreach (var job in listjobs)
+            //{
+            //    if (job != null)
+            //        liste.Add(job);
+            //}
+            //foreach (var apart in listapart)
+            //{
+            //    if (apart != null)
+            //        liste.Add(apart);
+            //}
+            //foreach (var multi in listMulti)
+            //{
+            //    if (multi != null)
+            //        liste.Add(multi);
+            //}
+            //foreach (var vehi in listVehi)
+            //{
+            //    if (vehi != null)
+            //        liste.Add(vehi);
+            //}
+            //foreach (var mode in listMode)
+            //{
+            //    if (mode != null)
+            //        liste.Add(mode);
+            //}
+            //foreach (var house in listHouse)
+            //{
+            //    if (house != null)
+            //        liste.Add(house);
+            //}
+            return dbb.Products.ToList();
 
         }
 
         public IEnumerable<ProductModel> GetListUserProduct(string id)
         {
-            ApplicationUser user = GetUserByStrId(id);
+            //ApplicationUser user = GetUserByStrId(id);
             List<ProductModel> liste = new List<ProductModel>();
-            IEnumerable<JobModel> listjobs = dbb.Jobs.Include(s => s.Images)
-                .Include(s => s.User)
-                .Include(s => s.Category)
-                .Include(s => s.Coordinate).ToList();
-            IEnumerable<ApartmentRentalModel> listapart = dbb.ApartmentRentals.Include(s => s.Images)
-                .Include(s => s.User)
-                .Include(s => s.Category)
-                .Include(s => s.Coordinate).ToList();
-            IEnumerable<MultimediaModel> listMulti = dbb.Multimedia.Include(s => s.Images)
-                .Include(s => s.User)
-                .Include(s => s.Category)
-                .Include(s => s.Coordinate).ToList();
-            IEnumerable<VehiculeModel> listVehi = dbb.Vehicules.Include(s => s.Images)
-               .Include(s => s.User)
-               .Include(s => s.Category)
-               .Include(s => s.Coordinate).ToList();
-            IEnumerable<ModeModel> listMode = dbb.Modes.Include(s => s.Images)
-              .Include(s => s.User)
-              .Include(s => s.Category)
-              .Include(s => s.Coordinate).ToList();
+            IEnumerable<JobModel> listjobs = dbb.Jobs.Where(s => s.User.Id == id).ToList();
+            IEnumerable<ApartmentRentalModel> listapart = dbb.ApartmentRentals.Where(s => s.User.Id == id).ToList();
+            IEnumerable<MultimediaModel> listMulti = dbb.Multimedia.Where(s => s.User.Id == id).ToList();
+            IEnumerable<VehiculeModel> listVehi = dbb.Vehicules.Where(s => s.User.Id == id).ToList();
+            IEnumerable<ModeModel> listMode = dbb.Modes.Where(s => s.User.Id == id).ToList();
+            IEnumerable<HouseModel> listHouse = dbb.Houses.Where(s => s.User.Id == id).ToList();
 
             if (listjobs.ToList().Count > 0)
             {
@@ -151,7 +194,7 @@ namespace LookAuKwat.Models
             {
                 foreach (var apart in listapart)
                 {
-                    if (apart != null)
+                    if (apart != null && !liste.Contains(apart))
                         liste.Add(apart);
                 }
             }
@@ -159,7 +202,7 @@ namespace LookAuKwat.Models
             {
                 foreach (var multi in listMulti)
                 {
-                    if (multi != null)
+                    if (multi != null && !liste.Contains(multi))
                         liste.Add(multi);
                 }
             }
@@ -167,7 +210,7 @@ namespace LookAuKwat.Models
             {
                 foreach (var vehi in listVehi)
                 {
-                    if (vehi != null)
+                    if (vehi != null && !liste.Contains(vehi))
                         liste.Add(vehi);
                 }
             }
@@ -175,12 +218,20 @@ namespace LookAuKwat.Models
             {
                 foreach (var mode in listMode)
                 {
-                    if (mode != null)
+                    if (mode != null && !liste.Contains(mode))
                         liste.Add(mode);
                 }
             }
+            if (listHouse.ToList().Count > 0)
+            {
+                foreach (var house in listHouse)
+                {
+                    if (house != null && !liste.Contains(house))
+                        liste.Add(house);
+                }
+            }
 
-            return liste.Where(s => s.User == user);
+            return liste;
         }
 
         public void EditJob(JobModel job, string lat, string lon)
@@ -242,6 +293,11 @@ namespace LookAuKwat.Models
                .Include(s => s.Coordinate).ToList();
             return listjobs;
         }
+        public IEnumerable<JobModel> GetListJobWithNoInclude()
+        {
+            IEnumerable<JobModel> listjobs = dbb.Jobs.ToList();
+            return listjobs;
+        }
 
         public void AddAppartment(ApartmentRentalModel apart, string lat, string lon)
         {
@@ -300,6 +356,12 @@ namespace LookAuKwat.Models
               .Include(s => s.User)
               .Include(s => s.Category)
               .Include(s => s.Coordinate).ToList();
+            return listapart;
+        }
+
+        public IEnumerable<ApartmentRentalModel> GetListAppartWithNoInclude()
+        {
+            IEnumerable<ApartmentRentalModel> listapart = dbb.ApartmentRentals.ToList();
             return listapart;
         }
 
@@ -409,6 +471,12 @@ namespace LookAuKwat.Models
             return listMulti;
         }
 
+        public IEnumerable<MultimediaModel> GetListMultimediaWithNoInclude()
+        {
+            IEnumerable<MultimediaModel> listMulti = dbb.Multimedia.ToList();
+            return listMulti;
+        }
+
         public void AddVehicule(VehiculeModel model, string lat, string lon)
         {
 
@@ -477,6 +545,12 @@ namespace LookAuKwat.Models
             return listMulti;
         }
 
+        public IEnumerable<VehiculeModel> GetListVehiculeWithNoInclude()
+        {
+            IEnumerable<VehiculeModel> listMulti = dbb.Vehicules.ToList();
+            return listMulti;
+        }
+
         public void AddMode(ModeModel model, string lat, string lon)
         {
             CategoryModel category = new CategoryModel
@@ -512,6 +586,12 @@ namespace LookAuKwat.Models
                 .Include(s => s.User)
                 .Include(s => s.Category)
                 .Include(s => s.Coordinate).ToList();
+            return listMode;
+        }
+
+        public IEnumerable<ModeModel> GetListModeWithNoInclude()
+        {
+            IEnumerable<ModeModel> listMode = dbb.Modes.ToList();
             return listMode;
         }
 
@@ -567,6 +647,57 @@ namespace LookAuKwat.Models
         {
             ApplicationUser userr = dbb.Users.FirstOrDefault(u => u.Id == user.Id);
             dbb.Users.Remove(userr);
+            dbb.SaveChanges();
+        }
+
+        public void AddHouse(HouseModel model, string lat, string lon)
+        {
+            CategoryModel category = new CategoryModel
+            {
+                CategoryName = model.Category.CategoryName,
+
+            };
+
+            // dbb.Categories.Add(category);
+            model.Category = category;
+
+            ProductCoordinateModel coordinate = new ProductCoordinateModel
+            {
+                Lat = lat,
+                Lon = lon
+
+            };
+            // dbb.ProductCoordinates.Add(coordinate);
+            model.Coordinate = coordinate;
+
+            dbb.Houses.Add(model);
+            dbb.SaveChanges();
+        }
+
+        public void EditHouse(HouseModel model, string lat, string lon)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<HouseModel> GetListHouse()
+        {
+            IEnumerable<HouseModel> listHouse = dbb.Houses.Include(s => s.Images)
+                 .Include(s => s.User)
+                 .Include(s => s.Category)
+                 .Include(s => s.Coordinate).ToList();
+            return listHouse;
+        }
+
+        public IEnumerable<HouseModel> GetListHouseWithNoInclude()
+        {
+            IEnumerable<HouseModel> listHouse = dbb.Houses.ToList();
+            return listHouse;
+        }
+
+        public void AddImage(ProductModel model)
+        {
+            var product = dbb.Products.FirstOrDefault(m => m.id == model.id);
+            product.Images = model.Images;
             dbb.SaveChanges();
         }
     }

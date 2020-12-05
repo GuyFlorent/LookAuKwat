@@ -1,0 +1,828 @@
+﻿@model LookAuKwat.ViewModel.MultimediaViewModel
+@using LookAuKwat.ViewModel
+@{
+    ViewBag.Title = "Déposer une annonce catégorie multimédia type Téléphonie";
+}
+
+    <h2>Déposer une annonce catégorie multimédia rubrique Téléphonie</h2>
+
+@using (Html.BeginForm("AddFullModel", "Multimedia", new { TypeMultimedia = Model.TypeMultimedia, SearchOrAskJobMultimedia = Model.SearchOrAskJobMultimedia }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+
+        <div class="form-group" id="BrandPhoneAccesoriesDiv">
+            @Html.LabelFor(model => model.BrandPhoneAccesories, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.BrandPhoneAccesories, SelectListMethod.BrandPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BrandPhoneAccesories, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group hidden" id="ModelAlcatelPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelAlcatelPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelAlcatelPhoneAccesorie, SelectListMethod.ModelAlcatelPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelAlcatelPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelApplePhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelApplePhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelApplePhoneAccesorie, SelectListMethod.ModelApplePhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelApplePhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelAzusPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelAzusPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelAzusPhoneAccesorie, SelectListMethod.ModelAzusPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelAzusPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group hidden" id="ModelHonorPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelHonorPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelHonorPhoneAccesorie, SelectListMethod.ModelHonorPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelHonorPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelHTCPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelHTCPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelHTCPhoneAccesorie, SelectListMethod.ModelHTCPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelHTCPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelHuaweiPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelHuaweiPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelHuaweiPhoneAccesorie, SelectListMethod.ModelHuaweiPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelHuaweiPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group hidden" id="ModelLenovoPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelLenovoPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelLenovoPhoneAccesorie, SelectListMethod.ModelLenovoPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelLenovoPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelLGPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelLGPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelLGPhoneAccesorie, SelectListMethod.ModelLGPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelLGPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelMicrosoftPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelMicrosoftPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelMicrosoftPhoneAccesorie, SelectListMethod.ModelMicrosoftPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelMicrosoftPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelMotorolaPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelMotorolaPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelMotorolaPhoneAccesorie, SelectListMethod.ModelMotorolaPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelMotorolaPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelOnePlusPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelOnePlusPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelOnePlusPhoneAccesorie, SelectListMethod.ModelOnePlusPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelOnePlusPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelOtherMultimediaDiv">
+            @Html.LabelFor(model => model.ModelOtherMultimedia, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelOtherMultimedia, SelectListMethod.ModelOtherMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelOtherMultimedia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelSamsungPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelSamsungPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelSamsungPhoneAccesorie, SelectListMethod.ModelSamsungPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelSamsungPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group hidden" id="ModelSonyPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelSonyPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelSonyPhoneAccesorie, SelectListMethod.ModelSonyPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelSonyPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group hidden" id="ModelWikoPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelWikoPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelWikoPhoneAccesorie, SelectListMethod.ModelWikoPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelWikoPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelXaomiPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelXaomiPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelXaomiPhoneAccesorie, SelectListMethod.ModelXaomiPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelXaomiPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ModelZTEPhoneAccesorieDiv">
+            @Html.LabelFor(model => model.ModelZTEPhoneAccesorie, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelZTEPhoneAccesorie, SelectListMethod.ModelZTEPhoneAccesorieMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelZTEPhoneAccesorie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group ">
+            @Html.LabelFor(model => model.Capacity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Capacity, SelectListMethod.CapacityMultimedia(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group ">
+            @Html.LabelFor(model => model.PriceMultimedia, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PriceMultimedia, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PriceMultimedia, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-success">Suivant <span class="glyphicon glyphicon-menu-right"></span></button>
+            </div>
+        </div>
+    </div>
+}
+<p>Page 1 sur 2</p>
+<script type="text/javascript">
+    $(function () {
+       
+  
+        $("#BrandPhoneAccesoriesDiv").change(function () {
+            console.log($('#BrandPhoneAccesories').val());
+                    if ($('#BrandPhoneAccesories').val() !== 'choisir' && $('#BrandPhoneAccesories').val() == 'Apple') {
+
+                        $("#ModelApplePhoneAccesorieDiv").removeClass('hidden');
+
+                       
+                        document.getElementById("ModelZTEPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelXaomiPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelWikoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelOnePlusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMotorolaPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMicrosoftPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLGPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLenovoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHTCPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHonorPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAzusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAlcatelPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSonyPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelApplePhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHuaweiPhoneAccesorie").selectedIndex = "0";
+                        
+
+
+                        //close others model
+                        $("#ModelHuaweiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSamsungPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSonyPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAlcatelPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAzusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHonorPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHTCPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLenovoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLGPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMicrosoftPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMotorolaPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelOnePlusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelWikoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelXaomiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelZTEPhoneAccesorieDiv").addClass('hidden');
+                       
+
+                    }
+                    else if ($('#BrandPhoneAccesories').val() !== 'choisir' && $('#BrandPhoneAccesories').val() == 'Huawei') {
+
+                        $("#ModelHuaweiPhoneAccesorieDiv").removeClass('hidden');
+
+                       
+                       
+                        
+                        document.getElementById("ModelZTEPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelXaomiPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelWikoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelOnePlusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMotorolaPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMicrosoftPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLGPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLenovoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHTCPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHonorPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAzusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAlcatelPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSonyPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSamsungPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelApplePhoneAccesorie").selectedIndex = "0";
+                       
+
+                        //close others model
+                        $("#ModelAlcatelPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelApplePhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSamsungPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSonyPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAzusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHonorPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHTCPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLenovoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLGPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMicrosoftPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMotorolaPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelOnePlusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelWikoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelXaomiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelZTEPhoneAccesorieDiv").addClass('hidden');
+                       
+                    }
+                    else if ($('#BrandPhoneAccesories').val() !== 'choisir' && $('#BrandPhoneAccesories').val() == 'Samsung') {
+
+                        $("#ModelSamsungPhoneAccesorieDiv").removeClass('hidden');
+
+                      
+                        document.getElementById("ModelZTEPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelXaomiPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelWikoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelOnePlusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMotorolaPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMicrosoftPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLGPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLenovoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHTCPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHonorPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAzusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAlcatelPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSonyPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelApplePhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHuaweiPhoneAccesorie").selectedIndex = "0";
+                        
+
+                        //close others model
+                        $("#ModelApplePhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHuaweiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSonyPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAlcatelPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAzusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHonorPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHTCPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLenovoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLGPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMicrosoftPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMotorolaPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelOnePlusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelWikoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelXaomiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelZTEPhoneAccesorieDiv").addClass('hidden');
+                        
+
+                    }
+                    else if ($('#BrandPhoneAccesories').val() !== 'choisir' && $('#BrandPhoneAccesories').val() == 'Sony') {
+
+                        $("#ModelSonyPhoneAccesorieDiv").removeClass('hidden');
+
+
+                        
+                        document.getElementById("ModelZTEPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelXaomiPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelWikoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelOnePlusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMotorolaPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMicrosoftPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLGPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLenovoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHTCPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHonorPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAzusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAlcatelPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSamsungPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelApplePhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHuaweiPhoneAccesorie").selectedIndex = "0";
+                      
+
+                        //close others model
+                        $("#ModelSamsungPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelApplePhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHuaweiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAlcatelPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAzusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHonorPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHTCPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLenovoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLGPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMicrosoftPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMotorolaPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelOnePlusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelWikoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelXaomiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelZTEPhoneAccesorieDiv").addClass('hidden');
+                      
+                    }
+                    else if ($('#BrandPhoneAccesories').val() !== 'choisir' && $('#BrandPhoneAccesories').val() == 'Alcatel') {
+
+                        $("#ModelAlcatelPhoneAccesorieDiv").removeClass('hidden');
+
+                       
+                        document.getElementById("ModelZTEPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelXaomiPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelWikoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelOnePlusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMotorolaPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMicrosoftPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLGPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLenovoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHTCPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHonorPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAzusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSonyPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSamsungPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelApplePhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHuaweiPhoneAccesorie").selectedIndex = "0";
+                       
+
+                        //close others model
+                        $("#ModelSonyPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSamsungPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelApplePhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHuaweiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAzusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHonorPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHTCPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLenovoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLGPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMicrosoftPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMotorolaPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelOnePlusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelWikoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelXaomiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelZTEPhoneAccesorieDiv").addClass('hidden');
+                       
+                    }
+                    else if ($('#BrandPhoneAccesories').val() !== 'choisir' && $('#BrandPhoneAccesories').val() == 'Asus') {
+
+                        $("#ModelAzusPhoneAccesorieDiv").removeClass('hidden');
+
+                       
+                        document.getElementById("ModelZTEPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelXaomiPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelWikoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelOnePlusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMotorolaPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMicrosoftPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLGPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLenovoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHTCPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHonorPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAlcatelPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSonyPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSamsungPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelApplePhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHuaweiPhoneAccesorie").selectedIndex = "0";
+                       
+
+                        //close others model
+                        $("#ModelAlcatelPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSonyPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSamsungPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelApplePhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHuaweiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHonorPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHTCPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLenovoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLGPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMicrosoftPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMotorolaPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelOnePlusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelWikoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelXaomiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelZTEPhoneAccesorieDiv").addClass('hidden');
+                       
+
+                    }
+                    else if ($('#BrandPhoneAccesories').val() !== 'choisir' && $('#BrandPhoneAccesories').val() == 'Honor') {
+
+                        $("#ModelHonorPhoneAccesorieDiv").removeClass('hidden');
+
+                       
+                        document.getElementById("ModelZTEPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelXaomiPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelWikoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelOnePlusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMotorolaPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMicrosoftPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLGPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLenovoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHTCPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAzusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAlcatelPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSonyPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSamsungPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelApplePhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHuaweiPhoneAccesorie").selectedIndex = "0";
+                       
+                        //close others model
+                        $("#ModelAzusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAlcatelPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSonyPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSamsungPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelApplePhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHuaweiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHTCPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLenovoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLGPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMicrosoftPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMotorolaPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelOnePlusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelWikoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelXaomiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelZTEPhoneAccesorieDiv").addClass('hidden');
+                       
+                    }
+                    else if ($('#BrandPhoneAccesories').val() !== 'choisir' && $('#BrandPhoneAccesories').val() == 'HTC') {
+
+                        $("#ModelHTCPhoneAccesorieDiv").removeClass('hidden');
+
+                        document.getElementById("ModelZTEPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelXaomiPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelWikoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelOnePlusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMotorolaPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMicrosoftPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLGPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLenovoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHonorPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAzusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAlcatelPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSonyPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSamsungPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelApplePhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHuaweiPhoneAccesorie").selectedIndex = "0";
+                       
+                        //close others model
+                        $("#ModelHonorPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAzusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAlcatelPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSonyPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSamsungPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelApplePhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHuaweiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLenovoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLGPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMicrosoftPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMotorolaPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelOnePlusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelWikoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelXaomiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelZTEPhoneAccesorieDiv").addClass('hidden');
+                       
+                    }
+                    else if ($('#BrandPhoneAccesories').val() !== 'choisir' && $('#BrandPhoneAccesories').val() == 'Lenovo') {
+
+                        $("#ModelLenovoPhoneAccesorieDiv").removeClass('hidden');
+
+                       
+                        document.getElementById("ModelZTEPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelXaomiPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelWikoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelOnePlusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMotorolaPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMicrosoftPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLGPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHTCPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHonorPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAzusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAlcatelPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSonyPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSamsungPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelApplePhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHuaweiPhoneAccesorie").selectedIndex = "0";
+                        
+
+                        //close others model
+                        $("#ModelHTCPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHonorPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAzusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAlcatelPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSonyPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSamsungPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelApplePhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHuaweiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLGPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMicrosoftPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMotorolaPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelOnePlusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelWikoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelXaomiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelZTEPhoneAccesorieDiv").addClass('hidden');
+                       
+                    }
+                    else if ($('#BrandPhoneAccesories').val() !== 'choisir' && $('#BrandPhoneAccesories').val() == 'LG') {
+
+                        $("#ModelLGPhoneAccesorieDiv").removeClass('hidden');
+
+                       
+                        document.getElementById("ModelZTEPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelXaomiPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelWikoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelOnePlusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMotorolaPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMicrosoftPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLenovoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHTCPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHonorPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAzusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAlcatelPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSonyPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSamsungPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelApplePhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHuaweiPhoneAccesorie").selectedIndex = "0";
+                       
+                        //close others model
+                        $("#ModelLenovoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHTCPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHonorPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAzusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAlcatelPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSonyPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSamsungPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelApplePhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHuaweiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMicrosoftPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMotorolaPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelOnePlusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelWikoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelXaomiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelZTEPhoneAccesorieDiv").addClass('hidden');
+                       
+                    }
+                    else if ($('#BrandPhoneAccesories').val() !== 'choisir' && ($('#BrandPhoneAccesories').val() == 'Microsoft' || $('#BrandPhoneAccesories').val() == 'Nokia')) {
+
+                        $("#ModelMicrosoftPhoneAccesorieDiv").removeClass('hidden');
+
+                       
+                        document.getElementById("ModelZTEPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelXaomiPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelWikoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelOnePlusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMotorolaPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLGPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLenovoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHTCPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHonorPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAzusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAlcatelPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSonyPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSamsungPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelApplePhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHuaweiPhoneAccesorie").selectedIndex = "0";
+                        
+
+                        //close others model
+                        $("#ModelLGPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLenovoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHTCPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHonorPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAzusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAlcatelPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSonyPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSamsungPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelApplePhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHuaweiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMotorolaPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelOnePlusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelWikoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelXaomiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelZTEPhoneAccesorieDiv").addClass('hidden');
+                        
+                    }
+                    else if ($('#BrandPhoneAccesories').val() !== 'choisir' && $('#BrandPhoneAccesories').val() == 'Motorola') {
+
+                        $("#ModelMotorolaPhoneAccesorieDiv").removeClass('hidden');
+
+                       
+                        document.getElementById("ModelZTEPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelXaomiPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelWikoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelOnePlusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMicrosoftPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLGPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLenovoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHTCPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHonorPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAzusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAlcatelPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSonyPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSamsungPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelApplePhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHuaweiPhoneAccesorie").selectedIndex = "0";
+                       
+
+                        //close others model
+                        $("#ModelMicrosoftPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLGPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLenovoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHTCPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHonorPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAzusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAlcatelPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSonyPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSamsungPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelApplePhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHuaweiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelOnePlusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelWikoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelXaomiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelZTEPhoneAccesorieDiv").addClass('hidden');
+                        
+                    }
+                    else if ($('#BrandPhoneAccesories').val() !== 'choisir' && $('#BrandPhoneAccesories').val() == 'One plus') {
+
+                        $("#ModelOnePlusPhoneAccesorieDiv").removeClass('hidden');
+
+                       
+                        document.getElementById("ModelZTEPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelXaomiPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelWikoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMotorolaPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMicrosoftPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLGPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLenovoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHTCPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHonorPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAzusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAlcatelPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSonyPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSamsungPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelApplePhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHuaweiPhoneAccesorie").selectedIndex = "0";
+                       
+                        //close others model
+                        $("#ModelMotorolaPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMicrosoftPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLGPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLenovoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHTCPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHonorPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAzusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAlcatelPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSonyPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSamsungPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelApplePhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHuaweiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelWikoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelXaomiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelZTEPhoneAccesorieDiv").addClass('hidden');
+                       
+                    }
+                    else if ($('#BrandPhoneAccesories').val() !== 'choisir' && $('#BrandPhoneAccesories').val() == 'Wiko') {
+
+                        $("#ModelWikoPhoneAccesorieDiv").removeClass('hidden');
+
+                        
+                        document.getElementById("ModelZTEPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelXaomiPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelOnePlusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMotorolaPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMicrosoftPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLGPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLenovoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHTCPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHonorPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAzusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAlcatelPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSonyPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSamsungPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelApplePhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHuaweiPhoneAccesorie").selectedIndex = "0";
+                       
+
+                        //close others model
+                        $("#ModelOnePlusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMotorolaPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMicrosoftPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLGPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLenovoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHTCPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHonorPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAzusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAlcatelPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSonyPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSamsungPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelApplePhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHuaweiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelXaomiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelZTEPhoneAccesorieDiv").addClass('hidden');
+                      
+                    }
+                    else if ($('#BrandPhoneAccesories').val() !== 'choisir' && $('#BrandPhoneAccesories').val() == 'Xaomi') {
+
+                        $("#ModelXaomiPhoneAccesorieDiv").removeClass('hidden');
+
+                       
+                        document.getElementById("ModelZTEPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelWikoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelOnePlusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMotorolaPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMicrosoftPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLGPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLenovoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHTCPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHonorPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAzusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAlcatelPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSonyPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSamsungPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelApplePhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHuaweiPhoneAccesorie").selectedIndex = "0";
+                       
+
+                        //close others model
+                        $("#ModelWikoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelOnePlusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMotorolaPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMicrosoftPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLGPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLenovoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHTCPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHonorPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAzusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAlcatelPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSonyPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSamsungPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelApplePhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHuaweiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelZTEPhoneAccesorieDiv").addClass('hidden');
+                       
+                    }
+                    else if ($('#BrandPhoneAccesories').val() !== 'choisir' && $('#BrandPhoneAccesories').val() == 'ZTE') {
+
+                        $("#ModelZTEPhoneAccesorieDiv").removeClass('hidden');
+
+                       
+                        document.getElementById("ModelXaomiPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelWikoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelOnePlusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMotorolaPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelMicrosoftPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLGPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelLenovoPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHTCPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHonorPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAzusPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelAlcatelPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSonyPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelSamsungPhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelApplePhoneAccesorie").selectedIndex = "0";
+                        document.getElementById("ModelHuaweiPhoneAccesorie").selectedIndex = "0";
+                        
+                        //close others model
+                        $("#ModelXaomiPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelWikoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelOnePlusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMotorolaPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelMicrosoftPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLGPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelLenovoPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHTCPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHonorPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAzusPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelAlcatelPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSonyPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelSamsungPhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelApplePhoneAccesorieDiv").addClass('hidden');
+                        $("#ModelHuaweiPhoneAccesorieDiv").addClass('hidden');
+                        
+                    }
+                    
+                })
+    })
+</script>
+

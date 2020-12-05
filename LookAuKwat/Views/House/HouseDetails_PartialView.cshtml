@@ -1,0 +1,122 @@
+﻿@model LookAuKwat.Models.HouseModel
+
+@{
+    ViewBag.Title = "HouseDetails_PartialView";
+}
+
+<h2>HouseDetails_PartialView</h2>
+
+<div>
+    <h4>HouseModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Town)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Town)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Street)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Street)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateAdd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateAdd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SearchOrAskJob)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SearchOrAskJob)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ViewNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ViewNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RubriqueHouse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RubriqueHouse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeHouse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeHouse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FabricMaterialeHouse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FabricMaterialeHouse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ColorHouse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ColorHouse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StateHouse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StateHouse)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,6 +1,7 @@
 ﻿using LookAuKwat.Models;
 using LookAuKwat.ViewModel;
 using PagedList;
+using RotativaHQ.MVC5;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -133,6 +134,7 @@ namespace LookAuKwat.Controllers
             if(parrain != null)
             {
                 List<ApplicationUser> Liste_All_User_Parraine = dal.GetUsersList().Where(m => m.Parrain_Id == parrain.Id).ToList();
+
             foreach(var user in Liste_All_User_Parraine)
                 {
                     DataUser_Agent data = new DataUser_Agent();
@@ -154,7 +156,7 @@ namespace LookAuKwat.Controllers
                     {
                         data.ConfirmPhoneNumber = "non";
                     }
-                    var product = dal.GetListProduct().FirstOrDefault(m => m.User == user);
+                    var product = dal.GetListProductWhithNoInclude().FirstOrDefault(m => m.User== user);
 
                     if (product != null)
                     {
@@ -179,13 +181,14 @@ namespace LookAuKwat.Controllers
                     liste.Add(data);
                 }
 
+                ViewBag.Email = userEmail;
                 ViewBag.Totalprice = liste.Sum(m => m.price);
                 ViewBag.FirstName = parrain.ParrainFirstName;
-                return View(liste.ToPagedList(PageNumber ?? 1, 10));
+                return View(liste.ToPagedList(PageNumber ?? 1, 20));
             }
 
             
-            return View(liste.ToPagedList(PageNumber ?? 1, 10));
+            return View(liste.ToPagedList(PageNumber ?? 1, 20));
         }
 
         public ActionResult UpdateUserInformations(string id)
@@ -211,6 +214,116 @@ namespace LookAuKwat.Controllers
             dal.DeleteUserByAdmin(user);
 
             return RedirectToAction("ListAllUser");
+        }
+
+
+        //Print receipt of each client
+
+        public ActionResult receipt_PartialView(PrintViewModel print )
+        {
+      
+            return View();
+        }
+        public ActionResult PrintOneReceipt(string email, string month)
+        {
+            string userEmail = email;
+           
+            var parrain = dal.GetParrainList().FirstOrDefault(m => m.ParrainEmail == userEmail);
+            var userr = dal.GetUsersList().FirstOrDefault(m => m.Email == userEmail);
+            List<DataUser_Agent> liste = new List<DataUser_Agent>();
+            DateTime? date = null;
+            DateTime? date2 = null;
+
+            if (parrain != null)
+            {
+
+
+                List<ApplicationUser> Liste_All_User_Parraine = dal.GetUsersList().Where(m => m.Parrain_Id == parrain.Id).ToList();
+
+                ViewBag.Email = userEmail;
+                ViewBag.ParainId = parrain.Id;
+
+                ViewBag.TotalWithNoAnnouce = Liste_All_User_Parraine.Where(m => (m.EmailConfirmed == true || m.PhoneNumberConfirmed == true) && m.Date_First_Publish == null).Count();
+                ViewBag.FirstName = parrain.ParrainFirstName;
+                ViewBag.Number = userr.PhoneNumber;
+                ViewBag.TotalParrainage = Liste_All_User_Parraine.Count();
+                ViewBag.NoConfirmNoAnnounce = Liste_All_User_Parraine.Where(m => m.EmailConfirmed == false && m.PhoneNumberConfirmed == false).Count();
+                switch (month)
+                {
+                    case "Janvier":
+                        date = new DateTime(2021, 1, 27, 0, 0, 0);
+                        date2 = new DateTime(2020, 12, 27, 0, 0, 0);
+                        Liste_All_User_Parraine = Liste_All_User_Parraine.Where(m => m.Date_First_Publish != null && m.Date_First_Publish >= date2 && m.Date_First_Publish <= date).ToList();
+                        break;
+                    case "Février":
+                        date = new DateTime(2021, 2, 27, 0, 0, 0);
+                        date2 = new DateTime(2021, 1, 27, 0, 0, 0);
+                        liste = liste.Where(m => m.DateFirstPublish != null && m.DateFirstPublish >= date2 && m.DateFirstPublish <= date).ToList();
+                        break;
+                    case "Mars":
+                        date = new DateTime(2021, 3, 27, 0, 0, 0);
+                        date2 = new DateTime(2021, 2, 27, 0, 0, 0);
+                        liste = liste.Where(m => m.DateFirstPublish != null && m.DateFirstPublish >= date2 && m.DateFirstPublish <= date).ToList();
+                        break;
+                    case "Avril":
+                        date = new DateTime(2021, 4, 27, 0, 0, 0);
+                        date2 = new DateTime(2021, 3, 27, 0, 0, 0);
+                        liste = liste.Where(m => m.DateFirstPublish != null && m.DateFirstPublish >= date2 && m.DateFirstPublish <= date).ToList();
+                        break;
+                    case "Mai":
+                        date = new DateTime(2021, 5, 27, 0, 0, 0);
+                        date2 = new DateTime(2021, 4, 27, 0, 0, 0);
+                        liste = liste.Where(m => m.DateFirstPublish != null && m.DateFirstPublish >= date2 && m.DateFirstPublish <= date).ToList();
+                        break;
+                    case "Juin":
+                        date = new DateTime(2021, 6, 27, 0, 0, 0);
+                        date2 = new DateTime(2021, 5, 27, 0, 0, 0);
+                        liste = liste.Where(m => m.DateFirstPublish != null && m.DateFirstPublish >= date2 && m.DateFirstPublish <= date).ToList();
+                        break;
+                    case "Juillet":
+                        date = new DateTime(2021, 7, 27, 0, 0, 0);
+                        date2 = new DateTime(2021, 6, 27, 0, 0, 0);
+                        liste = liste.Where(m => m.DateFirstPublish != null && m.DateFirstPublish >= date2 && m.DateFirstPublish <= date).ToList();
+                        break;
+                    case "Août":
+                        date = new DateTime(2021, 8, 27, 0, 0, 0);
+                        date2 = new DateTime(2021, 7, 27, 0, 0, 0);
+                        liste = liste.Where(m => m.DateFirstPublish != null && m.DateFirstPublish >= date2 && m.DateFirstPublish <= date).ToList();
+                        break;
+                    case "Septembre":
+                        date = new DateTime(2021, 9, 27, 0, 0, 0);
+                        date2 = new DateTime(2021, 8, 27, 0, 0, 0);
+                        liste = liste.Where(m => m.DateFirstPublish != null && m.DateFirstPublish >= date2 && m.DateFirstPublish <= date).ToList();
+                        break;
+                    case "Octobre":
+                        date = new DateTime(2021, 10, 27, 0, 0, 0);
+                        date2 = new DateTime(2021, 9, 27, 0, 0, 0);
+                        ViewBag.Month = "Octobre";
+                        liste = liste.Where(m => m.DateFirstPublish != null && m.DateFirstPublish >= date2 && m.DateFirstPublish <= date).ToList();
+                        break;
+                    case "Novembre":
+                        date = new DateTime(2020, 11, 27, 0, 0, 0);
+                        date2 = new DateTime(2020, 10, 27, 0, 0, 0);
+                        ViewBag.Month = "Novembre";
+                        Liste_All_User_Parraine = Liste_All_User_Parraine.Where(m => m.Date_First_Publish != null && m.Date_First_Publish >= date2 && m.Date_First_Publish <= date).ToList();
+                        break;
+                    case "Decembre":
+                        date = new DateTime(2020, 12, 27, 0, 0, 0);
+                        date2 = new DateTime(2020, 11, 27, 0, 0, 0);
+                        ViewBag.Month = "Decembre";
+                        Liste_All_User_Parraine = Liste_All_User_Parraine.Where(m => m.Date_First_Publish != null && m.Date_First_Publish >= date2 && m.Date_First_Publish <= date).ToList();
+                        break;
+                }
+
+
+                ViewBag.TotalWithAnnouce = Liste_All_User_Parraine.Where(m => (m.EmailConfirmed == true || m.PhoneNumberConfirmed == true) && m.Date_First_Publish != null).Count();
+                ViewBag.Totalprice = Liste_All_User_Parraine.Where(m => (m.EmailConfirmed == true || m.PhoneNumberConfirmed == true) && m.Date_First_Publish != null).Count() * 100;
+
+                var receipt = new ViewAsPdf("receipt_PartialView") { FileName = "Recu_" + parrain.ParrainFirstName + "_" + DateTime.Now.ToString("ddMMyyyy") + ".pdf" };
+                return receipt;
+               
+            }
+            return View();
         }
 
     }

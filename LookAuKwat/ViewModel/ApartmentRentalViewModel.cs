@@ -13,6 +13,7 @@ namespace LookAuKwat.ViewModel
         public int Id { get; set; }
         [Required(ErrorMessage = "Le titre de l'annonce ne doit pas être vide")]
         [DisplayName("Titre de l'annonce*")]
+        [StringLength(50)]
         public string TitleAppart { get; set; }
         [Required(ErrorMessage = "La description de l'annonce ne doit pas être vide")]
         [DisplayName("Description*")]

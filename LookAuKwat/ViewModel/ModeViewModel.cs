@@ -18,10 +18,15 @@ namespace LookAuKwat.ViewModel
         [Range(0, int.MaxValue, ErrorMessage = "seule les valeurs positives sont acceptées")]
         [DisplayName("Prix(CFA)")]
         public int PriceMode { get; set; }
-        [DisplayName("Titre de l'annoce")]
+        [Required(ErrorMessage = "Le titre de l'annonce ne doit pas être vide")]
+
+        [DisplayName("Titre de l'annonce*")]
+        [StringLength(50)]
         public string TitleMode { get; set; }
+        [Required(ErrorMessage = "La Description de l'annonce ne doit pas être vide")]
         [DisplayName("Description")]
         public string DescriptionMode { get; set; }
+        [Required(ErrorMessage = "Le Quartier de l'annonce ne doit pas être vide")]
         [DisplayName("Quartier")]
         public string StreetMode { get; set; }
         [DisplayName("Rubrique")]

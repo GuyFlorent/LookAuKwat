@@ -1,0 +1,373 @@
+﻿@model LookAuKwat.ViewModel.ApartmentRentalViewModel
+@using LookAuKwat.ViewModel
+
+@{
+    ViewBag.Title = "Déposer une annonce catégorie Immobilier";
+}
+
+    <h2>Déposer une annonce catégorie Immobilier</h2>
+
+@using (Html.BeginForm("AddAppartment", "ApartmentRental", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group" id="SearchOrAskJobAppartDiv">
+            @Html.LabelFor(model => model.SearchOrAskJobAppart, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(model => model.SearchOrAskJobAppart, SelectListMethod.ChooseSearchOrAsk(), "Choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SearchOrAskJobAppart, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group" id="TypeApartDiv">
+            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(model => model.Type, SelectListMethod.TypeImmobilier(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group " id="TitleAppartDiv">
+            @Html.LabelFor(model => model.TitleAppart, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.TitleAppart, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TitleAppart, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+
+        <div class="form-group " id="DescriptionAppartDiv">
+            @Html.LabelFor(model => model.DescriptionAppart, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.TextAreaFor(model => model.DescriptionAppart, new { @class = "form-control", @cols = "45", @rows = "5" })
+                @Html.ValidationMessageFor(model => model.DescriptionAppart, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+        <div class="form-group " id="TownAppartDiv">
+            @Html.LabelFor(model => model.TownAppart, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(model => model.TownAppart, SelectListMethod.GetListTownCameroon(), "choisir", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TownAppart, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="" id="StreetAppartDiv">
+            <p class=" col-md-offset-4 text-info">Veuillez choisir une adresse de la liste après votre saisie.</p>
+            <div class="form-group">
+
+                @Html.LabelFor(model => model.StreetAppart, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.StreetAppart, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.StreetAppart, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-group hidden" id="priceApartdiv">
+            @Html.LabelFor(model => model.PriceAppart, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.PriceAppart, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PriceAppart, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+
+        <div class="form-group hidden" id="apartSurface">
+            @Html.LabelFor(model => model.ApartSurface, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.ApartSurface, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ApartSurface, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        @*<p class=" col-md-offset-2 text-info">Veuillez mettre 0 sur le nombre de pièces si vous ajoutez un terrain.</p>*@
+        <div class="form-group hidden" id="rommId">
+            @Html.LabelFor(model => model.RoomNumber, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.RoomNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RoomNumber, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+        <div class="form-group hidden" id="FuriRNoId">
+            @Html.LabelFor(model => model.FurnitureOrNot, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(model => model.FurnitureOrNot, SelectListMethod.FurnitureOrNot(), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FurnitureOrNot, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden" id="ImageApartDiv">
+            @Html.LabelFor(model => model.Imageproduct.Image, htmlAttributes: new { @class = "control-label col-md-4" })
+
+            @*<label class="control-label col-md-2" for="#imagesJobs"></label>*@
+            <div class="col-md-8">
+
+                <input type="file" name="ImageFile" accept="image/*" multiple="multiple" @*onchange="readURL(this);"*@>
+                <p class="text-info">Vous pouvez sélectionner à la fois une ou trois(3) images au maximun.</p>
+            </div>
+            @*<div style="height:50px " class="col-md-4">
+                    <img id="InitiativeImageUpToDate" src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt="photo de initiative" height="50" />
+                </div>*@
+        </div>
+
+        <div class="form-group hidden" id="btnAppaertDiv">
+            <div class="col-md-offset-4 col-md-8">
+                <button type="submit" class="btn btn-success">Suivant <span class="glyphicon glyphicon-menu-right"></span></button>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script type="text/javascript">
+    $(function () {
+
+        //$("#Type").change(function () {
+
+        //    if ($('#Type').val() == 'Terrain à vendre') {
+
+
+        //        $("#FuriRNoId").slideDown();
+
+        //    }
+        //    else
+        //    {
+        //        $("#FuriRNoId").slideUp();
+
+        //    }
+        //});
+
+        //$("#SearchOrAskJobAppart").change(function () {
+
+        //    if ($('#SearchOrAskJobAppart').val() == 'J\'offre') {
+
+
+        //        $("#FuriRNoId").slideDown();
+        //        $("#apartSurface").slideDown();
+        //        $("#priceApartdiv").slideDown();
+
+        //    }
+        //    else {
+
+        //        $("#FuriRNoId").slideUp();
+        //        $("#apartSurface").slideUp();
+        //        $("#priceApartdiv").slideUp();
+        //    }
+        //});
+
+
+        $("#SearchOrAskJobAppart").change(function () {
+
+            if ($('#SearchOrAskJobAppart').val() !== 'choisir') {
+
+
+                $("#TypeApartDiv").removeClass('hidden');
+
+            }
+        });
+        $("#TypeApartDiv").change(function () {
+
+            if ($('#TypeApartDiv').val() !== 'choisir') {
+
+
+                $("#TitleAppartDiv").removeClass('hidden');
+                $("#DescriptionAppartDiv").removeClass('hidden');
+                $("#TownAppartDiv").removeClass('hidden');
+            }
+        });
+        //$("#TitleAppart").change(function () {
+
+        //    $("#DescriptionAppartDiv").removeClass('hidden');
+
+        //});
+        //$("#DescriptionAppart").change(function () {
+
+        //        $("#TownAppartDiv").removeClass('hidden');
+
+        //});
+        //$("#TownAppartDiv").change(function () {
+
+        //    $("#TownAppartDiv").removeClass('hidden');
+
+        //});
+        $("#TownAppartDiv").change(function () {
+            if ($('#TownAppartDiv').val() !== 'choisir') {
+
+                if ($('#SearchOrAskJobAppart').val() == 'Je recherche') {
+                    $("#StreetAppartDiv").removeClass('hidden');
+                    //$("#ImageApartDiv").removeClass('hidden');
+                    $("#btnAppaertDiv").removeClass('hidden');
+                } else if ($('#SearchOrAskJobAppart').val() == 'J\'offre') {
+                    $("#StreetAppartDiv").removeClass('hidden');
+                    $("#priceApartdiv").removeClass('hidden');
+                    $("#apartSurface").removeClass('hidden');
+                    if ($('#Type').val() == 'terrain à vendre') {
+                       // $("#ImageApartDiv").removeClass('hidden');
+                        $("#btnAppaertDiv").removeClass('hidden');
+                    } else if ($('#TypeApartDiv').val() !== 'Terrain à vendre') {
+                        $("#rommId").removeClass('hidden');
+                        $("#FuriRNoId").removeClass('hidden');
+                       // $("#ImageApartDiv").removeClass('hidden');
+                        $("#btnAppaertDiv").removeClass('hidden');
+                    }
+                }
+            }
+        });
+        //$("#StreetAppart").change(function () {
+        //    if ($('#SearchOrAskJobAppart').val() == 'Je recherche') {
+        //       // $("#ImageApartDiv").removeClass('hidden');
+        //        $("#btnAppaertDiv").removeClass('hidden');
+        //    } else if ($('#SearchOrAskJobAppart').val() == 'J\'offre') {
+        //        $("#priceApartdiv").removeClass('hidden');
+        //        $("#apartSurface").removeClass('hidden');
+
+        //        if ($('#Type').val() == 'terrain à vendre') {
+        //           // $("#ImageApartDiv").removeClass('hidden');
+        //            $("#btnAppaertDiv").removeClass('hidden');
+        //        } else if ($('#TypeApartDiv').val() !== 'Terrain à vendre') {
+        //            $("#rommId").removeClass('hidden');
+        //            $("#FuriRNoId").removeClass('hidden');
+        //           // $("#ImageApartDiv").removeClass('hidden');
+        //            $("#btnAppaertDiv").removeClass('hidden');
+        //        }
+        //    }
+
+        //});
+        //$("#priceApartdiv").change(function () {
+
+        //    $("#apartSurface").removeClass('hidden');
+
+        //});
+        //$("#apartSurface").change(function () {
+
+        //    if ($('#Type').val() == 'terrain à vendre') {
+        //        $("#ImageApartDiv").removeClass('hidden');
+        //        $("#btnAppaertDiv").removeClass('hidden');
+        //    } else if ($('#TypeApartDiv').val() !== 'Terrain à vendre') {
+        //        $("#rommId").removeClass('hidden');
+        //    }
+
+        //});
+
+        //$("#rommId").change(function () {
+
+        //    $("#FuriRNoId").removeClass('hidden');
+        //    $("#ImageApartDiv").removeClass('hidden');
+        //    $("#btnAppaertDiv").removeClass('hidden');
+        //});
+
+        //for plus sign
+        //$('#spanApartTitle').click(function () {
+        //    $("#spanApartTitle").addClass('hidden');
+        //})
+
+        //$('#spanApartDescription').click(function () {
+        //    $("#spanApartDescription").addClass('hidden');
+        //})
+
+        //$('#spanApartStreet').click(function () {
+        //    $("#spanApartStreet").addClass('hidden');
+        //})
+
+        //$('#spanApartPrice').click(function () {
+        //    $("#spanApartPrice").addClass('hidden');
+        //})
+        //$('#spanApartRoomNum').click(function () {
+        //    $("#spanApartRoomNum").addClass('hidden');
+        //})
+        //$('#spanApartSurface').click(function () {
+        //    $("#spanApartSurface").addClass('hidden');
+        //})
+
+
+        //$('#btnAddaAppart').click(function () {
+        //    var x = document.forms["apartform"]["Type"].value;
+        //    var y = document.forms["apartform"]["TitleAppart"].value;
+        //    var z = document.forms["apartform"]["DescriptionAppart"].value;
+        //    var u = document.forms["apartform"]["StreetAppart"].value;
+        //    var w = document.forms["apartform"]["PriceAppart"].value;
+
+
+        //    if (x !== "" && y !== "" && z !== "" && u !== "" && w !== "") {
+
+        //        $('#MyModalAddApartment').modal('hide');
+        //            $(".js-alert").removeClass('hidden').delay(5000).queue(function () {
+        //                $(this).addClass('hidden').dequeue();
+        //            });
+
+        //        //var a = $(".Addcategory").selectedIndex = "1";
+        //        //console.log(a);
+        //    }
+
+        //});
+
+
+
+
+
+
+        $("#StreetAppart").autocomplete({
+        source: function (request, response) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("ShowAddress", "Job")',
+            dataType: "json",
+            headers: {
+                //"api-key": searchServiceApiKey,
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify({
+                top: 5,
+
+               // country: $("#Country").val(),
+                town: $("#TownAppart").val(),
+                 // zipcode: $("#ZipCode").val(),
+                term: request.term
+            }),
+            success: function (data) {
+                if (data && data.length > 0) {
+                      var parsedDate = $.parseJSON(data);
+
+                        response((parsedDate["results"]).map(feature => feature["formatted"]));
+
+                    }
+                }
+            });
+            },
+            select: function (event, ui) {
+                //remember the selected item
+                $('#StreetAppart')
+                    .data('selected-item', ui.item.label);
+            },
+        minLength: 3,
+        position: {
+            //my: "left top",
+            //at: "left-23 bottom+10"
+            my: "left top",
+  at: "left-3 bottom+0",
+            of: "#StreetAppart"
+            },
+            appendTo: "#MyModalAddApartment"
+        }).blur(function () {
+            var value = $('#StreetAppart').val();
+            //check if the input's value matches the selected item
+            if (value != $('#StreetAppart').data('selected-item')) {
+                //they don't, the user must have typed something else
+                $('#StreetAppart')
+                    .val('') //clear the input's text
+                    .data('selected-item', ''); //clear the selected item
+            }
+        });
+
+    });
+</script>

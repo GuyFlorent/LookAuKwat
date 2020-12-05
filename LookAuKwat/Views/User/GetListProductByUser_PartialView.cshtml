@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<LookAuKwat.Models.ProductModel>
 @using System.Globalization;
 
-@foreach (var item in Model)
+@*@foreach (var item in Model)
 {
 
     
@@ -35,6 +35,11 @@
                         else if (@item.Category.CategoryName == "Mode")
                         {
                             Html.RenderAction("ModeDetails_PartialView", "Mode", new { model = item });
+                        }
+                        else if (@item.Category.CategoryName == "Maison")
+                        {
+                            Html.RenderAction("HouseDetails_PartialView", "House", new { model = item });
+                           
                         }
 
                     }
@@ -80,6 +85,12 @@
                             <p> Pas encore disponible pour le moment</p>
                             <p> Supprimer et dépposer une nouvelle annonce s'il vous plait !</p>
                         }
+                        else if (@item.Category.CategoryName == "Maison")
+                        {
+                            //Html.RenderAction("EditMultimedia_PartialView", "Multimedia", new { multi = item });
+                            <p> Pas encore disponible pour le moment</p>
+                            <p> Supprimer et dépposer une nouvelle annonce s'il vous plait !</p>
+                        }
                     }
                 </div>
                 <div class="modal-footer">
@@ -88,7 +99,7 @@
             </div>
         </div>
     </div>
-                        }
+                        }*@
 
 
 
@@ -159,6 +170,10 @@
                            {
                                catLogo = "👚 Mode";
                            }
+                           else if (cat == "Maison")
+                           {
+                               catLogo = "🛋️ Maison";
+                           }
                        } 
                         @catLogo
                     </td>
@@ -202,10 +217,82 @@
                     <td>
                         <a id="btnModalEdit_@item.id" class="btn btn-success" title="Modifier"><span class="glyphicon glyphicon-edit"></span></a>
 
-                        <a id="btnModalDetails_@item.id" class="btn btn-info" title="Détails"><span class="glyphicon glyphicon-eye-open"></span></a>
+        <a id="btnModalDetails_@item.id" class="btn btn-info" title="Détails"><span class="glyphicon glyphicon-eye-open"></span></a>
 
 
-                        <a href="javascript:void(0);" data-id="@item.id" id="deletePro_@item.id" class="btn btn-danger deleteProduct_@item.id" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></a>
+        <a href="javascript:void(0);" data-id="@item.id" id="deletePro_@item.id" class="btn btn-danger deleteProduct_@item.id" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></a>
+
+                        @*@{
+
+                            var cate = item.Category.CategoryName;
+                            if (cate == "Emploi")
+                            {
+
+                                <a href="@Url.Action("EditJob","Job",new {job = item })" class="btn btn-success" title="Modifier"><span class="glyphicon glyphicon-edit"></span></a>
+
+                                <a href="@Url.Action("JobDetail","Job",new {id = item.id })" class="btn btn-info" title="Détails"><span class="glyphicon glyphicon-eye-open"></span></a>
+
+
+                                <a href="@Url.Action()" class="btn btn-danger deleteProduct_@item.id" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></a>
+
+                            }
+                            else if (cate == "Immobilier")
+                            {
+
+                                <a href="@Url.Action()" class="btn btn-success" title="Modifier"><span class="glyphicon glyphicon-edit"></span></a>
+
+                                <a href="@Url.Action()" class="btn btn-info" title="Détails"><span class="glyphicon glyphicon-eye-open"></span></a>
+
+
+                                <a href="@Url.Action()" class="btn btn-danger deleteProduct_@item.id" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></a>
+
+                            }
+                            else if (cate == "Multimedia")
+                            {
+
+                                <a href="@Url.Action()" class="btn btn-success" title="Modifier"><span class="glyphicon glyphicon-edit"></span></a>
+
+                                <a href="@Url.Action()" class="btn btn-info" title="Détails"><span class="glyphicon glyphicon-eye-open"></span></a>
+
+
+                                <a href="@Url.Action()" class="btn btn-danger deleteProduct_@item.id" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></a>
+
+                            }
+                            else if (cate == "Vehicule")
+                            {
+
+                                <a href="@Url.Action()" class="btn btn-success" title="Modifier"><span class="glyphicon glyphicon-edit"></span></a>
+
+                                <a href="@Url.Action()" class="btn btn-info" title="Détails"><span class="glyphicon glyphicon-eye-open"></span></a>
+
+
+                                <a href="@Url.Action()" class="btn btn-danger deleteProduct_@item.id" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></a>
+
+                            }
+                            else if (cate == "Mode")
+                            {
+
+                                <a href="@Url.Action()" class="btn btn-success" title="Modifier"><span class="glyphicon glyphicon-edit"></span></a>
+
+                                <a href="@Url.Action()" class="btn btn-info" title="Détails"><span class="glyphicon glyphicon-eye-open"></span></a>
+
+
+                                <a href="@Url.Action()" class="btn btn-danger deleteProduct_@item.id" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></a>
+
+                            }
+                            else if (cate == "Maison")
+                            {
+
+                                <a href="@Url.Action()" class="btn btn-success" title="Modifier"><span class="glyphicon glyphicon-edit"></span></a>
+
+                                <a href="@Url.Action()" class="btn btn-info" title="Détails"><span class="glyphicon glyphicon-eye-open"></span></a>
+
+
+                                <a href="@Url.Action()" class="btn btn-danger deleteProduct_@item.id" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></a>
+
+                            }
+                        }*@
+
                     </td>
                 </tr>
             }
@@ -256,7 +343,8 @@
                 console.log(xhr.responseText);
                 alert("Une erreur est survenu  !");
             }
-        });
+        })
+            ;
 
 
 

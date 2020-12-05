@@ -29,8 +29,77 @@ namespace LookAuKwat.Controllers
         // GET: Multimedia
         public ActionResult Index()
         {
-            return View();
+            return View(new MultimediaViewModel());
         }
+        public ActionResult IndexRoute(MultimediaViewModel model)
+        {
+            switch (model.TypeMultimedia)
+            {
+                case "Informatique":
+                    return View("InformaticBrandModel", model);
+
+                case "Consoles de jeux":
+                    return View("GameConsoleBrandModel", model);
+
+                case "Jeux video":
+                    return View("GameBrandModel", model);
+
+                case "Téléphonie":
+                    return View("PhoneBrandModel", model);
+                case "Accésoires téléphonie":
+                    return View("AddOther", model);
+                case "Téléviseur":
+                    return View("TvBrandModel", model);
+                case "Son":
+                    return View("SonBrandModel", model);
+                case "Image & Camera vidéo":
+                    return View("AddOther", model);
+                case "Photocopieuse":
+                    return View("AddOther", model);
+
+                default:
+                    return View("Autre", model);
+
+            }
+        }
+        public ActionResult InformaticBrandModel(MultimediaViewModel model)
+        {
+            return View(model);
+        }
+        public ActionResult  GameConsoleBrandModel(MultimediaViewModel model)
+        {
+            return View(model);
+        }
+        public ActionResult GameBrandModel(MultimediaViewModel model)
+        {
+            return View(model);
+        }
+        public ActionResult PhoneBrandModel(MultimediaViewModel model)
+        {
+            return View(model);
+        }
+        public ActionResult TvBrandModel(MultimediaViewModel model)
+        {
+            return View(model);
+        }
+        public ActionResult SonBrandModel(MultimediaViewModel model)
+        {
+            return View(model);
+        }
+        public ActionResult AddOther(MultimediaViewModel model)
+        {
+            return View(model);
+        }
+        public ActionResult Autre(MultimediaViewModel model)
+        {
+            return View(model);
+        }
+
+        public ActionResult AddFullModel(MultimediaViewModel model)
+        {
+            return View(model);
+        }
+        
         public ActionResult AddMultimedia_PartialView()
         {
             return PartialView(new MultimediaViewModel());
@@ -102,7 +171,7 @@ namespace LookAuKwat.Controllers
                 SearchOrAskJob = multi.SearchOrAskJobMultimedia,
 
             };
-
+            string success = null;
 
             if (ModelState.IsValid)
             {
@@ -130,20 +199,24 @@ namespace LookAuKwat.Controllers
                         model.User = user;
                         model.Category = new CategoryModel { CategoryName = "Multimedia" };
                         dal.AddMultimedia(model, latt, lonn);
-                        //check if email is confirm and update date of publish announce for agent pay
-                        if (user.EmailConfirmed == true && user.Date_First_Publish == null)
+                        //check if email or phone is confirm and update date of publish announce for agent pay
+                        if ((user.EmailConfirmed == true || user.PhoneNumberConfirmed == true) && user.Date_First_Publish == null)
                         {
                             dal.Update_Date_First_Publish(user);
                         }
 
-                        return RedirectToAction("GetListProductByUser_PartialView", "User");
+                        // success = "Annonce ajoutée avec succès dans la liste !";
+                        //return RedirectToAction("UserProfile", "Home", new { message = success });
+                        // return RedirectToAction("GetListProductByUser_PartialView", "User");
+                        return RedirectToAction("AddImage", "Job", new { id = model.id });
                     }
 
 
                 }
 
             }
-            return View(multi);
+            success = "Désolé une erreur s'est produite!";
+            return RedirectToAction("UserProfile", "Home", new { message = success });
         }
 
         public ActionResult EditMultimedia_PartialView(MultimediaModel multi)
@@ -326,6 +399,15 @@ namespace LookAuKwat.Controllers
                         image.SaveAs(FileName);
 
                     }
+                    else
+                    {
+                        ImageProcductModel picture = new ImageProcductModel
+                        {
+                            id = Guid.NewGuid(),
+                            Image = "https://particulier-employeur.fr/wp-content/themes/fepem/img/general/avatar.png"
+                        };
+                        liste.Add(picture);
+                    }
 
                 }
                 return liste;
@@ -411,9 +493,13 @@ namespace LookAuKwat.Controllers
 
         public ActionResult MultimediaDetail(int id)
         {
-            MultimediaModel model = dal.GetListMultimedia().FirstOrDefault(e => e.id == id);
+            MultimediaModel model = dal.GetListMultimediaWithNoInclude().FirstOrDefault(e => e.id == id);
             model.ViewNumber++;
             dal.UpdateNumberView(model);
+            if (model.Images.Count > 1)
+            {
+                model.Images = model.Images.Where(m => !m.Image.StartsWith("http")).ToList();
+            }
             return View(model);
         }
 

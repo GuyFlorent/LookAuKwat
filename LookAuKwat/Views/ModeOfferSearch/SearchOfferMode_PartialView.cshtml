@@ -133,7 +133,7 @@
     </div>
 
         <button id="submitModee" type="submit" class="btn btn-primary">
-            <span class="glyphicon glyphicon-search"></span> <strong>Rechercher</strong>
+            <span class="glyphicon glyphicon-search"></span> <strong>Rechercher (<span class="badge"></span> Résultats)</strong>
         </button>
     </div>
 }
@@ -275,7 +275,7 @@
 
             }
             else if ($('#RubriqueMode').val() !== 'Toutes les rubriques' && $('#RubriqueMode').val() == 'Vêtements bébé') {
-                
+
                 $("#TypeModeBabyClothesSearchDiv").removeClass('hidden');
                 $("#BrandModeClothesSearchDiv").removeClass('hidden');
 
@@ -314,5 +314,71 @@
                 $("#SizeModeClothesSearchDiv").addClass('hidden');
             }
         })
+
+        //ResultModeSpan();
+        //$("#TownMode").change(ResultModeSpan);
+        //$("#RubriqueMode").change(ResultModeSpan);
+        //$("#TypeModeClothes").change(ResultModeSpan);
+        //$("#TypeModeShoes").change(ResultModeSpan);
+        //$("#TypeModeAccesorieLugages").change(ResultModeSpan);
+        //$("#TypeModeWatchJewelry").change(ResultModeSpan);
+        //$("#TypeModeBabyEquipment").change(ResultModeSpan);
+        //$("#TypeModeBabyClothes").change(ResultModeSpan);
+        //$("#BrandModeClothes").change(ResultModeSpan);
+        //$("#BrandModeShoes").change(ResultModeSpan);
+        //$("#StateMode").change(ResultModeSpan);
+        //$("#ColorMode").change(ResultModeSpan);
+        //$("#UniversMode").change(ResultModeSpan);
+        //$("#SizeModeShoes").change(ResultModeSpan);
+        //$("#SizeModeClothes").change(ResultModeSpan);
+
+        //$('#PriceMode').on('input', function () {
+        //    ResultModeSpan();
+        //});
     })
+
+    @*function ResultModeSpan() {
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("searchOfferModeSpan_Json", "ModeOfferSearch")',
+            dataType: "json",
+            headers: {
+                //"api-key": searchServiceApiKey,
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify({
+
+                rubrique: $("#RubriqueMode").val(),
+                town: $("#TownMode").val(),
+                typeClothes: $("#TypeModeClothes").val(),
+                typeShoes: $("#TypeModeShoes").val(),
+                typeLuggages: $("#TypeModeAccesorieLugages").val(),
+                typeWatch: $("#TypeModeWatchJewelry").val(),
+                typeBabyEquipment: $("#TypeModeBabyEquipment").val(),
+                typeBabyClothes: $("#TypeModeBabyClothes").val(),
+                brandClothes: $("#BrandModeClothes").val(),
+                brandShoes: $("#BrandModeShoes").val(),
+                price: $("#PriceMode").val(),
+                state: $("#StateMode").val(),
+                color: $("#ColorMode").val(),
+                univers: $("#UniversMode").val(),
+                sizeSchoes: $("#SizeModeShoes").val(),
+                sizeClothes: $("#SizeModeClothes").val(),
+
+            }),
+            success: function (data) {
+
+                var $badge = $("#submitModee").find('.badge')
+                    //number = Object.keys(data).length;
+                $badge.text(data);
+
+            }
+            //,
+            //error: function (xhr) {
+            //    console.log(xhr.responseText);
+            //    alert("Une erreur est survenu  !");
+            //}
+        })
+    }*@
 </script>

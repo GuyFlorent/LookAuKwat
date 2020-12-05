@@ -22,8 +22,11 @@ namespace LookAuKwat.Models
         void  DeletParrain(ParrainModel model);
         //Product
         IEnumerable<ProductModel> GetListProduct();
+        IEnumerable<int> GetListIdProduct();
+        IEnumerable<ProductModel> GetListProductWhithNoInclude();
         IEnumerable<ProductModel> GetListAskProduct();
         IEnumerable<JobModel> GetListJob();
+        IEnumerable<JobModel> GetListJobWithNoInclude();
         void UpdateNumberView(ProductModel product);
         void DeleteProduct(ProductModel product);
         IEnumerable<ProductModel> GetListUserProduct(string id);
@@ -38,6 +41,7 @@ namespace LookAuKwat.Models
         void AddAppartment(ApartmentRentalModel apart, string lat, string lon);
         void EditApartment(ApartmentRentalModel apart, string lat, string lon);
         IEnumerable<ApartmentRentalModel> GetListAppart();
+        IEnumerable<ApartmentRentalModel> GetListAppartWithNoInclude();
 
         //For message model
         IEnumerable<MessageDetails> GetListMessage();
@@ -46,15 +50,25 @@ namespace LookAuKwat.Models
         void AddMultimedia(MultimediaModel model, string lat, string lon);
         void EditMultimedia(MultimediaModel model, string lat, string lon);
         IEnumerable<MultimediaModel> GetListMultimedia();
+        IEnumerable<MultimediaModel> GetListMultimediaWithNoInclude();
 
         //For Vehicule model
         void AddVehicule(VehiculeModel model, string lat, string lon);
         void EditVehicule(VehiculeModel model, string lat, string lon);
         IEnumerable<VehiculeModel> GetListVehicule();
+        IEnumerable<VehiculeModel> GetListVehiculeWithNoInclude();
 
         //For Mode model
         void AddMode(ModeModel model, string lat, string lon);
         void EditMode(ModeModel model, string lat, string lon);
         IEnumerable<ModeModel> GetListMode();
+        IEnumerable<ModeModel> GetListModeWithNoInclude();
+
+        // for House model
+        void AddHouse(HouseModel model, string lat, string lon);
+        void EditHouse(HouseModel model, string lat, string lon);
+        IEnumerable<HouseModel> GetListHouse();
+        IEnumerable<HouseModel> GetListHouseWithNoInclude();
+        void AddImage(ProductModel model);
     }
 }

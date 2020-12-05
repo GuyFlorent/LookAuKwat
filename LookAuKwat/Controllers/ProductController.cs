@@ -40,13 +40,14 @@ namespace LookAuKwat.Controllers
 
         public ActionResult SimilarProduct_PartialView(ProductModel model)
         {
+            //var ran = new Random();
             List<ProductModel> similarList = dal.GetListProduct().Where(l => l.Category.CategoryName == model.Category.CategoryName
-            && l.Town == model.Town && l.SearchOrAskJob == model.SearchOrAskJob && l.id != model.id).Take(4).ToList();
+            && l.Town == model.Town && l.SearchOrAskJob == model.SearchOrAskJob && l.id != model.id).Take(3).ToList();
             return PartialView(similarList);
         }
         public ActionResult ListProduct()
         {
-            IEnumerable<ProductModel> liste = dal.GetListProduct();
+            IEnumerable<ProductModel> liste = dal.GetListProductWhithNoInclude();
             return View(liste);
         }
 
@@ -56,17 +57,17 @@ namespace LookAuKwat.Controllers
             ViewBag.PriceDescSort = sortBy == "Prix croissant" ? "Price asc" : "";
             ViewBag.DateAscSort = sortBy == "Plus anciennes" ? "date asc" : "";
             ViewBag.DateDescSort = sortBy == "Plus recentes" ? "date desc" : "";
-            IEnumerable<ProductModel> liste = dal.GetListProduct();
+            IEnumerable<ProductModel> liste = dal.GetListProductWhithNoInclude();
             if (!string.IsNullOrWhiteSpace(model.TownAllProduct))
             {
-                liste = liste.Where(m => m.Town == model.TownAllProduct);
+                liste = liste.Where(m => m.Town != null && m.Town == model.TownAllProduct);
             }
             if (!string.IsNullOrWhiteSpace(model.SearchTermAllProduct))
             {
-                liste = liste.Where(m => m.Title.ToLower().Contains(model.SearchTermAllProduct.ToLower())
-                || m.Description.ToLower().Contains(model.SearchTermAllProduct.ToLower()) || 
-                m.Street.ToLower().Contains(model.SearchTermAllProduct.ToLower()) || 
-                m.SearchOrAskJob.ToLower().Contains(model.SearchTermAllProduct.ToLower()));
+                liste = liste.Where(m => (m.Title!=null && m.Title.ToLower().Contains(model.SearchTermAllProduct.ToLower()))
+                || (m.Description!=null && m.Description.ToLower().Contains(model.SearchTermAllProduct.ToLower())) || 
+               (m.Street!=null && m.Street.ToLower().Contains(model.SearchTermAllProduct.ToLower())) || 
+               (m.SearchOrAskJob!=null && m.SearchOrAskJob.ToLower().Contains(model.SearchTermAllProduct.ToLower())));
             }
             ViewBag.number = liste.Count();
             switch (sortBy)
@@ -89,6 +90,13 @@ namespace LookAuKwat.Controllers
             }
             model.ListePro = liste.ToList();
             model.ListeProPagedList = liste.ToPagedList(pageNumber ?? 1, 10);
+            foreach(var mode in model.ListeProPagedList)
+            {
+                if(mode.Images.Count > 1)
+                {
+                    mode.Images = mode.Images.Where(m => !m.Image.StartsWith("http")).ToList();
+                }
+            }
             return View("ListeAllProduct",model);
         }
 
@@ -100,6 +108,12 @@ namespace LookAuKwat.Controllers
         public ActionResult SearchAllProduct_PartialView(SeachJobViewModel model)
         {
           
+            return PartialView(model);
+        }
+
+        public ActionResult SearchAllProductMapView_PartialView(SeachJobViewModel model)
+        {
+
             return PartialView(model);
         }
 
@@ -122,65 +136,25 @@ namespace LookAuKwat.Controllers
             ViewBag.DateDescSort = sortBy == "Plus recentes" ? "date desc" : "";
             model.sortBy = sortBy;
             model.PageNumber = pageNumber;
-            List < ProductModel> liste = dal.GetListProduct().ToList();
-            if (model.TitleSearchAsk == null && model.CagtegorieSearchAsk == null
-                && model.TownSearchAsk == null)
-            {
-                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk).ToList();
-                TempData["listeSearchAsk"] = liste;
-            }
-            else if (model.TitleSearchAsk != null && model.CagtegorieSearchAsk != null
-                && model.TownSearchAsk != null)
-            {
+            List < ProductModel> liste = dal.GetListProduct().Where(m =>m.SearchOrAskJob == searchOrAsk).ToList();
 
-
-                 liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk
-                  && m.Category.CategoryName == model.CagtegorieSearchAsk && m.Town == model.TownSearchAsk && m.Title.ToLower().Contains(model.TitleSearchAsk.ToLower())
-                  || m.Description.ToLower().Contains(model.TitleSearchAsk.ToLower())).ToList();
-                TempData["listeSearchAsk"] = liste;
-            }
-            else if(model.TitleSearchAsk == null && model.CagtegorieSearchAsk != null
-                && model.TownSearchAsk != null)
+            if (!string.IsNullOrWhiteSpace(model.TownSearchAsk))
             {
-                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk
-               && m.Category.CategoryName == model.CagtegorieSearchAsk && m.Town == model.TownSearchAsk).ToList();
-                TempData["listeSearchAsk"] = liste;
-            }
-            else if (model.TitleSearchAsk == null && model.CagtegorieSearchAsk == null
-               && model.TownSearchAsk != null)
-            {
-                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk &&  m.Town == model.TownSearchAsk).ToList();
-                TempData["listeSearchAsk"] = liste;
-            }
-            else if (model.TitleSearchAsk == null && model.CagtegorieSearchAsk != null
-              && model.TownSearchAsk == null)
-            {
-                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk && m.Category.CategoryName == model.CagtegorieSearchAsk).ToList();
-                TempData["listeSearchAsk"] = liste;
-            }
-            else if (model.TitleSearchAsk != null && model.CagtegorieSearchAsk == null
-             && model.TownSearchAsk != null)
-            {
-                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk && m.Town == model.TownSearchAsk && m.Title.ToLower().Contains(model.TitleSearchAsk.ToLower())
-                 || m.Description.ToLower().Contains(model.TitleSearchAsk.ToLower())).ToList();
-                TempData["listeSearchAsk"] = liste;
-            }
-            else if (model.TitleSearchAsk != null && model.CagtegorieSearchAsk != null
-           && model.TownSearchAsk == null)
-            {
-                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk && m.Category.CategoryName == model.CagtegorieSearchAsk && m.Title.ToLower().Contains(model.TitleSearchAsk.ToLower())
-                || m.Description.ToLower().Contains(model.TitleSearchAsk.ToLower())).ToList();
-                TempData["listeSearchAsk"] = liste;
-            }
-            else if (model.TitleSearchAsk != null && model.CagtegorieSearchAsk == null
-          && model.TownSearchAsk == null)
-            {
-                liste = liste.Where(m => m.SearchOrAskJob == searchOrAsk && m.Title.ToLower().Contains(model.TitleSearchAsk.ToLower())
-                || m.Description.ToLower().Contains(model.TitleSearchAsk.ToLower())).ToList();
-                TempData["listeSearchAsk"] = liste;
+                liste = liste.Where(m => m.Town != null && m.Town == model.TownSearchAsk).ToList();
             }
 
-            model.ListePro = TempData["listeSearchAsk"] as List<ProductModel>;
+            if (!string.IsNullOrWhiteSpace(model.CagtegorieSearchAsk))
+            {
+                liste = liste.Where(m => m.Category != null && m.Category.CategoryName == model.CagtegorieSearchAsk).ToList();
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.TitleSearchAsk))
+            {
+                liste = liste.Where(m => m.Title != null && m.Title.ToLower().Contains(model.TitleSearchAsk.ToLower())
+                  || m.Description != null && m.Description.ToLower().Contains(model.TitleSearchAsk.ToLower())).ToList();
+            }
+
+            model.ListePro = liste;
 
             switch (sortBy)
             {
@@ -280,17 +254,36 @@ namespace LookAuKwat.Controllers
         }
 
 
-            public JsonResult listAllProductReturnJson(string town, string term)
+            public ActionResult listAllProductViewMapReturnJson(SeachJobViewModel model)
         {
-            List<ProductModel> liste = dal.GetListProduct().ToList();
+            //List<ProductModel> liste = dal.GetListProductWhithNoInclude().ToList();
+            //if (!string.IsNullOrWhiteSpace(model.TownAllProduct))
+            //{
+            //    liste = liste.Where(m => m.Town == model.TownAllProduct).ToList();
+            //}
+            //if (!string.IsNullOrWhiteSpace(model.SearchTermAllProduct))
+            //{
+            //    liste = liste.Where(m => m.Title != null && m.Title.ToLower().Contains(model.SearchTermAllProduct.ToLower())
+            //    || m.Description != null && m.Description.ToLower().Contains(model.SearchTermAllProduct.ToLower()) ||
+            //    m.Street.ToLower().Contains(model.SearchTermAllProduct.ToLower()) ||
+            //    m.SearchOrAskJob.ToLower().Contains(model.SearchTermAllProduct.ToLower())).ToList();
+           // }
+            
+
+            return View(model);
+        }
+
+        public JsonResult listAllProductViewMapReturnJsonn(string term, string town)
+        {
+            List<ProductModel> liste = dal.GetListProductWhithNoInclude().ToList();
             if (!string.IsNullOrWhiteSpace(town))
             {
                 liste = liste.Where(m => m.Town == town).ToList();
             }
             if (!string.IsNullOrWhiteSpace(term))
             {
-                liste = liste.Where(m => m.Title.ToLower().Contains(term.ToLower())
-                || m.Description.ToLower().Contains(term.ToLower()) ||
+                liste = liste.Where(m => m.Title != null && m.Title.ToLower().Contains(term.ToLower())
+                || m.Description != null && m.Description.ToLower().Contains(term.ToLower()) ||
                 m.Street.ToLower().Contains(term.ToLower()) ||
                 m.SearchOrAskJob.ToLower().Contains(term.ToLower())).ToList();
             }
@@ -312,9 +305,28 @@ namespace LookAuKwat.Controllers
             return Json(data2, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult listAllProductSpanReturnJson(string town, string term)
+        {
+            List<ProductModel> liste = dal.GetListProductWhithNoInclude().ToList();
+            if (!string.IsNullOrWhiteSpace(town))
+            {
+                liste = liste.Where(m => m.Town == town).ToList();
+            }
+            if (!string.IsNullOrWhiteSpace(term))
+            {
+                liste = liste.Where(m => m.Title != null && m.Title.ToLower().Contains(term.ToLower())
+                || m.Description != null && m.Description.ToLower().Contains(term.ToLower()) ||
+                m.Street.ToLower().Contains(term.ToLower()) ||
+                m.SearchOrAskJob.ToLower().Contains(term.ToLower())).ToList();
+            }
+            var data2 = liste.Count();
+
+            return Json(data2, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult listProductReturnJson()
         {
-            IEnumerable<int> data1 = dal.GetListProduct().Select(s =>s.id);
+            IEnumerable<int> data1 = dal.GetListIdProduct();
 
 
             return Json(data1, JsonRequestBehavior.AllowGet);
@@ -328,6 +340,8 @@ namespace LookAuKwat.Controllers
 
             return Json(data2, JsonRequestBehavior.AllowGet);
         }
+
+
 
         [HttpPost]
         public JsonResult DeleteImage(string id)
@@ -370,7 +384,7 @@ namespace LookAuKwat.Controllers
         {
             try
             {
-                ProductModel pro = dal.GetListProduct().FirstOrDefault(s => s.id == id);
+                ProductModel pro = dal.GetListProductWhithNoInclude().FirstOrDefault(s => s.id == id);
                 if (pro == null)
                 {
 
@@ -379,10 +393,18 @@ namespace LookAuKwat.Controllers
                 }
 
                 //delete files from the file system
-
+                String path = null;
                 foreach (var item in pro.Images)
                 {
-                    String path = item.Image;
+                    if (item.Image.StartsWith("http"))
+                    {
+                         path = item.Image;
+                    }
+                    else
+                    {
+                         path = Request.MapPath(item.Image);
+                    }
+                    
                     if (System.IO.File.Exists(path))
                     {
                         System.IO.File.Delete(path);
@@ -584,6 +606,7 @@ namespace LookAuKwat.Controllers
             List<MultimediaModel> resultMultimedia = TempData["listeMulti_Json"] as List<MultimediaModel>;
             List<VehiculeModel> resultVehicule = TempData["listeVehicule_Json"] as List<VehiculeModel>;
             List<ModeModel> resultMode = TempData["listeMode_json"] as List<ModeModel>;
+            List<HouseModel> resultHouse = TempData["listeHouse_json"] as List<HouseModel>;
             List<ProductModel> resultSearchAsk = TempData["listeSearchAsk_json"] as List<ProductModel>;
             List<ApartmentRentalModel> resultImmobilier = TempData["listeApartJson"] as List<ApartmentRentalModel>;
             List<DataJsonProductViewModel> data = new List<DataJsonProductViewModel>() ;
@@ -677,6 +700,26 @@ namespace LookAuKwat.Controllers
                     case "Mode":
                         if (resultMode != null)
                             foreach (var element in resultMode)
+                            {
+                                modelresult.ListePro.Add(element);
+                            }
+                        data = modelresult.ListePro.Select(s => new DataJsonProductViewModel
+                        {
+                            Title = s.Title,
+                            Coordinate = s.Coordinate,
+                            id = s.id,
+                            Price = s.Price,
+                            Description = s.Description,
+                            DateAdd = s.DateAdd.ToString(),
+                            Images = s.Images.Select(o => o.Image).ToList(),
+                            User = s.User,
+                            Street = s.Street,
+                            Town = s.Town
+                        }).ToList();
+                        break;
+                         case "Maison":
+                        if (resultHouse != null)
+                            foreach (var element in resultHouse)
                             {
                                 modelresult.ListePro.Add(element);
                             }
@@ -820,8 +863,6 @@ namespace LookAuKwat.Controllers
 
         private async Task configSendGridasync(contactUserViewModel message)
         {
-
-           
 
             var apikey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
             //var apiKey = ConfigurationManager.AppSettings["mailPasswordSendGrid"];

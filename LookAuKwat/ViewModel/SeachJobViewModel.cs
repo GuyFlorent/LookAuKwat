@@ -33,6 +33,7 @@ namespace LookAuKwat.ViewModel
         public List<MultimediaModel> ListeProMulti { get; set; }
         public List<ModeModel> ListeProMode { get; set; }
         public List<VehiculeModel> ListeProVehicule { get; set; }
+        public List<Models.HouseModel> ListeProHouse { get; set; }
         public IPagedList<ProductModel> ListeProPagedList { get; set; }
         // for pagedList
 
@@ -133,5 +134,33 @@ namespace LookAuKwat.ViewModel
         public string TownAllProduct { get; set; }
         [DisplayName("Recherche")]
         public string SearchTermAllProduct { get; set; }
+
+        //for House model
+        [DisplayName("Ville")]
+        public string TownHouse { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "seule les valeurs positives sont acceptées")]
+        [DisplayName("Prix max")]
+        public int PriceHouse { get; set; }
+        [DisplayName("Rubrique")]
+        public string RubriqueHouse { get; set; }
+        [DisplayName("type")]
+        public string TypeHouseAmmeublement { get; set; }
+        [DisplayName("type")]
+        public string TypeHouseDecoration { get; set; }
+        [DisplayName("type")]
+        public string TypeHouseLinge { get; set; }
+        [DisplayName("Produit")]
+        public string TypeHouseCuisine { get; set; }
+        [DisplayName("Matière")]
+        public string FabricMaterialeHouseAmmeublementDeco { get; set; }
+        [DisplayName("Matière")]
+        public string FabricMaterialeHouseLinge { get; set; }
+        [DisplayName("Matière")]
+        public string FabricMaterialeHouseCuisine { get; set; }
+        [DisplayName("Couleur")]
+        public string ColorHouse { get; set; }
+        [DisplayName("état")]
+        public string StateHouse { get; set; }
+
     }
 }

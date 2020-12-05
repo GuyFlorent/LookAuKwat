@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AngleSharp, Version=0.9.4.42449, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
+      <HintPath>..\packages\AngleSharp.0.9.4\lib\net45\AngleSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.IdentityModel.Logging, Version=1.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IdentityModel.Logging.1.1.2\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
@@ -57,6 +60,18 @@
     </Reference>
     <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net, Version=2.0.0.668, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="RotativaHQ, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RotativaHQ.1.5.0\lib\net45\RotativaHQ.dll</HintPath>
+    </Reference>
+    <Reference Include="RotativaHQ.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RotativaHQ.1.5.0\lib\net45\RotativaHQ.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="RotativaHQ.MVC5, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RotativaHQ.1.5.0\lib\net45\RotativaHQ.MVC5.dll</HintPath>
     </Reference>
     <Reference Include="SendGrid, Version=9.21.0.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
       <HintPath>..\packages\SendGrid.9.21.0\lib\net452\SendGrid.dll</HintPath>
@@ -200,6 +215,8 @@
     <Compile Include="Controllers\ApartmentRentalController.cs" />
     <Compile Include="Controllers\ApartmentRentalSearchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HouseController.cs" />
+    <Compile Include="Controllers\HouseOfferSearchController.cs" />
     <Compile Include="Controllers\JobController.cs" />
     <Compile Include="Controllers\JobOfferSearchController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -270,11 +287,16 @@
     <Compile Include="Migrations\202011160732417_dateForPublishAnnounce.Designer.cs">
       <DependentUpon>202011160732417_dateForPublishAnnounce.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011181457402_HouseModel.cs" />
+    <Compile Include="Migrations\202011181457402_HouseModel.Designer.cs">
+      <DependentUpon>202011181457402_HouseModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApartmentRentalModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\Dal.cs" />
+    <Compile Include="Models\HouseModel.cs" />
     <Compile Include="Models\IDal.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ImageProcductModel.cs" />
@@ -295,15 +317,18 @@
     <Compile Include="ViewModel\contactUserViewModel.cs" />
     <Compile Include="ViewModel\DataJsonProductViewModel.cs" />
     <Compile Include="ViewModel\DataUser_Agent.cs" />
+    <Compile Include="ViewModel\HouseViewModel.cs" />
     <Compile Include="ViewModel\ImageModelView.cs" />
     <Compile Include="ViewModel\JobEditViewModel.cs" />
     <Compile Include="ViewModel\JobViewModel.cs" />
     <Compile Include="ViewModel\ModeViewModel.cs" />
     <Compile Include="ViewModel\MultimediaViewModel.cs" />
     <Compile Include="ViewModel\ParrainViewModel.cs" />
+    <Compile Include="ViewModel\PrintViewModel.cs" />
     <Compile Include="ViewModel\SeachJobViewModel.cs" />
     <Compile Include="ViewModel\SearchUser_Admin.cs" />
     <Compile Include="ViewModel\SelectListMethod.cs" />
+    <Compile Include="ViewModel\SelectListMethodHouse.cs" />
     <Compile Include="ViewModel\SelectListMethodMode.cs" />
     <Compile Include="ViewModel\SelectListMethodVehicle.cs" />
     <Compile Include="ViewModel\TemplateEmailConfirmation.cs" />
@@ -317,6 +342,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\jquery.ui.chatbox.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="CreatePackage.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -343,6 +369,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="UserImage\adama_sanogo.jpg" />
+    <Content Include="UserImage\add-image.png" />
     <Content Include="UserImage\ajax-loader.gif" />
     <Content Include="UserImage\Alain.jpg" />
     <Content Include="UserImage\appartement-a-louer-2.jpg">
@@ -482,6 +509,35 @@
     <Content Include="Views\Admin\DeleteUser.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumberFirstRegister.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumberFirstRegister.cshtml" />
+    <Content Include="Views\House\Index.cshtml" />
+    <Content Include="Views\House\AddAmmeblement.cshtml" />
+    <Content Include="Views\House\AddFullModel.cshtml" />
+    <Content Include="Views\House\AddOutilsTable.cshtml" />
+    <Content Include="Views\House\AddDecoration.cshtml" />
+    <Content Include="Views\House\AddLinge.cshtml" />
+    <Content Include="Views\House\AddOther.cshtml" />
+    <Content Include="Views\House\HouseDetails_PartialView.cshtml" />
+    <Content Include="Views\House\HouseDetail.cshtml" />
+    <Content Include="Views\ApartmentRental\Index.cshtml" />
+    <Content Include="Views\Job\Index.cshtml" />
+    <Content Include="Views\Mode\Index.cshtml" />
+    <Content Include="Views\Multimedia\Index.cshtml" />
+    <Content Include="Views\Vehicule\Index.cshtml" />
+    <Content Include="Views\HouseOfferSearch\SearchOfferHouse_PartialView.cshtml" />
+    <Content Include="Views\HouseOfferSearch\FilterSearchHouse.cshtml" />
+    <Content Include="Views\Admin\receipt_PartialView.cshtml" />
+    <Content Include="Views\Multimedia\InformaticBrandModel.cshtml" />
+    <Content Include="Views\Multimedia\GameConsoleBrandModel.cshtml" />
+    <Content Include="Views\Multimedia\GameBrandModel.cshtml" />
+    <Content Include="Views\Multimedia\PhoneBrandModel.cshtml" />
+    <Content Include="Views\Multimedia\TvBrandModel.cshtml" />
+    <Content Include="Views\Multimedia\SonBrandModel.cshtml" />
+    <Content Include="Views\Multimedia\AddOther.cshtml" />
+    <Content Include="Views\Multimedia\Autre.cshtml" />
+    <Content Include="Views\Multimedia\AddFullModel.cshtml" />
+    <Content Include="Views\Job\AddImage.cshtml" />
+    <Content Include="Views\Product\listAllProductViewMapReturnJson.cshtml" />
+    <Content Include="Views\Product\SearchAllProductMapView_PartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -542,6 +598,9 @@
     <EmbeddedResource Include="Migrations\202011160732417_dateForPublishAnnounce.resx">
       <DependentUpon>202011160732417_dateForPublishAnnounce.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011181457402_HouseModel.resx">
+      <DependentUpon>202011181457402_HouseModel.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
@@ -579,6 +638,11 @@
       <ErrorText>Ce projet fait référence à des packages NuGet qui sont manquants sur cet ordinateur. Utilisez l'option de restauration des packages NuGet pour les télécharger. Pour plus d'informations, consultez http://go.microsoft.com/fwlink/?LinkID=322105. Le fichier manquant est : {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
