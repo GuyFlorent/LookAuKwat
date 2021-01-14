@@ -91,7 +91,7 @@
         </div>
        
         <button id="submitApartt" type="submit" class="btn btn-primary">
-            <span class="glyphicon glyphicon-search"></span> <strong>Rechercher @*(<span class="badge"></span> Résultats)*@</strong>
+            <span class="glyphicon glyphicon-search"></span> <strong>Rechercher (<span class="badge"></span> Résultats)</strong>
         </button>
     </div>
 }
@@ -115,31 +115,31 @@
             }
         })
 
-       // ResultAppartSpan();
-        //$("#Type").change(ResultAppartSpan);
-        //$("#TownSearch").change(ResultAppartSpan);
-        //$("#FurnitureOrNot").change(ResultAppartSpan);
+        ResultAppartSpan();
+        $("#Type").change(ResultAppartSpan);
+        $("#TownSearch").change(ResultAppartSpan);
+        $("#FurnitureOrNot").change(ResultAppartSpan);
 
-        //$('.PriceMinSearchApart').on('input', function () {
-        //    ResultAppartSpan();
-        //});
-        //$('.PriceMaxSearchApart').on('input', function () {
-        //    ResultAppartSpan();
-        //});
-        //$('#MinApartSurface').on('input', function () {
-        //    ResultAppartSpan();
-        //});
-        //$('#MaxApartSurface').on('input', function () {
-        //    ResultAppartSpan();
-        //});
+        $('.PriceMinSearchApart').on('input', function () {
+            ResultAppartSpan();
+        });
+        $('.PriceMaxSearchApart').on('input', function () {
+            ResultAppartSpan();
+        });
+        $('#MinApartSurface').on('input', function () {
+            ResultAppartSpan();
+        });
+        $('#MaxApartSurface').on('input', function () {
+            ResultAppartSpan();
+        });
 
-        //$('#RoomNumber').on('input', function () {
-        //    ResultAppartSpan();
-        //});
+        $('#RoomNumber').on('input', function () {
+            ResultAppartSpan();
+        });
 
     })
 
-    @*function ResultAppartSpan() {
+    function ResultAppartSpan() {
 
         $.ajax({
             type: "POST",
@@ -173,5 +173,5 @@
             //    alert("Une erreur est survenu  !");
             //}
         })
-    }*@
+    }
 </script>

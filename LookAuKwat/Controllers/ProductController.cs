@@ -7,7 +7,9 @@ using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -17,6 +19,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Twilio.Jwt.AccessToken;
 
 namespace LookAuKwat.Controllers
 {
@@ -38,71 +41,72 @@ namespace LookAuKwat.Controllers
             return View();
         }
 
+      //  [OutputCache(Duration = 10000, VaryByParam = "id;CategoryName")]
         public ActionResult SimilarProduct_PartialView(ProductModel model)
         {
             //var ran = new Random();
-            List<ProductModel> similarList = dal.GetListProduct().Where(l => l.Category.CategoryName == model.Category.CategoryName
-            && l.Town == model.Town && l.SearchOrAskJob == model.SearchOrAskJob && l.id != model.id).Take(3).ToList();
-            return PartialView(similarList);
+            List<ProductModel> similarList =  dal.GetListProductWhithNoInclude().Where(l => l.Category.CategoryName == model.Category.CategoryName
+            && l.Town == model.Town && l.SearchOrAskJob == model.SearchOrAskJob && l.id != model.id).OrderBy(x => Guid.NewGuid()).Take(6).ToList();
+            return PartialView( similarList);
         }
         public ActionResult ListProduct()
         {
-            IEnumerable<ProductModel> liste = dal.GetListProductWhithNoInclude();
+            IEnumerable<ProductModel> liste =  dal.GetListProductWhithNoInclude();
             return View(liste);
         }
 
-        public ActionResult SearchAllProoduct(SeachJobViewModel model, int? pageNumber, string sortBy)
+       // [OutputCache(Duration = 300, VaryByParam = "TownAllProduct;SearchTermAllProduct;pageNumber;sortBy")]
+        public ActionResult  SearchAllProoduct(SeachJobViewModel model, int? pageNumber, string sortBy)
         {
             ViewBag.PriceAscSort = String.IsNullOrEmpty(sortBy) ? "Price desc" : "";
             ViewBag.PriceDescSort = sortBy == "Prix croissant" ? "Price asc" : "";
             ViewBag.DateAscSort = sortBy == "Plus anciennes" ? "date asc" : "";
             ViewBag.DateDescSort = sortBy == "Plus recentes" ? "date desc" : "";
-            IEnumerable<ProductModel> liste = dal.GetListProductWhithNoInclude();
+            //IQueryable<ProductModel> liste =  dal.GetListProductWhithNoInclude();
+            List<ProductToDisplay> liste =  dal.GetListProductToDisplay();
+           
             if (!string.IsNullOrWhiteSpace(model.TownAllProduct))
             {
-                liste = liste.Where(m => m.Town != null && m.Town == model.TownAllProduct);
+                liste =  liste.Where(m => m.Town != null && m.Town == model.TownAllProduct).ToList();
             }
             if (!string.IsNullOrWhiteSpace(model.SearchTermAllProduct))
             {
-                liste = liste.Where(m => (m.Title!=null && m.Title.ToLower().Contains(model.SearchTermAllProduct.ToLower()))
+                liste =  liste.Where(m => (m.Title!=null && m.Title.ToLower().Contains(model.SearchTermAllProduct.ToLower()))
                 || (m.Description!=null && m.Description.ToLower().Contains(model.SearchTermAllProduct.ToLower())) || 
                (m.Street!=null && m.Street.ToLower().Contains(model.SearchTermAllProduct.ToLower())) || 
-               (m.SearchOrAskJob!=null && m.SearchOrAskJob.ToLower().Contains(model.SearchTermAllProduct.ToLower())));
+               (m.SearchOrAskJob!=null && m.SearchOrAskJob.ToLower().Contains(model.SearchTermAllProduct.ToLower()))).ToList();
             }
             ViewBag.number = liste.Count();
             switch (sortBy)
             {
                 case "Price desc":
-                    liste = liste.OrderByDescending(m => m.Price);
+                    liste = liste.OrderByDescending(m => m.Price).ToList();
                     break;
                 case "Price asc":
-                    liste = liste.OrderBy(m => m.Price);
+                    liste = liste.OrderBy(m => m.Price).ToList();
                     break;
                 case "date desc":
-                    liste = liste.OrderByDescending(m => m.id);
+                    liste = liste.OrderByDescending(m => m.id).ToList();
                     break;
                 case "date asc":
-                    liste = liste.OrderBy(m => m.id);
+                    liste = liste.OrderBy(m => m.id).ToList();
                     break;
                 default:
-                    liste = liste.OrderByDescending(x => x.id);
+                    liste = liste.OrderByDescending(x => x.id).ToList();
                     break;
             }
-            model.ListePro = liste.ToList();
-            model.ListeProPagedList = liste.ToPagedList(pageNumber ?? 1, 10);
-            foreach(var mode in model.ListeProPagedList)
-            {
-                if(mode.Images.Count > 1)
-                {
-                    mode.Images = mode.Images.Where(m => !m.Image.StartsWith("http")).ToList();
-                }
-            }
-            return View("ListeAllProduct",model);
+
+            //model.ListeProduct = liste;
+            //model.PageNumber = pageNumber;
+
+            model.ListeProductPagedList = liste.ToPagedList(pageNumber ?? 1, 10);
+            return View("ListeAllProduct", model); 
         }
 
+        
         public ActionResult ListeAllProduct(SeachJobViewModel model)
         {
-
+          
             return View(model);
         }
         public ActionResult SearchAllProduct_PartialView(SeachJobViewModel model)
@@ -273,33 +277,29 @@ namespace LookAuKwat.Controllers
             return View(model);
         }
 
-        public JsonResult listAllProductViewMapReturnJsonn(string term, string town)
+        public async Task< JsonResult> listAllProductViewMapReturnJsonn(string term, string town)
         {
-            List<ProductModel> liste = dal.GetListProductWhithNoInclude().ToList();
+            List<ProductModel> liste = await dal.GetListProductWhithNoInclude().ToListAsync();
             if (!string.IsNullOrWhiteSpace(town))
             {
                 liste = liste.Where(m => m.Town == town).ToList();
             }
             if (!string.IsNullOrWhiteSpace(term))
             {
-                liste = liste.Where(m => m.Title != null && m.Title.ToLower().Contains(term.ToLower())
-                || m.Description != null && m.Description.ToLower().Contains(term.ToLower()) ||
-                m.Street.ToLower().Contains(term.ToLower()) ||
-                m.SearchOrAskJob.ToLower().Contains(term.ToLower())).ToList();
+                liste =  liste.Where(m => (m.Title!=null && m.Title.ToLower().Contains(term.ToLower()))
+                || (m.Description!=null && m.Description.ToLower().Contains(term.ToLower())) || 
+               (m.Street!=null && m.Street.ToLower().Contains(term.ToLower())) || 
+               (m.SearchOrAskJob!=null && m.SearchOrAskJob.ToLower().Contains(term.ToLower()))).ToList();
             }
             var data2 = liste.Select(s => new DataJsonProductViewModel
             {
                 Title = s.Title,
-                Coordinate = s.Coordinate,
+                Lat = s.Coordinate.Lat,
+                Lon = s.Coordinate.Lon,
                 id = s.id,
-                Price = s.Price,
-                Description = s.Description,
-                DateAdd = s.DateAdd.ToString(),
-                Images = s.Images.Select(o => o.Image).ToList(),
-                User = s.User,
-                Street = s.Street,
+                Images = s.Images.Select(o => o.Image).FirstOrDefault(),
                 Town = s.Town,
-                Category = s.Category
+                Category = s.Category.CategoryName
             }).ToList();
 
             return Json(data2, JsonRequestBehavior.AllowGet);
@@ -314,10 +314,10 @@ namespace LookAuKwat.Controllers
             }
             if (!string.IsNullOrWhiteSpace(term))
             {
-                liste = liste.Where(m => m.Title != null && m.Title.ToLower().Contains(term.ToLower())
-                || m.Description != null && m.Description.ToLower().Contains(term.ToLower()) ||
-                m.Street.ToLower().Contains(term.ToLower()) ||
-                m.SearchOrAskJob.ToLower().Contains(term.ToLower())).ToList();
+                liste = liste.Where(m => (m.Title != null && m.Title.ToLower().Contains(term.ToLower()))
+                 || (m.Description != null && m.Description.ToLower().Contains(term.ToLower())) ||
+                (m.Street != null && m.Street.ToLower().Contains(term.ToLower())) ||
+                (m.SearchOrAskJob != null && m.SearchOrAskJob.ToLower().Contains(term.ToLower()))).ToList();
             }
             var data2 = liste.Count();
 
@@ -343,9 +343,11 @@ namespace LookAuKwat.Controllers
 
 
 
+
         [HttpPost]
         public JsonResult DeleteImage(string id)
         {
+
             if (String.IsNullOrEmpty(id))
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
@@ -354,7 +356,7 @@ namespace LookAuKwat.Controllers
             try
             {
                 Guid guid = new Guid(id);
-                ImageProcductModel img = dal.GetImageList().FirstOrDefault(s=>s.id==guid);
+                ImageProcductModel img = dal.GetImageList().FirstOrDefault(s => s.id == guid);
                 if (img == null)
                 {
                     Response.StatusCode = (int)HttpStatusCode.NotFound;
@@ -382,42 +384,50 @@ namespace LookAuKwat.Controllers
         [HttpPost]
         public JsonResult DeleteProduct(int id)
         {
-            try
-            {
-                ProductModel pro = dal.GetListProductWhithNoInclude().FirstOrDefault(s => s.id == id);
-                if (pro == null)
-                {
+           
 
-                    Response.StatusCode = (int)HttpStatusCode.NotFound;
-                    return Json(new { Result = "Error" });
-                }
-
-                //delete files from the file system
-                String path = null;
-                foreach (var item in pro.Images)
+                try
                 {
-                    if (item.Image.StartsWith("http"))
+             
+                    ProductModel pro = dal.GetListProductWhithNoInclude().FirstOrDefault(s => s.id == id);
+                    if (pro == null)
                     {
-                         path = item.Image;
+
+                        Response.StatusCode = (int)HttpStatusCode.NotFound;
+                        return Json(new { Result = "Error" });
                     }
-                    else
-                    {
-                         path = Request.MapPath(item.Image);
-                    }
+
+                    //delete files from the file system
+                    String path = null;
+                        foreach (var item in pro.Images)
+                        {
+                            if (item.Image.StartsWith("http"))
+                            {
+                                path = item.Image;
+                                dal.DeleteImage(item);
+                            }
+                            else
+                            {
+                                path = Request.MapPath(item.Image);
+                                dal.DeleteImage(item);
+                            }
+
+                            if (System.IO.File.Exists(path))
+                            {
+                                System.IO.File.Delete(path);
+                            }
+                        }
+
+                        dal.DeleteProduct(pro);
                     
-                    if (System.IO.File.Exists(path))
-                    {
-                        System.IO.File.Delete(path);
-                    }
+                
+                    return Json(new { Result = "OK" });
                 }
-
-                dal.DeleteProduct(pro);
-                return Json(new { Result = "OK" });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { Result = "ERROR", Message = ex.Message });
-            }
+                catch (Exception ex)
+                {
+                    return Json(new { Result = "ERROR", Message = ex.Message });
+                }
+            
         }
 
         //result of every search product
@@ -624,15 +634,12 @@ namespace LookAuKwat.Controllers
                         data = modelresult.ListePro.Select(s => new DataJsonProductViewModel
                         {
                             Title = s.Title,
-                            Coordinate = s.Coordinate,
+                            Lat = s.Coordinate.Lat,
+                            Lon = s.Coordinate.Lon,
                             id = s.id,
-                            Price = s.Price,
-                            Description = s.Description,
-                            DateAdd = s.DateAdd.ToString(),
-                            Images = s.Images.Select(o => o.Image).ToList(),
-                            User = s.User,
-                            Street = s.Street,
-                            Town = s.Town
+                            Images = s.Images.Select(o => o.Image).FirstOrDefault(),
+                            Town = s.Town,
+                            Category = s.Category.CategoryName
                         }).ToList();
                         break;
                     case "Immobilier":
@@ -644,15 +651,12 @@ namespace LookAuKwat.Controllers
                         data = modelresult.ListePro.Select(s => new DataJsonProductViewModel
                         {
                             Title = s.Title,
-                            Coordinate = s.Coordinate,
+                            Lat = s.Coordinate.Lat,
+                            Lon = s.Coordinate.Lon,
                             id = s.id,
-                            Price = s.Price,
-                            Description = s.Description,
-                            DateAdd = s.DateAdd.ToString(),
-                            Images = s.Images.Select(o => o.Image).ToList(),
-                            User = s.User,
-                            Street = s.Street,
-                            Town = s.Town
+                            Images = s.Images.Select(m =>m.Image).FirstOrDefault(),
+                            Town = s.Town,
+                            Category = s.Category.CategoryName
                         }).ToList();
                         break;
 
@@ -665,15 +669,12 @@ namespace LookAuKwat.Controllers
                         data = modelresult.ListePro.Select(s => new DataJsonProductViewModel
                         {
                             Title = s.Title,
-                            Coordinate = s.Coordinate,
+                            Lat = s.Coordinate.Lat,
+                            Lon = s.Coordinate.Lon,
                             id = s.id,
-                            Price = s.Price,
-                            Description = s.Description,
-                            DateAdd = s.DateAdd.ToString(),
-                            Images = s.Images.Select(o => o.Image).ToList(),
-                            User = s.User,
-                            Street = s.Street,
-                            Town = s.Town
+                            Images = s.Images.Select(o => o.Image).FirstOrDefault(),
+                            Town = s.Town,
+                            Category = s.Category.CategoryName
                         }).ToList();
                         break;
 
@@ -686,15 +687,12 @@ namespace LookAuKwat.Controllers
                         data = modelresult.ListePro.Select(s => new DataJsonProductViewModel
                         {
                             Title = s.Title,
-                            Coordinate = s.Coordinate,
+                            Lat = s.Coordinate.Lat,
+                            Lon = s.Coordinate.Lon,
                             id = s.id,
-                            Price = s.Price,
-                            Description = s.Description,
-                            DateAdd = s.DateAdd.ToString(),
-                            Images = s.Images.Select(o => o.Image).ToList(),
-                            User = s.User,
-                            Street = s.Street,
-                            Town = s.Town
+                            Images = s.Images.Select(o => o.Image).FirstOrDefault(),
+                            Town = s.Town,
+                            Category = s.Category.CategoryName
                         }).ToList();
                         break;
                     case "Mode":
@@ -706,15 +704,13 @@ namespace LookAuKwat.Controllers
                         data = modelresult.ListePro.Select(s => new DataJsonProductViewModel
                         {
                             Title = s.Title,
-                            Coordinate = s.Coordinate,
+                            Lat = s.Coordinate.Lat,
+                            Lon = s.Coordinate.Lon,
                             id = s.id,
-                            Price = s.Price,
-                            Description = s.Description,
-                            DateAdd = s.DateAdd.ToString(),
-                            Images = s.Images.Select(o => o.Image).ToList(),
-                            User = s.User,
-                            Street = s.Street,
-                            Town = s.Town
+                            Images = s.Images.Select(o => o.Image).FirstOrDefault(),
+                            Town = s.Town,
+                            Category = s.Category.CategoryName
+                            
                         }).ToList();
                         break;
                          case "Maison":
@@ -726,15 +722,12 @@ namespace LookAuKwat.Controllers
                         data = modelresult.ListePro.Select(s => new DataJsonProductViewModel
                         {
                             Title = s.Title,
-                            Coordinate = s.Coordinate,
+                            Lat = s.Coordinate.Lat,
+                            Lon = s.Coordinate.Lon,
                             id = s.id,
-                            Price = s.Price,
-                            Description = s.Description,
-                            DateAdd = s.DateAdd.ToString(),
-                            Images = s.Images.Select(o => o.Image).ToList(),
-                            User = s.User,
-                            Street = s.Street,
-                            Town = s.Town
+                            Images = s.Images.Select(o => o.Image).FirstOrDefault(),
+                            Town = s.Town,
+                            Category = s.Category.CategoryName
                         }).ToList();
                         break;
                 }
@@ -751,17 +744,13 @@ namespace LookAuKwat.Controllers
                 }
                 data = modelresult.ListePro.Select(s => new DataJsonProductViewModel
                 {
-                    Category = s.Category,
                     Title = s.Title,
-                    Coordinate = s.Coordinate,
+                    Lat = s.Coordinate.Lat,
+                    Lon = s.Coordinate.Lon,
                     id = s.id,
-                    Price = s.Price,
-                    Description = s.Description,
-                    DateAdd = s.DateAdd.ToString(),
-                    Images = s.Images.Select(o => o.Image).ToList(),
-                    User = s.User,
-                    Street = s.Street,
-                    Town = s.Town
+                    Images = s.Images.Select(o => o.Image).FirstOrDefault(),
+                    Town = s.Town,
+                    Category = s.Category.CategoryName
                 }).ToList();
                 }
                 catch (Exception e)

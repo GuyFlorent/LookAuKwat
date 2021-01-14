@@ -76,7 +76,7 @@
     </div>
 
         <button id="submitJobb" type="submit" class="btn btn-primary">
-            <span class="glyphicon glyphicon-search"></span> <strong>Rechercher @*(<span class="badge"></span> Résultats)*@</strong>
+            <span class="glyphicon glyphicon-search"></span> <strong>Rechercher (<span class="badge"></span> Résultats)</strong>
         </button>
     </div>
 }
@@ -87,21 +87,21 @@
 }
 
 <script type="text/javascript">
-    //$(function () {
-    //   // ResultJobSpan();
-    //    $("#ActivitySectorJob").change(ResultJobSpan);
-    //    $("#TownSearchJob").change(ResultJobSpan);
-    //    $("#TypeContractJob").change(ResultJobSpan);
+    $(function () {
+        ResultJobSpan();
+        $("#ActivitySectorJob").change(ResultJobSpan);
+        $("#TownSearchJob").change(ResultJobSpan);
+        $("#TypeContractJob").change(ResultJobSpan);
         
-    //    $('#PriceMinSearchJob').on('input', function () {
-    //        ResultJobSpan();
-    //    });
-    //    $('#PriceMaxSearchJob').on('input', function () {
-    //        ResultJobSpan();
-    //    });
-    //});
+        $('#PriceMinSearchJob').on('input', function () {
+            ResultJobSpan();
+        });
+        $('#PriceMaxSearchJob').on('input', function () {
+            ResultJobSpan();
+        });
+    });
 
-    @*function ResultJobSpan() {
+    function ResultJobSpan() {
 
         $.ajax({
             type: "POST",
@@ -132,5 +132,5 @@
             //    alert("Une erreur est survenu  !");
             //}
         })
-    }*@
+    }
 </script>

@@ -28,6 +28,7 @@ namespace LookAuKwat.ViewModel
         public int PriceMaxSearch { get; set; }
         
         public List<ProductModel> ListePro { get; set; }
+        public List<ProductToDisplay> ListeProduct { get; set; }
         public List<JobModel> ListeProJob { get; set; }
         public List<ApartmentRentalModel> ListeProAppart { get; set; }
         public List<MultimediaModel> ListeProMulti { get; set; }
@@ -35,6 +36,8 @@ namespace LookAuKwat.ViewModel
         public List<VehiculeModel> ListeProVehicule { get; set; }
         public List<Models.HouseModel> ListeProHouse { get; set; }
         public IPagedList<ProductModel> ListeProPagedList { get; set; }
+        public IPagedList<ProductToDisplay> ListeProductPagedList { get; set; }
+        
         // for pagedList
 
         public int? PageNumber { get; set; }

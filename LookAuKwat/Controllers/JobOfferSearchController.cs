@@ -4,7 +4,9 @@ using Newtonsoft.Json;
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -39,8 +41,9 @@ namespace LookAuKwat.Controllers
             
             return PartialView(model);
         }
-      
-        public ActionResult ResultSearchOfferJob_PartialView(SeachJobViewModel model, int? pageNumber, string sortBy)
+
+        //[OutputCache(Duration = 300, VaryByParam = "TownSearch;TypeContractJob;ActivitySectorJob;PriceMaxSearch;PriceMinSearch;pageNumber;sortBy")]
+        public async Task< ActionResult> ResultSearchOfferJob_PartialView(SeachJobViewModel model, int? pageNumber, string sortBy)
         {
 
             ViewBag.PriceAscSort = String.IsNullOrEmpty(sortBy) ? "Price desc" : "";
@@ -54,7 +57,7 @@ namespace LookAuKwat.Controllers
             model.PageNumber = pageNumber;
 
 
-            List<JobModel> liste = dal.GetListJobWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch && m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
+            List<JobModel> liste = await dal.GetListJobWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch && m.SearchOrAskJob == model.SearchOrAskJobJob).ToListAsync();
 
             if (!string.IsNullOrWhiteSpace(model.TownSearch))
             {
@@ -127,7 +130,7 @@ namespace LookAuKwat.Controllers
 
 
 
-        public ActionResult ResultSearchOfferJob_Jason(string sector, string town, string contract, int minPrice, int maxPrice)
+        public async Task<JsonResult> ResultSearchOfferJob_Jason(string sector, string town, string contract, int minPrice, int maxPrice)
        {
             SeachJobViewModel model = new SeachJobViewModel();
             model.ActivitySectorJob = sector;
@@ -137,7 +140,7 @@ namespace LookAuKwat.Controllers
             model.PriceMaxSearch = maxPrice;
             model.CagtegorieSearch = "Emploi";
             model.SearchOrAskJobJob = "J'offre";
-            List<JobModel> liste = dal.GetListJobWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch && m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
+            List<JobModel> liste = await dal.GetListJobWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch && m.SearchOrAskJob == model.SearchOrAskJobJob).ToListAsync();
 
             if (!string.IsNullOrWhiteSpace(model.TownSearch))
             {
@@ -167,12 +170,22 @@ namespace LookAuKwat.Controllers
                 liste = liste.Where(m => m.Price <= model.PriceMaxSearch).ToList();
             }
 
-   
-            TempData["listeJobJson"] = liste;
-            model.ListePro = new List<ProductModel>();
-            return RedirectToAction("ResultSearchJson", "Product", model);
+
+            // TempData["listeJobJson"] = liste;
+            var data = liste.Select(s => new DataJsonProductViewModel
+            {
+                Title = s.Title,
+                Lat = s.Coordinate.Lat,
+                Lon = s.Coordinate.Lon,
+                id = s.id,
+                Images = s.Images.Select(m => m.Image).FirstOrDefault(),
+                Town = s.Town,
+                Category = s.Category.CategoryName
+            }).ToList();
+            //model.ListePro = new List<ProductModel>();
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult ResultJobSpan_Jason(string sector, string town, string contract, int minPrice, int maxPrice)
+        public async Task<JsonResult> ResultJobSpan_Jason(string sector, string town, string contract, int minPrice, int maxPrice)
         {
             SeachJobViewModel model = new SeachJobViewModel();
             model.ActivitySectorJob = sector;
@@ -182,7 +195,7 @@ namespace LookAuKwat.Controllers
             model.PriceMaxSearch = maxPrice;
             model.CagtegorieSearch = "Emploi";
             model.SearchOrAskJobJob = "J'offre";
-            List<JobModel> liste = dal.GetListJobWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch && m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
+            List<JobModel> liste = await dal.GetListJobWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch && m.SearchOrAskJob == model.SearchOrAskJobJob).ToListAsync();
 
             if (!string.IsNullOrWhiteSpace(model.TownSearch))
             {

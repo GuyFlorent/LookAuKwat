@@ -4,10 +4,13 @@ using PagedList;
 using RotativaHQ.MVC5;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.ModelBinding;
 using System.Web.Mvc;
+using Twilio.Rest.Preview.Understand.Assistant.Task;
 
 namespace LookAuKwat.Controllers
 {
@@ -28,12 +31,12 @@ namespace LookAuKwat.Controllers
         {
             return View();
         }
-        public ActionResult ListAllUser(SearchUser_Admin model, int? pageNumber, string sortBy)
+        public async Task< ActionResult> ListAllUser(SearchUser_Admin model, int? pageNumber, string sortBy)
         {
             ViewBag.PriceAscSort = String.IsNullOrEmpty(sortBy) ? "date desc" : "";
             ViewBag.DateAscSort = sortBy == "Plus anciennes" ? "date asc" : "";
            
-            IEnumerable<ApplicationUser> liste = dal.GetUsersList();
+            IEnumerable<ApplicationUser> liste = await dal.GetUsersList().ToListAsync();
            
             if (!string.IsNullOrWhiteSpace(model.term))
             {
@@ -58,12 +61,12 @@ namespace LookAuKwat.Controllers
             ViewBag.NumberOfUser = liste.Count();
             return View(liste.ToPagedList(pageNumber ?? 1, 10));
         }
-        public ActionResult ListAllAgents(SearchUser_Admin model, int? PageNumber, string sortBy)
+        public async Task< ActionResult> ListAllAgents(SearchUser_Admin model, int? PageNumber, string sortBy)
         {
             ViewBag.PriceAscSort = String.IsNullOrEmpty(sortBy) ? "date desc" : "";
             ViewBag.DateAscSort = sortBy == "Plus anciennes" ? "date asc" : "";
 
-            IEnumerable<ParrainModel> liste = dal.GetParrainList();
+            IEnumerable<ParrainModel> liste = await dal.GetParrainList().ToListAsync();
             if (!string.IsNullOrWhiteSpace(model.term))
             {
                 liste = liste.Where(m => m.ParrainEmail.ToLower().Contains(model.term.ToLower())
@@ -96,11 +99,11 @@ namespace LookAuKwat.Controllers
         {
             return PartialView(model);
         }
-        public ActionResult AddParrain(ParrainViewModel model)
+        public async Task< ActionResult> AddParrain(ParrainViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = dal.GetUsersList().FirstOrDefault(m => m.Email == model.Email);
+                var user = await dal.GetUsersList().FirstOrDefaultAsync(m => m.Email == model.Email);
 
                 if(user != null)
                 {
@@ -119,21 +122,21 @@ namespace LookAuKwat.Controllers
             }
             return RedirectToAction("ListAllAgents");
         }
-        public ActionResult DeletParrain(string userEmail)
+        public async Task< ActionResult> DeletParrain(string userEmail)
         {
-            var user = dal.GetUsersList().FirstOrDefault(m => m.Email == userEmail);
-            var parrain = dal.GetParrainList().FirstOrDefault(m => m.Id == user.Parrain_Id);
+            var user = await dal.GetUsersList().FirstOrDefaultAsync(m => m.Email == userEmail);
+            var parrain = await dal.GetParrainList().FirstOrDefaultAsync(m => m.Id == user.Parrain_Id);
             dal.DeletParrain(parrain);
             return View();
         }
 
-        public ActionResult Stat_Account_Agent(string userEmail, int? PageNumber, string sortBy)
+        public async Task< ActionResult> Stat_Account_Agent(string userEmail, int? PageNumber, string sortBy)
         {
-            var parrain = dal.GetParrainList().FirstOrDefault(m => m.ParrainEmail == userEmail);
+            var parrain = await dal.GetParrainList().FirstOrDefaultAsync(m => m.ParrainEmail == userEmail);
             List<DataUser_Agent> liste = new List<DataUser_Agent>();
             if(parrain != null)
             {
-                List<ApplicationUser> Liste_All_User_Parraine = dal.GetUsersList().Where(m => m.Parrain_Id == parrain.Id).ToList();
+                List<ApplicationUser> Liste_All_User_Parraine = await dal.GetUsersList().Where(m => m.Parrain_Id == parrain.Id).ToListAsync();
 
             foreach(var user in Liste_All_User_Parraine)
                 {
@@ -156,7 +159,7 @@ namespace LookAuKwat.Controllers
                     {
                         data.ConfirmPhoneNumber = "non";
                     }
-                    var product = dal.GetListProductWhithNoInclude().FirstOrDefault(m => m.User== user);
+                    var product =   dal.GetListProductWhithNoInclude().FirstOrDefault(m => m.User.Id== user.Id);
 
                     if (product != null)
                     {
@@ -165,6 +168,8 @@ namespace LookAuKwat.Controllers
                     else
                     {
                         data.ConfirmPublish = "non";
+                       // user.Date_First_Publish = null;
+                       // dal.UpdateUserByAdmin(user);
                     }
                     if(data.ConfirmPublish == "oui" && (data.ConfirmEmail == "oui" || data.ConfirmPhoneNumber =="oui") )
                     {
@@ -224,12 +229,12 @@ namespace LookAuKwat.Controllers
       
             return View();
         }
-        public ActionResult PrintOneReceipt(string email, string month)
+        public async Task< ActionResult> PrintOneReceipt(string email, string month)
         {
             string userEmail = email;
            
-            var parrain = dal.GetParrainList().FirstOrDefault(m => m.ParrainEmail == userEmail);
-            var userr = dal.GetUsersList().FirstOrDefault(m => m.Email == userEmail);
+            var parrain = await dal.GetParrainList().FirstOrDefaultAsync(m => m.ParrainEmail == userEmail);
+            var userr = await dal.GetUsersList().FirstOrDefaultAsync(m => m.Email == userEmail);
             List<DataUser_Agent> liste = new List<DataUser_Agent>();
             DateTime? date = null;
             DateTime? date2 = null;
@@ -238,7 +243,7 @@ namespace LookAuKwat.Controllers
             {
 
 
-                List<ApplicationUser> Liste_All_User_Parraine = dal.GetUsersList().Where(m => m.Parrain_Id == parrain.Id).ToList();
+                List<ApplicationUser> Liste_All_User_Parraine = await dal.GetUsersList().Where(m => m.Parrain_Id == parrain.Id).ToListAsync();
 
                 ViewBag.Email = userEmail;
                 ViewBag.ParainId = parrain.Id;
@@ -309,14 +314,32 @@ namespace LookAuKwat.Controllers
                         break;
                     case "Decembre":
                         date = new DateTime(2020, 12, 27, 0, 0, 0);
-                        date2 = new DateTime(2020, 11, 27, 0, 0, 0);
+                        date2 = new DateTime(2020, 11, 28, 0, 0, 0);
                         ViewBag.Month = "Decembre";
+                        ViewBag.PromoDecembre = "Promo Décembre";
+                        ViewBag.SuperPromoDecembre = "Promo de 50 utilisateurs";
                         Liste_All_User_Parraine = Liste_All_User_Parraine.Where(m => m.Date_First_Publish != null && m.Date_First_Publish >= date2 && m.Date_First_Publish <= date).ToList();
+                        ViewBag.TotalpricePromo = Liste_All_User_Parraine.Where(m => (m.EmailConfirmed == true || m.PhoneNumberConfirmed == true) && m.Date_First_Publish != null).Count() * 200;
+
+                        var total = Liste_All_User_Parraine.Where(m => (m.EmailConfirmed == true || m.PhoneNumberConfirmed == true) && m.Date_First_Publish != null).Count();
+                        if(total >= 50)
+                        {
+                            ViewBag.TotalpricePromoSuper = Liste_All_User_Parraine.Where(m => (m.EmailConfirmed == true || m.PhoneNumberConfirmed == true) && m.Date_First_Publish != null).Count() * 200 * 2;
+
+                        }
+                        else
+                        {
+                            ViewBag.TotalpricePromoSuper = "Objectif de 50 inscrits non réalisé ";
+
+                        }
+
+
                         break;
                 }
 
 
                 ViewBag.TotalWithAnnouce = Liste_All_User_Parraine.Where(m => (m.EmailConfirmed == true || m.PhoneNumberConfirmed == true) && m.Date_First_Publish != null).Count();
+               
                 ViewBag.Totalprice = Liste_All_User_Parraine.Where(m => (m.EmailConfirmed == true || m.PhoneNumberConfirmed == true) && m.Date_First_Publish != null).Count() * 100;
 
                 var receipt = new ViewAsPdf("receipt_PartialView") { FileName = "Recu_" + parrain.ParrainFirstName + "_" + DateTime.Now.ToString("ddMMyyyy") + ".pdf" };
@@ -325,6 +348,27 @@ namespace LookAuKwat.Controllers
             }
             return View();
         }
+
+        // clean image in product contain more thanone image
+        //remove the one contain http
+
+        //public ActionResult RemoveImage_ContainHttpIn_Alot()
+        //{
+        //    var Images = dal.GetImageList().Where(m => m.ImageMobile == "https://lookaukwat.azurewebsites.nethttps://particulier-employeur.fr/wp-content/themes/fepem/img/general/avatar.png").ToList();
+
+
+        //    List<ImageProcductModel> list = new List<ImageProcductModel>();
+        //    foreach (var image in Images)
+        //    {
+
+        //        image.ImageMobile = "https://particulier-employeur.fr/wp-content/themes/fepem/img/general/avatar.png";
+        //        dal.UpdateImage(image);
+
+        //    }
+
+        //    // var number = list.Count;
+        //    return View();
+        //}
 
     }
 }

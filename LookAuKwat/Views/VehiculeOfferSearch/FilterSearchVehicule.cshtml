@@ -421,16 +421,16 @@
                       function (data) {
                          
                     for (var i = 0; i < data.length; i++) {
-                        console.log(data[i].Coordinate.Lat);
+                        console.log(data[i].Lat);
 
-                        var popup = '<div class="thumbnail"> <a  href="' + data[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].Title + '">  <img class="img-rounded img-responsive" id="ImageDetailIniById" src="' + data[i].Images[0] + '" alt="LookAuKwat ' + data[i].Title + '" style="Height:130px"></a> </div>' +
+                        var popup = '<div class="thumbnail"> <a  href="' + data[i].Images + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data[i].Title + '">  <img class="img-rounded img-responsive" id="ImageDetailIniById" src="' + data[i].Images + '" alt="LookAuKwat ' + data[i].Title + '" style="Height:130px"></a> </div>' +
                             '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data[i].Title +
                             '<br/><b>Adresse : </b>' + data[i].Town +
                             '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Vehicule/VehiculeDetail/' + data[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
 
 
 
-                        var markerjob = L.marker([data[i].Coordinate.Lat, data[i].Coordinate.Lon])
+                        var markerjob = L.marker([data[i].Lat, data[i].Lon])
                            .bindPopup(popup)
                        // .addTo(mymapJob);
 

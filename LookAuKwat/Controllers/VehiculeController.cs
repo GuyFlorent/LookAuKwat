@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -201,7 +202,8 @@ namespace LookAuKwat.Controllers
                         ImageProcductModel picture = new ImageProcductModel
                         {
                             id = Guid.NewGuid(),
-                            Image = "https://particulier-employeur.fr/wp-content/themes/fepem/img/general/avatar.png"
+                            Image = "https://particulier-employeur.fr/wp-content/themes/fepem/img/general/avatar.png",
+                            ImageMobile = "https://particulier-employeur.fr/wp-content/themes/fepem/img/general/avatar.png"
                         };
                         liste.Add(picture);
                     }
@@ -214,7 +216,8 @@ namespace LookAuKwat.Controllers
                 ImageProcductModel picture = new ImageProcductModel
                 {
                     id = Guid.NewGuid(),
-                    Image = "https://particulier-employeur.fr/wp-content/themes/fepem/img/general/avatar.png"
+                    Image = "https://particulier-employeur.fr/wp-content/themes/fepem/img/general/avatar.png",
+                    ImageMobile = "https://particulier-employeur.fr/wp-content/themes/fepem/img/general/avatar.png"
                 };
                 liste.Add(picture);
 
@@ -287,15 +290,13 @@ namespace LookAuKwat.Controllers
             return PartialView(model);
         }
 
-        public ActionResult VehiculeDetail(int id)
+        [OutputCache(Duration = int.MaxValue, VaryByParam = "id")]
+        public async Task< ActionResult> VehiculeDetail(int id)
         {
-            VehiculeModel model = dal.GetListVehiculeWithNoInclude().FirstOrDefault(e => e.id == id);
+            VehiculeModel model =  await dal.GetListVehiculeWithNoInclude().FirstOrDefaultAsync(e => e.id == id);
             model.ViewNumber++;
             dal.UpdateNumberView(model);
-            if (model.Images.Count > 1)
-            {
-                model.Images = model.Images.Where(m => !m.Image.StartsWith("http")).ToList();
-            }
+           
             return View(model);
         }
 

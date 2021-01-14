@@ -102,13 +102,15 @@ else
                 }
 
             </table>
+            <br />
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) sur @Model.PageCount
+            @Html.PagedListPager(Model, pageNumber => Url.Action("Stat_Account_Agent", "Admin", new { userEmail = ViewBag.Email, pageNumber, sortBy = Request["sortBy"] }))
 
         </div>
     </div>
 
 }
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) sur @Model.PageCount
-@Html.PagedListPager(Model, pageNumber => Url.Action("Stat_Account_Agent", "Admin", new { userEmail = ViewBag.Email, pageNumber, sortBy = Request["sortBy"] }))
+
 <hr />
 <label>Salaire Total : </label><strong> @ViewBag.Totalprice FCFA </strong>
 <p class="text-info">Vous aurez plus de détails de vos salaires plus recu dans les prochains jours</p>

@@ -270,14 +270,14 @@ else
             </p>
         </div>
 
-        @*<hr />
+        <hr />
         <h3>Quelques annonce similaire qui peuvent vous intéréssez</h3>
         <div class="row gallery MySlickCarouselJob">
 
             @{
                 Html.RenderAction("SimilarProduct_PartialView", "Product", new { model = Model });
             }
-        </div>*@
+        </div>
     </section>
     <section class="col-md-4">
         <div class="row" style="border-radius: 25px;background: lightgray;padding: 20px;">
@@ -424,31 +424,31 @@ else
             $('#MyModalContactJob').modal();
         });
 
-        //$('.MySlickCarouselJob').slick({
-        //    centerMode: true,
-        //    centerPadding: '60px',
-        //    slidesToShow: 3,
-        //    responsive: [
-        //        {
-        //            breakpoint: 768,
-        //            settings: {
-        //                arrows: false,
-        //                centerMode: true,
-        //                centerPadding: '40px',
-        //                slidesToShow: 3
-        //            }
-        //        },
-        //        {
-        //            breakpoint: 480,
-        //            settings: {
-        //                arrows: false,
-        //                centerMode: true,
-        //                centerPadding: '40px',
-        //                slidesToShow: 1
-        //            }
-        //        }
-        //    ]
-        //});
+        $('.MySlickCarouselJob').slick({
+            centerMode: true,
+            centerPadding: '60px',
+            slidesToShow: 3,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 3
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 1
+                    }
+                }
+            ]
+        });
 
 
     })

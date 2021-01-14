@@ -108,7 +108,7 @@
     </div>
 
         <button id="submitHouse"  type="submit" class="btn btn-primary">
-            <span class="glyphicon glyphicon-search"></span> <strong>Rechercher @*(<span class="badge"></span> Résultats)*@</strong>
+            <span class="glyphicon glyphicon-search"></span> <strong>Rechercher (<span class="badge"></span> Résultats)</strong>
         </button>
     </div>
 }
@@ -234,27 +234,27 @@
             }
 
         })
-       // ResultHouseSpan();
-        //$("#TownHouse").change(ResultHouseSpan);
-        //$("#TypeHouseAmmeublement").change(ResultHouseSpan);
-        //$("#BrandMultimedia").change(ResultHouseSpan);
-        //$("#TypeHouseCuisine").change(ResultHouseSpan);
-        //$("#TypeHouseDecoration").change(ResultHouseSpan);
-        //$("#TypeHouseLinge").change(ResultHouseSpan);
-        //$("#FabricMaterialeHouseAmmeublementDeco").change(ResultHouseSpan);
-        //$("#FabricMaterialeHouseCuisine").change(ResultHouseSpan);
-        //$("#FabricMaterialeHouseLinge").change(ResultHouseSpan);
-        //$("#ColorHouse").change(ResultHouseSpan);
-        //$("#StateHouse").change(ResultHouseSpan);
+        ResultHouseSpan();
+        $("#TownHouse").change(ResultHouseSpan);
+        $("#TypeHouseAmmeublement").change(ResultHouseSpan);
+        $("#BrandMultimedia").change(ResultHouseSpan);
+        $("#TypeHouseCuisine").change(ResultHouseSpan);
+        $("#TypeHouseDecoration").change(ResultHouseSpan);
+        $("#TypeHouseLinge").change(ResultHouseSpan);
+        $("#FabricMaterialeHouseAmmeublementDeco").change(ResultHouseSpan);
+        $("#FabricMaterialeHouseCuisine").change(ResultHouseSpan);
+        $("#FabricMaterialeHouseLinge").change(ResultHouseSpan);
+        $("#ColorHouse").change(ResultHouseSpan);
+        $("#StateHouse").change(ResultHouseSpan);
 
 
-        //$('#PriceHouse').on('input', function () {
-        //    ResultHouseSpan();
-        //});
+        $('#PriceHouse').on('input', function () {
+            ResultHouseSpan();
+        });
        
     })
 
-     @*function ResultHouseSpan() {
+     function ResultHouseSpan() {
 
        $.ajax({
             type: "POST",
@@ -292,5 +292,5 @@
            //     alert("Une erreur est survenu  !");
            // }
         })
-    }*@
+    }
 </script>

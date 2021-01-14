@@ -309,7 +309,8 @@ namespace LookAuKwat.Controllers
                         ImageProcductModel picture = new ImageProcductModel
                         {
                             id = Guid.NewGuid(),
-                            Image = "https://particulier-employeur.fr/wp-content/themes/fepem/img/general/avatar.png"
+                            Image = "https://particulier-employeur.fr/wp-content/themes/fepem/img/general/avatar.png",
+                            ImageMobile = "https://particulier-employeur.fr/wp-content/themes/fepem/img/general/avatar.png"
                         };
                         liste.Add(picture);
                     }
@@ -322,7 +323,8 @@ namespace LookAuKwat.Controllers
                 ImageProcductModel picture = new ImageProcductModel
                 {
                     id = Guid.NewGuid(),
-                    Image = "https://particulier-employeur.fr/wp-content/themes/fepem/img/general/avatar.png"
+                    Image = "https://particulier-employeur.fr/wp-content/themes/fepem/img/general/avatar.png",
+                    ImageMobile = "https://particulier-employeur.fr/wp-content/themes/fepem/img/general/avatar.png"
                 };
                 liste.Add(picture);
 
@@ -363,6 +365,7 @@ namespace LookAuKwat.Controllers
                         ImageProcductModel picture = new ImageProcductModel
                         {
                             Image = userImage.Image,
+                            ImageMobile = "https://lookaukwat.azurewebsites.net" + userImage.Image,
                             id = Guid.NewGuid(),
                             ProductId = product.id
                         };
@@ -402,16 +405,13 @@ namespace LookAuKwat.Controllers
             }
         }
 
+        [OutputCache(Duration = int.MaxValue, VaryByParam = "id")]
         public ActionResult JobDetail(int id)
         {
             JobModel model = dal.GetListJobWithNoInclude().FirstOrDefault(e => e.id == id);
             model.ViewNumber++;
             dal.UpdateNumberView(model);
           
-            if (model.Images.Count > 1)
-            {
-                model.Images = model.Images.Where(m=> !m.Image.StartsWith("http")).ToList();
-            }
             
             return View(model);
         }

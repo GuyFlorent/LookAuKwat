@@ -291,6 +291,10 @@
     <Compile Include="Migrations\202011181457402_HouseModel.Designer.cs">
       <DependentUpon>202011181457402_HouseModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012131048575_ImageMobile.cs" />
+    <Compile Include="Migrations\202012131048575_ImageMobile.Designer.cs">
+      <DependentUpon>202012131048575_ImageMobile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApartmentRentalModel.cs" />
@@ -325,6 +329,7 @@
     <Compile Include="ViewModel\MultimediaViewModel.cs" />
     <Compile Include="ViewModel\ParrainViewModel.cs" />
     <Compile Include="ViewModel\PrintViewModel.cs" />
+    <Compile Include="ViewModel\ProductToDisplay.cs" />
     <Compile Include="ViewModel\SeachJobViewModel.cs" />
     <Compile Include="ViewModel\SearchUser_Admin.cs" />
     <Compile Include="ViewModel\SelectListMethod.cs" />
@@ -600,6 +605,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011181457402_HouseModel.resx">
       <DependentUpon>202011181457402_HouseModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012131048575_ImageMobile.resx">
+      <DependentUpon>202012131048575_ImageMobile.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

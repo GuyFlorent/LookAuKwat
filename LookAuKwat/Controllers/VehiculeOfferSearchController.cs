@@ -3,7 +3,9 @@ using LookAuKwat.ViewModel;
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -38,7 +40,8 @@ namespace LookAuKwat.Controllers
             return PartialView(model);
         }
 
-        public ActionResult searchOfferVehicule(SeachJobViewModel model, int? pageNumber, string sortBy)
+       // [OutputCache(Duration = 300, VaryByParam = "TownVehicule;RubriqueVehicule;BrandVehicule;ModelVehicule;pageNumber;sortBy")]
+        public async Task< ActionResult> searchOfferVehicule(SeachJobViewModel model, int? pageNumber, string sortBy)
         {
             
             ViewBag.PriceAscSort = String.IsNullOrEmpty(sortBy) ? "Price desc" : "";
@@ -50,8 +53,8 @@ namespace LookAuKwat.Controllers
             model.SearchOrAskJobJob = "J'offre";
             model.sortBy = sortBy;
             model.PageNumber = pageNumber;
-            List<VehiculeModel> liste = dal.GetListVehiculeWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch &&
-            m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
+            List<VehiculeModel> liste = await dal.GetListVehiculeWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch &&
+            m.SearchOrAskJob == model.SearchOrAskJobJob).ToListAsync();
 
             if (!string.IsNullOrWhiteSpace(model.TownVehicule))
             {
@@ -110,7 +113,7 @@ namespace LookAuKwat.Controllers
         }
 
 
-        public ActionResult searchOfferVehicule_Json(string town, string rubrique, string brand, string modele)
+        public async Task< JsonResult> searchOfferVehicule_Json(string town, string rubrique, string brand, string modele)
         {
             SeachJobViewModel model = new SeachJobViewModel();
             model.TownVehicule = town;
@@ -120,8 +123,8 @@ namespace LookAuKwat.Controllers
            
             model.CagtegorieSearch = "Vehicule";
             model.SearchOrAskJobJob = "J'offre";
-            List<VehiculeModel> liste = dal.GetListVehiculeWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch &&
-            m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
+            List<VehiculeModel> liste = await dal.GetListVehiculeWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch &&
+            m.SearchOrAskJob == model.SearchOrAskJobJob).ToListAsync();
 
             if (!string.IsNullOrWhiteSpace(model.TownVehicule))
             {
@@ -143,13 +146,23 @@ namespace LookAuKwat.Controllers
                 liste = liste.Where(m => m.ModelVehicule == model.ModelVehicule).ToList();
             }
 
-            TempData["listeVehicule_Json"] = liste;
-            model.ListePro = new List<ProductModel>();
-            return RedirectToAction("ResultSearchJson", "Product", model);
+            //TempData["listeVehicule_Json"] = liste;
+            var data = liste.Select(s => new DataJsonProductViewModel
+            {
+                Title = s.Title,
+                Lat = s.Coordinate.Lat,
+                Lon = s.Coordinate.Lon,
+                id = s.id,
+                Images = s.Images.Select(m => m.Image).FirstOrDefault(),
+                Town = s.Town,
+                Category = s.Category.CategoryName
+            }).ToList();
+            //model.ListePro = new List<ProductModel>();
+            return Json(data, JsonRequestBehavior.AllowGet);
 
         }
 
-        public JsonResult searchOfferVehiculeSpan_Json(string town, string rubrique, string brand, string modele)
+        public async Task< JsonResult> searchOfferVehiculeSpan_Json(string town, string rubrique, string brand, string modele)
         {
             SeachJobViewModel model = new SeachJobViewModel();
             model.TownVehicule = town;
@@ -159,8 +172,8 @@ namespace LookAuKwat.Controllers
 
             model.CagtegorieSearch = "Vehicule";
             model.SearchOrAskJobJob = "J'offre";
-            List<VehiculeModel> liste = dal.GetListVehiculeWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch &&
-            m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
+            List<VehiculeModel> liste = await dal.GetListVehiculeWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch &&
+            m.SearchOrAskJob == model.SearchOrAskJobJob).ToListAsync();
 
             if (!string.IsNullOrWhiteSpace(model.TownVehicule))
             {

@@ -185,14 +185,14 @@
                 <a href="whatsapp://send?text=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/ApartDetail/@Model.id" data-action="share/whatsapp/share"><img alt="whatsapp" src="@Url.Content("~/UserImage/whatsapp.png ")" id="imgln" height="40" /></a>
             </p>
         </div>
-        @*<hr />
+        <hr />
         <h3>Quelques annonces similaire qui peuvent vous intéréssez</h3>
         <div class="row gallery MySlickCarouselAppart">
 
             @{
                 Html.RenderAction("SimilarProduct_PartialView", "Product", new { model = Model });
             }
-        </div>*@
+        </div>
     </section>
     <section class="col-md-4">
         <div id="ajaxImotarget" class="row" style="border-radius: 25px;background: lightgray;padding: 20px;">
@@ -334,31 +334,31 @@
             interval: false
         });
 
-        //$('.MySlickCarouselAppart').slick({
-        //    centerMode: true,
-        //    centerPadding: '60px',
-        //    slidesToShow: 2,
-        //    responsive: [
-        //        {
-        //            breakpoint: 768,
-        //            settings: {
-        //                arrows: false,
-        //                centerMode: true,
-        //                centerPadding: '40px',
-        //                slidesToShow: 3
-        //            }
-        //        },
-        //        {
-        //            breakpoint: 480,
-        //            settings: {
-        //                arrows: false,
-        //                centerMode: true,
-        //                centerPadding: '40px',
-        //                slidesToShow: 1
-        //            }
-        //        }
-        //    ]
-        //});
+        $('.MySlickCarouselAppart').slick({
+            centerMode: true,
+            centerPadding: '60px',
+            slidesToShow: 2,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 3
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 1
+                    }
+                }
+            ]
+        });
 
       
         //$(window).resize(function () {

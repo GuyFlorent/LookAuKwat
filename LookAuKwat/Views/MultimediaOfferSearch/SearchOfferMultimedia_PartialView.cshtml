@@ -76,19 +76,19 @@
 
 <script type="text/javascript">
     $(function () {
-       // ResultMultimediaSpan();
-        //$("#TownMultimedia").change(ResultMultimediaSpan);
-        //$("#TypeMultimedia").change(ResultMultimediaSpan);
-        //$("#BrandMultimedia").change(ResultMultimediaSpan);
-        //$("#Capacity").change(ResultMultimediaSpan);
+        ResultMultimediaSpan();
+        $("#TownMultimedia").change(ResultMultimediaSpan);
+        $("#TypeMultimedia").change(ResultMultimediaSpan);
+        $("#BrandMultimedia").change(ResultMultimediaSpan);
+        $("#Capacity").change(ResultMultimediaSpan);
        
 
-        //$('#ModelMultimedia').on('input', function () {
-        //    ResultMultimediaSpan();
-        //});
-        //$('#PriceMultimedia').on('input', function () {
-        //    ResultMultimediaSpan();
-        //});
+        $('#ModelMultimedia').on('input', function () {
+            ResultMultimediaSpan();
+        });
+        $('#PriceMultimedia').on('input', function () {
+            ResultMultimediaSpan();
+        });
     })
     $("#ModelMultimedia").autocomplete({
         source: function (request, response) {
@@ -132,7 +132,7 @@
             }
         });
 
-    @*function ResultMultimediaSpan() {
+    function ResultMultimediaSpan() {
 
         $.ajax({
             type: "POST",
@@ -164,5 +164,5 @@
             //    alert("Une erreur est survenu  !");
             //}
         })
-    }*@
+    }
 </script>

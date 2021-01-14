@@ -2,7 +2,9 @@
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -26,12 +28,12 @@ namespace LookAuKwat.Controllers
             return View();
         }
 
-        public ActionResult GetListProductByUser_PartialView(string id)
+        public  ActionResult GetListProductByUser_PartialView(string id)
         {
             //string id = User.Identity.GetUserId();
             if (!string.IsNullOrWhiteSpace(id))
             {
-                IEnumerable<ProductModel> liste = dal.GetListUserProduct(id).OrderByDescending(m =>m.DateAdd);
+                IEnumerable<ProductModel> liste =  dal.GetListProductWhithNoInclude().Where(m=>m.User.Id== id).OrderByDescending(m =>m.DateAdd).ToList();
                 return PartialView(liste);
             }
             

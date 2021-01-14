@@ -297,44 +297,44 @@
                 //$badge.text(number);
                 for (var i = 0; i < data2.length; i++) {
                     console.log(data2[i]);
-                    if (data2[i].Category.CategoryName == "Emploi") {
+                    if (data2[i].Category == "Emploi") {
 
                         var popup2 =
-                            '<div class="thumbnail"> <a  href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img class="img-rounded img-responsive" id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="photo de' + data2[i].Title + '" style="Height:130px;"></a> </div>' +
+                            '<div class="thumbnail"> <a  href="' + data2[i].Images + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img class="img-rounded img-responsive" id="ImageDetailIniById" src="' + data2[i].Images + '" alt="photo de' + data2[i].Title + '" style="Height:130px;"></a> </div>' +
                             '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
                             '<br/><b>ville : </b>' + data2[i].Town +
                             '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Job/JobDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
-                    } else if (data2[i].Category.CategoryName == "Immobilier") {
+                    } else if (data2[i].Category == "Immobilier") {
 
                         var popup2 =
-                            '<div class="thumbnail"> <a  href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img class="img-rounded img-responsive" id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="LookAuKwat ' + data2[i].Title + '" style="Height:130px;"></a> </div>' +
+                            '<div class="thumbnail"> <a  href="' + data2[i].Images + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img class="img-rounded img-responsive" id="ImageDetailIniById" src="' + data2[i].Images + '" alt="LookAuKwat ' + data2[i].Title + '" style="Height:130px;"></a> </div>' +
                             '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
                             '<br/><b>ville : </b>' + data2[i].Town +
                             '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/ApartmentRental/ApartDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
-                    } else if (data2[i].Category.CategoryName == "Multimedia") {
+                    } else if (data2[i].Category == "Multimedia") {
 
                         var popup2 =
-                            '<div class="thumbnail"> <a  href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img class="img-rounded img-responsive" id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="LookAuKwat ' + data2[i].Title + '" style="Height:130px;"></a> </div>' +
+                            '<div class="thumbnail"> <a  href="' + data2[i].Images + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img class="img-rounded img-responsive" id="ImageDetailIniById" src="' + data2[i].Images + '" alt="LookAuKwat ' + data2[i].Title + '" style="Height:130px;"></a> </div>' +
                             '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
                             '<br/><b>ville : </b>' + data2[i].Town +
                             '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Multimedia/MultimediaDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
-                    } else if (data2[i].Category.CategoryName == "Vehicule") {
+                    } else if (data2[i].Category == "Vehicule") {
 
                         var popup2 =
-                            '<div class="thumbnail"> <a  href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img class="img-rounded img-responsive" id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="LookAuKwat ' + data2[i].Title + '" style="Height:130px;"></a> </div>' +
+                            '<div class="thumbnail"> <a  href="' + data2[i].Images + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img class="img-rounded img-responsive" id="ImageDetailIniById" src="' + data2[i].Images + '" alt="LookAuKwat ' + data2[i].Title + '" style="Height:130px;"></a> </div>' +
                             '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
                             '<br/><b>ville : </b>' + data2[i].Town +
                             '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Vehicule/VehiculeDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
-                    } else if (data2[i].Category.CategoryName == "Mode") {
+                    } else if (data2[i].Category == "Mode") {
 
                         var popup2 =
-                            '<div class="thumbnail"> <a  href="' + data2[i].Images[0] + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img class="img-rounded img-responsive" id="ImageDetailIniById" src="' + data2[i].Images[0] + '" alt="LookAuKwat ' + data2[i].Title + '" style="Height:130px;"></a> </div>' +
+                            '<div class="thumbnail"> <a  href="' + data2[i].Images + '" data-lightbox="mygallery" data-title="Image du groupe local ' + data2[i].Title + '">  <img class="img-rounded img-responsive" id="ImageDetailIniById" src="' + data2[i].Images + '" alt="LookAuKwat ' + data2[i].Title + '" style="Height:130px;"></a> </div>' +
                             '<b><span class="glyphicon glyphicon-user"></span> Titre : </b>' + data2[i].Title +
                             '<br/><b>ville : </b>' + data2[i].Town +
                             '<br/><b>Lien: </b>' + '<a class="btn btn-info btn-sm" role="button" href="/Mode/ModeDetail/' + data2[i].id + '">plus de détails <span class="glyphicon glyphicon glyphicon-hand-right"></span></a>'
                     }
 
-                    L.marker([data2[i].Coordinate.Lat, data2[i].Coordinate.Lon])
+                    L.marker([data2[i].Lat, data2[i].Lon])
                         .bindPopup(popup2)
                         .addTo(mymapJob);
                     // allGroup.addLayer(group);

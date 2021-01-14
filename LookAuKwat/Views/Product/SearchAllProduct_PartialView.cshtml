@@ -29,49 +29,49 @@
         </div>
 
         <button id="submitAllProduct" type="submit" class="btn btn-primary">
-            <span class="glyphicon glyphicon-search"></span> <strong>Rechercher @*(<span class="badge"></span> Résultats)*@</strong>
+            <span class="glyphicon glyphicon-search"></span> <strong>Rechercher (<span class="badge"></span> Résultats)</strong>
         </button>
     </div>
 }
 
 <script type="text/javascript">
-    //$(function () {
-    //    //ResultAllSpan();
-    //    $("#TownAllProduct").change(ResultAllSpan);
+    $(function () {
+        ResultAllSpan();
+        $("#TownAllProduct").change(ResultAllSpan);
 
-    //    $('#SearchTermAllProduct').on('input', function () {
-    //        ResultAllSpan();
-    //    });
-    //})
+        $('#SearchTermAllProduct').on('input', function () {
+            ResultAllSpan();
+        });
+    })
 
-    //function ResultAllSpan() {
+    function ResultAllSpan() {
        
-    //    $.ajax({
-    //        type: "POST",
-    //        url: '/Product/listAllProductSpanReturnJson',
-    //        dataType: "json",
-    //        headers: {
-    //            //"api-key": searchServiceApiKey,
-    //            "Content-Type": "application/json"
-    //        },
-    //        data: JSON.stringify({
+        $.ajax({
+            type: "POST",
+            url: '/Product/listAllProductSpanReturnJson',
+            dataType: "json",
+            headers: {
+                //"api-key": searchServiceApiKey,
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify({
 
-    //            town: $("#TownAllProduct").val(),
-    //            term: $("#SearchTermAllProduct").val(),
+                town: $("#TownAllProduct").val(),
+                term: $("#SearchTermAllProduct").val(),
 
 
-    //        }),
-    //        success: function (data2) {
+            }),
+            success: function (data2) {
 
-    //            var $badge = $("#submitAllProduct").find('.badge')
-    //               // number = Object.keys(data2).length;
-    //            $badge.text(data2);
+                var $badge = $("#submitAllProduct").find('.badge')
+                   // number = Object.keys(data2).length;
+                $badge.text(data2);
            
-    //        },
-    //        error: function (xhr) {
-    //            console.log(xhr.responseText);
-    //            alert("Une erreur est survenu  !");
-    //        }
-    //    })
-    //}
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+                alert("Une erreur est survenu  !");
+            }
+        })
+    }
 </script>

@@ -3,7 +3,9 @@ using LookAuKwat.ViewModel;
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -39,7 +41,8 @@ namespace LookAuKwat.Controllers
             return PartialView(model);
         }
 
-        public ActionResult searchOfferMode(SeachJobViewModel model, int? pageNumber, string sortBy)
+      //  [OutputCache(Duration = 300, VaryByParam = "TownMode;ColorMode;StateMode;PriceMode;RubriqueMode;pageNumber;sortBy")]
+        public async Task< ActionResult> searchOfferMode(SeachJobViewModel model, int? pageNumber, string sortBy)
         {
             ViewBag.PriceAscSort = String.IsNullOrEmpty(sortBy) ? "Price desc" : "";
             ViewBag.PriceDescSort = sortBy == "Prix croissant" ? "Price asc" : "";
@@ -51,8 +54,8 @@ namespace LookAuKwat.Controllers
             model.sortBy = sortBy;
             model.PageNumber = pageNumber;
             
-            List<ModeModel> liste = dal.GetListModeWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch &&
-            m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
+            List<ModeModel> liste = await dal.GetListModeWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch &&
+            m.SearchOrAskJob == model.SearchOrAskJobJob).ToListAsync();
             if (!string.IsNullOrWhiteSpace(model.TownMode))
             {
                 liste = liste.Where(m => m.Town == model.TownMode).ToList();
@@ -153,11 +156,11 @@ namespace LookAuKwat.Controllers
                     }
                     break;
             }
-            TempData["listeMode"] = liste;
+           // TempData["listeMode"] = liste;
 
             model.ListePro = new List<ProductModel>();
 
-            model.ListeProMode = TempData["listeMode"] as List<ModeModel>;
+            model.ListeProMode = liste;
 
             switch (model.sortBy)
             {
@@ -190,7 +193,7 @@ namespace LookAuKwat.Controllers
         }
 
 
-        public ActionResult searchOfferMode_Json(string rubrique, string town, string typeClothes, string typeShoes, string typeLuggages,
+        public async Task< JsonResult> searchOfferMode_Json(string rubrique, string town, string typeClothes, string typeShoes, string typeLuggages,
             string typeWatch, string typeBabyEquipment, string typeBabyClothes, string brandClothes, string brandShoes, int price,
             string state, string color, string univers, string sizeSchoes, string sizeClothes)
         {
@@ -217,8 +220,8 @@ namespace LookAuKwat.Controllers
            
 
 
-            List<ModeModel> liste = dal.GetListModeWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch &&
-            m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
+            List<ModeModel> liste = await dal.GetListModeWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch &&
+            m.SearchOrAskJob == model.SearchOrAskJobJob).ToListAsync();
             if (!string.IsNullOrWhiteSpace(model.TownMode))
             {
                 liste = liste.Where(m => m.Town == model.TownMode).ToList();
@@ -319,16 +322,24 @@ namespace LookAuKwat.Controllers
                     }
                     break;
             }
-            TempData["listeMode_json"] = liste;
+            // TempData["listeMode_json"] = liste;
 
 
-
-            model.ListePro = new List<ProductModel>();
-            return RedirectToAction("ResultSearchJson", "Product", model);
-
+            var data = liste.Select(s => new DataJsonProductViewModel
+            {
+                Title = s.Title,
+                Lat = s.Coordinate.Lat,
+                Lon = s.Coordinate.Lon,
+                id = s.id,
+                Images = s.Images.Select(m => m.Image).FirstOrDefault(),
+                Town = s.Town,
+                Category = s.Category.CategoryName
+            }).ToList();
+            //model.ListePro = new List<ProductModel>();
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult searchOfferModeSpan_Json(string rubrique, string town, string typeClothes, string typeShoes, string typeLuggages,
+        public async Task< JsonResult> searchOfferModeSpan_Json(string rubrique, string town, string typeClothes, string typeShoes, string typeLuggages,
       string typeWatch, string typeBabyEquipment, string typeBabyClothes, string brandClothes, string brandShoes, int price,
       string state, string color, string univers, string sizeSchoes, string sizeClothes)
         {
@@ -355,8 +366,8 @@ namespace LookAuKwat.Controllers
 
 
 
-            List<ModeModel> liste = dal.GetListModeWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch &&
-            m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
+            List<ModeModel> liste = await dal.GetListModeWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch &&
+            m.SearchOrAskJob == model.SearchOrAskJobJob).ToListAsync();
             if (!string.IsNullOrWhiteSpace(model.TownMode))
             {
                 liste = liste.Where(m => m.Town == model.TownMode).ToList();

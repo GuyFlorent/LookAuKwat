@@ -3,7 +3,9 @@ using LookAuKwat.ViewModel;
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -40,7 +42,8 @@ namespace LookAuKwat.Controllers
             return PartialView(model);
         }
 
-        public ActionResult searchOfferMultimedia(SeachJobViewModel model, int? pageNumber, string sortBy)
+        //[OutputCache(Duration = 300, VaryByParam = "TownMultimedia;TypeMultimedia;BrandMultimedia;ModelMultimedia;Capacity;PriceMultimedia;pageNumber;sortBy")]
+        public async Task< ActionResult> searchOfferMultimedia(SeachJobViewModel model, int? pageNumber, string sortBy)
         {
 
            
@@ -54,8 +57,8 @@ namespace LookAuKwat.Controllers
             model.sortBy = sortBy;
             model.PageNumber = pageNumber;
 
-            List<MultimediaModel> liste = dal.GetListMultimediaWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch && 
-            m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
+            List<MultimediaModel> liste = await dal.GetListMultimediaWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch && 
+            m.SearchOrAskJob == model.SearchOrAskJobJob).ToListAsync();
 
             if (!string.IsNullOrWhiteSpace(model.TownMultimedia))
             {
@@ -124,7 +127,7 @@ namespace LookAuKwat.Controllers
 
         }
 
-        public ActionResult ResultSearchOfferMultimedia_Jason(string town, string type,string brand,string modele,string capacity, int maxPrice)
+        public async Task<JsonResult> ResultSearchOfferMultimedia_Jason(string town, string type,string brand,string modele,string capacity, int maxPrice)
         {
             SeachJobViewModel model = new SeachJobViewModel();
             model.TypeMultimedia = type;
@@ -135,7 +138,7 @@ namespace LookAuKwat.Controllers
             model.Capacity = capacity;
             model.CagtegorieSearch = "Multimedia";
             model.SearchOrAskJobJob = "J'offre";
-            List<MultimediaModel> liste = dal.GetListMultimediaWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch && m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
+            List<MultimediaModel> liste = await dal.GetListMultimediaWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch && m.SearchOrAskJob == model.SearchOrAskJobJob).ToListAsync();
 
             if (!string.IsNullOrWhiteSpace(model.TownMultimedia))
             {
@@ -168,12 +171,22 @@ namespace LookAuKwat.Controllers
             }
 
 
-            TempData["listeMulti_Json"] = liste;
-            model.ListePro = new List<ProductModel>();
-            return RedirectToAction("ResultSearchJson", "Product", model);
+            // TempData["listeMulti_Json"] = liste;
+            var data = liste.Select(s => new DataJsonProductViewModel
+            {
+                Title = s.Title,
+                Lat = s.Coordinate.Lat,
+                Lon = s.Coordinate.Lon,
+                id = s.id,
+                Images = s.Images.Select(m => m.Image).FirstOrDefault(),
+                Town = s.Town,
+                Category = s.Category.CategoryName
+            }).ToList();
+            //model.ListePro = new List<ProductModel>();
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ResultSearchOfferMultimediaSpan_Jason(string town, string type, string brand, string modele, string capacity, int maxPrice)
+        public async Task< JsonResult> ResultSearchOfferMultimediaSpan_Jason(string town, string type, string brand, string modele, string capacity, int maxPrice)
         {
             SeachJobViewModel model = new SeachJobViewModel();
             model.TypeMultimedia = type;
@@ -184,7 +197,7 @@ namespace LookAuKwat.Controllers
             model.Capacity = capacity;
             model.CagtegorieSearch = "Multimedia";
             model.SearchOrAskJobJob = "J'offre";
-            List<MultimediaModel> liste = dal.GetListMultimediaWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch && m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
+            List<MultimediaModel> liste = await dal.GetListMultimediaWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch && m.SearchOrAskJob == model.SearchOrAskJobJob).ToListAsync();
 
             if (!string.IsNullOrWhiteSpace(model.TownMultimedia))
             {

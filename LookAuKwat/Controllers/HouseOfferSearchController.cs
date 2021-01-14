@@ -3,7 +3,9 @@ using LookAuKwat.ViewModel;
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -40,6 +42,7 @@ namespace LookAuKwat.Controllers
             return PartialView(model);
         }
 
+       // [OutputCache(Duration = 300, VaryByParam = "TownHouse;ColorHouse;StateHouse;PriceHouse;RubriqueHouse;pageNumber;sortBy")]
         public ActionResult searchOfferHouse(SeachJobViewModel model, int? pageNumber, string sortBy)
         {
             ViewBag.PriceAscSort = String.IsNullOrEmpty(sortBy) ? "Price desc" : "";
@@ -158,7 +161,7 @@ namespace LookAuKwat.Controllers
 
         }
   
-         public ActionResult searchOfferHouse_Json(string rubrique, string town, int maxPrice, string typeHouseAmmeublement, string typeHouseCuisine,
+         public async Task<JsonResult> searchOfferHouse_Json(string rubrique, string town, int maxPrice, string typeHouseAmmeublement, string typeHouseCuisine,
             string typeHouseDecoration, string typeHouseLinge, string fabricMaterialeHouseAmmeublementDeco, string fabricMaterialeHouseCuisine, 
             string fabricMaterialeHouseLinge, string colorHouse, string stateHouse)
         {
@@ -183,8 +186,8 @@ namespace LookAuKwat.Controllers
 
 
 
-            List<HouseModel> liste = dal.GetListHouseWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch &&
-            m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
+            List<HouseModel> liste = await dal.GetListHouseWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch &&
+            m.SearchOrAskJob == model.SearchOrAskJobJob).ToListAsync();
 
             if (!string.IsNullOrWhiteSpace(model.TownHouse))
             {
@@ -253,16 +256,23 @@ namespace LookAuKwat.Controllers
                     break;
 
             }
-            TempData["listeHouse_json"] = liste;
+            // TempData["listeHouse_json"] = liste;
 
-
-
-            model.ListePro = new List<ProductModel>();
-            return RedirectToAction("ResultSearchJson", "Product", model);
-
+            var data = liste.Select(s => new DataJsonProductViewModel
+            {
+                Title = s.Title,
+                Lat = s.Coordinate.Lat,
+                Lon = s.Coordinate.Lon,
+                id = s.id,
+                Images = s.Images.Select(m => m.Image).FirstOrDefault(),
+                Town = s.Town,
+                Category = s.Category.CategoryName
+            }).ToList();
+            //model.ListePro = new List<ProductModel>();
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult searchOfferHouseSpan_Json(string rubrique, string town, int maxPrice, string typeHouseAmmeublement, string typeHouseCuisine,
+        public async Task<JsonResult> searchOfferHouseSpan_Json(string rubrique, string town, int maxPrice, string typeHouseAmmeublement, string typeHouseCuisine,
            string typeHouseDecoration, string typeHouseLinge, string fabricMaterialeHouseAmmeublementDeco, string fabricMaterialeHouseCuisine,
            string fabricMaterialeHouseLinge, string colorHouse, string stateHouse)
         {
@@ -287,8 +297,8 @@ namespace LookAuKwat.Controllers
 
 
 
-            List<HouseModel> liste = dal.GetListHouseWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch &&
-            m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
+            List<HouseModel> liste = await dal.GetListHouseWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch &&
+            m.SearchOrAskJob == model.SearchOrAskJobJob).ToListAsync();
 
             if (!string.IsNullOrWhiteSpace(model.TownHouse))
             {

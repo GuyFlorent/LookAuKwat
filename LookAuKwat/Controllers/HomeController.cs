@@ -22,6 +22,7 @@ namespace LookAuKwat.Controllers
         {
             dal = dalIoc;
         }
+        [OutputCache(Duration = int.MaxValue, VaryByParam = "none")]
         public ActionResult Index()
         {
             return View();
@@ -36,7 +37,7 @@ namespace LookAuKwat.Controllers
             return View(user);
         }
         [Authorize]
-        public ActionResult UserProfile( string message)
+        public ActionResult UserProfile(int? ProductId, string message)
         {
             string id = User.Identity.GetUserId();
             ApplicationUser user = dal.GetUserByStrId(id);
@@ -47,6 +48,18 @@ namespace LookAuKwat.Controllers
             if (!string.IsNullOrWhiteSpace(message))
             {
                 ViewBag.Succes = message;
+            }
+            if(ProductId != null)
+            {
+                var product = dal.GetListProductWhithNoInclude().FirstOrDefault(p => p.id == ProductId);
+                if(product.Images.Count > 1)
+                {
+                    var im = product.Images.FirstOrDefault(m => m.Image == "https://particulier-employeur.fr/wp-content/themes/fepem/img/general/avatar.png");
+                    if(im != null)
+                    {
+                        dal.DeleteImage(im);
+                    }
+                }
             }
             ViewBag.UserId = id;
             return View();

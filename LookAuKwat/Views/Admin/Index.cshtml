@@ -5,6 +5,11 @@
 
 <h2>Bienvenue l'administrateur</h2>
 
-@Html.ActionLink("liste de tout les utilisateurs", "ListAllUser","Admin")
-@Html.ActionLink("Liste des agents", "ListAllAgents","Admin")
+@Html.ActionLink("liste de tout les utilisateurs", "ListAllUser", "Admin")|
+@Html.ActionLink("Liste des agents", "ListAllAgents", "Admin")|
+@Html.ActionLink("numbre d'imges à suprrimer", "RemoveImage_ContainHttpIn_Alot", "Admin")|
 
+@using (Html.BeginForm("DeleteImage", "Product",FormMethod.Post))
+{
+    <input type="submit" value="deleteFalseProoduct" class="btn btn-default" />
+}

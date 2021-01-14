@@ -69,14 +69,14 @@
 
 <script type="text/javascript">
     $(function () {
-       //// ResultVehiculeSpan();
-       // $("#TownVehicule").change(ResultVehiculeSpan);
-       // $("#RubriqueVehicule").change(ResultVehiculeSpan);
-       // $("#BrandVehicule").change(ResultVehiculeSpan);
+        ResultVehiculeSpan();
+        $("#TownVehicule").change(ResultVehiculeSpan);
+        $("#RubriqueVehicule").change(ResultVehiculeSpan);
+        $("#BrandVehicule").change(ResultVehiculeSpan);
 
-       // $('#ModelVehicule').on('input', function () {
-       //     ResultVehiculeSpan();
-       // });
+        $('#ModelVehicule').on('input', function () {
+            ResultVehiculeSpan();
+        });
     })
 
     $("#ModelVehicule").autocomplete({
@@ -121,7 +121,7 @@
             }
         });
 
-    @*function ResultVehiculeSpan() {
+    function ResultVehiculeSpan() {
 
         $.ajax({
             type: "POST",
@@ -152,6 +152,6 @@
             //    alert("Une erreur est survenu  !");
             //}
         })
-    }*@
+    }
 </script>
 

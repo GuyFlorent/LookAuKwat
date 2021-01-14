@@ -135,7 +135,7 @@
                 @*@{
                         Html.RenderAction("ResultSearch_PartialView", "Product");
                     }*@
-                @if (Model.ListePro.Count == 0)
+                @if (Model.ListeProductPagedList.Count == 0)
                 {
 
                     <p class="text-danger">Pas de résultats disponible !</p>
@@ -167,103 +167,81 @@
                                 <div class="panel-heading">
                                    
 
-                               <h3 class="panel-title">@Model.ListePro.Count() <strong>annonces</strong> disponibles dans toutes les catégories :</h3>
+                               <h3 class="panel-title">@ViewBag.number <strong>annonces</strong> disponibles dans toutes les catégories :</h3>
 
                                 
                                 </div>
                                 <div class="list-group">
-                                    @{
-
-                                        string period = null;
-                                        int time = 0;
-                                    }
-                                    @foreach (var liste in Model.ListeProPagedList)
+                                   
+                                    @foreach (var liste in Model.ListeProductPagedList)
                                     {
-                                        TimeSpan elapsTime = DateTime.Now - liste.DateAdd;
-
-                                        if (elapsTime.TotalMinutes < 60)
-                                        {
-                                            time = elapsTime.Minutes;
-                                            period = "minutes";
-                                        }
-                                        else if (elapsTime.TotalMinutes > 60 && elapsTime.TotalMinutes < 1440)
-                                        {
-                                            time = elapsTime.Hours;
-                                            period = "Heures";
-                                        }
-                                        else if (elapsTime.TotalMinutes > 1440)
-                                        {
-                                            time = elapsTime.Days;
-                                            period = "Jours";
-                                        }
 
 
-
-                                        if (liste.Category.CategoryName != null)
+                                        if (liste.CategoryName != null)
                                         {
 
                                             try
                                             {
 
-                                                if (liste.Category.CategoryName == "Emploi")
+                                                if (liste.CategoryName == "Emploi")
                                                 {
 
                                                     <a href="@Url.Action("JobDetail", "Job", new { id = liste.id }, null)" class="list-group-item">
                                                         <h4 class="list-group-item-heading"><strong>@liste.Title</strong>  Ville:<span class="text-info"><strong> @liste.Town</strong></span></h4>
-                                                        <p class="list-group-item-text pull-right text-success"> Ajoutée il y'a @time.ToString() @period</p>
+                                                        <p class="list-group-item-text pull-right text-success">@liste.Date</p>
                                                         <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
                                                         <p class="list-group-item-text text-left"><strong>👷 Emploi</strong></p>
-                                                        <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
+                                                        <img src="@liste.Image" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
                                                     </a>
                                                 }
-                                                else if (liste.Category.CategoryName == "Immobilier")
+                                                else if (liste.CategoryName == "Immobilier")
                                                 {
                                                     <a href="@Url.Action("ApartDetail", "ApartmentRental", new { id = liste.id }, null)" class="list-group-item">
                                                         <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"><strong> @liste.Town</strong></span></h4>
-                                                        <p class="list-group-item-text pull-right text-success"> Ajoutée il y'a @time.ToString() @period</p>
+                                                        <p class="list-group-item-text pull-right text-success">@liste.Date</p>
                                                         <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
                                                         <p class="list-group-item-text text-left"><strong>🏠 Immobiliere</strong></p>
-                                                        <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
+                                                        <img src="@liste.Image" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
                                                     </a>
                                                 }
-                                                else if (liste.Category.CategoryName == "Multimedia")
+                                                else if (liste.CategoryName == "Multimedia")
                                                 {
                                                     <a href="@Url.Action("MultimediaDetail", "Multimedia", new { id = liste.id }, null)" class="list-group-item">
                                                         <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"><strong> @liste.Town</strong></span></h4>
-                                                        <p class="list-group-item-text pull-right text-success"> Ajoutée il y'a @time.ToString() @period</p>
+                                                        <p class="list-group-item-text pull-right text-success">@liste.Date</p>
                                                         <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
                                                         <p class="list-group-item-text text-left"><strong>💻 Multimédia</strong></p>
-                                                        <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
+                                                        <img src="@liste.Image" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
                                                     </a>
                                                 }
-                                                else if (liste.Category.CategoryName == "Vehicule")
+                                                else if (liste.CategoryName == "Vehicule")
                                                 {
                                                     <a href="@Url.Action("VehiculeDetail", "Vehicule", new { id = liste.id }, null)" class="list-group-item">
                                                         <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"><strong> @liste.Town</strong></span></h4>
-                                                        <p class="list-group-item-text pull-right text-success"> Ajoutée il y'a @time.ToString() @period</p>
+                                                        <p class="list-group-item-text pull-right text-success">@liste.Date</p>
                                                         <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
                                                         <p class="list-group-item-text text-left"><strong>🚗 Véhicule</strong></p>
-                                                        <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
+                                                        <img src="@liste.Image" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
                                                     </a>
                                                 }
-                                                else if (liste.Category.CategoryName == "Mode")
+                                                else if (liste.CategoryName == "Mode")
                                                 {
                                                     <a href="@Url.Action("ModeDetail", "Mode", new { id = liste.id }, null)" class="list-group-item">
                                                         <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"><strong> @liste.Town</strong></span></h4>
-                                                        <p class="list-group-item-text pull-right text-success"> Ajoutée il y'a @time.ToString() @period</p>
+                                                        <p class="list-group-item-text pull-right text-success">@liste.Date</p>
                                                         <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
                                                         <p class="list-group-item-text text-left"><strong>👚 Mode</strong></p>
-                                                        <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
+                                                        <img src="@liste.Image" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
                                                     </a>
                                                 }
-                                                else if (liste.Category.CategoryName == "Maison")
+                                                else if (liste.CategoryName == "Maison")
                                                 {
                                                     <a href="@Url.Action("HouseDetail", "House", new { id = liste.id }, null)" class="list-group-item">
                                                         <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"><strong> @liste.Town</strong></span></h4>
-                                                        <p class="list-group-item-text pull-right text-success"> Ajoutée il y'a @time.ToString() @period</p>
+                                                        <p class="list-group-item-text pull-right text-success">@liste.Date</p>
                                                         <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
                                                         <p class="list-group-item-text text-left"><strong>🛋️ Maison</strong></p>
-                                                        <img src="@liste.Images.Select(m => m.Image).First()" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
+                                                        <img src="@liste.Image" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
                                                     </a>
                                                 }
                                             }
@@ -273,8 +251,9 @@
                                 </div>
                             </div>
                             <br />
-                            Page @(Model.ListeProPagedList.PageCount < Model.PageNumber ? 0 : Model.PageNumber) sur @Model.ListeProPagedList.PageCount
-                            @Html.PagedListPager(Model.ListeProPagedList, pageNumber => Url.Action("SearchAllProoduct", new { pageNumber, sortBy = Request["sortBy"] }))
+                            Page @(Model.ListeProductPagedList.PageCount < Model.PageNumber ? 0 : Model.PageNumber) sur @Model.ListeProductPagedList.PageCount
+                            @Html.PagedListPager(Model.ListeProductPagedList, pageNumber => Url.Action("SearchAllProoduct", new { pageNumber, sortBy = Request["sortBy"] }))
+                        
                         </div>
                         <div class="col-md-6">
                             @*<h1> Publicitéx</h1>*@

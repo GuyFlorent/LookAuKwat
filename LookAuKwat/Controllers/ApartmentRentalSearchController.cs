@@ -3,7 +3,9 @@ using LookAuKwat.ViewModel;
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -39,8 +41,8 @@ namespace LookAuKwat.Controllers
 
             return PartialView(model);
         }
-        
-        public ActionResult searchOfferAppart(SeachJobViewModel model, int? pageNumber, string sortBy)
+       // [OutputCache(Duration = 300, VaryByParam = "TownSearch;Type;MaxApartSurface;MinApartSurface;PriceMaxSearch;PriceMinSearch;RoomNumber;FurnitureOrNot;pageNumber;sortBy")]
+        public async Task< ActionResult> searchOfferAppart(SeachJobViewModel model, int? pageNumber, string sortBy)
         {
             
 
@@ -53,7 +55,7 @@ namespace LookAuKwat.Controllers
             model.SearchOrAskJobJob = "J'offre";
             model.sortBy = sortBy;
             model.PageNumber = pageNumber;
-            List<ApartmentRentalModel> liste = dal.GetListAppartWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch && m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
+            List<ApartmentRentalModel> liste = await dal.GetListAppartWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch && m.SearchOrAskJob == model.SearchOrAskJobJob).ToListAsync();
 
             if(!string.IsNullOrWhiteSpace( model.TownSearch))
             {
@@ -137,7 +139,7 @@ namespace LookAuKwat.Controllers
         }
 
 
-        public ActionResult ResultSearchOfferApart_Jason(string type, string town, int minSurface, int maxSurface, string furnitureOrNot, int roomNumber, int minPrice, int maxPrice)
+        public async Task<JsonResult> ResultSearchOfferApart_Jason(string type, string town, int minSurface, int maxSurface, string furnitureOrNot, int roomNumber, int minPrice, int maxPrice)
         {
             
             SeachJobViewModel model = new SeachJobViewModel();
@@ -151,7 +153,7 @@ namespace LookAuKwat.Controllers
             model.RoomNumber = roomNumber;
             model.CagtegorieSearch = "Immobilier";
             model.SearchOrAskJobJob = "J'offre";
-            List<ApartmentRentalModel> liste = dal.GetListAppartWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch && m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
+            List<ApartmentRentalModel> liste = await dal.GetListAppartWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch && m.SearchOrAskJob == model.SearchOrAskJobJob).ToListAsync();
 
             if (!string.IsNullOrWhiteSpace(model.TownSearch))
             {
@@ -199,13 +201,23 @@ namespace LookAuKwat.Controllers
                 }
             }
 
-            TempData["listeApartJson"] = liste;
-            model.ListePro = new List<ProductModel>();
-            return RedirectToAction("ResultSearchJson", "Product", model);
+            //TempData["listeApartJson"] = liste;
+            var data = liste.Select(s => new DataJsonProductViewModel
+            {
+                Title = s.Title,
+                Lat = s.Coordinate.Lat,
+                Lon = s.Coordinate.Lon,
+                id = s.id,
+                Images = s.Images.Select(m => m.Image).FirstOrDefault(),
+                Town = s.Town,
+                Category = s.Category.CategoryName
+            }).ToList();
+            //model.ListePro = new List<ProductModel>();
+            return Json(data, JsonRequestBehavior.AllowGet);
 
         }
 
-        public JsonResult ResultSearchOfferApartSpan_Jason(string type, string town, int minSurface, int maxSurface, string furnitureOrNot, int roomNumber, int minPrice, int maxPrice)
+        public async Task< JsonResult> ResultSearchOfferApartSpan_Jason(string type, string town, int minSurface, int maxSurface, string furnitureOrNot, int roomNumber, int minPrice, int maxPrice)
         {
 
             SeachJobViewModel model = new SeachJobViewModel();
@@ -219,7 +231,7 @@ namespace LookAuKwat.Controllers
             model.RoomNumber = roomNumber;
             model.CagtegorieSearch = "Immobilier";
             model.SearchOrAskJobJob = "J'offre";
-            List<ApartmentRentalModel> liste = dal.GetListAppartWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch && m.SearchOrAskJob == model.SearchOrAskJobJob).ToList();
+            List<ApartmentRentalModel> liste = await dal.GetListAppartWithNoInclude().Where(m => m.Category.CategoryName == model.CagtegorieSearch && m.SearchOrAskJob == model.SearchOrAskJobJob).ToListAsync();
 
             if (!string.IsNullOrWhiteSpace(model.TownSearch))
             {

@@ -1,7 +1,10 @@
-﻿using System;
+﻿using AngleSharp;
+using LookAuKwat.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace LookAuKwat.Models
@@ -24,9 +27,9 @@ namespace LookAuKwat.Models
         }
 
 
-        public List<ApplicationUser> GetUsersList()
+        public IQueryable<ApplicationUser> GetUsersList()
         {
-            return dbb.Users.ToList();
+            return dbb.Users.AsQueryable();
         }
 
         public void AddJob(JobModel job, string lat, string lon)
@@ -127,47 +130,29 @@ namespace LookAuKwat.Models
 
         }
 
-        public IEnumerable<ProductModel> GetListProductWhithNoInclude()
+        public  IQueryable<ProductModel> GetListProductWhithNoInclude()
         {
-            //List<ProductModel> liste = new List<ProductModel>();
-            //IEnumerable<JobModel> listjobs = dbb.Jobs.ToList();
-            //IEnumerable<ApartmentRentalModel> listapart = dbb.ApartmentRentals.ToList();
-            //IEnumerable<MultimediaModel> listMulti = dbb.Multimedia.ToList();
-            //IEnumerable<VehiculeModel> listVehi = dbb.Vehicules.ToList();
-            //IEnumerable<ModeModel> listMode = dbb.Modes.ToList();
-            //IEnumerable<HouseModel> listHouse = dbb.Houses.ToList();
+           
+            return   dbb.Products.AsQueryable();
 
-            //foreach (var job in listjobs)
-            //{
-            //    if (job != null)
-            //        liste.Add(job);
-            //}
-            //foreach (var apart in listapart)
-            //{
-            //    if (apart != null)
-            //        liste.Add(apart);
-            //}
-            //foreach (var multi in listMulti)
-            //{
-            //    if (multi != null)
-            //        liste.Add(multi);
-            //}
-            //foreach (var vehi in listVehi)
-            //{
-            //    if (vehi != null)
-            //        liste.Add(vehi);
-            //}
-            //foreach (var mode in listMode)
-            //{
-            //    if (mode != null)
-            //        liste.Add(mode);
-            //}
-            //foreach (var house in listHouse)
-            //{
-            //    if (house != null)
-            //        liste.Add(house);
-            //}
-            return dbb.Products.ToList();
+        }
+
+        public List<ProductToDisplay> GetListProductToDisplay()
+        {
+
+            return dbb.Products.Select(s => new ProductToDisplay 
+            { 
+                id = s.id,
+                DateAdd = s.DateAdd,
+                CategoryName = s.Category.CategoryName,
+                Image = s.Images.Select(i => i.Image).FirstOrDefault(),
+                Price = s.Price,
+                Title = s.Title,
+                Description = s.Description,
+                Street = s.Street,
+                SearchOrAskJob = s.SearchOrAskJob,
+                Town = s.Town
+            }).ToList();
 
         }
 
@@ -293,10 +278,10 @@ namespace LookAuKwat.Models
                .Include(s => s.Coordinate).ToList();
             return listjobs;
         }
-        public IEnumerable<JobModel> GetListJobWithNoInclude()
+        public IQueryable<JobModel> GetListJobWithNoInclude()
         {
-            IEnumerable<JobModel> listjobs = dbb.Jobs.ToList();
-            return listjobs;
+            
+            return dbb.Jobs.AsQueryable();
         }
 
         public void AddAppartment(ApartmentRentalModel apart, string lat, string lon)
@@ -359,10 +344,10 @@ namespace LookAuKwat.Models
             return listapart;
         }
 
-        public IEnumerable<ApartmentRentalModel> GetListAppartWithNoInclude()
+        public IQueryable<ApartmentRentalModel> GetListAppartWithNoInclude()
         {
-            IEnumerable<ApartmentRentalModel> listapart = dbb.ApartmentRentals.ToList();
-            return listapart;
+           
+            return dbb.ApartmentRentals.AsQueryable();
         }
 
         public IEnumerable<MessageDetails> GetListMessage()
@@ -380,8 +365,8 @@ namespace LookAuKwat.Models
 
         public void UpdateNumberView(ProductModel product)
         {
-            var product_To_Update = dbb.Products.FirstOrDefault(m => m.id == product.id);
-            product_To_Update.ViewNumber = product.ViewNumber;
+           // var product_To_Update = dbb.Products.FirstOrDefault(m => m.id == product.id);
+           // product_To_Update.ViewNumber = product.ViewNumber;
             dbb.SaveChanges();
         }
 
@@ -471,10 +456,10 @@ namespace LookAuKwat.Models
             return listMulti;
         }
 
-        public IEnumerable<MultimediaModel> GetListMultimediaWithNoInclude()
+        public IQueryable<MultimediaModel> GetListMultimediaWithNoInclude()
         {
-            IEnumerable<MultimediaModel> listMulti = dbb.Multimedia.ToList();
-            return listMulti;
+            
+            return dbb.Multimedia.AsQueryable();
         }
 
         public void AddVehicule(VehiculeModel model, string lat, string lon)
@@ -545,10 +530,10 @@ namespace LookAuKwat.Models
             return listMulti;
         }
 
-        public IEnumerable<VehiculeModel> GetListVehiculeWithNoInclude()
+        public IQueryable<VehiculeModel> GetListVehiculeWithNoInclude()
         {
-            IEnumerable<VehiculeModel> listMulti = dbb.Vehicules.ToList();
-            return listMulti;
+           
+            return dbb.Vehicules.AsQueryable();
         }
 
         public void AddMode(ModeModel model, string lat, string lon)
@@ -589,10 +574,10 @@ namespace LookAuKwat.Models
             return listMode;
         }
 
-        public IEnumerable<ModeModel> GetListModeWithNoInclude()
+        public IQueryable<ModeModel> GetListModeWithNoInclude()
         {
-            IEnumerable<ModeModel> listMode = dbb.Modes.ToList();
-            return listMode;
+           
+            return dbb.Modes.AsQueryable(); ;
         }
 
         public bool User_Number_Already_Exist(string number)
@@ -610,9 +595,9 @@ namespace LookAuKwat.Models
             return true;
         }
 
-        public List<ParrainModel> GetParrainList()
+        public IQueryable<ParrainModel> GetParrainList()
         {
-            return dbb.Parrains.ToList();
+            return dbb.Parrains.AsQueryable();
         }
 
         public void AddParrain(ParrainModel model)
@@ -636,10 +621,10 @@ namespace LookAuKwat.Models
 
         public void UpdateUserByAdmin(ApplicationUser user)
         {
-            ApplicationUser userr = dbb.Users.FirstOrDefault(u => u.Id == user.Id);
-            userr.FirstName = user.FirstName;
-            userr.PhoneNumber = user.PhoneNumber;
-            userr.Email = user.Email;
+            //ApplicationUser userr = dbb.Users.FirstOrDefault(u => u.Id == user.Id);
+            //userr.FirstName = user.FirstName;
+            //userr.PhoneNumber = user.PhoneNumber;
+            //userr.Email = user.Email;
             dbb.SaveChanges();
         }
 
@@ -688,16 +673,21 @@ namespace LookAuKwat.Models
             return listHouse;
         }
 
-        public IEnumerable<HouseModel> GetListHouseWithNoInclude()
+        public IQueryable<HouseModel> GetListHouseWithNoInclude()
         {
-            IEnumerable<HouseModel> listHouse = dbb.Houses.ToList();
-            return listHouse;
+            
+            return dbb.Houses.AsQueryable();
         }
 
         public void AddImage(ProductModel model)
         {
             var product = dbb.Products.FirstOrDefault(m => m.id == model.id);
             product.Images = model.Images;
+            dbb.SaveChanges();
+        }
+
+        public void UpdateImage(ImageProcductModel image)
+        {
             dbb.SaveChanges();
         }
     }

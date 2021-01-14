@@ -26,6 +26,16 @@
         period = "Jours";
     }
 
+    string Name = null;
+    if(Model.User.FirstName != null)
+    {
+        Name = Model.User.FirstName;
+    }
+    else
+    {
+        Name = Model.User.Email;
+    }
+
 }
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
@@ -46,7 +56,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h3 class="modal-title">Envoyer un message à @Model.User.FirstName<span id="eventTitle"></span></h3>
+                <h3 class="modal-title">Envoyer un message à @Name<span id="eventTitle"></span></h3>
             </div>
             <div class="modal-body">
 
@@ -215,14 +225,14 @@
                 <a href="whatsapp://send?text=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" data-action="share/whatsapp/share"><img alt="whatsapp" src="@Url.Content("~/UserImage/whatsapp.png ")" id="imgln" height="40" /></a>
             </p>
         </div>
-        @*<hr />
+        <hr />
         <h3>Quelques annonce similaire qui peuvent vous intéréssez</h3>
         <div class="row gallery MySlickCarouselJob">
 
             @{
                 Html.RenderAction("SimilarProduct_PartialView", "Product", new { model = Model });
             }
-        </div>*@
+        </div>
     </section>
     <section class="col-md-4">
         <div class="row" style="border-radius: 25px;background: lightgray;padding: 20px;">
@@ -363,31 +373,31 @@
         });
 
         //for similar product
-        //$('.MySlickCarouselJob').slick({
-        //    centerMode: true,
-        //    centerPadding: '60px',
-        //    slidesToShow: 3,
-        //    responsive: [
-        //        {
-        //            breakpoint: 768,
-        //            settings: {
-        //                arrows: false,
-        //                centerMode: true,
-        //                centerPadding: '40px',
-        //                slidesToShow: 3
-        //            }
-        //        },
-        //        {
-        //            breakpoint: 480,
-        //            settings: {
-        //                arrows: false,
-        //                centerMode: true,
-        //                centerPadding: '40px',
-        //                slidesToShow: 1
-        //            }
-        //        }
-        //    ]
-        //});
+        $('.MySlickCarouselJob').slick({
+            centerMode: true,
+            centerPadding: '60px',
+            slidesToShow: 3,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 3
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 1
+                    }
+                }
+            ]
+        });
 
 
     })
