@@ -4,7 +4,9 @@ using LookAuKwat.ViewModel;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -22,9 +24,10 @@ namespace LookAuKwat.Controllers
         {
             dal = dalIoc;
         }
-        [OutputCache(Duration = int.MaxValue, VaryByParam = "none")]
+       
         public ActionResult Index()
         {
+           
             return View();
         }
 
@@ -37,7 +40,7 @@ namespace LookAuKwat.Controllers
             return View(user);
         }
         [Authorize]
-        public ActionResult UserProfile(int? ProductId, string message)
+        public async Task< ActionResult> UserProfile(int? ProductId, string message)
         {
             string id = User.Identity.GetUserId();
             ApplicationUser user = dal.GetUserByStrId(id);
@@ -57,7 +60,7 @@ namespace LookAuKwat.Controllers
                     var im = product.Images.FirstOrDefault(m => m.Image == "https://particulier-employeur.fr/wp-content/themes/fepem/img/general/avatar.png");
                     if(im != null)
                     {
-                        dal.DeleteImage(im);
+                      await  dal.DeleteImage(im);
                     }
                 }
             }

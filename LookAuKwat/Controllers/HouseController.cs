@@ -228,7 +228,7 @@ namespace LookAuKwat.Controllers
             return PartialView(model);
         }
 
-        [OutputCache(Duration = int.MaxValue, VaryByParam = "id")]
+        [OutputCache(Duration = 3600, VaryByParam = "id")]
         public async Task< ActionResult> HouseDetail(int id)
         {
             HouseModel model = await dal.GetListHouseWithNoInclude().FirstOrDefaultAsync(e => e.id == id);

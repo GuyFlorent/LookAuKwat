@@ -231,71 +231,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202006041354032_InitialCreate.cs" />
-    <Compile Include="Migrations\202006041354032_InitialCreate.Designer.cs">
-      <DependentUpon>202006041354032_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010041323080_numberviewProperty.cs" />
-    <Compile Include="Migrations\202010041323080_numberviewProperty.Designer.cs">
-      <DependentUpon>202010041323080_numberviewProperty.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010091731172_AddFirstName.cs" />
-    <Compile Include="Migrations\202010091731172_AddFirstName.Designer.cs">
-      <DependentUpon>202010091731172_AddFirstName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010100809591_intNullable.cs" />
-    <Compile Include="Migrations\202010100809591_intNullable.Designer.cs">
-      <DependentUpon>202010100809591_intNullable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010100816369_RemoveintNullable.cs" />
-    <Compile Include="Migrations\202010100816369_RemoveintNullable.Designer.cs">
-      <DependentUpon>202010100816369_RemoveintNullable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010131745298_AddNewClassMultimedia.cs" />
-    <Compile Include="Migrations\202010131745298_AddNewClassMultimedia.Designer.cs">
-      <DependentUpon>202010131745298_AddNewClassMultimedia.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010132059312_AddDateTime.cs" />
-    <Compile Include="Migrations\202010132059312_AddDateTime.Designer.cs">
-      <DependentUpon>202010132059312_AddDateTime.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010202007368_addVehiculeModel.cs" />
-    <Compile Include="Migrations\202010202007368_addVehiculeModel.Designer.cs">
-      <DependentUpon>202010202007368_addVehiculeModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010231223361_StateVehicule.cs" />
-    <Compile Include="Migrations\202010231223361_StateVehicule.Designer.cs">
-      <DependentUpon>202010231223361_StateVehicule.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010271600136_ModeModel.cs" />
-    <Compile Include="Migrations\202010271600136_ModeModel.Designer.cs">
-      <DependentUpon>202010271600136_ModeModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202011091308424_removePropertyVehicule.cs" />
-    <Compile Include="Migrations\202011091308424_removePropertyVehicule.Designer.cs">
-      <DependentUpon>202011091308424_removePropertyVehicule.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202011141734472_Admin_Model.cs" />
-    <Compile Include="Migrations\202011141734472_Admin_Model.Designer.cs">
-      <DependentUpon>202011141734472_Admin_Model.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202011141834375_modification_user.cs" />
-    <Compile Include="Migrations\202011141834375_modification_user.Designer.cs">
-      <DependentUpon>202011141834375_modification_user.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202011160732417_dateForPublishAnnounce.cs" />
-    <Compile Include="Migrations\202011160732417_dateForPublishAnnounce.Designer.cs">
-      <DependentUpon>202011160732417_dateForPublishAnnounce.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202011181457402_HouseModel.cs" />
-    <Compile Include="Migrations\202011181457402_HouseModel.Designer.cs">
-      <DependentUpon>202011181457402_HouseModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202012131048575_ImageMobile.cs" />
-    <Compile Include="Migrations\202012131048575_ImageMobile.Designer.cs">
-      <DependentUpon>202012131048575_ImageMobile.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApartmentRentalModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
@@ -559,56 +494,6 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202006041354032_InitialCreate.resx">
-      <DependentUpon>202006041354032_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010041323080_numberviewProperty.resx">
-      <DependentUpon>202010041323080_numberviewProperty.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010091731172_AddFirstName.resx">
-      <DependentUpon>202010091731172_AddFirstName.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010100809591_intNullable.resx">
-      <DependentUpon>202010100809591_intNullable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010100816369_RemoveintNullable.resx">
-      <DependentUpon>202010100816369_RemoveintNullable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010131745298_AddNewClassMultimedia.resx">
-      <DependentUpon>202010131745298_AddNewClassMultimedia.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010132059312_AddDateTime.resx">
-      <DependentUpon>202010132059312_AddDateTime.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010202007368_addVehiculeModel.resx">
-      <DependentUpon>202010202007368_addVehiculeModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010231223361_StateVehicule.resx">
-      <DependentUpon>202010231223361_StateVehicule.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010271600136_ModeModel.resx">
-      <DependentUpon>202010271600136_ModeModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011091308424_removePropertyVehicule.resx">
-      <DependentUpon>202011091308424_removePropertyVehicule.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011141734472_Admin_Model.resx">
-      <DependentUpon>202011141734472_Admin_Model.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011141834375_modification_user.resx">
-      <DependentUpon>202011141834375_modification_user.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011160732417_dateForPublishAnnounce.resx">
-      <DependentUpon>202011160732417_dateForPublishAnnounce.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011181457402_HouseModel.resx">
-      <DependentUpon>202011181457402_HouseModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012131048575_ImageMobile.resx">
-      <DependentUpon>202012131048575_ImageMobile.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

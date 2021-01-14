@@ -145,7 +145,7 @@ namespace LookAuKwat.Models
                 id = s.id,
                 DateAdd = s.DateAdd,
                 CategoryName = s.Category.CategoryName,
-                Image = s.Images.Select(i => i.Image).FirstOrDefault(),
+                Image = s.Images.Select(i => i.ImageMobile).FirstOrDefault(),
                 Price = s.Price,
                 Title = s.Title,
                 Description = s.Description,
@@ -253,10 +253,10 @@ namespace LookAuKwat.Models
             dbb.SaveChanges();
         }
 
-        public void DeleteImage(ImageProcductModel image)
+        public async Task DeleteImage(ImageProcductModel image)
         {
             dbb.Images.Remove(image);
-            dbb.SaveChanges();
+           await dbb.SaveChangesAsync();
         }
 
         public List<ImageProcductModel> GetImageList()

@@ -233,7 +233,7 @@ namespace LookAuKwat.Controllers
             return PartialView(model);
         }
 
-        [OutputCache(Duration = int.MaxValue, VaryByParam = "id")]
+        [OutputCache(Duration = 3600, VaryByParam = "id")]
         public async Task< ActionResult> ModeDetail(int id)
         {
             ModeModel model =await dal.GetListModeWithNoInclude().FirstOrDefaultAsync(e => e.id == id);

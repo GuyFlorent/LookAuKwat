@@ -290,7 +290,7 @@ namespace LookAuKwat.Controllers
             return PartialView(model);
         }
 
-        [OutputCache(Duration = int.MaxValue, VaryByParam = "id")]
+        [OutputCache(Duration = 3600, VaryByParam = "id")]
         public async Task< ActionResult> VehiculeDetail(int id)
         {
             VehiculeModel model =  await dal.GetListVehiculeWithNoInclude().FirstOrDefaultAsync(e => e.id == id);

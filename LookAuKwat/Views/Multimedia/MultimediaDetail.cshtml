@@ -91,13 +91,13 @@
                         @{
 
                             <div class="item active thumbnail">
-                                <a href="@Model.Images[0].Image" data-lightbox="mygallery"><img class="img-rounded img-responsive" src="@Model.Images[0].Image" alt="@Model.Type @Model.Brand @Model.Street LookAuKwat" /></a>
+                                <a href="@Model.Images[0].ImageMobile" data-lightbox="mygallery"><img class="img-rounded img-responsive" src="@Model.Images[0].ImageMobile" alt="@Model.Type @Model.Brand @Model.Street LookAuKwat" /></a>
 
                             </div>
                             for (int a = 1; a < Model.Images.Count; a++)
                             {
                                 <div class="item thumbnail">
-                                    <a href="@Model.Images[a].Image" data-lightbox="mygallery"><img src="@Model.Images[a].Image" alt="@Model.Type @Model.Brand @Model.Street LookAuKwat" class="img-rounded img-responsive" /></a>
+                                    <a href="@Model.Images[a].ImageMobile" data-lightbox="mygallery"><img src="@Model.Images[a].ImageMobile" alt="@Model.Type @Model.Brand @Model.Street LookAuKwat" class="img-rounded img-responsive" /></a>
 
                                 </div>
                             }

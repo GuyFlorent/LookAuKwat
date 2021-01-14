@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace LookAuKwat.Models
@@ -33,7 +34,7 @@ namespace LookAuKwat.Models
         void DeleteProduct(ProductModel product);
         IEnumerable<ProductModel> GetListUserProduct(string id);
         //Product Image
-        void DeleteImage(ImageProcductModel image);
+        Task DeleteImage(ImageProcductModel image);
         List<ImageProcductModel> GetImageList();
         void UpdateImage(ImageProcductModel image);
         //job Category

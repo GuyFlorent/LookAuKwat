@@ -237,14 +237,42 @@ namespace LookAuKwat.Controllers
         {
             try
             {
-                ProductModel modell = dal.GetListProductWhithNoInclude().FirstOrDefault(m => m.id == model.id);
+
+                var file = userImage.ImageFile[0];
+                string requestUri = "https://lookaukwatapi.azurewebsites.net/api/Product/UploadImages/?id=" + model.id;
+                using (HttpClient client = new HttpClient())
+                {
+                    using (var content = new MultipartFormDataContent())
+                    {
+                        byte[] fileBytes = new byte[file.InputStream.Length + 1]; file.InputStream.Read(fileBytes, 0, fileBytes.Length);
+                        var fileContent = new ByteArrayContent(fileBytes);
+                        fileContent.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment") { FileName = file.FileName };
+                        content.Add(fileContent);
+                        var result = client.PostAsync(requestUri, content).Result;
+                        if (result.StatusCode == System.Net.HttpStatusCode.Created)
+                        {
+                            ViewBag.Message = "Created";
+                            return Json(new { Result = "OK" });
+                        }
+                        else
+                        {
+                            ViewBag.Message = "Failed";
+                            return Json(new { Result = "Failed" });
+                        }
+                    }
+                }
 
 
-                List<ImageProcductModel> images = ImageEdit(userImage, modell);
-                modell.Images = images;
-                dal.AddImage(modell);
 
-                return Json(new { Result = "OK" });
+
+                //ProductModel modell = dal.GetListProductWhithNoInclude().FirstOrDefault(m => m.id == model.id);
+
+
+                //List<ImageProcductModel> images = ImageEdit(userImage, modell);
+                //modell.Images = images;
+                //dal.AddImage(modell);
+
+                //return Json(new { Result = "OK" });
             }
             catch (Exception ex)
             {
@@ -405,7 +433,7 @@ namespace LookAuKwat.Controllers
             }
         }
 
-        [OutputCache(Duration = int.MaxValue, VaryByParam = "id")]
+        [OutputCache(Duration = 3600, VaryByParam = "id")]
         public ActionResult JobDetail(int id)
         {
             JobModel model = dal.GetListJobWithNoInclude().FirstOrDefault(e => e.id == id);

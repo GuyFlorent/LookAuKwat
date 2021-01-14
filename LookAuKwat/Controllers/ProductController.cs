@@ -13,6 +13,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Mail;
 using System.Text;
 using System.Threading;
@@ -382,47 +383,67 @@ namespace LookAuKwat.Controllers
 
 
         [HttpPost]
-        public JsonResult DeleteProduct(int id)
+        public async Task <JsonResult> DeleteProduct(int id)
         {
            
 
                 try
                 {
-             
-                    ProductModel pro = dal.GetListProductWhithNoInclude().FirstOrDefault(s => s.id == id);
-                    if (pro == null)
-                    {
 
-                        Response.StatusCode = (int)HttpStatusCode.NotFound;
-                        return Json(new { Result = "Error" });
+
+                string requestUri = "https://lookaukwatapi.azurewebsites.net/api/Product/?id=" + id;
+                using (HttpClient client = new HttpClient())
+                {
+
+                    var result = await client.DeleteAsync(requestUri);
+                    if (result.IsSuccessStatusCode)
+                    {
+                        ViewBag.Message = "Created";
+                        return Json(new { Result = "OK" });
+                    }
+                    else
+                    {
+                        ViewBag.Message = "Failed";
+                        return Json(new { Result = "Failed" });
                     }
 
-                    //delete files from the file system
-                    String path = null;
-                        foreach (var item in pro.Images)
-                        {
-                            if (item.Image.StartsWith("http"))
-                            {
-                                path = item.Image;
-                                dal.DeleteImage(item);
-                            }
-                            else
-                            {
-                                path = Request.MapPath(item.Image);
-                                dal.DeleteImage(item);
-                            }
-
-                            if (System.IO.File.Exists(path))
-                            {
-                                System.IO.File.Delete(path);
-                            }
-                        }
-
-                        dal.DeleteProduct(pro);
-                    
-                
-                    return Json(new { Result = "OK" });
                 }
+
+
+                //ProductModel pro = dal.GetListProductWhithNoInclude().FirstOrDefault(s => s.id == id);
+                //if (pro == null)
+                //{
+
+                //    Response.StatusCode = (int)HttpStatusCode.NotFound;
+                //    return Json(new { Result = "Error" });
+                //}
+
+                ////delete files from the file system
+                //String path = null;
+                //    foreach (var item in pro.Images)
+                //    {
+                //        if (item.Image.StartsWith("http"))
+                //        {
+                //            path = item.Image;
+                //            dal.DeleteImage(item);
+                //        }
+                //        else
+                //        {
+                //            path = Request.MapPath(item.Image);
+                //            dal.DeleteImage(item);
+                //        }
+
+                //        if (System.IO.File.Exists(path))
+                //        {
+                //            System.IO.File.Delete(path);
+                //        }
+                //    }
+
+                //    dal.DeleteProduct(pro);
+
+
+                //return Json(new { Result = "OK" });
+            }
                 catch (Exception ex)
                 {
                     return Json(new { Result = "ERROR", Message = ex.Message });

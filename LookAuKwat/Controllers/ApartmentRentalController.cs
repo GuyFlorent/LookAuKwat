@@ -335,7 +335,7 @@ namespace LookAuKwat.Controllers
             return liste;
         }
 
-        [OutputCache(Duration = int.MaxValue, VaryByParam = "id")]
+        [OutputCache(Duration = 3600, VaryByParam = "id")]
         public async Task<ActionResult> ApartDetail(int id)
         {
             ApartmentRentalModel model = await dal.GetListAppartWithNoInclude().FirstOrDefaultAsync(e => e.id == id);

@@ -494,7 +494,7 @@ namespace LookAuKwat.Controllers
             return PartialView(model);
         }
 
-        [OutputCache(Duration = int.MaxValue, VaryByParam = "id")]
+        [OutputCache(Duration = 3600, VaryByParam = "id")]
         public async Task< ActionResult> MultimediaDetail(int id)
         {
             MultimediaModel model = await dal.GetListMultimediaWithNoInclude().FirstOrDefaultAsync(e => e.id == id);
