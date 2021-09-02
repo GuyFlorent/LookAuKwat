@@ -14,11 +14,30 @@ namespace LookAuKwat.ViewModel
         {
             IDal dal = new Dal();
             IList<SelectListItem> list = new List<SelectListItem>();
-            var liste = dal.GetParrainList().ToList();
-            list = liste.Select(x => new SelectListItem() { Value = x.ParrainEmail, Text = x.ParrainFirstName }).ToList();
+            var liste = dal.GetParrainList_WithRole().ToList();
+            list = liste.Select(x => new SelectListItem() { Value = x.Email, Text = x.FirstName }).ToList();
             return list.OrderBy(m => m.Text);
         }
-       
+
+        public static IEnumerable<SelectListItem> GetProviders()
+        {
+            IDal dal = new Dal();
+            return dal.GetProviderList();
+        }
+
+        public static IEnumerable<SelectListItem> GetCountryList()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                 new SelectListItem() { Text = "Cameroun", Value = "Cameroun" },
+                 new SelectListItem() { Text = "Côte d'ivoire", Value = "Côte d'ivoire" },
+                 new SelectListItem() { Text = "Gabon", Value = "Gabon" },
+                 new SelectListItem() { Text = "Sénégal", Value = "Sénégal" },
+            };
+
+            return list.OrderBy(m => m.Value);
+        }
+
         public static IEnumerable<SelectListItem> GetListTownCameroon()
         {
             IList<SelectListItem> list = new List<SelectListItem>()
@@ -32,11 +51,11 @@ namespace LookAuKwat.ViewModel
                 new SelectListItem() { Text = "Bafoussam", Value = "Bafoussam" },
                 new SelectListItem() { Text = "Ngaoundéré", Value = "Ngaoundéré" },
                 new SelectListItem() { Text = "Bertoua", Value = "Bertoua" },
-                new SelectListItem() { Text = "	Loum", Value = "Loum" },
+                new SelectListItem() { Text = "Loum", Value = "Loum" },
                 new SelectListItem() { Text = "Kumba", Value = "Kumba" },
-                new SelectListItem() { Text = "	Kumbo", Value = "Kumbo" },
+                new SelectListItem() { Text = "Kumbo", Value = "Kumbo" },
                 new SelectListItem() { Text = "Foumban", Value = "Foumban" },
-                new SelectListItem() { Text = "	Mbouda", Value = "Mbouda" },
+                new SelectListItem() { Text = "Mbouda", Value = "Mbouda" },
                 new SelectListItem() { Text = "Dschang", Value = "Dschang" },
                 new SelectListItem() { Text = "Limbé", Value = "Limbé" },
                 new SelectListItem() { Text = "Ebolowa", Value = "Ebolowa" },
@@ -47,7 +66,7 @@ namespace LookAuKwat.ViewModel
                 new SelectListItem() { Text = "Mbalmayo", Value = "Mbalmayo" },
                 new SelectListItem() { Text = "Bafang", Value = "Bafang" },
                 new SelectListItem() { Text = "Tiko", Value = "Tiko" },
-                new SelectListItem() { Text = "	Bafia", Value = "Bafia" },
+                new SelectListItem() { Text = "Bafia", Value = "Bafia" },
                 new SelectListItem() { Text = "Wum", Value = "Wum" },
                 new SelectListItem() { Text = "Kribi", Value = "Kribi" },
                 new SelectListItem() { Text = "Buea", Value = "Buea" },
@@ -68,7 +87,7 @@ namespace LookAuKwat.ViewModel
                 new SelectListItem() { Text = "Tibati", Value = "Tibati" },
                 new SelectListItem() { Text = "Ndop", Value = "Ndop" },
                 new SelectListItem() { Text = "Akonolinga", Value = "Akonolinga" },
-                new SelectListItem() { Text = "	Eséka", Value = "Eséka" },
+                new SelectListItem() { Text = "Eséka", Value = "Eséka" },
                 new SelectListItem() { Text = "Mamfé", Value = "Mamfé" },
                 new SelectListItem() { Text = "Obala", Value = "Obala" },
                 new SelectListItem() { Text = "Muyuka", Value = "Muyuka" },
@@ -103,6 +122,158 @@ namespace LookAuKwat.ViewModel
             return list.OrderBy(m =>m.Value);
         }
 
+        public static IEnumerable<SelectListItem> GetListTownCoteIvoire()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                new SelectListItem() { Text = "Abidjan", Value = "Abidjan" },
+                new SelectListItem() { Text = "Bouaké", Value = "Bouaké" },
+                new SelectListItem() { Text = "Daloa", Value = "Daloa" },
+                new SelectListItem() { Text = "Yamoussoukro", Value = "Yamoussoukro" },
+                new SelectListItem() { Text = "San-Pédro", Value = "San-Pédro" },
+                new SelectListItem() { Text = "Divo", Value = "Divo" },
+                new SelectListItem() { Text = "Korhogo", Value = "Korhogo" },
+                new SelectListItem() { Text = "Anyama", Value = "Anyama" },
+                new SelectListItem() { Text = "Abengourou", Value = "Abengourou" },
+                new SelectListItem() { Text = "Man", Value = "Man" },
+                new SelectListItem() { Text = "Gagnoa", Value = "Gagnoa" },
+                new SelectListItem() { Text = "Soubré", Value = "Soubré" },
+                new SelectListItem() { Text = "Agboville", Value = "Agboville" },
+                new SelectListItem() { Text = "	Dabou", Value = "Dabou" },
+                new SelectListItem() { Text = "Grand-Bassam", Value = "Grand-Bassam" },
+                new SelectListItem() { Text = "Bouaflé", Value = "Bouaflé" },
+                new SelectListItem() { Text = "Issia", Value = "Issia" },
+                new SelectListItem() { Text = "Sinfra", Value = "Sinfra" },
+                new SelectListItem() { Text = "Katiola", Value = "Katiola" },
+                new SelectListItem() { Text = "Bingerville", Value = "Bingerville" },
+                new SelectListItem() { Text = "Adzopé", Value = "Adzopé" },
+                new SelectListItem() { Text = "Séguéla", Value = "Séguéla" },
+                new SelectListItem() { Text = "Bondoukou", Value = "Bondoukou" },
+                new SelectListItem() { Text = "Oumé", Value = "Oumé" },
+                new SelectListItem() { Text = "Ferkessedougou", Value = "Ferkessedougou" },
+                new SelectListItem() { Text = "Dimbokro1", Value = "Dimbokro1" },
+                new SelectListItem() { Text = "Odienné", Value = "Odienné" },
+                new SelectListItem() { Text = "Duékoué", Value = "Duékoué" },
+                new SelectListItem() { Text = "Danané", Value = "Danané" },
+                new SelectListItem() { Text = "Tingréla", Value = "Tingréla" },
+                new SelectListItem() { Text = "Guiglo", Value = "Guiglo" },
+                new SelectListItem() { Text = "Boundiali", Value = "Boundiali" },
+                new SelectListItem() { Text = "Agnibilékrou", Value = "Agnibilékrou" },
+                new SelectListItem() { Text = "Daoukro", Value = "Daoukro" },
+                new SelectListItem() { Text = "Vavoua", Value = "Vavoua" },
+                new SelectListItem() { Text = "Zuénoula", Value = "Zuénoula" },
+                new SelectListItem() { Text = "Tiassalé", Value = "Tiassalé" },
+                new SelectListItem() { Text = "Toumodi", Value = "Toumodi" },
+                new SelectListItem() { Text = "Akoupé", Value = "Akoupé" },
+                new SelectListItem() { Text = "Lakota", Value = "Lakota" },
+               
+            };
+            return list.OrderBy(m => m.Value);
+        }
+
+        public static IEnumerable<SelectListItem> GetListTownGabon()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                new SelectListItem() { Text = "Libreville", Value = "Libreville" },
+                new SelectListItem() { Text = "Port-Gentil", Value = "Port-Gentil" },
+                new SelectListItem() { Text = "Franceville", Value = "Franceville" },
+                new SelectListItem() { Text = "Oyem", Value = "Oyem" },
+                new SelectListItem() { Text = "Moanda", Value = "Moanda" },
+                new SelectListItem() { Text = "Mouila", Value = "Mouila" },
+                new SelectListItem() { Text = "Lambaréné", Value = "Lambaréné" },
+                new SelectListItem() { Text = "Tchibanga", Value = "Tchibanga" },
+                new SelectListItem() { Text = "Koulamoutou", Value = "Koulamoutou" },
+                new SelectListItem() { Text = "Makokou", Value = "Makokou" },
+                new SelectListItem() { Text = "Bitam", Value = "Bitam" },
+                new SelectListItem() { Text = "Tsogni", Value = "Tsogni" },
+                new SelectListItem() { Text = "Gamba", Value = "Gamba" },
+                new SelectListItem() { Text = "Mounana", Value = "Mounana" },
+                new SelectListItem() { Text = "Ntoum", Value = "Ntoum" },
+                new SelectListItem() { Text = "Nkan", Value = "Nkan" },
+                new SelectListItem() { Text = "Lastourville", Value = "Lastourville" },
+                new SelectListItem() { Text = "Okondja", Value = "Okondja" },
+                new SelectListItem() { Text = "Ndendé", Value = "Ndendé" },
+                new SelectListItem() { Text = "Booué", Value = "Booué" },
+                new SelectListItem() { Text = "Fougamou", Value = "Fougamou" },
+                new SelectListItem() { Text = "Ndjolé", Value = "Ndjolé" },
+                new SelectListItem() { Text = "Mayumba", Value = "Mayumba" },
+                new SelectListItem() { Text = "Mitzic", Value = "Mitzic" },
+                new SelectListItem() { Text = "Mékambo", Value = "Mékambo" },
+                new SelectListItem() { Text = "Lékoni", Value = "Lékoni" },
+                new SelectListItem() { Text = "Mimongo", Value = "Mimongo" },
+                new SelectListItem() { Text = "Minvoul", Value = "Minvoul" },
+                new SelectListItem() { Text = "Medouneu", Value = "Medouneu" },
+                new SelectListItem() { Text = "Omboué", Value = "Omboué" },
+                new SelectListItem() { Text = "Cocobeach", Value = "Cocobeach" },
+                new SelectListItem() { Text = "Kango", Value = "Kango" },
+               
+            };
+            return list.OrderBy(m => m.Value);
+        }
+
+        public static IEnumerable<SelectListItem> GetListTownSenegal()
+        {
+            IList<SelectListItem> list = new List<SelectListItem>()
+            {
+                new SelectListItem() { Text = "Dakar", Value = "Dakar" },
+                new SelectListItem() { Text = "Pikine", Value = "Pikinel" },
+                new SelectListItem() { Text = "Touba", Value = "Touba" },
+                new SelectListItem() { Text = "Guédiawaye", Value = "Guédiawaye" },
+                new SelectListItem() { Text = "Thiès", Value = "Thiès" },
+                new SelectListItem() { Text = "Kaolack", Value = "Kaolack" },
+                new SelectListItem() { Text = "Mbour", Value = "Mbour" },
+                new SelectListItem() { Text = "Saint-Louis", Value = "Saint-Louis" },
+                new SelectListItem() { Text = "Rufisque", Value = "Rufisque" },
+                new SelectListItem() { Text = "Ziguinchor", Value = "Ziguinchor" },
+                new SelectListItem() { Text = "Diourbel", Value = "Diourbel" },
+                new SelectListItem() { Text = "Louga", Value = "Louga" },
+                new SelectListItem() { Text = "Tambacounda", Value = "Tambacounda" },
+                new SelectListItem() { Text = "Mbacké", Value = "Mbacké" },
+                new SelectListItem() { Text = "Kolda", Value = "Kolda" },
+                new SelectListItem() { Text = "Richard-Toll", Value = "Richard-Toll" },
+                new SelectListItem() { Text = "Bargny", Value = "Bargny" },
+                new SelectListItem() { Text = "Tivaouane", Value = "Tivaouane" },
+                new SelectListItem() { Text = "Joal-Fadiouth", Value = "Joal-Fadiouth" },
+                new SelectListItem() { Text = "Dahra", Value = "Dahra" },
+                new SelectListItem() { Text = "Kaffrine", Value = "Kaffrine" },
+                new SelectListItem() { Text = "Bignona", Value = "Bignona" },
+                new SelectListItem() { Text = "Fatick", Value = "Fatick" },
+                new SelectListItem() { Text = "Vélingara", Value = "Vélingara" },
+                new SelectListItem() { Text = "Bambey", Value = "Bambey" },
+                new SelectListItem() { Text = "Sébikhotane", Value = "Sébikhotane" },
+                new SelectListItem() { Text = "Dagana", Value = "Dagana" },
+                new SelectListItem() { Text = "Sédhiou", Value = "Sédhiou" },
+                new SelectListItem() { Text = "Nguékhokh", Value = "Nguékhokh" },
+                new SelectListItem() { Text = "Diawara", Value = "Diawara" },
+                new SelectListItem() { Text = "Kédougou", Value = "Kédougou" },
+                new SelectListItem() { Text = "Pout", Value = "Pout" },
+                new SelectListItem() { Text = "Kayar", Value = "Kayar" },
+                new SelectListItem() { Text = "Matam", Value = "Matam" },
+                new SelectListItem() { Text = "Meckhe", Value = "Meckhe" },
+                new SelectListItem() { Text = "Nioro du Rip", Value = "Nioro du Rip" },
+                new SelectListItem() { Text = "Ourossogui", Value = "Ourossogui" },
+                new SelectListItem() { Text = "Kébémer", Value = "Kébémer" },
+                new SelectListItem() { Text = "Ndioum", Value = "Ndioum" },
+                new SelectListItem() { Text = "Koungheul", Value = "Koungheul" },
+                new SelectListItem() { Text = "Guinguinéo", Value = "Guinguinéo" },
+                new SelectListItem() { Text = "Linguère", Value = "Linguère" },
+                new SelectListItem() { Text = "Khombole", Value = "Khombole" },
+                new SelectListItem() { Text = "Bakel", Value = "Bakel" },
+                new SelectListItem() { Text = "Sokone", Value = "Sokone" },
+                new SelectListItem() { Text = "Diamniadio", Value = "Diamniadio" },
+                new SelectListItem() { Text = "Mboro", Value = "Mboro" },
+                new SelectListItem() { Text = "Thiadiaye", Value = "Thiadiaye" },
+                new SelectListItem() { Text = "Goudomp", Value = "Goudomp" },
+                new SelectListItem() { Text = "Gossas", Value = "Gossas" },
+                new SelectListItem() { Text = "Kanel", Value = "Kanel" },
+                new SelectListItem() { Text = "Rosso", Value = "Rosso" },
+                new SelectListItem() { Text = "Ndoffane", Value = "Ndoffane" },
+                new SelectListItem() { Text = "Gandiaye", Value = "Gandiaye" },
+
+            };
+            return list.OrderBy(m => m.Value);
+        }
         public static IEnumerable<SelectListItem> ChooseSearchOrAsk()
         {
             IList<SelectListItem> list = new List<SelectListItem>()

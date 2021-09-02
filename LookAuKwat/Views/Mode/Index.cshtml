@@ -11,196 +11,227 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+<div class="form-horizontal">
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group" id="SearchOrAskModeDiv">
-            @Html.LabelFor(model => model.SearchOrAskMode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.SearchOrAskMode, SelectListMethodVehicle.SearchOrAskVehiculeList(), "Choisir", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SearchOrAskMode, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group" id="SearchOrAskModeDiv">
+        @Html.LabelFor(model => model.SearchOrAskMode, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.SearchOrAskMode, SelectListMethodVehicle.SearchOrAskVehiculeList(), "Choisir", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.SearchOrAskMode, "", new { @class = "text-danger" })
         </div>
+    </div>
 
 
-        <div class="form-group hidden" id="RubriqueModeDiv">
-            @Html.LabelFor(model => model.RubriqueMode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.RubriqueMode, SelectListMethodMode.RubriqueModeList(), "choisir", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.RubriqueMode, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group hidden" id="RubriqueModeDiv">
+        @Html.LabelFor(model => model.RubriqueMode, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.RubriqueMode, SelectListMethodMode.RubriqueModeList(), "choisir", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.RubriqueMode, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group hidden" id="TypeModeClothesDiv">
-            @Html.LabelFor(model => model.TypeModeClothes, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.TypeModeClothes, SelectListMethodMode.TypeClothesList(), "choisir", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TypeModeClothes, "", new { @class = "text-danger" })
-            </div>
+    </div>
+    <div class="form-group hidden" id="TypeModeClothesDiv">
+        @Html.LabelFor(model => model.TypeModeClothes, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.TypeModeClothes, SelectListMethodMode.TypeClothesList(), "choisir", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TypeModeClothes, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group hidden" id="TypeModeShoesDiv">
-            @Html.LabelFor(model => model.TypeModeShoes, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.TypeModeShoes, SelectListMethodMode.TypeShoesList(), "choisir", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TypeModeShoes, "", new { @class = "text-danger" })
-            </div>
+    </div>
+    <div class="form-group hidden" id="TypeModeShoesDiv">
+        @Html.LabelFor(model => model.TypeModeShoes, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.TypeModeShoes, SelectListMethodMode.TypeShoesList(), "choisir", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TypeModeShoes, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group hidden" id="TypeModeAccesorieLugagesDiv">
-            @Html.LabelFor(model => model.TypeModeAccesorieLugages, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.TypeModeAccesorieLugages, SelectListMethodMode.TypeAccesorieLugagesList(), "choisir", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TypeModeAccesorieLugages, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group hidden" id="TypeModeAccesorieLugagesDiv">
+        @Html.LabelFor(model => model.TypeModeAccesorieLugages, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.TypeModeAccesorieLugages, SelectListMethodMode.TypeAccesorieLugagesList(), "choisir", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TypeModeAccesorieLugages, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group hidden" id="TypeModeWatchJewelryDiv">
-            @Html.LabelFor(model => model.TypeModeWatchJewelry, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.TypeModeWatchJewelry, SelectListMethodMode.TypeWatchJewelryList(), "choisir", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TypeModeWatchJewelry, "", new { @class = "text-danger" })
-            </div>
+    </div>
+    <div class="form-group hidden" id="TypeModeWatchJewelryDiv">
+        @Html.LabelFor(model => model.TypeModeWatchJewelry, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.TypeModeWatchJewelry, SelectListMethodMode.TypeWatchJewelryList(), "choisir", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TypeModeWatchJewelry, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group hidden" id="TypeModeBabyEquipmentDiv">
-            @Html.LabelFor(model => model.TypeModeBabyEquipment, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.TypeModeBabyEquipment, SelectListMethodMode.TypeBabyEquipmentList(), "choisir", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TypeModeBabyEquipment, "", new { @class = "text-danger" })
-            </div>
+    </div>
+    <div class="form-group hidden" id="TypeModeBabyEquipmentDiv">
+        @Html.LabelFor(model => model.TypeModeBabyEquipment, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.TypeModeBabyEquipment, SelectListMethodMode.TypeBabyEquipmentList(), "choisir", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TypeModeBabyEquipment, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group hidden" id="TypeModeBabyClothesDiv">
+    </div>
+    <div class="form-group hidden" id="TypeModeBabyClothesDiv">
+        @Html.LabelFor(model => model.TypeModeBabyClothes, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.TypeModeBabyClothes, SelectListMethodMode.TypeBabyClothesList(), "choisir", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TypeModeBabyClothes, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @*<div class="form-group hidden" id="TypeModeBabyClothesDiv">
             @Html.LabelFor(model => model.TypeModeBabyClothes, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.TypeModeBabyClothes, SelectListMethodMode.TypeBabyClothesList(), "choisir", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.TypeModeBabyClothes, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        @*<div class="form-group hidden" id="TypeModeBabyClothesDiv">
-                @Html.LabelFor(model => model.TypeModeBabyClothes, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.TypeModeBabyClothes, SelectListMethodMode.TypeBabyClothesList(), "choisir", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.TypeModeBabyClothes, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-        <div class="form-group hidden" id="BrandModeClothesDiv">
-            @Html.LabelFor(model => model.BrandModeClothes, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.BrandModeClothes, SelectListMethodMode.BrandClothesList(), "choisir", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.BrandModeClothes, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group hidden" id="BrandModeShoesDiv">
-            @Html.LabelFor(model => model.BrandModeShoes, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.BrandModeShoes, SelectListMethodMode.BrandShoesList(), "choisir", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.BrandModeShoes, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group hidden" id="UniversModeDiv">
-            @Html.LabelFor(model => model.UniversMode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.UniversMode, SelectListMethodMode.UniversList(), "choisir", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.UniversMode, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group hidden" id="SizeModeClothesDiv">
-            @Html.LabelFor(model => model.SizeModeClothes, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.SizeModeClothes, SelectListMethodMode.SeizeClothesList(), "choisir", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SizeModeClothes, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group hidden" id="SizeModeShoesDiv">
-            @Html.LabelFor(model => model.SizeModeShoes, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.SizeModeShoes, SelectListMethodMode.SizeShoesList(), "choisir", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SizeModeShoes, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group hidden" id="ColorModeDiv">
-            @Html.LabelFor(model => model.ColorMode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.ColorMode, SelectListMethodMode.ColorModeList(), "choisir", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ColorMode, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group hidden" id="StateModeDiv">
-            @Html.LabelFor(model => model.StateMode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.StateMode, SelectListMethodMode.StateModeList(), "choisir", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.StateMode, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group hidden" id="TitleModeDiv">
-            @Html.LabelFor(model => model.TitleMode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TitleMode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TitleMode, "", new { @class = "text-danger" })
-            </div>
-
-        </div>
-
-
-        <div class="form-group hidden" id="DescriptionModeDiv">
-            @Html.LabelFor(model => model.DescriptionMode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.DescriptionMode, new { @class = "form-control", @cols = "45", @rows = "5" })
-                @Html.ValidationMessageFor(model => model.DescriptionMode, "", new { @class = "text-danger" })
-            </div>
-
-        </div>
-
-        <div class="form-group hidden" id="TownModeDiv">
-            @Html.LabelFor(model => model.TownMode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.TownMode, SelectListMethod.GetListTownCameroon(), "choisir", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TownMode, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="hidden" id="StreetModeDiv">
-            <p class=" col-md-offset-2 text-info">Veuillez choisir une adresse de la liste après votre saisie.</p>
-            <div class="form-group">
-
-                @Html.LabelFor(model => model.StreetMode, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-8">
-                    @Html.EditorFor(model => model.StreetMode, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.StreetMode, "", new { @class = "text-danger" })
-                </div>
-
-            </div>
-        </div>
-
-        <div class="form-group hidden" id="PriceModediv">
-            @Html.LabelFor(model => model.PriceMode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PriceMode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PriceMode, "", new { @class = "text-danger" })
-            </div>
-
-        </div>
-
-        <div class="form-group hidden" id="ImageModeDiv">
-            @Html.LabelFor(model => model.Imageproduct.Image, htmlAttributes: new { @class = "control-label col-md-2" })
-
-            @*<label class="control-label col-md-2" for="#imagesJobs"></label>*@
-            <div class="col-md-6">
-
-                <input type="file" name="ImageFile" accept="image/*" multiple="multiple" @*onchange="readURL(this);"*@>
-                <p class="text-info">Vous pouvez sélectionner à la fois une ou trois(3) images au maximun.</p>
-            </div>
-            @*<div style="height:50px " class="col-md-4">
-                    <img id="InitiativeImageUpToDate" src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt="photo de initiative" height="50" />
-                </div>*@
-        </div>
-
-        <div class="form-group hidden" id="btnModeDiv">
-            <div class="col-md-offset-2 col-md-10">
-                <button type="submit" class="btn btn-success">Suivant <span class="glyphicon glyphicon-menu-right"></span></button>
-            </div>
+        </div>*@
+    <div class="form-group hidden" id="BrandModeClothesDiv">
+        @Html.LabelFor(model => model.BrandModeClothes, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.BrandModeClothes, SelectListMethodMode.BrandClothesList(), "choisir", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.BrandModeClothes, "", new { @class = "text-danger" })
         </div>
     </div>
+    <div class="form-group hidden" id="BrandModeShoesDiv">
+        @Html.LabelFor(model => model.BrandModeShoes, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.BrandModeShoes, SelectListMethodMode.BrandShoesList(), "choisir", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.BrandModeShoes, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group hidden" id="UniversModeDiv">
+        @Html.LabelFor(model => model.UniversMode, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.UniversMode, SelectListMethodMode.UniversList(), "choisir", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.UniversMode, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group hidden" id="SizeModeClothesDiv">
+        @Html.LabelFor(model => model.SizeModeClothes, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.SizeModeClothes, SelectListMethodMode.SeizeClothesList(), "choisir", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.SizeModeClothes, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group hidden" id="SizeModeShoesDiv">
+        @Html.LabelFor(model => model.SizeModeShoes, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.SizeModeShoes, SelectListMethodMode.SizeShoesList(), "choisir", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.SizeModeShoes, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group hidden" id="ColorModeDiv">
+        @Html.LabelFor(model => model.ColorMode, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.ColorMode, SelectListMethodMode.ColorModeList(), "choisir", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ColorMode, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group hidden" id="StateModeDiv">
+        @Html.LabelFor(model => model.StateMode, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.StateMode, SelectListMethodMode.StateModeList(), "choisir", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.StateMode, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group hidden" id="TitleModeDiv">
+        @Html.LabelFor(model => model.TitleMode, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TitleMode, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TitleMode, "", new { @class = "text-danger" })
+        </div>
+
+    </div>
+
+
+    <div class="form-group hidden" id="DescriptionModeDiv">
+        @Html.LabelFor(model => model.DescriptionMode, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.DescriptionMode, new { @class = "form-control", @cols = "45", @rows = "5" })
+            @Html.ValidationMessageFor(model => model.DescriptionMode, "", new { @class = "text-danger" })
+        </div>
+
+    </div>
+
+
+    @if (User.IsInRole(MyRoleConstant.RoleAdmin) || User.IsInRole(MyRoleConstant.Role_SuperAgent))
+    {
+        <div class="form-group ">
+            @Html.LabelFor(model => model.Provider_Id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(model => model.Provider_Id, SelectListMethod.GetProviders(), "choisir un fournisseur", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Provider_Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Stock, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    }
+
+    <div class="form-group ">
+        @Html.LabelFor(model => model.ProductCountry, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-8">
+            @Html.DropDownListFor(model => model.ProductCountry, SelectListMethod.GetCountryList(), "choisir", new { @id = "Country", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ProductCountry, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+
+    <div class="form-group hidden" id="TownModeDiv">
+        @Html.LabelFor(model => model.TownMode, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.TownMode, SelectListMethod.GetListTownCameroon(), "choisir", new { @id = "Town", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TownMode, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="hidden" id="StreetModeDiv">
+        <p class=" col-md-offset-2 text-info">Veuillez choisir une adresse de la liste après votre saisie.</p>
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.StreetMode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.StreetMode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StreetMode, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+    </div>
+
+    <div class="form-group hidden" id="PriceModediv">
+        @Html.LabelFor(model => model.PriceMode, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PriceMode, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PriceMode, "", new { @class = "text-danger" })
+        </div>
+
+    </div>
+
+    <div class="form-group hidden" id="ImageModeDiv">
+        @Html.LabelFor(model => model.Imageproduct.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        @*<label class="control-label col-md-2" for="#imagesJobs"></label>*@
+        <div class="col-md-6">
+
+            <input type="file" name="ImageFile" accept="image/*" multiple="multiple" @*onchange="readURL(this);"*@>
+            <p class="text-info">Vous pouvez sélectionner à la fois une ou trois(3) images au maximun.</p>
+        </div>
+        @*<div style="height:50px " class="col-md-4">
+                <img id="InitiativeImageUpToDate" src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt="photo de initiative" height="50" />
+            </div>*@
+    </div>
+
+    <div class="form-group hidden" id="btnModeDiv">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-success">Suivant <span class="glyphicon glyphicon-menu-right"></span></button>
+        </div>
+    </div>
+</div>
 }
 
 <script type="text/javascript">
@@ -486,6 +517,52 @@
         });
 
 
+        $("#Country").change(function () {
+            var country = $("#Country").val();
+            if (country == null || country == "") {
+                alert("Veillez choisir un pays s'il vous plaît");
+                return;
+            }
+            // $("input[id='ClientName']").val(country);
+            if (country != null || country != "") {
+                $.ajax({
+                    url: "/Product/BindTown",
+                    type: "POST",
+                    data: JSON.stringify({ 'country': country }),
+                    dataType: "json",
+                    traditional: true,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+
+                        //debugger;  
+                        var listItems = "";
+                        // var list = "";
+                        var a = result;
+                        //var s = result.bindingAddresses.siteAdd;
+                        for (i in result) {
+
+                            listItems += "<option value='" + a[i].Value + "'>" + a[i].Text
+
+                                + "</option>";
+                        }
+                        $("#Town").html(listItems);
+
+                        //for (j in s) {
+                        //    list += "<option value='" + s[j].Value + "'>" + s[j].Text +
+
+                        //        "</option>";
+                        //}
+                        //$("#SiteId").html(list);
+                    },
+                    error: function () {
+                        alert("An error has occured!!!");
+                    }
+                });
+            }
+        });  
+
+
+
         $("#StreetMode").autocomplete({
         source: function (request, response) {
         $.ajax({
@@ -501,6 +578,7 @@
 
                // country: $("#Country").val(),
                 town: $("#TownMode").val(),
+                country: $("#Country").val(),
                  // zipcode: $("#ZipCode").val(),
                 term: request.term
             }),

@@ -1,0 +1,10 @@
+[
+  {
+    "relation": [ "delegate_permission/common.handle_all_urls" ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.lookaukwat.lookaukwatapp",
+      "sha256_cert_fingerprints": [ "A5:45:65:38:CF:9A:79:5E:FF:3A:C4:A4:FD:1D:9D:7A:28:6C:8A:62:F8:7E:70:20:C8:7D:B2:68:28:5B:6C:5D" ]
+    }
+  }
+]

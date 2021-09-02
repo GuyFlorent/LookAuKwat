@@ -6,7 +6,7 @@
 
 <h2>@ViewBag.Title sur <strong>LookAuKwat</strong> en <span class="text-success">2 minutes</span> </h2>
 
-<h3>Choisir la confirmation de compte par email ou par sms</h3>
+<h3>Choisir la confirmation de compte par email @*ou par sms*@</h3>
 <div class="sect sect--padding-top">
     <div class="container">
         <div class="row">
@@ -15,7 +15,7 @@
 
                     <div class="site__box-link">
                         <a id="EmailRegister" class="btn btn--width" href="#RegisterConFirmEmail" data-toggle="tab">Email</a>
-                        <a id="SmsRegister" class="btn btn--revert btn--width" href="#RegisterConFirmSMS" data-toggle="tab">SMS</a>
+                        @*<a id="SmsRegister" class="btn btn--revert btn--width" href="#RegisterConFirmSMS" data-toggle="tab">SMS</a>*@
                     </div>
 
                 </div>
@@ -93,7 +93,7 @@
         }
     </div>
 
-    <div class="tab-pane  fade " id="RegisterConFirmSMS">
+    @*<div class="tab-pane  fade " id="RegisterConFirmSMS">
 
 
         @using (Html.BeginForm("RegisterWithSmS", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -148,7 +148,7 @@
             </p>
         }
 
-    </div>
+    </div>*@
 
 </div>
 

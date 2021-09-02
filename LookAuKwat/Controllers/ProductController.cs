@@ -46,8 +46,7 @@ namespace LookAuKwat.Controllers
         public ActionResult SimilarProduct_PartialView(ProductModel model)
         {
             //var ran = new Random();
-            List<ProductModel> similarList =  dal.GetListProductWhithNoInclude().Where(l => l.Category.CategoryName == model.Category.CategoryName
-            && l.Town == model.Town && l.SearchOrAskJob == model.SearchOrAskJob && l.id != model.id).OrderBy(x => Guid.NewGuid()).Take(6).ToList();
+            List<ProductModel> similarList =  dal.GetListProductWhithNoInclude().Where(s=>s.ProductCountry == model.ProductCountry).Where(l => l.Category.CategoryName == model.Category.CategoryName).OrderBy(x => Guid.NewGuid()).Take(6).ToList();
             return PartialView( similarList);
         }
         public ActionResult ListProduct()
@@ -66,9 +65,14 @@ namespace LookAuKwat.Controllers
             //IQueryable<ProductModel> liste =  dal.GetListProductWhithNoInclude();
             List<ProductToDisplay> liste =  dal.GetListProductToDisplay();
            
-            if (!string.IsNullOrWhiteSpace(model.TownAllProduct))
+            if (!string.IsNullOrWhiteSpace(model.Country))
             {
-                liste =  liste.Where(m => m.Town != null && m.Town == model.TownAllProduct).ToList();
+                liste =  liste.Where(m => m.Country != null && m.Country == model.Country).ToList();
+            }
+
+            if (!string.IsNullOrWhiteSpace(model.TownAllProduct) && model.TownAllProduct != "Toutes les villes")
+            {
+                liste = liste.Where(m => m.Town != null && m.Town == model.TownAllProduct).ToList();
             }
             if (!string.IsNullOrWhiteSpace(model.SearchTermAllProduct))
             {
@@ -87,13 +91,13 @@ namespace LookAuKwat.Controllers
                     liste = liste.OrderBy(m => m.Price).ToList();
                     break;
                 case "date desc":
-                    liste = liste.OrderByDescending(m => m.id).ToList();
+                    liste = liste.OrderByDescending(m => m.DateAdd).ToList();
                     break;
                 case "date asc":
-                    liste = liste.OrderBy(m => m.id).ToList();
+                    liste = liste.OrderBy(m => m.DateAdd).ToList();
                     break;
                 default:
-                    liste = liste.OrderByDescending(x => x.id).ToList();
+                    liste = liste.OrderByDescending(x => x.DateAdd).ToList();
                     break;
             }
 
@@ -172,15 +176,15 @@ namespace LookAuKwat.Controllers
                     model.ListeProPagedList = liste.ToPagedList(pageNumber ?? 1, 10);
                     break;
                 case "date desc":
-                    liste = liste.OrderByDescending(m => m.id).ToList();
+                    liste = liste.OrderByDescending(m => m.DateAdd).ToList();
                     model.ListeProPagedList = liste.ToPagedList(pageNumber ?? 1, 10);
                     break;
                 case "date asc":
-                    liste = liste.OrderBy(m => m.id).ToList();
+                    liste = liste.OrderBy(m => m.DateAdd).ToList();
                     model.ListeProPagedList = liste.ToPagedList(pageNumber ?? 1, 10);
                     break;
                 default:
-                    liste = liste.OrderByDescending(x => x.id).ToList();
+                    liste = liste.OrderByDescending(x => x.DateAdd).ToList();
                     model.ListeProPagedList = liste.ToPagedList(pageNumber ?? 1, 10);
                     break;
             }
@@ -278,9 +282,14 @@ namespace LookAuKwat.Controllers
             return View(model);
         }
 
-        public async Task< JsonResult> listAllProductViewMapReturnJsonn(string term, string town)
+        public async Task< JsonResult> listAllProductViewMapReturnJsonn(string term, string town, string country)
         {
             List<ProductModel> liste = await dal.GetListProductWhithNoInclude().ToListAsync();
+            if (!string.IsNullOrWhiteSpace(country))
+            {
+                liste = liste.Where(m => m.ProductCountry == country).ToList();
+            }
+
             if (!string.IsNullOrWhiteSpace(town))
             {
                 liste = liste.Where(m => m.Town == town).ToList();
@@ -306,10 +315,15 @@ namespace LookAuKwat.Controllers
             return Json(data2, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult listAllProductSpanReturnJson(string town, string term)
+        public JsonResult listAllProductSpanReturnJson(string town, string term, string country)
         {
             List<ProductModel> liste = dal.GetListProductWhithNoInclude().ToList();
-            if (!string.IsNullOrWhiteSpace(town))
+
+            if (!string.IsNullOrWhiteSpace(country))
+            {
+                liste = liste.Where(m => m.ProductCountry == country).ToList();
+            }
+            if (!string.IsNullOrWhiteSpace(town) && town != "Toutes les villes")
             {
                 liste = liste.Where(m => m.Town == town).ToList();
             }
@@ -451,6 +465,37 @@ namespace LookAuKwat.Controllers
             
         }
 
+
+
+        //For countries and town
+
+        [HttpPost]
+        public JsonResult BindTown(string country)
+        {
+            List<SelectListItem> BindTowns = new List<SelectListItem>();
+
+            switch (country)
+            {
+                case "Cameroun":
+                    BindTowns = SelectListMethod.GetListTownCameroon().ToList();
+                    break;
+                case "Côte d'ivoire":
+                    BindTowns = SelectListMethod.GetListTownCoteIvoire().ToList();
+                    break;
+                case "Gabon":
+                    BindTowns = SelectListMethod.GetListTownGabon().ToList();
+                    break;
+                case "Sénégal":
+                    BindTowns = SelectListMethod.GetListTownSenegal().ToList();
+                    break;
+            }
+
+
+            return Json(BindTowns, JsonRequestBehavior.AllowGet); ;
+        }
+
+
+
         //result of every search product
         public ActionResult ResultSearch_PartialView(SeachJobViewModel modelresult, int? pageNumber, string sortBy, AskJobViewModel model)
         {
@@ -558,15 +603,15 @@ namespace LookAuKwat.Controllers
                         modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
                         break;
                     case "date desc":
-                        modelresult.ListePro = modelresult.ListePro.OrderByDescending(m => m.id).ToList();
+                        modelresult.ListePro = modelresult.ListePro.OrderByDescending(m => m.DateAdd).ToList();
                         modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
                         break;
                     case "date asc":
-                        modelresult.ListePro = modelresult.ListePro.OrderBy(m => m.id).ToList();
+                        modelresult.ListePro = modelresult.ListePro.OrderBy(m => m.DateAdd).ToList();
                         modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
                         break;
                     default:
-                        modelresult.ListePro = modelresult.ListePro.OrderByDescending(x => x.id).ToList();
+                        modelresult.ListePro = modelresult.ListePro.OrderByDescending(x => x.DateAdd).ToList();
                         modelresult.ListeProPagedList = modelresult.ListePro.ToPagedList(pageNumber ?? 1, 10);
                         break;
                 }
@@ -873,6 +918,8 @@ namespace LookAuKwat.Controllers
 
         private async Task configSendGridasync(contactUserViewModel message)
         {
+
+            Environment.SetEnvironmentVariable("SENDGRID_API_KEY", "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");
 
             var apikey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
             //var apiKey = ConfigurationManager.AppSettings["mailPasswordSendGrid"];

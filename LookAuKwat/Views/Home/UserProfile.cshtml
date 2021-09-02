@@ -1,8 +1,12 @@
-﻿@{
-    ViewBag.Title = "Déposer une annonce en 2 minutes";
+﻿@using System.Globalization;
+@using PagedList;
+@using PagedList.Mvc;
+@model LookAuKwat.ViewModel.SeachJobViewModel
+@{
+    ViewBag.Title = "Publier une annonce en 2 minutes";
 }
 
-    <p>@Html.ActionLink("Retour à l'accueil", "Index", "Home") <i class="fa fa-angle-right"></i> Déposer une annonce</p>
+<p>@Html.ActionLink("Retour à l'accueil", "Index", "Home") <i class="fa fa-angle-right"></i> Déposer une annonce</p>
 <div class="sect sect--padding-top">
     <div class="container">
         <div class="row">
@@ -32,118 +36,129 @@
         </div>
     </div>
     @*<div class="row">
-        <div id="MyModalAddJob" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" style="color:coral">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Ajouter ou chercher tout type d'emploi<span id="eventTitle"></span></h4>
-                    </div>
-                    <div class="modal-body">
+            <div id="MyModalAddJob" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="color:coral">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Ajouter ou chercher tout type d'emploi<span id="eventTitle"></span></h4>
+                        </div>
+                        <div class="modal-body">
 
-                        @{
-                            Html.RenderAction("AddJobs_PartialView", "Job");
-                        }
+                            @{
+                                Html.RenderAction("AddJobs_PartialView", "Job");
+                            }
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div id="MyModalAddApartment" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" style="color:darkturquoise">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Ajouter ou chercher tout type de biens immobiliers<span id="eventTitle"></span></h4>
-                    </div>
-                    <div class="modal-body">
+        <div class="row">
+            <div id="MyModalAddApartment" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="color:darkturquoise">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Ajouter ou chercher tout type de biens immobiliers<span id="eventTitle"></span></h4>
+                        </div>
+                        <div class="modal-body">
 
-                        @{
-                            Html.RenderAction("AddApartment_PartialView", "ApartmentRental");
-                        }
+                            @{
+                                Html.RenderAction("AddApartment_PartialView", "ApartmentRental");
+                            }
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div id="MyModalAddMultimedia" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" style="color:Highlight">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Ajouter ou chercher tout type de biens multimédia<span id="eventTitle"></span></h4>
-                    </div>
-                    <div class="modal-body">
+        <div class="row">
+            <div id="MyModalAddMultimedia" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="color:Highlight">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Ajouter ou chercher tout type de biens multimédia<span id="eventTitle"></span></h4>
+                        </div>
+                        <div class="modal-body">
 
-                        @{
-                            Html.RenderAction("AddMultimedia_PartialView", "Multimedia");
-                        }
+                            @{
+                                Html.RenderAction("AddMultimedia_PartialView", "Multimedia");
+                            }
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div id="MyModalAddVehicule" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" style="color:Highlight">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Ajouter ou chercher tout type de biens dans les Véhicule<span id="eventTitle"></span></h4>
-                    </div>
-                    <div class="modal-body">
+        <div class="row">
+            <div id="MyModalAddVehicule" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="color:Highlight">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Ajouter ou chercher tout type de biens dans les Véhicule<span id="eventTitle"></span></h4>
+                        </div>
+                        <div class="modal-body">
 
-                        @{
-                            Html.RenderAction("AddVehicule_PartialView", "Vehicule");
-                        }
+                            @{
+                                Html.RenderAction("AddVehicule_PartialView", "Vehicule");
+                            }
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div id="MyModalAddMode" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" style="color:Highlight">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Ajouter ou chercher tout type de biens dans la Mode<span id="eventTitle"></span></h4>
-                    </div>
-                    <div class="modal-body">
+        <div class="row">
+            <div id="MyModalAddMode" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="color:Highlight">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Ajouter ou chercher tout type de biens dans la Mode<span id="eventTitle"></span></h4>
+                        </div>
+                        <div class="modal-body">
 
-                        @{
-                            Html.RenderAction("AddMode_PartialView", "Mode");
-                        }
+                            @{
+                                Html.RenderAction("AddMode_PartialView", "Mode");
+                            }
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>*@
+        </div>*@
 </section>
 <hr />
+
+@if (Model.ListeProductUserPagedList.Count == 0)
+{
+
+    <p class="text-danger">Pas d'annonces en ligne !</p>
+
+}
+else
+{
+
+
 <section>
     <div class="col-md-12">
         <div class=" row">
@@ -153,7 +168,7 @@
             </p>
         </div>
         <div class="row" style="height:7px">
-           
+
             <div class="row alert alert-success js-alert-Edit-product " role="alert">
                 @ViewBag.Succes
             </div>
@@ -170,34 +185,213 @@
         <br />
         <br />
 
-        @{
-            Html.RenderAction("GetListProductByUser_PartialView", "User",new { id = ViewBag.UserId });
-        }
+        @*@{
+                Html.RenderAction("GetListProductByUser_PartialView", "User",new { id = ViewBag.UserId });
+            }*@
+        <div class="panel-primary " id="ProductAdd">
+
+
+            <div class="panel-heading">
+                <h3 class="panel-title">Historique de mes annonces</h3>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-condensed">
+                    <tr>
+                        <th>
+                            Catégorie
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TitleSearch)
+                        </th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.Description)
+                            </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.TownSearch)
+                        </th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.Street)
+                            </th>*@
+                        <th>
+                            Prix <span class="text-danger">(FCFA)</span>
+                        </th>
+                        <th>
+                            Date d'ajout
+                        </th>
+                        <th>
+                            Offre/demande
+                        </th>
+
+                        <th>
+                            Nombre d'images
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model.ListeProductUserPagedList)
+                    {
+                        <tr>
+                            <td>
+                                @{
+                                    string catLogo = null;
+                                    var cat = Html.DisplayFor(modelItem => item.Category.CategoryName).ToString();
+                                    if (cat == "Emploi")
+                                    {
+                                        catLogo = "👷 Emploi";
+                                    }
+                                    else if (cat == "Immobilier")
+                                    {
+                                        catLogo = "🏠 Immobilier";
+                                    }
+                                    else if (cat == "Multimedia")
+                                    {
+                                        catLogo = "💻 Multimédia";
+                                    }
+                                    else if (cat == "Vehicule")
+                                    {
+                                        catLogo = "🚗 Véhicule";
+                                    }
+                                    else if (cat == "Mode")
+                                    {
+                                        catLogo = "👚 Mode";
+                                    }
+                                    else if (cat == "Maison")
+                                    {
+                                        catLogo = "🛋️ Maison";
+                                    }
+                                }
+                                @catLogo
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Town)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.Street)
+                                </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @{
+                                    //var st = DateTime.ParseExact(item.StartHour, "dd/MM/yyyy HH:mm", null);
+                                    var date = item.DateAdd.ToString("ddd, dd MMM yyy HH':'mm", new CultureInfo("fr-FR"));
+
+                                }
+                                @date
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SearchOrAskJob)
+                            </td>
+                            <td>
+                                @if (item.Images.Count() == 0)
+                                {
+                                    <span>Aucune image</span>
+                                }
+                                else
+                                {
+                                    <span>@item.Images.Count() Image(s)</span>
+                                }
+                            </td>
+                            <td>
+                                @if (!User.IsInRole(LookAuKwat.ViewModel.MyRoleConstant.Role_SuperAgent))
+                                {
+                                    <a id="btnModalEdit_@item.id" class="btn btn-success" title="Modifier"><span class="glyphicon glyphicon-edit"></span></a>
+
+                                    <a id="btnModalDetails_@item.id" class="btn btn-info" title="Détails"><span class="glyphicon glyphicon-eye-open"></span></a>
+
+
+                                    <a href="javascript:void(0);" data-id="@item.id" id="deletePro_@item.id" class="btn btn-danger deleteProduct_@item.id" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></a>
+
+                                }
+
+
+                            </td>
+                        </tr>
+                                    }
+
+                </table>
+            </div>
+        </div>
+        Page @(Model.ListeProductUserPagedList.PageCount < Model.PageNumber ? 0 : Model.PageNumber) sur @Model.ListeProductUserPagedList.PageCount
+        @Html.PagedListPager(Model.ListeProductUserPagedList, pageNumber => Url.Action("UserProfile", new {pageNumber }))
+
     </div>
 </section>
+      }
+<script type="text/javascript">
 
-@*<script type="text/javascript">
-    $(function () {
-        $("select.Addcategory").change(function () {
-            var select = $(this).children("option:selected").val();
-            console.log(select)
-            if (select == "👷 Emploi") {
-                $('#MyModalAddJob').modal();
-            } else if (select == "🏠 Immobilier") {
-                $('#MyModalAddApartment').modal();
-
-            } else if (select == "💻 Multimédia") {
-                $('#MyModalAddMultimedia').modal();
-
-            } else if (select == "🚗 Véhicule") {
-                $('#MyModalAddVehicule').modal();
-
-            } else if (select == "👚 Mode") {
-                $('#MyModalAddMode').modal();
-
-            }
-        });
+      $.ajax({
+            type: "POST",
+            url: '/Product/listProductReturnJson',
+            success: function (data1) {
+                //var result = JSON.stringify(data);
+                //console.log(data1);
+                $.each(data1, function (i, data) {
 
 
-    });
-</script>*@
+                    //for Product
+                    var btnDelete = $('.deleteProduct_' + data)
+                    $(btnDelete).click(function (e) {
+           e.preventDefault();
+           var $ctrl = $(this);
+                        if (confirm('Voulez vous vraiment supprimer cette annonce?')) {
+               $.ajax({
+                   url: '@Url.Action("DeleteProduct","Product")',
+                   type: 'POST',
+                   data: { id: $(this).data('id') }
+               }).done(function (data) {
+                   if (data.Result == "OK") {
+                       $ctrl.closest('tr').remove();
+                   }
+                   else if (data.Result.Message) {
+                       alert(data.Result.Message);
+                   }
+               }).fail(function () {
+                   alert("Une erreur c'est produite !");
+               })
+
+           }
+       });
+
+
+
+
+
+
+
+
+
+
+
+
+        //$(function () {
+        //    $("select.Addcategory").change(function () {
+        //        var select = $(this).children("option:selected").val();
+        //        console.log(select)
+        //        if (select == "👷 Emploi") {
+        //            $('#MyModalAddJob').modal();
+        //        } else if (select == "🏠 Immobilier") {
+        //            $('#MyModalAddApartment').modal();
+
+        //        } else if (select == "💻 Multimédia") {
+        //            $('#MyModalAddMultimedia').modal();
+
+        //        } else if (select == "🚗 Véhicule") {
+        //            $('#MyModalAddVehicule').modal();
+
+        //        } else if (select == "👚 Mode") {
+        //            $('#MyModalAddMode').modal();
+
+        //        }
+        //    });
+
+
+        //});
+</script>

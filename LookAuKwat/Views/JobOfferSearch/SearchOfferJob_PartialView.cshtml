@@ -20,23 +20,29 @@
         </div>*@
 
         <div class="form-group col-xs-6 col-sm-4 col-md-2">
-            @Html.LabelFor(model => model.TownSearch, htmlAttributes: new { @class = "control-label "})
+            @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label " })
+            @Html.DropDownListFor(model => model.Country, SelectListMethod.GetCountryList(), "Tous les Pays", new { @id = "CountryJob", @class = "form-control Country" })
+            @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
 
-            @Html.DropDownListFor(model => model.TownSearch, SelectListMethod.GetListTownCameroon(),"Toutes", new { @class = "form-control TownSearchJob", id= "TownSearchJob" })
+        </div>
+        <div class="form-group col-xs-6 col-sm-4 col-md-2">
+            @Html.LabelFor(model => model.TownSearch, htmlAttributes: new { @class = "control-label " })
+
+            @Html.DropDownListFor(model => model.TownSearch, SelectListMethod.GetListTownCameroon(), "Toutes", new { @class = "form-control TownSearchJob", id = "TownSearchJob" })
             @Html.ValidationMessageFor(model => model.TownSearch, "", new { @class = "text-danger" })
 
         </div>
         <div class="form-group col-xs-6 col-sm-4 col-md-2">
             @Html.LabelFor(model => model.ActivitySectorJob, htmlAttributes: new { @class = "control-label " })
 
-            @Html.DropDownListFor(model => model.ActivitySectorJob, SelectListMethod.GetListActivitySector(),"Tout", new { @class = "form-control " })
+            @Html.DropDownListFor(model => model.ActivitySectorJob, SelectListMethod.GetListActivitySector(), "Tout", new { @class = "form-control " })
             @Html.ValidationMessageFor(model => model.ActivitySectorJob, "", new { @class = "text-danger" })
 
         </div>
         <div class="form-group col-xs-6 col-sm-4 col-md-2">
             @Html.LabelFor(model => model.TypeContractJob, htmlAttributes: new { @class = "control-label" })
 
-            @Html.DropDownListFor(model => model.TypeContractJob, SelectListMethod.GetListWorkContract(),"Tout", new { @class = "form-control" })
+            @Html.DropDownListFor(model => model.TypeContractJob, SelectListMethod.GetListWorkContract(), "Tout", new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.TypeContractJob, "", new { @class = "text-danger" })
 
         </div>
@@ -52,7 +58,7 @@
         <div class="form-group col-xs-4 col-sm-4 col-md-2">
             @Html.LabelFor(model => model.PriceMinSearch, htmlAttributes: new { @class = "control-label " })
 
-            @Html.EditorFor(model => model.PriceMinSearch, new { htmlAttributes = new { @class = "form-control", id= "PriceMinSearchJob" } })
+            @Html.EditorFor(model => model.PriceMinSearch, new { htmlAttributes = new { @class = "form-control", id = "PriceMinSearchJob" } })
             @Html.ValidationMessageFor(model => model.PriceMinSearch, "", new { @class = "text-danger" })
 
         </div>
@@ -60,7 +66,7 @@
         <div class="form-group col-xs-6 col-sm-4 col-md-2">
             @Html.LabelFor(model => model.PriceMaxSearch, htmlAttributes: new { @class = "control-label " })
 
-            @Html.EditorFor(model => model.PriceMaxSearch, new { htmlAttributes = new { @class = "form-control", id= "PriceMaxSearchJob" } })
+            @Html.EditorFor(model => model.PriceMaxSearch, new { htmlAttributes = new { @class = "form-control", id = "PriceMaxSearchJob" } })
             @Html.ValidationMessageFor(model => model.PriceMaxSearch, "", new { @class = "text-danger" })
 
         </div>
@@ -88,10 +94,12 @@
 
 <script type="text/javascript">
     $(function () {
+        FindContryTown();
         ResultJobSpan();
         $("#ActivitySectorJob").change(ResultJobSpan);
         $("#TownSearchJob").change(ResultJobSpan);
         $("#TypeContractJob").change(ResultJobSpan);
+        $("#CountryJob").change(ResultJobSpan);
         
         $('#PriceMinSearchJob').on('input', function () {
             ResultJobSpan();
@@ -101,8 +109,75 @@
         });
     });
 
-    function ResultJobSpan() {
 
+    $("#CountryJob").change(function () {
+
+        FindContryTown();
+    });
+
+    function FindContryTown() {
+
+        var country = $("#CountryJob").val();
+        if (country == null || country == "") {
+            //alert("Veillez choisir un pays s'il vous plaît");
+            return;
+        }
+        // $("input[id='ClientName']").val(country);
+        if (country != null || country != "") {
+            $.ajax({
+                url: "/Product/BindTown",
+                type: "POST",
+                data: JSON.stringify({ 'country': country }),
+                dataType: "json",
+                traditional: true,
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+
+                    //debugger;  
+                    var tout = "Toutes les villes"
+                    var listItems = "<option value='" + tout + "'>" + tout
+
+                        + "</option>";
+                    // var list = "";
+                    var a = result;
+                    //var s = result.bindingAddresses.siteAdd;
+                    for (i in result) {
+
+                        listItems += "<option value='" + a[i].Value + "'>" + a[i].Text
+
+                            + "</option>";
+                    }
+                    $("#TownSearchJob").html(listItems);
+                    var OldValueTown = localStorage.getItem('OldValueTown');
+                    if (OldValueTown != '') {
+
+                        $("#TownSearchJob").val(OldValueTown);
+                        ResultJobSpan();
+                    }
+
+                    //for (j in s) {
+                    //    list += "<option value='" + s[j].Value + "'>" + s[j].Text +
+
+                    //        "</option>";
+                    //}
+                    //$("#SiteId").html(list);
+                },
+                error: function () {
+                    alert("An error has occured!!!");
+                }
+            });
+        }
+
+    }
+
+
+    function ResultJobSpan() {
+        var townValue = $("#TownSearchJob").val();
+
+        if (townValue != '' && townValue != null) {
+
+            localStorage.setItem('OldValueTown', townValue);
+        }
         $.ajax({
             type: "POST",
             url: '@Url.Action("ResultJobSpan_Jason", "JobOfferSearch")',
@@ -118,6 +193,7 @@
                 contract: $("#TypeContractJob").val(),
                 minPrice: $("#PriceMinSearchJob").val(),
                 maxPrice: $("#PriceMaxSearchJob").val(),
+                country: $("#CountryJob").val(),
             }),
             success: function (data) {
 

@@ -12,67 +12,95 @@ StateHouse= Model.StateHouse, Price =Model.Price}, FormMethod.Post, new { enctyp
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+<div class="form-horizontal">
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group " >
-            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-6">
-                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-            </div>
-
+    <div class="form-group ">
+        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-6">
+            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
         </div>
 
+    </div>
 
-        <div class="form-group " >
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-6">
-                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @cols = "45", @rows = "5" })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
 
+    <div class="form-group ">
+        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-6">
+            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @cols = "45", @rows = "5" })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
         </div>
 
-        <div class="form-group " >
-            @Html.LabelFor(model => model.Town, htmlAttributes: new { @class = "control-label col-md-4" })
+    </div>
+
+    @if (User.IsInRole(MyRoleConstant.RoleAdmin) || User.IsInRole(MyRoleConstant.Role_SuperAgent))
+    {
+        <div class="form-group ">
+            @Html.LabelFor(model => model.Provider_Id, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
-                @Html.DropDownListFor(model => model.Town, SelectListMethod.GetListTownCameroon(), "choisir", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Town, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="">
-            <p class=" col-md-offset-4 text-info">Veuillez choisir une adresse de la liste après votre saisie.</p>
-            <div class="form-group">
-
-                @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label col-md-4" })
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
-                </div>
-
+                @Html.DropDownListFor(model => model.Provider_Id, SelectListMethod.GetProviders(), "choisir un fournisseur", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Provider_Id, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group hidden">
-            @Html.LabelFor(model => model.Imageproduct.Image, htmlAttributes: new { @class = "control-label col-md-4" })
-
-           
+        <div class="form-group">
+            @Html.LabelFor(model => model.Stock, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
-
-                <input type="file" name="ImageFile" accept="image/*" multiple="multiple" @*onchange="readURL(this);"*@>
-                <p class="text-info">Vous pouvez sélectionner à la fois une ou trois(3) images au maximun.</p>
+                @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
             </div>
-           
         </div>
+    }
 
-        <div class="form-group " >
-            <div class="col-md-offset-4 col-md-8">
-                <button type="submit" class="btn btn-success">Suivant <span class="glyphicon glyphicon-menu-right"></span></button>
-            </div>
+    <div class="form-group ">
+        @Html.LabelFor(model => model.ProductCountry, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.DropDownListFor(model => model.ProductCountry, SelectListMethod.GetCountryList(), "choisir", new { @id = "Country", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ProductCountry, "", new { @class = "text-danger" })
         </div>
     </div>
+
+
+    <div class="form-group ">
+        @Html.LabelFor(model => model.Town, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.DropDownListFor(model => model.Town, SelectListMethod.GetListTownCameroon(), "choisir", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Town, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="">
+        <p class=" col-md-offset-4 text-info">Veuillez choisir une adresse de la liste après votre saisie.</p>
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+    </div>
+
+    <div class="form-group hidden">
+        @Html.LabelFor(model => model.Imageproduct.Image, htmlAttributes: new { @class = "control-label col-md-4" })
+
+
+        <div class="col-md-8">
+
+            <input type="file" name="ImageFile" accept="image/*" multiple="multiple" @*onchange="readURL(this);"*@>
+            <p class="text-info">Vous pouvez sélectionner à la fois une ou trois(3) images au maximun.</p>
+        </div>
+
+    </div>
+
+    <div class="form-group ">
+        <div class="col-md-offset-4 col-md-8">
+            <button type="submit" class="btn btn-success">Suivant <span class="glyphicon glyphicon-menu-right"></span></button>
+        </div>
+    </div>
+</div>
 
 }
 <p>Page 2 sur 2</p>
@@ -80,6 +108,53 @@ StateHouse= Model.StateHouse, Price =Model.Price}, FormMethod.Post, new { enctyp
 
 <script type="text/javascript">
     $(function () {
+
+        $("#Country").change(function () {
+            var country = $("#Country").val();
+            if (country == null || country == "") {
+                alert("Veillez choisir un pays s'il vous plaît");
+                return;
+            }
+            // $("input[id='ClientName']").val(country);
+            if (country != null || country != "") {
+                $.ajax({
+                    url: "/Product/BindTown",
+                    type: "POST",
+                    data: JSON.stringify({ 'country': country }),
+                    dataType: "json",
+                    traditional: true,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+
+                        //debugger;  
+                        var listItems = "";
+                        // var list = "";
+                        var a = result;
+                        //var s = result.bindingAddresses.siteAdd;
+                        for (i in result) {
+
+                            listItems += "<option value='" + a[i].Value + "'>" + a[i].Text
+
+                                + "</option>";
+                        }
+                        $("#Town").html(listItems);
+
+                        //for (j in s) {
+                        //    list += "<option value='" + s[j].Value + "'>" + s[j].Text +
+
+                        //        "</option>";
+                        //}
+                        //$("#SiteId").html(list);
+                    },
+                    error: function () {
+                        alert("An error has occured!!!");
+                    }
+                });
+            }
+        });  
+
+
+
         $("#Street").autocomplete({
         source: function (request, response) {
         $.ajax({
@@ -95,6 +170,7 @@ StateHouse= Model.StateHouse, Price =Model.Price}, FormMethod.Post, new { enctyp
 
                // country: $("#Country").val(),
                 town: $("#Town").val(),
+                country: $("#Country").val(),
                  // zipcode: $("#ZipCode").val(),
                 term: request.term
             }),

@@ -14,7 +14,7 @@
                         </div>
                         <div class="row">
                             <h4><span>@liste.Title</span></h4>
-                            <p class="price"><span>@liste.Price FCFA</span></p>
+                            <p class="price"><span>@liste.Price @LookaukwatApp.ViewModels.StaticListConvertMoney.GetSymbol(liste.ProductCountry)</span></p>
                             <p class="bottom"><span>@liste.Town</span></p>
                         </div>
                     </div>
@@ -33,7 +33,7 @@
                         </div>
                         <div class="row">
                             <p><span>@liste.Title</span></p>
-                            <p class="price"><span>@liste.Price FCFA</span></p>
+                            <p class="price"><span>@liste.Price @LookaukwatApp.ViewModels.StaticListConvertMoney.GetSymbol(liste.ProductCountry)</span></p>
                             <p class="bottom"><span>@liste.Town</span></p>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                         </div>
                         <div class="row">
                             <p><span>@liste.Title</span></p>
-                            <p class="price"><span>@liste.Price FCFA</span></p>
+                            <p class="price"><span>@liste.Price @LookaukwatApp.ViewModels.StaticListConvertMoney.GetSymbol(liste.ProductCountry)</span></p>
                             <p class="bottom"><span>@liste.Town</span></p>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                         </div>
                         <div class="row">
                             <p><span>@liste.Title</span></p>
-                            <p class="price"><span>@liste.Price FCFA</span></p>
+                            <p class="price"><span>@liste.Price @LookaukwatApp.ViewModels.StaticListConvertMoney.GetSymbol(liste.ProductCountry)</span></p>
                             <p class="bottom"><span>@liste.Town</span></p>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                         </div>
                         <div class="row">
                             <p><span>@liste.Title</span></p>
-                            <p class="price"><span>@liste.Price FCFA</span></p>
+                            <p class="price"><span>@liste.Price @LookaukwatApp.ViewModels.StaticListConvertMoney.GetSymbol(liste.ProductCountry)</span></p>
                             <p class="bottom"><span>@liste.Town</span></p>
                         </div>
                     </div>
@@ -109,7 +109,45 @@
                         </div>
                         <div class="row">
                             <p><span>@liste.Title</span></p>
-                            <p class="price"><span>@liste.Price FCFA</span></p>
+                            <p class="price"><span>@liste.Price @LookaukwatApp.ViewModels.StaticListConvertMoney.GetSymbol(liste.ProductCountry)</span></p>
+                            <p class="bottom"><span>@liste.Town</span></p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+    else if (liste.Category.CategoryName == "Événement")
+    {
+        <div>
+            <a href="@Url.Action("EventDetail", "Event", new { id = liste.id }, null)">
+                <div>
+                    <div style="border-radius: 25px;background: lightgray;padding: 20px; height:260px" class="thumbnail">
+                        <div class="row">
+                            <img src="@liste.Images.Select(m=>m.ImageMobile).First()" style="height:130px" alt="image du groupe @liste.Title" class="img-rounded img-responsive" />
+                        </div>
+                        <div class="row">
+                            <p><span>@liste.Title</span></p>
+                            <p class="price"><span>@liste.Price @LookaukwatApp.ViewModels.StaticListConvertMoney.GetSymbol(liste.ProductCountry)</span></p>
+                            <p class="bottom"><span>@liste.Town</span></p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+    else if (liste.Category.CategoryName == "Divers")
+    {
+        <div>
+            <a href="@Url.Action("DiversDetail", "Divers", new { id = liste.id }, null)">
+                <div>
+                    <div style="border-radius: 25px;background: lightgray;padding: 20px; height:260px" class="thumbnail">
+                        <div class="row">
+                            <img src="@liste.Images.Select(m=>m.ImageMobile).First()" style="height:130px" alt="image du groupe @liste.Title" class="img-rounded img-responsive" />
+                        </div>
+                        <div class="row">
+                            <p><span>@liste.Title</span></p>
+                            <p class="price"><span>@liste.Price @LookaukwatApp.ViewModels.StaticListConvertMoney.GetSymbol(liste.ProductCountry)</span></p>
                             <p class="bottom"><span>@liste.Town</span></p>
                         </div>
                     </div>

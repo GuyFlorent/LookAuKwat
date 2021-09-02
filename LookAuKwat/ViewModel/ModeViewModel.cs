@@ -58,6 +58,15 @@ namespace LookAuKwat.ViewModel
         public string ColorMode { get; set; }
         [DisplayName("Etat")]
         public string StateMode { get; set; }
+        //new
+        [DisplayName("Pays")]
+        public string ProductCountry { get; set; }
+        [DisplayName("Quantité")]
+        public int Stock { get; set; }
+        public int Stock_Initial { get; set; }
+
+        [DisplayName("Y'a t'il un fournisseur ?")]
+        public string Provider_Id { get; set; }
         public ImageModelView Imageproduct { get; set; }
         public List<ImageProcductModel> listeImage { get; set; }
     }

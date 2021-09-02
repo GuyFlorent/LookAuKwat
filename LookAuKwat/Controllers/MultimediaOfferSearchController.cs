@@ -107,15 +107,15 @@ namespace LookAuKwat.Controllers
                     model.ListeProPagedList = model.ListeProMulti.ToPagedList(model.PageNumber ?? 1, 10);
                     break;
                 case "date desc":
-                    model.ListeProMulti = model.ListeProMulti.OrderByDescending(m => m.id).ToList();
+                    model.ListeProMulti = model.ListeProMulti.OrderByDescending(m => m.DateAdd).ToList();
                     model.ListeProPagedList = model.ListeProMulti.ToPagedList(model.PageNumber ?? 1, 10);
                     break;
                 case "date asc":
-                    model.ListeProMulti = model.ListeProMulti.OrderBy(m => m.id).ToList();
+                    model.ListeProMulti = model.ListeProMulti.OrderBy(m => m.DateAdd).ToList();
                     model.ListeProPagedList = model.ListeProMulti.ToPagedList(model.PageNumber ?? 1, 10);
                     break;
                 default:
-                    model.ListeProMulti = model.ListeProMulti.OrderByDescending(x => x.id).ToList();
+                    model.ListeProMulti = model.ListeProMulti.OrderByDescending(x => x.DateAdd).ToList();
                     model.ListeProPagedList = model.ListeProMulti.ToPagedList(model.PageNumber ?? 1, 10);
                     break;
             }

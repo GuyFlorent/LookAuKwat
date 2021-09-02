@@ -14,6 +14,8 @@ using Twilio.Rest.Preview.Understand.Assistant.Task;
 
 namespace LookAuKwat.Controllers
 {
+   
+   
     public class AdminController : Controller
     {
         private IDal dal;
@@ -27,27 +29,29 @@ namespace LookAuKwat.Controllers
             dal = dalIoc;
         }
         // GET: Admin
+        [Authorize(Roles = MyRoleConstant.RoleAdmin)]
         public ActionResult Index()
         {
             return View();
         }
-        public async Task< ActionResult> ListAllUser(SearchUser_Admin model, int? pageNumber, string sortBy)
+        [Authorize(Roles = MyRoleConstant.RoleAdmin)]
+        public async Task<ActionResult> ListAllUser(SearchUser_Admin model, int? pageNumber, string sortBy)
         {
             ViewBag.PriceAscSort = String.IsNullOrEmpty(sortBy) ? "date desc" : "";
             ViewBag.DateAscSort = sortBy == "Plus anciennes" ? "date asc" : "";
-           
+
             IEnumerable<ApplicationUser> liste = await dal.GetUsersList().ToListAsync();
-           
+
             if (!string.IsNullOrWhiteSpace(model.term))
             {
                 liste = liste.Where(m => m.FirstName != null && m.FirstName.ToLower().Contains(model.term.ToLower())
                 || (m.Email != null && m.Email.ToLower().Contains(model.term.ToLower())));
             }
-            
+
             ViewBag.number = liste.Count();
             switch (sortBy)
             {
-         
+
                 case "date desc":
                     liste = liste.OrderByDescending(m => m.Id);
                     break;
@@ -61,7 +65,8 @@ namespace LookAuKwat.Controllers
             ViewBag.NumberOfUser = liste.Count();
             return View(liste.ToPagedList(pageNumber ?? 1, 10));
         }
-        public async Task< ActionResult> ListAllAgents(SearchUser_Admin model, int? PageNumber, string sortBy)
+        [Authorize(Roles = MyRoleConstant.RoleAdmin)]
+        public async Task<ActionResult> ListAllAgents(SearchUser_Admin model, int? PageNumber, string sortBy)
         {
             ViewBag.PriceAscSort = String.IsNullOrEmpty(sortBy) ? "date desc" : "";
             ViewBag.DateAscSort = sortBy == "Plus anciennes" ? "date asc" : "";
@@ -122,14 +127,16 @@ namespace LookAuKwat.Controllers
             }
             return RedirectToAction("ListAllAgents");
         }
-        public async Task< ActionResult> DeletParrain(string userEmail)
+        public  ActionResult RemoveAgentRole(string userEmail)
         {
-            var user = await dal.GetUsersList().FirstOrDefaultAsync(m => m.Email == userEmail);
-            var parrain = await dal.GetParrainList().FirstOrDefaultAsync(m => m.Id == user.Parrain_Id);
-            dal.DeletParrain(parrain);
+            //var user = await dal.GetUsersList().FirstOrDefaultAsync(m => m.Email == userEmail);
+           // var parrain = await dal.GetParrainList().FirstOrDefaultAsync(m => m.Id == user.Parrain_Id);
+            dal.DeletParrain(userEmail);
             return View();
         }
 
+       
+       // [Authorize(Roles = MyRoleConstant.RoleAgent)]
         public async Task< ActionResult> Stat_Account_Agent(string userEmail, int? PageNumber, string sortBy)
         {
             var parrain = await dal.GetParrainList().FirstOrDefaultAsync(m => m.ParrainEmail == userEmail);

@@ -1,7 +1,8 @@
 ﻿@model LookAuKwat.Models.VehiculeModel
 @using System.Globalization;
 @{
-    ViewBag.Title ="Offres véhicule "+ Model.RubriqueVehicule+" "+Model.BrandVehicule+" "+Model.ModelVehicule + " " + Model.StateVehicule + " "+Model.PetrolVehicule+" "+Model.Street;
+    ViewBag.Title =  Model.Title + " " + " " + Model.Street + " " + Model.Town + " " + Model.ProductCountry;
+
 }
 
 @{
@@ -9,7 +10,7 @@
     TimeSpan elapsTime = DateTime.Now - Model.DateAdd;
     string period = null;
     int time = 0;
-  
+
     if (elapsTime.TotalMinutes < 60)
     {
         time = elapsTime.Minutes;
@@ -35,7 +36,7 @@
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
         integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
         crossorigin=""></script>
-@if(Model.SearchOrAskJob == "J'offre")
+@if (Model.SearchOrAskJob == "J'offre")
 {
 <p>
     @Html.ActionLink("Retour à l'accueil", "Index", "Home") <i class="fa fa-angle-right"></i> @Html.ActionLink(Model.RubriqueVehicule, "searchOfferVehicule", "VehiculeOfferSearch", new { RubriqueVehicule = Model.RubriqueVehicule }, null)
@@ -133,110 +134,161 @@ else
                 <span class="review-no"><strong>@Model.ViewNumber vues</strong></span>
             </div>
         </div>
+
+
+        @if (!string.IsNullOrWhiteSpace(Model.VideoUrl))
+        {
+            <div class="row">
+                <img src="https://www.technobezz.com/files/uploads/2020/04/film-and-vid.jpg" height="30" />
+                <a class="btn btn-primary" href="@Model.VideoUrl">Faire une visite guidée du bien en vidéo</a>
+            </div>
+        }
         <hr />
         <div class="row">
 
+            @{
 
-            @if (Model.RubriqueVehicule == "Voitures" || Model.RubriqueVehicule == "Motos" || Model.RubriqueVehicule == "Equipement Auto"
-                    || Model.RubriqueVehicule == "Equipement Moto")
-            {
-                <div class=" col-xs-6 col-sm-6 col-md-4">
-                    @Html.LabelFor(model => model.RubriqueVehicule, htmlAttributes: new { @class = "control-label labelColor" })
-                    <p><strong>@Model.RubriqueVehicule</strong></p>
 
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-4">
-                    @Html.LabelFor(model => model.BrandVehicule, htmlAttributes: new { @class = "control-label labelColor" })
-                    <p><strong>@Model.BrandVehicule</strong></p>
-
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-4 price">
-                    <label class="control-label labelColor">Prix</label>
-
-                    <p><span>@Model.Price FCFA</span></p>
-
-                </div>
-
-                <div class="col-xs-6 col-sm-6 col-md-4">
-                    @Html.LabelFor(model => model.StateVehicule, htmlAttributes: new { @class = "control-label labelColor" })
-                    <p><strong>@Model.StateVehicule</strong></p>
-
-                </div>
-                if (Model.RubriqueVehicule == "Equipement Auto")
+                if (Model.RubriqueVehicule == "Voitures" || Model.RubriqueVehicule == "Motos" || Model.RubriqueVehicule == "Equipement Auto"
+                                || Model.RubriqueVehicule == "Equipement Moto")
                 {
-                    <div class="col-xs-6 col-sm-6 col-md-4">
-                        @Html.LabelFor(model => model.ModelVehicule, htmlAttributes: new { @class = "control-label labelColor" })
-                        <p>@Model.ModelVehicule</p>
-
-                    </div>
-                }
-                else if (Model.RubriqueVehicule == "Equipement Moto")
-                {
-                    <div class="col-xs-6 col-sm-6 col-md-4">
-                        @Html.LabelFor(model => model.ModelVehicule, htmlAttributes: new { @class = "control-label labelColor" })
-                        <p>@Model.ModelVehicule</p>
-
-                    </div>
-                }
-                if (Model.RubriqueVehicule == "Voitures" || Model.RubriqueVehicule == "Motos")
-                {
-                    <div class="col-xs-6 col-sm-6 col-md-4">
-                        @Html.LabelFor(model => model.ModelVehicule, htmlAttributes: new { @class = "control-label labelColor" })
-                        <p><strong>@Model.ModelVehicule</strong></p>
-
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-4">
-                        @Html.LabelFor(model => model.FirstYearVehicule, htmlAttributes: new { @class = "control-label labelColor" })
-                        <p><strong> @Model.FirstYearVehicule</strong></p>
-
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-4">
-                        @Html.LabelFor(model => model.MileageVehicule, htmlAttributes: new { @class = "control-label labelColor" })
-                        <p><strong>@Model.MileageVehicule Km</strong></p>
-
-                    </div>
-
-                    <div class="col-xs-6 col-sm-6 col-md-4">
-                        @Html.LabelFor(model => model.ColorVehicule, htmlAttributes: new { @class = "control-label labelColor" })
-                        <p><strong>@Model.ColorVehicule</strong></p>
-
-                    </div>
-
-                    if (Model.RubriqueVehicule == "Voitures")
+                    if (!string.IsNullOrWhiteSpace(Model.RubriqueVehicule))
                     {
-                        <div class="col-xs-6 col-sm-6 col-md-4">
-                            @Html.LabelFor(model => model.TypeVehicule, htmlAttributes: new { @class = "control-label labelColor" })
-                            <p><strong>@Model.TypeVehicule</strong></p>
-
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-4">
-                            @Html.LabelFor(model => model.PetrolVehicule, htmlAttributes: new { @class = "control-label labelColor" })
-                            <p><strong>@Model.PetrolVehicule</strong></p>
-
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-4">
-                            @Html.LabelFor(model => model.NumberOfDoorVehicule, htmlAttributes: new { @class = "control-label labelColor" })
-                            <p><strong>@Model.NumberOfDoorVehicule</strong></p>
-
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-4">
-                            @Html.LabelFor(model => model.GearBoxVehicule, htmlAttributes: new { @class = "control-label labelColor" })
-                            <p><strong>@Model.GearBoxVehicule</strong></p>
+                        <div class=" col-xs-6 col-sm-6 col-md-4">
+                            @Html.LabelFor(model => model.RubriqueVehicule, htmlAttributes: new { @class = "control-label labelColor" })
+                            <p><strong>@Model.RubriqueVehicule</strong></p>
 
                         </div>
                     }
+
+                    if (!string.IsNullOrWhiteSpace(Model.BrandVehicule))
+                    {
+                        <div class="col-xs-6 col-sm-6 col-md-4">
+                            @Html.LabelFor(model => model.BrandVehicule, htmlAttributes: new { @class = "control-label labelColor" })
+                            <p><strong>@Model.BrandVehicule</strong></p>
+
+                        </div>
+                    }
+
+                    <div class="col-xs-6 col-sm-6 col-md-4 price">
+                        <label class="control-label labelColor">Prix</label>
+
+                        <p><span>@Model.Price.ToString("N", CultureInfo.CreateSpecificCulture("af-ZA")).Split(',')[0].Trim() @LookaukwatApp.ViewModels.StaticListConvertMoney.GetSymbol(Model.ProductCountry)</span></p>
+
+                    </div>
+
+                    if (!string.IsNullOrWhiteSpace(Model.StateVehicule))
+                    {
+                        <div class="col-xs-6 col-sm-6 col-md-4">
+                            @Html.LabelFor(model => model.StateVehicule, htmlAttributes: new { @class = "control-label labelColor" })
+                            <p><strong>@Model.StateVehicule</strong></p>
+
+                        </div>
+                    }
+
+                    if (Model.RubriqueVehicule == "Equipement Auto")
+                    {
+                        if (!string.IsNullOrWhiteSpace(Model.ModelVehicule))
+                        {
+                            <div class="col-xs-6 col-sm-6 col-md-4">
+                                @Html.LabelFor(model => model.ModelVehicule, htmlAttributes: new { @class = "control-label labelColor" })
+                                <p>@Model.ModelVehicule</p>
+
+                            </div>
+                        }
+
+                    }
+                    else if (Model.RubriqueVehicule == "Equipement Moto")
+                    {
+                        if (!string.IsNullOrWhiteSpace(Model.ModelVehicule))
+                        {
+                            <div class="col-xs-6 col-sm-6 col-md-4">
+                                @Html.LabelFor(model => model.ModelVehicule, htmlAttributes: new { @class = "control-label labelColor" })
+                                <p>@Model.ModelVehicule</p>
+
+                            </div>
+                        }
+
+                    }
+                    if (Model.RubriqueVehicule == "Voitures" || Model.RubriqueVehicule == "Motos")
+                    {
+                        if (!string.IsNullOrWhiteSpace(Model.ModelVehicule))
+                        {
+                            <div class="col-xs-6 col-sm-6 col-md-4">
+                                @Html.LabelFor(model => model.ModelVehicule, htmlAttributes: new { @class = "control-label labelColor" })
+                                <p><strong>@Model.ModelVehicule</strong></p>
+
+                            </div>
+                        }
+                        if (!string.IsNullOrWhiteSpace(Model.FirstYearVehicule))
+                        {
+                            <div class="col-xs-6 col-sm-6 col-md-4">
+                                @Html.LabelFor(model => model.FirstYearVehicule, htmlAttributes: new { @class = "control-label labelColor" })
+                                <p><strong> @Model.FirstYearVehicule</strong></p>
+
+                            </div>
+                        }
+                        if (!string.IsNullOrWhiteSpace(Model.MileageVehicule))
+                        {
+                            <div class="col-xs-6 col-sm-6 col-md-4">
+                                @Html.LabelFor(model => model.MileageVehicule, htmlAttributes: new { @class = "control-label labelColor" })
+                                <p><strong>@Model.MileageVehicule Km</strong></p>
+
+                            </div>
+                        }
+                        if (!string.IsNullOrWhiteSpace(Model.ColorVehicule))
+                        {
+                            <div class="col-xs-6 col-sm-6 col-md-4">
+                                @Html.LabelFor(model => model.ColorVehicule, htmlAttributes: new { @class = "control-label labelColor" })
+                                <p><strong>@Model.ColorVehicule</strong></p>
+
+                            </div>
+                        }
+                        if (Model.RubriqueVehicule == "Voitures")
+                        {
+                            if (!string.IsNullOrWhiteSpace(Model.TypeVehicule))
+                            {
+                                <div class="col-xs-6 col-sm-6 col-md-4">
+                                    @Html.LabelFor(model => model.TypeVehicule, htmlAttributes: new { @class = "control-label labelColor" })
+                                    <p><strong>@Model.TypeVehicule</strong></p>
+
+                                </div>
+                            }
+                            if (!string.IsNullOrWhiteSpace(Model.PetrolVehicule))
+                            {
+                                <div class="col-xs-6 col-sm-6 col-md-4">
+                                    @Html.LabelFor(model => model.PetrolVehicule, htmlAttributes: new { @class = "control-label labelColor" })
+                                    <p><strong>@Model.PetrolVehicule</strong></p>
+
+                                </div>
+                            }
+                            if (!string.IsNullOrWhiteSpace(Model.NumberOfDoorVehicule))
+                            {
+                                <div class="col-xs-6 col-sm-6 col-md-4">
+                                    @Html.LabelFor(model => model.NumberOfDoorVehicule, htmlAttributes: new { @class = "control-label labelColor" })
+                                    <p><strong>@Model.NumberOfDoorVehicule</strong></p>
+
+                                </div>
+                            }
+                            if (!string.IsNullOrWhiteSpace(Model.GearBoxVehicule))
+                            {
+                                <div class="col-xs-6 col-sm-6 col-md-4">
+                                    @Html.LabelFor(model => model.GearBoxVehicule, htmlAttributes: new { @class = "control-label labelColor" })
+                                    <p><strong>@Model.GearBoxVehicule</strong></p>
+
+                                </div>
+                            }
+                        }
+                    }
+                    <div class="col-xs-6 col-sm-6 col-md-4">
+                        @Html.LabelFor(model => model.SearchOrAskJob, htmlAttributes: new { @class = "control-label labelColor" })
+                        <p><strong>@Model.SearchOrAskJob</strong></p>
+
+                    </div>
                 }
-                <div class="col-xs-6 col-sm-6 col-md-4">
-                    @Html.LabelFor(model => model.SearchOrAskJob, htmlAttributes: new { @class = "control-label labelColor" })
-                    <p><strong>@Model.SearchOrAskJob</strong></p>
 
-                </div>
+
             }
-
-
-
-
-
         </div>
         <hr />
         <div class="row">
@@ -246,7 +298,7 @@ else
         </div>
         <hr />
         <div class="row">
-            <label class="labelColor">Ville : </label><strong> @Model.Town</strong> , <label class="labelColor">Adresse : </label><strong>@Model.Street</strong> 
+            <label class="labelColor">Ville : </label><strong> @Model.Town</strong> , <label class="labelColor">Adresse : </label><strong>@Model.Street</strong>
             <div id="mapidDetailsVehicule" style="height:250px;"></div>
         </div>
         <hr />
@@ -260,13 +312,13 @@ else
             <p>
                 @*facebook sharing*@
                 <a href="javascript:void(o)" onclick="window.open('http://www.facebook.com/sharer/sharer.php?u=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id','facebook-share-dialog','toolbar=0,status=0,width=600,height=600');"> <img src="@Url.Content("~/UserImage/facebook.png ")" id="imgfb" alt="facebook" height="40" /></a> @*twitter sharing*@
-                <a href="http://twitter.com/share?url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id&title=@Model.Title&summary=@Model.Description" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img src="@Url.Content("~/UserImage/Twitter.png ")" id="imgtw" alt="twitter" height="40" /></a>
+                <a href="http://twitter.com/share?url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/VehiculeDetail/@Model.id&title=@Model.Title&summary=@Model.Description" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img src="@Url.Content("~/UserImage/Twitter.png ")" id="imgtw" alt="twitter" height="40" /></a>
                 <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script> @*LinkedIn sharing*@
-                <a href="http://www.linkedin.com/shareArticle?mini=true&url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content("~/UserImage/linkedin.png ")" id="imgln" height="40" /></a> @*GooglePlus sharing*@
-                <a href="https://mail.google.com/mail/?view=cm&su=@Model.Title&to&body=Job disponible @Model.Description sur le lien : @HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="GooglePlus" src="@Url.Content("~/UserImage/Gmail.png ")" id="imggoogle" height="40" /></a>
-                <a href="http://compose.mail.yahoo.com/?&Subject=@Model.Title&To=&Body=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content("~/UserImage/Yahoo.png ")" id="imgln" height="40" /></a>
+                <a href="http://www.linkedin.com/shareArticle?mini=true&url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/VehiculeDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content("~/UserImage/linkedin.png ")" id="imgln" height="40" /></a> @*GooglePlus sharing*@
+                <a href="https://mail.google.com/mail/?view=cm&su=@Model.Title&to&body=Job disponible @Model.Description sur le lien : @HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/VehiculeDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="GooglePlus" src="@Url.Content("~/UserImage/Gmail.png ")" id="imggoogle" height="40" /></a>
+                <a href="http://compose.mail.yahoo.com/?&Subject=@Model.Title&To=&Body=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/VehiculeDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content("~/UserImage/Yahoo.png ")" id="imgln" height="40" /></a>
 
-                <a href="whatsapp://send?text=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" data-action="share/whatsapp/share"><img alt="whatsapp" src="@Url.Content("~/UserImage/whatsapp.png ")" id="imgln" height="40" /></a>
+                <a href="whatsapp://send?text=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/VehiculeDetail/@Model.id" data-action="share/whatsapp/share"><img alt="whatsapp" src="@Url.Content("~/UserImage/whatsapp.png ")" id="imgln" height="40" /></a>
             </p>
         </div>
 
@@ -281,10 +333,12 @@ else
     </section>
     <section class="col-md-4">
         <div class="row" style="border-radius: 25px;background: lightgray;padding: 20px;">
-            <img src="https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg" alt="photo du publicateur Lookaukwat" class="img-rounded" height="50" /> @Model.User.FirstName
+            <img src="@Url.Content("~/UserImage/avatar_icon.png")" alt="photo du publicateur Lookaukwat" class="img-rounded" height="50" /> @Model.User.FirstName
             <hr />
             @{
-                if ((Model.User.EmailConfirmed == true && Model.User.PhoneNumber != null) || (Model.User.PhoneNumberConfirmed == true && Model.User.Email != null && !Model.User.Email.StartsWith("Mtest")))
+                <button id="sendJobMessage" class="btn btn-primary sendJobMessage"><span class="glyphicon glyphicon-pencil"></span> Message </button>
+                <button id="iconJobCall" class="btn btn-default"><span class="glyphicon glyphicon-phone"></span> Voir le numéro</button>
+                @*if ((Model.User.EmailConfirmed == true && Model.User.PhoneNumber != null) || (Model.User.PhoneNumberConfirmed == true && Model.User.Email != null && !Model.User.Email.StartsWith("Mtest")))
                 {
                     <button id="sendJobMessage" class="btn btn-primary sendJobMessage"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
                     <button id="iconJobCall" class="btn btn-default"><span class="glyphicon glyphicon-phone"></span> Voir le numéro</button>
@@ -296,18 +350,15 @@ else
                 else if (Model.User.EmailConfirmed == true)
                 {
                     <button id="sendJobMessage" class="btn btn-primary sendJobMessage"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
-                }
+                }*@
             }
             <a id="numJobCall" class="hidden" href="tel:@Model.User.PhoneNumber">@Model.User.PhoneNumber</a>
         </div>
-        <div class="row" style="height:7px">
-            <div class="row alert alert-success js-alert-job hidden" role="alert">
-                Message envoyé avec succès !
-                Bonne chance à vous pour cet emploi
-            </div>
-
+        <div class="row text-center">
+            <label class="site__subtitle">Télécharger lookaukwat !</label>
+            <a href="https://play.google.com/store/apps/details?id=com.lookaukwat.lookaukwatapp" style="color:blue"> <img class="img-responsive" alt="Télécharger lookaukwat android google playstore" src="@Url.Content("~/UserImage/Logo_Google_play.jpg")" /></a>
         </div>
-        
+
     </section>
 
     @*<section class=" col-md-12 row"><div class=" navbar-fixed-bottom">
@@ -331,56 +382,32 @@ else
 
 
             @{
-                if ((Model.User.EmailConfirmed == true && Model.User.PhoneNumber != null) || (Model.User.PhoneNumberConfirmed == true && Model.User.Email != null && !Model.User.Email.StartsWith("Mtest")))
-                {
-                    <li class="has-subnav">
-                        <a href="tel:@Model.User.PhoneNumber">
-                            <i class="fa fa-phone fa-2x"></i>
-                            <span class="nav-text ">
-                                Téléphone
-                            </span>
-                        </a>
-                    </li>
-                    <li class="has-subnav">
-                        <a href="#">
-                            @*<i class="fa fa-exclamation-triangle fa-2x"></i>*@
-                            <span class="nav-text">
-                                @*Dangers*@
-                            </span>
-                        </a>
-                    </li>
-                    <li class="has-subnav">
-                        <a href="#">
-                            <i class="fa fa-envelope fa-2x"></i>
-                            <span class="nav-text sendJobMessage">
-                                Message
-                            </span>
-                        </a>
-                    </li>
-                }
+                <li class="has-subnav">
+                    <a href="tel:@Model.User.PhoneNumber">
+                        <i class="fa fa-phone fa-2x"></i>
+                        <span class="nav-text ">
+                            Téléphone
+                        </span>
+                    </a>
+                </li>
+                <li class="has-subnav">
+                    <a href="#">
+                        @*<i class="fa fa-exclamation-triangle fa-2x"></i>*@
+                        <span class="nav-text">
+                            @*Dangers*@
+                        </span>
+                    </a>
+                </li>
+                <li class="has-subnav">
+                    <a href="#">
+                        <i class="fa fa-envelope fa-2x"></i>
+                        <span class="nav-text sendJobMessage">
+                            Message
+                        </span>
+                    </a>
+                </li>
 
-                else if (Model.User.PhoneNumberConfirmed == true)
-                {
-                    <li class="has-subnav">
-                        <a href="tel:@Model.User.PhoneNumber">
-                            <i class="fa fa-phone fa-2x"></i>
-                            <span class="nav-text ">
-                                Téléphone
-                            </span>
-                        </a>
-                    </li>
-                }
-                else if (Model.User.EmailConfirmed == true)
-                {
-                    <li class="has-subnav">
-                        <a href="#">
-                            <i class="fa fa-envelope fa-2x"></i>
-                            <span class="nav-text sendJobMessage">
-                                Message
-                            </span>
-                        </a>
-                    </li>
-                }
+               
             }
         </ul>
     </nav>

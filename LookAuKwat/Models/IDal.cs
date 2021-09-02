@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 
 namespace LookAuKwat.Models
 {
@@ -20,8 +21,9 @@ namespace LookAuKwat.Models
         void DeleteUserByAdmin(ApplicationUser user);
         //Parrain
         IQueryable<ParrainModel> GetParrainList();
+        IQueryable<ApplicationUser> GetParrainList_WithRole();
         void  AddParrain(ParrainModel model);
-        void  DeletParrain(ParrainModel model);
+        void  DeletParrain(string ParrainEmail);
         //Product
         IEnumerable<ProductModel> GetListProduct();
         IEnumerable<int> GetListIdProduct();
@@ -67,12 +69,25 @@ namespace LookAuKwat.Models
         void EditMode(ModeModel model, string lat, string lon);
         IEnumerable<ModeModel> GetListMode();
         IQueryable<ModeModel> GetListModeWithNoInclude();
+       
 
         // for House model
         void AddHouse(HouseModel model, string lat, string lon);
         void EditHouse(HouseModel model, string lat, string lon);
         IEnumerable<HouseModel> GetListHouse();
         IQueryable<HouseModel> GetListHouseWithNoInclude();
+        Task<HouseModel> GetHouseWithNoInclude(int id);
         void AddImage(ProductModel model);
+
+        //For Event model
+        IQueryable<EventModel> GetListEventWithNoInclude();
+
+        //For Divers model
+        IQueryable<DiversModel> GetListDiversWithNoInclude();
+
+        //For provider
+
+        IEnumerable<SelectListItem> GetProviderList();
+
     }
 }

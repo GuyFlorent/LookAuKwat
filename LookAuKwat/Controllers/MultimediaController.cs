@@ -156,6 +156,27 @@ namespace LookAuKwat.Controllers
                     Model = modell;
                 }
             }
+
+
+            bool isLookAuKwat = false;
+            bool isParticuler = false;
+            bool isPromotion = false;
+            if (User.IsInRole(MyRoleConstant.RoleAdmin) || (User.IsInRole(MyRoleConstant.Role_SuperAgent)))
+            {
+                isLookAuKwat = true;
+                isPromotion = true;
+
+            }
+            else
+            {
+                isParticuler = true;
+            }
+
+            if (multi.Stock == 0)
+            {
+                multi.Stock = 1;
+            }
+
             MultimediaModel model = new MultimediaModel()
             {
                 id = multi.id,
@@ -170,7 +191,14 @@ namespace LookAuKwat.Controllers
                 Capacity = multi.Capacity,
                 DateAdd = DateTime.Now,
                 SearchOrAskJob = multi.SearchOrAskJobMultimedia,
-
+                IsActive = true,
+                IsLookaukwat = isLookAuKwat,
+                IsParticulier = isParticuler,
+                IsPromotion = isPromotion,
+                Provider_Id = multi.Provider_Id,
+                Stock_Initial = multi.Stock,
+                Stock = multi.Stock,
+                ProductCountry = multi.ProductCountry,
             };
             string success = null;
 
@@ -498,6 +526,8 @@ namespace LookAuKwat.Controllers
         public async Task< ActionResult> MultimediaDetail(int id)
         {
             MultimediaModel model = await dal.GetListMultimediaWithNoInclude().FirstOrDefaultAsync(e => e.id == id);
+            model.Coordinate.Lat = model.Coordinate.Lat.Replace(",", ".");
+            model.Coordinate.Lon = model.Coordinate.Lon.Replace(",", ".");
             model.ViewNumber++;
             dal.UpdateNumberView(model);
             

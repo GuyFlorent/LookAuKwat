@@ -1,0 +1,21 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "8NXKTJ3XTW.com.companyname.LookaukwatApp",
+                "paths": [ 
+				"/Home/*",
+				"/ApartmentRental/*",
+				"/Job/",
+				"/Multimedia/*",
+				"/Vehicule/*",
+				"/Mode/*",
+				"/House/*",
+				"/Event/*",
+				"/Divers/*"
+				]
+            }
+        ]
+    }
+}

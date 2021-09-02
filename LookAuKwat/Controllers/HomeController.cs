@@ -2,6 +2,7 @@
 using LookAuKwat.ViewModel;
 //using LookAuKwat.SignalR.Hubs;
 using Microsoft.AspNet.Identity;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -31,16 +32,14 @@ namespace LookAuKwat.Controllers
             return View();
         }
 
+       
+        [OutputCache(Duration = int.MaxValue)]
         public ActionResult About()
         {
-            
-            string id = User.Identity.GetUserId();
-            ApplicationUser user = dal.GetUserByStrId(id);
-           
-            return View(user);
+            return View();
         }
         [Authorize]
-        public async Task< ActionResult> UserProfile(int? ProductId, string message)
+        public async Task< ActionResult> UserProfile(int? ProductId, string message, int? pageNumber)
         {
             string id = User.Identity.GetUserId();
             ApplicationUser user = dal.GetUserByStrId(id);
@@ -64,16 +63,32 @@ namespace LookAuKwat.Controllers
                     }
                 }
             }
-            ViewBag.UserId = id;
-            return View();
+
+            List<ProductModel> liste = new List<ProductModel>();
+
+            if (User.IsInRole(MyRoleConstant.RoleAdmin) || (User.IsInRole(MyRoleConstant.Role_SuperAgent)))
+            {
+                liste = dal.GetListProductWhithNoInclude().Where(m => m.IsLookaukwat && m.IsActive).OrderByDescending(m => m.DateAdd).ToList();
+
+            }
+            else
+            {
+                liste = dal.GetListProductWhithNoInclude().Where(m => m.User.Id == id && m.IsActive).OrderByDescending(m => m.DateAdd).ToList();
+            }
+
+            SeachJobViewModel model = new SeachJobViewModel();
+            model.ListeProductUserPagedList = liste.ToPagedList(pageNumber ?? 1, 5);
+            // ViewBag.UserId = id;
+            return View(model);
         }
 
+        [OutputCache(Duration = int.MaxValue)]
         public ActionResult LegalMention()
         {
            
             return View();
         }
-
+        [OutputCache(Duration = int.MaxValue, VaryByParam = "text")]
         public ActionResult Contact(string text)
         {
             ViewBag.text = text;

@@ -18,6 +18,8 @@ namespace LookAuKwat.ViewModel
         public string TitleSearch { get; set; }
         [DisplayName("Ville")]
         public string TownSearch { get; set; }
+        [DisplayName("Pays")]
+        public string Country { get; set; }
         [DisplayName("Lieu")]
         public string StreetSearch { get; set; }
         [Range(0, int.MaxValue, ErrorMessage = "seule les valeurs positives sont acceptées")]
@@ -26,7 +28,7 @@ namespace LookAuKwat.ViewModel
         [Range(0, int.MaxValue, ErrorMessage = "seule les valeurs positives sont acceptées")]
         [DisplayName("Prix max")]
         public int PriceMaxSearch { get; set; }
-        
+        public string ProductCountry { get; set; }
         public List<ProductModel> ListePro { get; set; }
         public List<ProductToDisplay> ListeProduct { get; set; }
         public List<JobModel> ListeProJob { get; set; }
@@ -37,6 +39,7 @@ namespace LookAuKwat.ViewModel
         public List<Models.HouseModel> ListeProHouse { get; set; }
         public IPagedList<ProductModel> ListeProPagedList { get; set; }
         public IPagedList<ProductToDisplay> ListeProductPagedList { get; set; }
+        public IPagedList<ProductModel> ListeProductUserPagedList { get; set; }
         
         // for pagedList
 

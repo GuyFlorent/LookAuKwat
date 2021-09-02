@@ -93,15 +93,15 @@ namespace LookAuKwat.Controllers
                     model.ListeProPagedList = model.ListeProVehicule.ToPagedList(model.PageNumber ?? 1, 10);
                     break;
                 case "date desc":
-                    model.ListeProVehicule = model.ListeProVehicule.OrderByDescending(m => m.id).ToList();
+                    model.ListeProVehicule = model.ListeProVehicule.OrderByDescending(m => m.DateAdd).ToList();
                     model.ListeProPagedList = model.ListeProVehicule.ToPagedList(model.PageNumber ?? 1, 10);
                     break;
                 case "date asc":
-                    model.ListeProVehicule = model.ListeProVehicule.OrderBy(m => m.id).ToList();
+                    model.ListeProVehicule = model.ListeProVehicule.OrderBy(m => m.DateAdd).ToList();
                     model.ListeProPagedList = model.ListeProVehicule.ToPagedList(model.PageNumber ?? 1, 10);
                     break;
                 default:
-                    model.ListeProVehicule = model.ListeProVehicule.OrderByDescending(x => x.id).ToList();
+                    model.ListeProVehicule = model.ListeProVehicule.OrderByDescending(x => x.DateAdd).ToList();
                     model.ListeProPagedList = model.ListeProVehicule.ToPagedList(model.PageNumber ?? 1, 10);
                     break;
             }

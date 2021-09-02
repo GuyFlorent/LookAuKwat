@@ -78,19 +78,19 @@ namespace LookAuKwat.Controllers
             }
 
             // Require the user to have a confirmed email before they can log on.
-            var user = await UserManager.FindByNameAsync(model.Email.ToLower());
-            if (user != null)
-            {
-                if (!await UserManager.IsEmailConfirmedAsync(user.Id))
-                {
-                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirmation d'email re-envoyer",model.Email);
-                    ViewBag.errorMessage = "vous devez avoir une adresse email confirmée avant de vous connecter.";
-                    return View("EmailError");
+            //var user = await UserManager.FindByNameAsync(model.Email.ToLower());
+            //if (user != null)
+            //{
+            //    if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+            //    {
+            //        string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirmation d'email re-envoyer",model.Email);
+            //        ViewBag.errorMessage = "vous devez avoir une adresse email confirmée avant de vous connecter.";
+            //        return View("EmailError");
 
-                    //ViewBag.errorMessage = "vous devez avoir une adresse email confirmée avant de vous connecter.";
-                    //return View("Error");
-                }
-            }
+            //        //ViewBag.errorMessage = "vous devez avoir une adresse email confirmée avant de vous connecter.";
+            //        //return View("Error");
+            //    }
+            //}
 
             // Ceci ne comptabilise pas les échecs de connexion pour le verrouillage du compte
             // Pour que les échecs de mot de passe déclenchent le verrouillage du compte, utilisez shouldLockout: true

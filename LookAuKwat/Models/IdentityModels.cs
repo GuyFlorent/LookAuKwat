@@ -42,6 +42,15 @@ namespace LookAuKwat.Models
         public DbSet<ModeModel> Modes { get; set; }
         public DbSet<ParrainModel> Parrains { get; set; }
         public DbSet<HouseModel> Houses { get; set; }
+        public DbSet<EventModel> Events { get; set; }
+        //for command and purchase
+        public DbSet<CommandModel> Commands { get; set; }
+        public DbSet<PurchaseModel> Purchases { get; set; }
+        public DbSet<DeliveredAdressModel> DeliveredAdresses { get; set; }
+        public DbSet<TrackingCommandModel> TrackingCommands { get; set; }
+        public DbSet<BookingModel> Bookings { get; set; }
+        public DbSet<FollowModel> Follows { get; set; }
+        public DbSet<DiversModel> Divers { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

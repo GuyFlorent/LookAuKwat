@@ -1,8 +1,11 @@
 ﻿@model LookAuKwat.Models.ApartmentRentalModel
 @using System.Globalization;
 @{
-    ViewBag.Title = "Offres immobilier " + Model.Title + " "+Model.Street;
+    ViewBag.Title = "Offres immobilier " + Model.Title + " " + Model.Street;
+
+
 }
+
 
 @{
 
@@ -65,95 +68,120 @@
 <section class="row">
 
     <section class="col-md-8">
-       
-            <div class="row">
-                <div id="myCarousel" class="carousel slide col-sm-12" data-interval="false">
 
-                    <!-- Indicators -->
-                    <ol class="carousel-indicators">
-                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                        @{
+        <div class="row">
+            <div id="myCarousel" class="carousel slide col-sm-12" data-interval="false">
 
-                            for (int num = 1; num < Model.Images.Count; num++)
-                            {
-                                <li data-target="#myCarousel" data-slide-to="@num"></li>
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    @{
 
-                            }
+                        for (int num = 1; num < Model.Images.Count; num++)
+                        {
+                            <li data-target="#myCarousel" data-slide-to="@num"></li>
 
                         }
-                    </ol>
-                    <!-- Wrapper for slides -->
-                    <div class="carousel slide" data-interval="false">
-                        <div class="carousel-inner">
-                            @{
 
-                                <div class="item active thumbnail">
-                                    <a href="@Model.Images[0].ImageMobile" data-lightbox="mygallery"><img class="img-rounded img-responsive" src="@Model.Images[0].ImageMobile" alt="@Model.Title @Model.Street LookAuKwat" /></a>
+                    }
+                </ol>
+                <!-- Wrapper for slides -->
+                <div class="carousel slide" data-interval="false">
+                    <div class="carousel-inner">
+                        @{
+
+                            <div class="item active thumbnail">
+                                <a href="@Model.Images[0].ImageMobile" data-lightbox="mygallery"><img class="img-rounded img-responsive" src="@Model.Images[0].ImageMobile" alt="@Model.Title @Model.Street LookAuKwat" /></a>
+
+                            </div>
+                            for (int a = 1; a < Model.Images.Count; a++)
+                            {
+                                <div class="item ">
+                                    <a href="@Model.Images[a].ImageMobile" data-lightbox="mygallery"><img src="@Model.Images[a].ImageMobile" alt="@Model.Title @Model.Street LookAuKwat" class="img-rounded img-responsive" /></a>
 
                                 </div>
-                                for (int a = 1; a < Model.Images.Count; a++)
-                                {
-                                    <div class="item ">
-                                        <a href="@Model.Images[a].ImageMobile" data-lightbox="mygallery"><img src="@Model.Images[a].ImageMobile" alt="@Model.Title @Model.Street LookAuKwat" class="img-rounded img-responsive" /></a>
-
-                                    </div>
-                                }
                             }
-                            <!-- Left and right controls -->
-                            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
+                        }
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
                     </div>
                 </div>
             </div>
-            <hr />
-            <div class="row">
-                <h3 class="product-title"><strong>@Model.Title</strong></h3>
-                <div>
-                    <label>Ajoutée il y'a : </label> <span style="color:forestgreen">@time.ToString() @period</span>
-
-                </div>
-                <div class="rating">
-                    <span class="review-no"><strong>@Model.ViewNumber vues</strong></span>
-                </div>
-            </div>
-        
-
+        </div>
         <hr />
         <div class="row">
-
-            <div class=" col-xs-6 col-sm-6 col-md-6">
-                @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label labelColor" })
-                <p><strong>@Model.Type</strong></p>
-
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6">
-                @Html.LabelFor(model => model.FurnitureOrNot, htmlAttributes: new { @class = "control-label labelColor" })
-                <p><strong>@Model.FurnitureOrNot</strong></p>
+            <h3 class="product-title"><strong>@Model.Title</strong></h3>
+            <div>
+                <label>Ajoutée il y'a : </label> <span style="color:forestgreen">@time.ToString() @period</span>
 
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-6 price">
-                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label labelColor" })
-                <p><span>@Model.Price FCFA</span></p>
-
+            <div class="rating">
+                <span class="review-no"><strong>@Model.ViewNumber vues</strong></span>
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-6">
-                @Html.LabelFor(model => model.RoomNumber, htmlAttributes: new { @class = "control-label labelColor" })
-                <p><strong>@Model.RoomNumber</strong></p>
+        </div>
 
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-6">
-                @Html.LabelFor(model => model.ApartSurface, htmlAttributes: new { @class = "control-label " })
-                <p><strong>@Model.ApartSurface m2</strong></p>
 
-            </div>
+        @if (!string.IsNullOrWhiteSpace(Model.VideoUrl))
+        {
+    <div class="row">
+        <img src="https://www.technobezz.com/files/uploads/2020/04/film-and-vid.jpg" height="30" />
+       <a class="btn btn-primary" href="@Model.VideoUrl">Faire une visite guidée du bien en vidéo</a> 
+    </div>
+        }
+        <hr />
+        <div class="row">
+            @{
 
+                if (!string.IsNullOrWhiteSpace(Model.Type))
+                {
+                    <div class=" col-xs-6 col-sm-6 col-md-6">
+                        @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label labelColor" })
+                        <p><strong>@Model.Type</strong></p>
+
+                    </div>
+                }
+
+                if (!string.IsNullOrWhiteSpace(Model.FurnitureOrNot))
+                {
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        @Html.LabelFor(model => model.FurnitureOrNot, htmlAttributes: new { @class = "control-label labelColor" })
+                        <p><strong>@Model.FurnitureOrNot</strong></p>
+
+                    </div>
+                }
+
+
+                <div class="col-xs-6 col-sm-6 col-md-6 price">
+                    @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label labelColor" })
+                    <p><span>@Model.Price.ToString("N", CultureInfo.CreateSpecificCulture("af-ZA")).Split(',')[0].Trim() @LookaukwatApp.ViewModels.StaticListConvertMoney.GetSymbol(Model.ProductCountry)</span></p>
+
+                </div>
+                if (!string.IsNullOrWhiteSpace(Model.RoomNumber.ToString()))
+                {
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        @Html.LabelFor(model => model.RoomNumber, htmlAttributes: new { @class = "control-label labelColor" })
+                        <p><strong>@Model.RoomNumber</strong></p>
+
+                    </div>
+                }
+
+                if (!string.IsNullOrWhiteSpace(Model.ApartSurface.ToString()))
+                {
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        @Html.LabelFor(model => model.ApartSurface, htmlAttributes: new { @class = "control-label " })
+                        <p><strong>@Model.ApartSurface m2</strong></p>
+
+                    </div>
+                }
+
+            }
         </div>
         <hr />
         <div class="row">
@@ -196,10 +224,12 @@
     </section>
     <section class="col-md-4">
         <div id="ajaxImotarget" class="row" style="border-radius: 25px;background: lightgray;padding: 20px;">
-            <img src="https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg" alt="photo du publicateur" class="img-rounded" height="50" /> @Model.User.FirstName
+            <img src="@Url.Content("~/UserImage/avatar_icon.png")" alt="photo du publicateur" class="img-rounded" height="50" /> @Model.User.FirstName
             <hr />
             @{
-                if ((Model.User.EmailConfirmed == true && Model.User.PhoneNumber != null) || (Model.User.PhoneNumberConfirmed == true && Model.User.Email != null && !Model.User.Email.StartsWith("Mtest")))
+                <button id="sendApartMessage" class="btn btn-primary sendApartMessage"><span class="glyphicon glyphicon-pencil"></span> Message </button>
+                <button id="iconApartCall" class="btn btn-default"><span class="glyphicon glyphicon-phone"></span> Voir le numéro</button>
+                @*if ((Model.User.EmailConfirmed == true && Model.User.PhoneNumber != null) || (Model.User.PhoneNumberConfirmed == true && Model.User.Email != null && !Model.User.Email.StartsWith("Mtest")))
                 {
                     <button id="sendApartMessage" class="btn btn-primary sendApartMessage"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
                     <button id="iconApartCall" class="btn btn-default"><span class="glyphicon glyphicon-phone"></span> Voir le numéro</button>
@@ -211,15 +241,13 @@
                 else if (Model.User.EmailConfirmed == true)
                 {
                     <button id="sendApartMessage" class="btn btn-primary sendApartMessage"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
-                }
+                }*@
             }
             <a id="numApartCall" class="hidden" href="tel:@Model.User.PhoneNumber">@Model.User.PhoneNumber</a>
         </div>
-        <div class="row" style="height:7px">
-            <div class="row alert alert-success js-alert-apart hidden" role="alert">
-                Message envoyé avec succès !
-                Bientôt le propriétaire vous contactera
-            </div>
+        <div class="row text-center">
+            <label class="site__subtitle">Télécharger lookaukwat !</label>
+            <a href="https://play.google.com/store/apps/details?id=com.lookaukwat.lookaukwatapp" style="color:blue"> <img class="img-responsive" alt="Télécharger lookaukwat android google playstore" src="@Url.Content("~/UserImage/Logo_Google_play.jpg")" /></a>
         </div>
     </section>
 </section>
@@ -236,56 +264,32 @@
             </a>
         </li>*@
             @{
-                if ((Model.User.EmailConfirmed == true && Model.User.PhoneNumber != null) || (Model.User.PhoneNumberConfirmed == true && Model.User.Email != null && !Model.User.Email.StartsWith("Mtest")))
-                {
-                    <li class="has-subnav">
-                        <a href="tel:@Model.User.PhoneNumber">
-                            <i class="fa fa-phone fa-2x"></i>
-                            <span class="nav-text ">
-                                Téléphone
-                            </span>
-                        </a>
-                    </li>
-                    <li class="has-subnav">
-                        <a href="#">
-                            @*<i class="fa fa-exclamation-triangle fa-2x"></i>*@
-                            <span class="nav-text">
-                                @*Dangers*@
-                            </span>
-                        </a>
-                    </li>
-                    <li class="has-subnav">
-                        <a href="#">
-                            <i class="fa fa-envelope fa-2x"></i>
-                            <span class="nav-text sendApartMessage">
-                                Message
-                            </span>
-                        </a>
-                    </li>
-                }
+                <li class="has-subnav">
+                    <a href="tel:@Model.User.PhoneNumber">
+                        <i class="fa fa-phone fa-2x"></i>
+                        <span class="nav-text ">
+                            Téléphone
+                        </span>
+                    </a>
+                </li>
+                <li class="has-subnav">
+                    <a href="#">
+                        @*<i class="fa fa-exclamation-triangle fa-2x"></i>*@
+                        <span class="nav-text">
+                            @*Dangers*@
+                        </span>
+                    </a>
+                </li>
+                <li class="has-subnav">
+                    <a href="#">
+                        <i class="fa fa-envelope fa-2x"></i>
+                        <span class="nav-text sendApartMessage">
+                            Message
+                        </span>
+                    </a>
+                </li>
 
-                else if (Model.User.PhoneNumberConfirmed == true)
-                {
-                    <li class="has-subnav">
-                        <a href="tel:@Model.User.PhoneNumber">
-                            <i class="fa fa-phone fa-2x"></i>
-                            <span class="nav-text ">
-                                Téléphone
-                            </span>
-                        </a>
-                    </li>
-                }
-                else if (Model.User.EmailConfirmed == true)
-                {
-                    <li class="has-subnav">
-                        <a href="#">
-                            <i class="fa fa-envelope fa-2x"></i>
-                            <span class="nav-text sendApartMessage">
-                                Message
-                            </span>
-                        </a>
-                    </li>
-                }
+               
             }
         </ul>
     </nav>
@@ -360,7 +364,7 @@
             ]
         });
 
-      
+
         //$(window).resize(function () {
         //    console.log(pagesize)
         //   if (pagesize > 578) {
@@ -368,7 +372,7 @@
         //    }
         //});
         //    respWhenResize();
-      
+
     })
-   
+
 </script>

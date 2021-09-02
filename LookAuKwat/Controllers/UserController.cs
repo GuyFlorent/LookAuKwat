@@ -1,4 +1,5 @@
 ﻿using LookAuKwat.Models;
+using LookAuKwat.ViewModel;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -44,7 +45,9 @@ namespace LookAuKwat.Controllers
         {
             string id = User.Identity.GetUserId();
             ApplicationUser user = dal.GetUserByStrId(id);
-          
+            var testt1 = User.IsInRole(MyRoleConstant.RoleAgent);
+            var testt2 = User.IsInRole(MyRoleConstant.RoleAdmin);
+            var testt3 = User.IsInRole(MyRoleConstant.Role_Old_Agent);
             return View(user);
         }
         public ActionResult UpdateUserInformations(string id)

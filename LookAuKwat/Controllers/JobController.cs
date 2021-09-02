@@ -40,6 +40,25 @@ namespace LookAuKwat.Controllers
         public async Task<ActionResult> AddJobs_PartialView(JobViewModel job, ImageModelView userImage)
         {
             string success = null;
+            
+            bool isLookAuKwat = false;
+            bool isParticuler = false;
+            bool isPromotion = false;
+            if (User.IsInRole(MyRoleConstant.RoleAdmin) || (User.IsInRole(MyRoleConstant.Role_SuperAgent)))
+            {
+                isLookAuKwat = true;
+                isPromotion = true;
+
+            }
+            else
+            {
+                isParticuler = true;
+            }
+
+            if (job.Stock == 0)
+            {
+                job.Stock = 1;
+            }
             JobModel model = new JobModel()
             {
                 id = job.id,
@@ -50,10 +69,16 @@ namespace LookAuKwat.Controllers
                 Price = job.Price,
                 Street = job.Street,
                 ActivitySector = job.ActivitySector,
-                DateAdd = DateTime.Now,
+                DateAdd = DateTime.UtcNow,
                 SearchOrAskJob = job.SearchOrAskJob,
-
-
+                IsActive = true,
+                IsLookaukwat = isLookAuKwat,
+                IsParticulier = isParticuler,
+                IsPromotion = isPromotion,
+                Provider_Id = job.Provider_Id,
+                Stock_Initial = job.Stock,
+                Stock = job.Stock,
+                ProductCountry = job.ProductCountry,
             };
 
 
@@ -419,11 +444,11 @@ namespace LookAuKwat.Controllers
             } return liste;
         }
 
-        public async Task<JsonResult> ShowAddress(string term, string town)
+        public async Task<JsonResult> ShowAddress(string term, string town, string country)
         {
             using (var httpClient = new HttpClient())
             {
-                var fullAddress = $"{term + "," + town + "," + "Cameroun" }";
+                var fullAddress = $"{term + "," + town + "," + country }";
 
                 var response2 = await httpClient.GetAsync("https://api.opencagedata.com/geocode/v1/json?q=" + fullAddress + "&key=a196040df44a4a41a471173aed07635c");
                 var data = await response2.Content.ReadAsStringAsync();
@@ -437,6 +462,8 @@ namespace LookAuKwat.Controllers
         public ActionResult JobDetail(int id)
         {
             JobModel model = dal.GetListJobWithNoInclude().FirstOrDefault(e => e.id == id);
+            model.Coordinate.Lat = model.Coordinate.Lat.Replace(",", ".");
+            model.Coordinate.Lon = model.Coordinate.Lon.Replace(",", ".");
             model.ViewNumber++;
             dal.UpdateNumberView(model);
           

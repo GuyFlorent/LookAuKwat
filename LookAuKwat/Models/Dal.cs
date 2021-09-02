@@ -1,11 +1,14 @@
 ﻿using AngleSharp;
 using LookAuKwat.ViewModel;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 
 namespace LookAuKwat.Models
 {
@@ -140,8 +143,8 @@ namespace LookAuKwat.Models
         public List<ProductToDisplay> GetListProductToDisplay()
         {
 
-            return dbb.Products.Select(s => new ProductToDisplay 
-            { 
+            return dbb.Products.Select(s => new ProductToDisplay
+            {
                 id = s.id,
                 DateAdd = s.DateAdd,
                 CategoryName = s.Category.CategoryName,
@@ -151,7 +154,10 @@ namespace LookAuKwat.Models
                 Description = s.Description,
                 Street = s.Street,
                 SearchOrAskJob = s.SearchOrAskJob,
-                Town = s.Town
+                Town = s.Town,
+                IsLookaukwat = s.IsLookaukwat,
+                Country = s.ProductCountry,
+                ProductCountry = s.ProductCountry
             }).ToList();
 
         }
@@ -349,6 +355,7 @@ namespace LookAuKwat.Models
            
             return dbb.ApartmentRentals.AsQueryable();
         }
+
 
         public IEnumerable<MessageDetails> GetListMessage()
         {
@@ -594,21 +601,61 @@ namespace LookAuKwat.Models
                 return false;
             return true;
         }
-
-        public IQueryable<ParrainModel> GetParrainList()
+        
+         public IQueryable<ParrainModel> GetParrainList()
         {
-            return dbb.Parrains.AsQueryable();
+             return dbb.Parrains.AsQueryable();
+        }
+        public IQueryable<ApplicationUser> GetParrainList_WithRole()
+        {
+            var Roles = dbb.Roles.FirstOrDefault(s => s.Name == MyRoleConstant.RoleAgent);
+
+
+           return dbb.Users.Where(u => u.Roles.FirstOrDefault().RoleId == Roles.Id).AsQueryable();
+
+           // return dbb.Parrains.AsQueryable();
         }
 
         public void AddParrain(ParrainModel model)
         {
+
             dbb.Parrains.Add(model);
+
+            // add agent role to old agent
+            var user = dbb.Users.FirstOrDefault(m => m.Email == model.ParrainEmail);
+            var userStore = new UserStore<ApplicationUser>(dbb);
+            var usermanager = new ApplicationUserManager(userStore);
+
+            var roleStore = new RoleStore<IdentityRole>(dbb);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+            usermanager.AddToRole(user.Id, MyRoleConstant.RoleAgent);
+
+
             dbb.SaveChanges();
         }
 
-        public void DeletParrain(ParrainModel model)
+        public void DeletParrain(string ParrainEmail)
         {
-            dbb.Parrains.Remove(model);
+            var user = dbb.Users.FirstOrDefault(m => m.Email == ParrainEmail);
+            var Roles = dbb.Roles.FirstOrDefault(s => s.Name == MyRoleConstant.RoleAgent);
+
+            var userRoles = Roles.Users.FirstOrDefault(s => s.UserId == user.Id);
+
+            if (userRoles != null)
+                Roles.Users.Remove(userRoles);
+
+            // add old agent role to old agent
+
+            var userStore = new UserStore<ApplicationUser>(dbb);
+            var usermanager = new ApplicationUserManager(userStore);
+
+            var roleStore = new RoleStore<IdentityRole>(dbb);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+            usermanager.AddToRole(user.Id, MyRoleConstant.Role_Old_Agent);
+
+            // dbb.Parrains.Remove(model);
             dbb.SaveChanges();
         }
 
@@ -678,7 +725,10 @@ namespace LookAuKwat.Models
             
             return dbb.Houses.AsQueryable();
         }
-
+        public async Task<HouseModel> GetHouseWithNoInclude(int id)
+        {
+            return await dbb.Houses.FirstOrDefaultAsync(s => s.id == id);
+        }
         public void AddImage(ProductModel model)
         {
             var product = dbb.Products.FirstOrDefault(m => m.id == model.id);
@@ -689,6 +739,29 @@ namespace LookAuKwat.Models
         public void UpdateImage(ImageProcductModel image)
         {
             dbb.SaveChanges();
+        }
+
+        public IQueryable<EventModel> GetListEventWithNoInclude()
+        {
+
+            return dbb.Events.AsQueryable();
+        }
+
+        public IEnumerable<SelectListItem> GetProviderList()
+        {
+            var role = dbb.Roles.FirstOrDefault(s => s.Name == MyRoleConstant.RoleProvider);
+            var listProvier = dbb.Users.Where(u => u.Roles.FirstOrDefault().RoleId == role.Id).ToList();
+            IList<SelectListItem> list = new List<SelectListItem>();
+            foreach(var provider in listProvier)
+            {
+                list.Add(new SelectListItem { Text = provider.FirstName, Value = provider.Id });
+            }
+            return list;
+        }
+
+        public IQueryable<DiversModel> GetListDiversWithNoInclude()
+        {
+            return dbb.Divers.AsQueryable();
         }
     }
 }

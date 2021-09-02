@@ -11,112 +11,143 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+<div class="form-horizontal">
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
 
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-        <div class="form-group">
-            @Html.LabelFor(model => model.SearchOrAskJob, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
-                @Html.DropDownListFor(model => model.SearchOrAskJob, SelectListMethod.ChooseSearchOrAsk(), "choisir", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SearchOrAskJob, "", new { @class = "text-danger" })
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-
-        <div class="form-group " id="ActivitySectorDiv">
-            @Html.LabelFor(model => model.ActivitySector, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
-                @Html.DropDownListFor(model => model.ActivitySector, SelectListMethod.GetListActivitySector(), "Choisir", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ActivitySector, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group "id="TypeContractDiv">
-            @Html.LabelFor(model => model.TypeContract, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
-                @Html.DropDownListFor(model => model.TypeContract, SelectListMethod.GetListWorkContract(), "Choisir", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TypeContract, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="" id="TitleJobDiv">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-4" })
-                <div class="col-md-8">
-                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-                </div>
-
-            </div>
-
-        </div>
-        <div class="" id="DescriptionJobDiv">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-4" })
-                <div class="col-md-8">
-                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @cols = "45", @rows = "5" })
-                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                </div>
-
-            </div>
-        </div>
-        <div class="form-group " id="TownJobDiv">
-            @Html.LabelFor(model => model.Town, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
-                @Html.DropDownListFor(model => model.Town, SelectListMethod.GetListTownCameroon(), "Choisir", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Town, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="" id="StreetJobDiv">
-            <p class=" col-md-offset-2 text-info">Veuillez choisir une adresse de la liste après votre saisie.</p>
-            <div class="form-group">
-                @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label col-md-4" })
-                <div class="col-md-8">
-                    @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
-                </div>
-
-            </div>
-        </div>
-
-        <div class="form-group hidden" id="priceJobDiv">
-            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-
-        <div class="form-group hidden" id="imageJobDiv">
-            @Html.LabelFor(model => model.Imageproduct.Image, htmlAttributes: new { @class = "control-label col-md-4" })
-
-            @*<label class="control-label col-md-2" for="#imagesJobs"></label>*@
-            <div class="col-md-8">
-
-                <input type="file" name="ImageFile" id="ImageFile" accept="image/*" multiple="multiple" @*onchange="readURL(this);"*@>
-                <p class="text-info">Vous pouvez sélectionner à la fois une ou trois(3) images au maximun.</p>
-            </div>
-            @*<div style="height:50px " class="col-md-4">
-                    <img id="InitiativeImageUpToDate" src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt="photo de initiative" height="50" />
-                </div>*@
-        </div>
-
-        <div class="form-group " id="btnJobDiv">
-            <div class="col-md-offset-4 col-md-8">
-                <button type="submit" class="btn btn-success">Suivant <span class="glyphicon glyphicon-menu-right"></span></button>
-            </div>
+        </div>*@
+    <div class="form-group">
+        @Html.LabelFor(model => model.SearchOrAskJob, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.DropDownListFor(model => model.SearchOrAskJob, SelectListMethod.ChooseSearchOrAsk(), "choisir", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.SearchOrAskJob, "", new { @class = "text-danger" })
         </div>
     </div>
+
+
+    <div class="form-group " id="ActivitySectorDiv">
+        @Html.LabelFor(model => model.ActivitySector, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.DropDownListFor(model => model.ActivitySector, SelectListMethod.GetListActivitySector(), "Choisir", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ActivitySector, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group " id="TypeContractDiv">
+        @Html.LabelFor(model => model.TypeContract, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.DropDownListFor(model => model.TypeContract, SelectListMethod.GetListWorkContract(), "Choisir", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TypeContract, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="" id="TitleJobDiv">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+    </div>
+    <div class="" id="DescriptionJobDiv">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @cols = "45", @rows = "5" })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+    </div>
+
+
+    @if (User.IsInRole(MyRoleConstant.RoleAdmin) || User.IsInRole(MyRoleConstant.Role_SuperAgent))
+    {
+        <div class="form-group ">
+            @Html.LabelFor(model => model.Provider_Id, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(model => model.Provider_Id, SelectListMethod.GetProviders(), "choisir un fournisseur", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Provider_Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Stock, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    }
+
+    <div class="form-group ">
+        @Html.LabelFor(model => model.ProductCountry, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.DropDownListFor(model => model.ProductCountry, SelectListMethod.GetCountryList(), "choisir", new { @id = "Country", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ProductCountry, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group " >
+        @Html.LabelFor(model => model.Town, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.DropDownListFor(model => model.Town, SelectListMethod.GetListTownCameroon(), "Choisir", new { @id = "Town", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Town, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="" id="StreetJobDiv">
+        <p class=" col-md-offset-2 text-info">Veuillez choisir une adresse de la liste après votre saisie.</p>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+    </div>
+
+    <div class="form-group hidden" id="priceJobDiv">
+        <p class=" col-md-offset-2 text-info">0 Fcfa = salaire à négocier</p>
+        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group hidden" id="imageJobDiv">
+        @Html.LabelFor(model => model.Imageproduct.Image, htmlAttributes: new { @class = "control-label col-md-4" })
+
+        @*<label class="control-label col-md-2" for="#imagesJobs"></label>*@
+        <div class="col-md-8">
+
+            <input type="file" name="ImageFile" id="ImageFile" accept="image/*" multiple="multiple" @*onchange="readURL(this);"*@>
+            <p class="text-info">Vous pouvez sélectionner à la fois une ou trois(3) images au maximun.</p>
+        </div>
+        @*<div style="height:50px " class="col-md-4">
+                <img id="InitiativeImageUpToDate" src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" alt="photo de initiative" height="50" />
+            </div>*@
+    </div>
+
+    <div class="form-group " id="btnJobDiv">
+        <div class="col-md-offset-4 col-md-8">
+            <button type="submit" class="btn btn-success">Suivant <span class="glyphicon glyphicon-menu-right"></span></button>
+        </div>
+    </div>
+</div>
 }
 
 
@@ -250,6 +281,51 @@
 
         //});
 
+
+        $("#Country").change(function () {
+            var country = $("#Country").val();
+            if (country == null || country == "") {
+                alert("Veillez choisir un pays s'il vous plaît");
+                return;
+            }
+            // $("input[id='ClientName']").val(country);
+            if (country != null || country != "") {
+                $.ajax({
+                    url: "/Product/BindTown",
+                    type: "POST",
+                    data: JSON.stringify({ 'country': country }),
+                    dataType: "json",
+                    traditional: true,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+
+                        //debugger;  
+                        var listItems = "";
+                        // var list = "";
+                        var a = result;
+                        //var s = result.bindingAddresses.siteAdd;
+                        for (i in result) {
+
+                            listItems += "<option value='" + a[i].Value + "'>" + a[i].Text
+
+                                + "</option>";
+                        }
+                        $("#Town").html(listItems);
+
+                        //for (j in s) {
+                        //    list += "<option value='" + s[j].Value + "'>" + s[j].Text +
+
+                        //        "</option>";
+                        //}
+                        //$("#SiteId").html(list);
+                    },
+                    error: function () {
+                        alert("An error has occured!!!");
+                    }
+                });
+            }
+        });  
+
         $("#Street").autocomplete({
         source: function (request, response) {
         $.ajax({
@@ -264,7 +340,8 @@
                 top: 5,
 
                // country: $("#Country").val(),
-                    town: $("#Town").val(),
+                town: $("#Town").val(),
+                country: $("#Country").val(),
                  // zipcode: $("#ZipCode").val(),
                 term: request.term
             }),

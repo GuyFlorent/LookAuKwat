@@ -40,6 +40,27 @@ namespace LookAuKwat.Controllers
         [HttpPost]
         public async Task<ActionResult> AddMode(ModeViewModel mode, ImageModelView userImage)
         {
+
+            bool isLookAuKwat = false;
+            bool isParticuler = false;
+            bool isPromotion = false;
+            if (User.IsInRole(MyRoleConstant.RoleAdmin) || (User.IsInRole(MyRoleConstant.Role_SuperAgent)))
+            {
+                isLookAuKwat = true;
+                isPromotion = true;
+
+            }
+            else
+            {
+                isParticuler = true;
+            }
+
+            if (mode.Stock == 0)
+            {
+                mode.Stock = 1;
+            }
+
+
             List<string> TypeList = new List<string>();
             TypeList.Add(mode.TypeModeAccesorieLugages);
             TypeList.Add(mode.TypeModeBabyClothes);
@@ -106,7 +127,14 @@ namespace LookAuKwat.Controllers
                 ColorMode = mode.ColorMode,
                 DateAdd = DateTime.Now,
                 SearchOrAskJob = mode.SearchOrAskMode,
-
+                IsActive = true,
+                IsLookaukwat = isLookAuKwat,
+                IsParticulier = isParticuler,
+                IsPromotion = isPromotion,
+                Provider_Id = mode.Provider_Id,
+                Stock_Initial = mode.Stock,
+                Stock = mode.Stock,
+                ProductCountry = mode.ProductCountry,
             };
             string success = null;
 
@@ -237,6 +265,8 @@ namespace LookAuKwat.Controllers
         public async Task< ActionResult> ModeDetail(int id)
         {
             ModeModel model =await dal.GetListModeWithNoInclude().FirstOrDefaultAsync(e => e.id == id);
+            model.Coordinate.Lat = model.Coordinate.Lat.Replace(",", ".");
+            model.Coordinate.Lon = model.Coordinate.Lon.Replace(",", ".");
             model.ViewNumber++;
             dal.UpdateNumberView(model);
            

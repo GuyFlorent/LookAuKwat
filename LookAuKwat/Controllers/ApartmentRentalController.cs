@@ -1,4 +1,5 @@
-﻿using LookAuKwat.Models;
+﻿using LookAuKwat.Migrations;
+using LookAuKwat.Models;
 using LookAuKwat.ViewModel;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json.Linq;
@@ -42,6 +43,25 @@ namespace LookAuKwat.Controllers
         public async Task<ActionResult> AddAppartment(ApartmentRentalViewModel apart, ImageModelView userImage)
         {
             string success = null;
+            bool isLookAuKwat = false;
+            bool isParticuler = false;
+            bool isPromotion = false;
+            if(User.IsInRole(MyRoleConstant.RoleAdmin) || (User.IsInRole(MyRoleConstant.Role_SuperAgent)))
+            {
+                isLookAuKwat = true;
+                isPromotion = true;
+
+            }
+            else
+            {
+                isParticuler = true;
+            }
+
+            if(apart.Stock == 0)
+            {
+                apart.Stock = 1;
+            }
+
             ApartmentRentalModel model = new ApartmentRentalModel()
             {
                 id = apart.Id,
@@ -53,10 +73,19 @@ namespace LookAuKwat.Controllers
                 Street = apart.StreetAppart,
                 FurnitureOrNot = apart.FurnitureOrNot,
                 RoomNumber = apart.RoomNumber,
-                DateAdd = DateTime.Now,
+                DateAdd = DateTime.UtcNow,
                 SearchOrAskJob = apart.SearchOrAskJobAppart,
-                Type = apart.Type
-
+                Type = apart.Type,
+                IsActive = true,
+                ProductCountry = apart.ProductCountry,
+                IsLookaukwat = isLookAuKwat,
+                IsParticulier = isParticuler,
+                IsPromotion = isPromotion,
+                VideoUrl = apart.VideoUrl,
+                Provider_Id = apart.Provider_Id,
+                Stock_Initial = apart.Stock,
+                Stock = apart.Stock,
+                
             };
 
 
@@ -339,6 +368,8 @@ namespace LookAuKwat.Controllers
         public async Task<ActionResult> ApartDetail(int id)
         {
             ApartmentRentalModel model = await dal.GetListAppartWithNoInclude().FirstOrDefaultAsync(e => e.id == id);
+            model.Coordinate.Lat = model.Coordinate.Lat.Replace(",", ".");
+            model.Coordinate.Lon = model.Coordinate.Lon.Replace(",", ".");
             model.ViewNumber++;
             dal.UpdateNumberView(model);
 

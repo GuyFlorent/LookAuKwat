@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LookaukwatApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -14,6 +15,9 @@ namespace LookAuKwat.ViewModel
        
         [DisplayName("Ville")]
         public string Town { get; set; }
+
+        [DisplayName("Pays")]
+        public string Country { get; set; }
         public string Description { get; set; }
         [DisplayName("Quartier")]
         public string Street { get; set; }
@@ -26,7 +30,9 @@ namespace LookAuKwat.ViewModel
         public string Date { get => ConvertDate(DateAdd); }
         public string CategoryName { get; set; }
         public string Image { get; set; }
-       
+        public bool IsLookaukwat { get; set; }
+        public string ProductCountry { get; set; }
+        public string MoneySymbol { get => StaticListConvertMoney.GetSymbol(ProductCountry); }
         private string ConvertDate(DateTime date)
         {
             TimeSpan elapsTime = DateTime.Now - date;

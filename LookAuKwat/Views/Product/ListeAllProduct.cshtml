@@ -172,7 +172,7 @@
                                 
                                 </div>
                                 <div class="list-group">
-                                   
+
                                     @foreach (var liste in Model.ListeProductPagedList)
                                     {
 
@@ -189,8 +189,12 @@
                                                     <a href="@Url.Action("JobDetail", "Job", new { id = liste.id }, null)" class="list-group-item">
                                                         <h4 class="list-group-item-heading"><strong>@liste.Title</strong>  Ville:<span class="text-info"><strong> @liste.Town</strong></span></h4>
                                                         <p class="list-group-item-text pull-right text-success">@liste.Date</p>
-                                                        <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
+                                                        <p class="list-group-item-text text-left price"><span>@liste.Price.ToString("N", CultureInfo.CreateSpecificCulture("af-ZA")).Split(',')[0].Trim() @liste.MoneySymbol</span></p>
                                                         <p class="list-group-item-text text-left"><strong>👷 Emploi</strong></p>
+                                                        @if (liste.IsLookaukwat)
+                                                        {
+                                                            <h4 class="list-group-item-text pull-right"><strong><span style="background-color:#2196F3; border-radius: 20%; width:100px; height:50px;"><span style="color:white;">Garantie Lookaukwat</span></span></strong></h4>
+                                                        }
                                                         <img src="@liste.Image" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
                                                     </a>
                                                 }
@@ -199,8 +203,12 @@
                                                     <a href="@Url.Action("ApartDetail", "ApartmentRental", new { id = liste.id }, null)" class="list-group-item">
                                                         <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"><strong> @liste.Town</strong></span></h4>
                                                         <p class="list-group-item-text pull-right text-success">@liste.Date</p>
-                                                        <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
+                                                        <p class="list-group-item-text text-left price"><span>@liste.Price.ToString("N", CultureInfo.CreateSpecificCulture("af-ZA")).Split(',')[0].Trim() @liste.MoneySymbol</span></p>
                                                         <p class="list-group-item-text text-left"><strong>🏠 Immobiliere</strong></p>
+                                                        @if (liste.IsLookaukwat)
+                                                        {
+                                                            <h4 class="list-group-item-text pull-right"><strong><span style="background-color:#2196F3; border-radius: 20%; width:100px; height:50px;"><span style="color:white;">Garantie Lookaukwat</span></span></strong></h4>
+                                                        }
                                                         <img src="@liste.Image" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
                                                     </a>
                                                 }
@@ -209,8 +217,12 @@
                                                     <a href="@Url.Action("MultimediaDetail", "Multimedia", new { id = liste.id }, null)" class="list-group-item">
                                                         <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"><strong> @liste.Town</strong></span></h4>
                                                         <p class="list-group-item-text pull-right text-success">@liste.Date</p>
-                                                        <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
+                                                        <p class="list-group-item-text text-left price"><span>@liste.Price.ToString("N", CultureInfo.CreateSpecificCulture("af-ZA")).Split(',')[0].Trim() @liste.MoneySymbol</span></p>
                                                         <p class="list-group-item-text text-left"><strong>💻 Multimédia</strong></p>
+                                                        @if (liste.IsLookaukwat)
+                                                        {
+                                                            <h4 class="list-group-item-text pull-right"><strong><span style="background-color:#2196F3; border-radius: 20%; width:100px; height:50px;"><span style="color:white;">Garantie Lookaukwat</span></span></strong></h4>
+                                                        }
                                                         <img src="@liste.Image" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
                                                     </a>
                                                 }
@@ -219,8 +231,12 @@
                                                     <a href="@Url.Action("VehiculeDetail", "Vehicule", new { id = liste.id }, null)" class="list-group-item">
                                                         <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"><strong> @liste.Town</strong></span></h4>
                                                         <p class="list-group-item-text pull-right text-success">@liste.Date</p>
-                                                        <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
+                                                        <p class="list-group-item-text text-left price"><span>@liste.Price.ToString("N", CultureInfo.CreateSpecificCulture("af-ZA")).Split(',')[0].Trim() @liste.MoneySymbol</span></p>
                                                         <p class="list-group-item-text text-left"><strong>🚗 Véhicule</strong></p>
+                                                        @if (liste.IsLookaukwat)
+                                                        {
+                                                            <h4 class="list-group-item-text pull-right"><strong><span style="background-color:#2196F3; border-radius: 20%; width:100px; height:50px;"><span style="color:white;">Garantie Lookaukwat</span></span></strong></h4>
+                                                        }
                                                         <img src="@liste.Image" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
                                                     </a>
                                                 }
@@ -229,8 +245,12 @@
                                                     <a href="@Url.Action("ModeDetail", "Mode", new { id = liste.id }, null)" class="list-group-item">
                                                         <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"><strong> @liste.Town</strong></span></h4>
                                                         <p class="list-group-item-text pull-right text-success">@liste.Date</p>
-                                                        <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
+                                                        <p class="list-group-item-text text-left price"><span>@liste.Price.ToString("N", CultureInfo.CreateSpecificCulture("af-ZA")).Split(',')[0].Trim() @liste.MoneySymbol</span></p>
                                                         <p class="list-group-item-text text-left"><strong>👚 Mode</strong></p>
+                                                        @if (liste.IsLookaukwat)
+                                                        {
+                                                            <h4 class="list-group-item-text pull-right"><strong><span style="background-color:#2196F3; border-radius: 20%; width:100px; height:50px;"><span style="color:white;">Garantie Lookaukwat</span></span></strong></h4>
+                                                        }
                                                         <img src="@liste.Image" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
                                                     </a>
                                                 }
@@ -239,8 +259,40 @@
                                                     <a href="@Url.Action("HouseDetail", "House", new { id = liste.id }, null)" class="list-group-item">
                                                         <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"><strong> @liste.Town</strong></span></h4>
                                                         <p class="list-group-item-text pull-right text-success">@liste.Date</p>
-                                                        <p class="list-group-item-text text-left price"><span>@liste.Price FCFA</span></p>
+                                                        <p class="list-group-item-text text-left price"><span>@liste.Price.ToString("N", CultureInfo.CreateSpecificCulture("af-ZA")).Split(',')[0].Trim() @liste.MoneySymbol</span></p>
                                                         <p class="list-group-item-text text-left"><strong>🛋️ Maison</strong></p>
+                                                        @if (liste.IsLookaukwat)
+                                                        {
+                                                            <h4 class="list-group-item-text pull-right"><strong><span style="background-color:#2196F3; border-radius: 20%; width:100px; height:50px;"><span style="color:white;">Garantie Lookaukwat</span></span></strong></h4>
+                                                        }
+                                                        <img src="@liste.Image" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
+                                                    </a>
+                                                }
+                                                else if (liste.CategoryName == "Événement")
+                                                {
+                                                    <a href="@Url.Action("EventDetail", "Event", new { id = liste.id }, null)" class="list-group-item">
+                                                        <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"><strong> @liste.Town</strong></span></h4>
+                                                        <p class="list-group-item-text pull-right text-success">@liste.Date</p>
+                                                        <p class="list-group-item-text text-left price"><span>@liste.Price.ToString("N", CultureInfo.CreateSpecificCulture("af-ZA")).Split(',')[0].Trim() @liste.MoneySymbol</span></p>
+                                                        <p class="list-group-item-text text-left"><strong>Événement</strong></p>
+                                                        @if (liste.IsLookaukwat)
+                                                        {
+                                                            <h4 class="list-group-item-text pull-right"><strong><span style="background-color:#2196F3; border-radius: 20%; width:100px; height:50px;"><span style="color:white;">Garantie Lookaukwat</span></span></strong></h4>
+                                                        }
+                                                        <img src="@liste.Image" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
+                                                    </a>
+                                                }
+                                                else if (liste.CategoryName == "Divers")
+                                                {
+                                                    <a href="@Url.Action("DiversDetail", "Divers", new { id = liste.id }, null)" class="list-group-item">
+                                                        <h4 class="list-group-item-heading"> <strong>@liste.Title</strong> Ville:<span class="text-info"><strong> @liste.Town</strong></span></h4>
+                                                        <p class="list-group-item-text pull-right text-success">@liste.Date</p>
+                                                        <p class="list-group-item-text text-left price"><span>@liste.Price.ToString("N", CultureInfo.CreateSpecificCulture("af-ZA")).Split(',')[0].Trim() @liste.MoneySymbol</span></p>
+                                                        <p class="list-group-item-text text-left"><strong>Divers</strong></p>
+                                                        @if (liste.IsLookaukwat)
+                                                        {
+                                                            <h4 class="list-group-item-text pull-right"><strong><span style="background-color:#2196F3; border-radius: 20%; width:100px; height:50px;"><span style="color:white;">Garantie Lookaukwat</span></span></strong></h4>
+                                                        }
                                                         <img src="@liste.Image" alt="LookAuKwat @liste.Title" style="height:150px" class="img-rounded img-responsive" />
                                                     </a>
                                                 }
@@ -258,7 +310,8 @@
                         <div class="col-md-6">
                             @*<h1> Publicitéx</h1>*@
                             <div class="row text-center">
-                                <a href="https://lookaukwat.azurewebsites.net/Job/JobDetail/27"><img src="@Url.Content("~/UserImage/PUB_PAPA.gif")" width="330" alt="lookaukwat géomètre" /></a>
+                                <label class="site__subtitle">Télécharger lookaukwat !</label>
+                                <a href="https://play.google.com/store/apps/details?id=com.lookaukwat.lookaukwatapp" style="color:blue"> <img class="img-responsive" alt="Télécharger lookaukwat android google playstore" src="@Url.Content("~/UserImage/Logo_Google_play.jpg")"/></a>
                             </div>
                         </div>
                     </div>

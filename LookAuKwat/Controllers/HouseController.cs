@@ -86,6 +86,25 @@ namespace LookAuKwat.Controllers
         [HttpPost]
         public async Task<ActionResult> AddHouse(HouseViewModel house, ImageModelView userImage)
         {
+            bool isLookAuKwat = false;
+            bool isParticuler = false;
+            bool isPromotion = false;
+            if (User.IsInRole(MyRoleConstant.RoleAdmin) || (User.IsInRole(MyRoleConstant.Role_SuperAgent)))
+            {
+                isLookAuKwat = true;
+                isPromotion = true;
+
+            }
+            else
+            {
+                isParticuler = true;
+            }
+
+            if (house.Stock == 0)
+            {
+                house.Stock = 1;
+            }
+
             HouseModel model = new HouseModel()
             {
                
@@ -99,9 +118,16 @@ namespace LookAuKwat.Controllers
                 FabricMaterialeHouse = house.FabricMaterialeHouse,
                 StateHouse = house.StateHouse,
                 TypeHouse = house.TypeHouse,
-                DateAdd = DateTime.Now,
+                DateAdd = DateTime.UtcNow,
                 SearchOrAskJob = house.SearchOrAskJob,
-
+                IsActive = true,
+                IsLookaukwat = isLookAuKwat,
+                IsParticulier = isParticuler,
+                IsPromotion = isPromotion,
+                Provider_Id = house.Provider_Id,
+                Stock_Initial = house.Stock,
+                Stock = house.Stock,
+                ProductCountry = house.ProductCountry,
 
             };
 
@@ -231,7 +257,9 @@ namespace LookAuKwat.Controllers
         [OutputCache(Duration = 3600, VaryByParam = "id")]
         public async Task< ActionResult> HouseDetail(int id)
         {
-            HouseModel model = await dal.GetListHouseWithNoInclude().FirstOrDefaultAsync(e => e.id == id);
+            HouseModel model = await dal.GetHouseWithNoInclude(id);
+            model.Coordinate.Lat = model.Coordinate.Lat.Replace(",", ".");
+            model.Coordinate.Lon = model.Coordinate.Lon.Replace(",", ".");
             model.ViewNumber++;
             dal.UpdateNumberView(model);
            

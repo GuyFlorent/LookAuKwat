@@ -1,8 +1,10 @@
 ﻿@model LookAuKwat.Models.HouseModel
 @using System.Globalization;
 @{
-    ViewBag.Title = "Offres Maison " + Model.RubriqueHouse + " " +Model.TypeHouse  + " " + 
-        Model.FabricMaterialeHouse+ " " +Model.StateHouse  + " " + Model.ColorHouse + " " +Model.StateHouse ;
+    ViewBag.Title = Model.Title + " " +Model.Street  + " " +
+        Model.Town+ " " +Model.ProductCountry;
+
+
 }
 
 @{
@@ -134,52 +136,75 @@ else
                 <span class="review-no"><strong>@Model.ViewNumber vues</strong></span>
             </div>
         </div>
+
+
         <hr />
         <div class="row">
 
-            <div class=" col-xs-6 col-sm-6 col-md-4">
-                @Html.LabelFor(model => model.RubriqueHouse, htmlAttributes: new { @class = "control-label labelColor" })
-                <p><strong>@Model.RubriqueHouse</strong></p>
+            @{
 
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-4 price">
-                <label class="control-label labelColor">Prix</label>
+                if (!string.IsNullOrWhiteSpace(Model.RubriqueHouse))
+                {
+                    <div class=" col-xs-6 col-sm-6 col-md-4">
+                        @Html.LabelFor(model => model.RubriqueHouse, htmlAttributes: new { @class = "control-label labelColor" })
+                        <p><strong>@Model.RubriqueHouse</strong></p>
 
-                <p><span>@Model.Price FCFA</span></p>
+                    </div>
+                }
 
-            </div>
-            @if (Model.RubriqueHouse == "Ameublement" || Model.RubriqueHouse == "Cuisine" || Model.RubriqueHouse == "Décoration" || Model.RubriqueHouse == "Linge de maison")
-            {
-                <div class="col-xs-6 col-sm-6 col-md-4">
-                    @Html.LabelFor(model => model.TypeHouse, htmlAttributes: new { @class = "control-label labelColor" })
-                    <p><strong>@Model.TypeHouse</strong></p>
+                <div class="col-xs-6 col-sm-6 col-md-4 price">
+                    <label class="control-label labelColor">Prix</label>
+
+                    <p><span>@Model.Price.ToString("N", CultureInfo.CreateSpecificCulture("af-ZA")).Split(',')[0].Trim() @LookaukwatApp.ViewModels.StaticListConvertMoney.GetSymbol(Model.ProductCountry)</span></p>
 
                 </div>
+                if (Model.RubriqueHouse == "Ameublement" || Model.RubriqueHouse == "Cuisine" || Model.RubriqueHouse == "Décoration" || Model.RubriqueHouse == "Linge de maison")
+                {
+                    if (!string.IsNullOrWhiteSpace(Model.TypeHouse))
+                    {
+                        <div class="col-xs-6 col-sm-6 col-md-4">
+                            @Html.LabelFor(model => model.TypeHouse, htmlAttributes: new { @class = "control-label labelColor" })
+                            <p><strong>@Model.TypeHouse</strong></p>
+
+                        </div>
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(Model.FabricMaterialeHouse))
+                    {
+                        <div class="col-xs-6 col-sm-6 col-md-4">
+                            @Html.LabelFor(model => model.FabricMaterialeHouse, htmlAttributes: new { @class = "control-label labelColor" })
+                            <p><strong>@Model.FabricMaterialeHouse</strong></p>
+                        </div>
+                    }
+
+                }
+
+                if (!string.IsNullOrWhiteSpace(Model.StateHouse))
+                {
+                    <div class="col-xs-6 col-sm-6 col-md-4">
+                        @Html.LabelFor(model => model.StateHouse, htmlAttributes: new { @class = "control-label labelColor" })
+                        <p><strong>@Model.StateHouse</strong></p>
+
+                    </div>
+                }
+
+
+                if (!string.IsNullOrWhiteSpace(Model.ColorHouse))
+                {
+                    <div class="col-xs-6 col-sm-6 col-md-4">
+                        @Html.LabelFor(model => model.ColorHouse, htmlAttributes: new { @class = "control-label labelColor" })
+                        <p><strong>@Model.ColorHouse</strong></p>
+
+                    </div>
+                }
+
+
                 <div class="col-xs-6 col-sm-6 col-md-4">
-                    @Html.LabelFor(model => model.FabricMaterialeHouse, htmlAttributes: new { @class = "control-label labelColor" })
-                    <p><strong>@Model.FabricMaterialeHouse</strong></p>
+                    @Html.LabelFor(model => model.SearchOrAskJob, htmlAttributes: new { @class = "control-label labelColor" })
+                    <p><strong>@Model.SearchOrAskJob</strong></p>
+
                 </div>
             }
-            
-
-
-            <div class="col-xs-6 col-sm-6 col-md-4">
-                @Html.LabelFor(model => model.StateHouse, htmlAttributes: new { @class = "control-label labelColor" })
-                <p><strong>@Model.StateHouse</strong></p>
-
-            </div>
-            <div class="col-xs-6 col-sm-6 col-md-4">
-                @Html.LabelFor(model => model.ColorHouse, htmlAttributes: new { @class = "control-label labelColor" })
-                <p><strong>@Model.ColorHouse</strong></p>
-
-            </div>
-
-            <div class="col-xs-6 col-sm-6 col-md-4">
-                @Html.LabelFor(model => model.SearchOrAskJob, htmlAttributes: new { @class = "control-label labelColor" })
-                <p><strong>@Model.SearchOrAskJob</strong></p>
-
-            </div>
-
         </div>
         <hr />
         <div class="row">
@@ -203,13 +228,13 @@ else
             <p>
                 @*facebook sharing*@
                 <a href="javascript:void(o)" onclick="window.open('http://www.facebook.com/sharer/sharer.php?u=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id','facebook-share-dialog','toolbar=0,status=0,width=600,height=600');"> <img src="@Url.Content("~/UserImage/facebook.png ")" id="imgfb" alt="facebook" height="40" /></a> @*twitter sharing*@
-                <a href="http://twitter.com/share?url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id&title=@Model.Title&summary=@Model.Description" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img src="@Url.Content("~/UserImage/Twitter.png ")" id="imgtw" alt="twitter" height="40" /></a>
+                <a href="http://twitter.com/share?url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/HouseDetail/@Model.id&title=@Model.Title&summary=@Model.Description" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img src="@Url.Content("~/UserImage/Twitter.png ")" id="imgtw" alt="twitter" height="40" /></a>
                 <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script> @*LinkedIn sharing*@
-                <a href="http://www.linkedin.com/shareArticle?mini=true&url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content("~/UserImage/linkedin.png ")" id="imgln" height="40" /></a> @*GooglePlus sharing*@
-                <a href="https://mail.google.com/mail/?view=cm&su=@Model.Title&to&body=Job disponible @Model.Description sur le lien : @HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="GooglePlus" src="@Url.Content("~/UserImage/Gmail.png ")" id="imggoogle" height="40" /></a>
+                <a href="http://www.linkedin.com/shareArticle?mini=true&url=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/HouseDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content("~/UserImage/linkedin.png ")" id="imgln" height="40" /></a> @*GooglePlus sharing*@
+                <a href="https://mail.google.com/mail/?view=cm&su=@Model.Title&to&body=Job disponible @Model.Description sur le lien : @HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/HouseDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="GooglePlus" src="@Url.Content("~/UserImage/Gmail.png ")" id="imggoogle" height="40" /></a>
                 <a href="http://compose.mail.yahoo.com/?&Subject=@Model.Title&To=&Body=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" onclick="javascript:window.open(this.href,'sharer','toolbar=0,status=0,width=548,height=400');return false;" rel="nofollow"> <img alt="Linkedin" src="@Url.Content("~/UserImage/Yahoo.png ")" id="imgln" height="40" /></a>
 
-                <a href="whatsapp://send?text=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/JobDetail/@Model.id" data-action="share/whatsapp/share"><img alt="whatsapp" src="@Url.Content("~/UserImage/whatsapp.png ")" id="imgln" height="40" /></a>
+                <a href="whatsapp://send?text=@HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "/")@Request.RawUrl.ToString().Split('/')[1]/HouseDetail/@Model.id" data-action="share/whatsapp/share"><img alt="whatsapp" src="@Url.Content("~/UserImage/whatsapp.png ")" id="imgln" height="40" /></a>
             </p>
         </div>
 
@@ -224,10 +249,13 @@ else
     </section>
     <section class="col-md-4">
         <div class="row" style="border-radius: 25px;background: lightgray;padding: 20px;">
-            <img src="https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg" alt="photo du publicateur Lookaukwat" class="img-rounded" height="50" /> @Model.User.FirstName
+            <img src="@Url.Content("~/UserImage/avatar_icon.png")" alt="photo du publicateur Lookaukwat" class="img-rounded" height="50" /> @Model.User.FirstName
             <hr />
             @{
-                if ((Model.User.EmailConfirmed == true && Model.User.PhoneNumber != null) || (Model.User.PhoneNumberConfirmed == true && Model.User.Email != null && !Model.User.Email.StartsWith("Mtest")))
+                <button id="sendJobMessage" class="btn btn-primary sendJobMessage"><span class="glyphicon glyphicon-pencil"></span> Message </button>
+                <button id="iconJobCall" class="btn btn-default"><span class="glyphicon glyphicon-phone"></span> Voir le numéro</button>
+
+                @*if ((Model.User.EmailConfirmed == true && Model.User.PhoneNumber != null) || (Model.User.PhoneNumberConfirmed == true && Model.User.Email != null && !Model.User.Email.StartsWith("Mtest")))
                 {
                     <button id="sendJobMessage" class="btn btn-primary sendJobMessage"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
                     <button id="iconJobCall" class="btn btn-default"><span class="glyphicon glyphicon-phone"></span> Voir le numéro</button>
@@ -239,16 +267,13 @@ else
                 else if (Model.User.EmailConfirmed == true)
                 {
                     <button id="sendJobMessage" class="btn btn-primary sendJobMessage"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
-                }
+                }*@
             }
             <a id="numJobCall" class="hidden" href="tel:@Model.User.PhoneNumber">@Model.User.PhoneNumber</a>
         </div>
-        <div class="row" style="height:7px">
-            <div class="row alert alert-success js-alert-job hidden" role="alert">
-                Message envoyé avec succès !
-                Bonne chance à vous pour cet emploi
-            </div>
-
+        <div class="row text-center">
+            <label class="site__subtitle">Télécharger lookaukwat !</label>
+            <a href="https://play.google.com/store/apps/details?id=com.lookaukwat.lookaukwatapp" style="color:blue"> <img class="img-responsive" alt="Télécharger lookaukwat android google playstore" src="@Url.Content("~/UserImage/Logo_Google_play.jpg")" /></a>
         </div>
 
     </section>
@@ -272,58 +297,34 @@ else
             </a>
         </li>*@
             @{
-                if ((Model.User.EmailConfirmed == true && Model.User.PhoneNumber != null) || (Model.User.PhoneNumberConfirmed == true && Model.User.Email != null && !Model.User.Email.StartsWith("Mtest")))
-                {
-                    <li class="has-subnav">
-                        <a href="tel:@Model.User.PhoneNumber">
-                            <i class="fa fa-phone fa-2x"></i>
-                            <span class="nav-text ">
-                                Téléphone
-                            </span>
-                        </a>
-                    </li>
-                    <li class="has-subnav">
-                        <a href="#">
-                            @*<i class="fa fa-exclamation-triangle fa-2x"></i>*@
-                            <span class="nav-text">
-                                @*Dangers*@
-                            </span>
-                        </a>
-                    </li>
-                    <li class="has-subnav">
-                        <a href="#">
-                            <i class="fa fa-envelope fa-2x"></i>
-                            <span class="nav-text sendJobMessage">
-                                Message
-                            </span>
-                        </a>
-                    </li>
-                }
+                <li class="has-subnav">
+                    <a href="tel:@Model.User.PhoneNumber">
+                        <i class="fa fa-phone fa-2x"></i>
+                        <span class="nav-text ">
+                            Téléphone
+                        </span>
+                    </a>
+                </li>
+                <li class="has-subnav">
+                    <a href="#">
+                        @*<i class="fa fa-exclamation-triangle fa-2x"></i>*@
+                        <span class="nav-text">
+                            @*Dangers*@
+                        </span>
+                    </a>
+                </li>
+                <li class="has-subnav">
+                    <a href="#">
+                        <i class="fa fa-envelope fa-2x"></i>
+                        <span class="nav-text sendJobMessage">
+                            Message
+                        </span>
+                    </a>
+                </li>
 
-                else if (Model.User.PhoneNumberConfirmed == true)
-                {
-                    <li class="has-subnav">
-                        <a href="tel:@Model.User.PhoneNumber">
-                            <i class="fa fa-phone fa-2x"></i>
-                            <span class="nav-text ">
-                                Téléphone
-                            </span>
-                        </a>
-                    </li>
-                }
-                else if (Model.User.EmailConfirmed == true)
-                {
-                    <li class="has-subnav">
-                        <a href="#">
-                            <i class="fa fa-envelope fa-2x"></i>
-                            <span class="nav-text sendJobMessage">
-                                Message
-                            </span>
-                        </a>
-                    </li>
-                }
+               
             }
-           
+
         </ul>
     </nav>
 </section>

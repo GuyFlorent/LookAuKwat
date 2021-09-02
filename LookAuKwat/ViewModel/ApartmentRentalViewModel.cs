@@ -39,6 +39,16 @@ namespace LookAuKwat.ViewModel
         public int RoomNumber { get; set; } 
         [DisplayName("Meublé ou non meublé")]
         public string FurnitureOrNot { get; set; }
+        //new
+        [DisplayName("Pays")]
+        public string ProductCountry { get; set; }
+        [DisplayName("Nombre")]
+        public int Stock { get; set; }
+        public int Stock_Initial { get; set; }
+        [DisplayName("Y'a t'il un lien vidéo ?")]
+        public string VideoUrl { get; set; }
+        [DisplayName("Y'a t'il un fournisseur ?")]
+        public string Provider_Id { get; set; }
         public string Category { get; set; }
         public ImageModelView Imageproduct { get; set; }
         public List<ImageProcductModel> listeImageappart { get; set; }

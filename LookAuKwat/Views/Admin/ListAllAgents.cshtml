@@ -81,13 +81,13 @@ else
                         </td>
 
                         <td>
-                            <a href="@Url.Action("Stat_Account_Agent", "Admin", new {userEmail =item.ParrainEmail })" class="btn btn-success" title="Modifier"><span class="glyphicon glyphicon-link"></span>Stats</a>
+                            <a href="@Url.Action("Stat_Account_Agent", "Admin", new {userEmail =item.ParrainEmail })" class="btn btn-success" title="Stats"><span class="glyphicon glyphicon-link"></span>Stats</a>
                             <a id="btnModalEdit_@item.Id" class="btn btn-success" title="Modifier"><span class="glyphicon glyphicon-edit"></span></a>
 
                             <a id="btnModalDetails_@item.Id" class="btn btn-info" title="Détails"><span class="glyphicon glyphicon-eye-open"></span></a>
 
 
-                            <a href="javascript:void(0);" data-id="@item.Id" id="deletePro_@item.Id" class="btn btn-danger deleteProduct_@item.Id" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></a>
+                            <a href="@Url.Action("RemoveAgentRole", "Admin", new {userEmail =item.ParrainEmail })" class="btn btn-danger deleteProduct_@item.Id" title="Supprimer"><span class="glyphicon glyphicon-trash"></span></a>
                         </td>
                     </tr>
                 }

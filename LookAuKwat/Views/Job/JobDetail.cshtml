@@ -2,6 +2,8 @@
 @using System.Globalization;
 @{
     ViewBag.Title = "Offres d\'emploi " + Model.Title+" "+Model.Street;
+
+
 }
 
 @{
@@ -140,7 +142,7 @@
             <div class="col-xs-6 col-sm-6 col-md-6 price">
                 <label class="control-label labelColor">Salaire</label>
 
-                <p><span>@Model.Price FCFA</span></p>
+                <p><span>@Model.Price.ToString("N", CultureInfo.CreateSpecificCulture("af-ZA")).Split(',')[0].Trim() @LookaukwatApp.ViewModels.StaticListConvertMoney.GetSymbol(Model.ProductCountry)</span></p>
 
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6">
@@ -192,10 +194,13 @@
     </section>
     <section class="col-md-4">
         <div class="row" style="border-radius: 25px;background: lightgray;padding: 20px;">
-            <img src="https://greendestinations.org/wp-content/uploads/2019/05/avatar-exemple.jpg" alt="photo du publicateur Lookaukwat" class="img-rounded" height="50" /> @Model.User.FirstName
+            <img src="@Url.Content("~/UserImage/avatar_icon.png")" alt="photo du publicateur Lookaukwat" class="img-rounded" height="50" /> @Model.User.FirstName
             <hr />
             @{
-                if ((Model.User.EmailConfirmed == true && Model.User.PhoneNumber != null) || (Model.User.PhoneNumberConfirmed == true && Model.User.Email != null && !Model.User.Email.StartsWith("Mtest")))
+
+                <button id="sendJobMessage" class="btn btn-primary sendJobMessage"><span class="glyphicon glyphicon-pencil"></span> Message </button>
+                <button id="iconJobCall" class="btn btn-default"><span class="glyphicon glyphicon-phone"></span> Voir le numéro</button>
+                @*if ((Model.User.EmailConfirmed == true && Model.User.PhoneNumber != null) || (Model.User.PhoneNumberConfirmed == true && Model.User.Email != null && !Model.User.Email.StartsWith("Mtest")))
                 {
                     <button id="sendJobMessage" class="btn btn-primary sendJobMessage"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
                     <button id="iconJobCall" class="btn btn-default"><span class="glyphicon glyphicon-phone"></span> Voir le numéro</button>
@@ -207,16 +212,14 @@
                 else if (Model.User.EmailConfirmed == true)
                 {
                     <button id="sendJobMessage" class="btn btn-primary sendJobMessage"><span class="glyphicon glyphicon-pencil"></span> Envoyer un message </button>
-                }
+                }*@
             }
 
             <a id="numJobCall" class="hidden" href="tel:@Model.User.PhoneNumber">@Model.User.PhoneNumber</a>
         </div>
-        <div class="row" style="height:7px">
-            <div class="row alert alert-success js-alert-job hidden" role="alert">
-                Message envoyé avec succès !
-                Bonne chance à vous pour cet emploi
-            </div>
+        <div class="row text-center">
+            <label class="site__subtitle">Télécharger lookaukwat !</label>
+            <a href="https://play.google.com/store/apps/details?id=com.lookaukwat.lookaukwatapp" style="color:blue"> <img class="img-responsive" alt="Télécharger lookaukwat android google playstore" src="@Url.Content("~/UserImage/Logo_Google_play.jpg")" /></a>
         </div>
     </section>
 </section>
@@ -234,56 +237,32 @@
         </li>*@
 
             @{
-                if ((Model.User.EmailConfirmed == true && Model.User.PhoneNumber != null) || (Model.User.PhoneNumberConfirmed == true && Model.User.Email != null && !Model.User.Email.StartsWith("Mtest")))
-                {
-                    <li class="has-subnav">
-                        <a href="tel:@Model.User.PhoneNumber">
-                            <i class="fa fa-phone fa-2x"></i>
-                            <span class="nav-text ">
-                                Téléphone
-                            </span>
-                        </a>
-                    </li>
-                    <li class="has-subnav">
-                        <a href="#">
-                            @*<i class="fa fa-exclamation-triangle fa-2x"></i>*@
-                            <span class="nav-text">
-                                @*Dangers*@
-                            </span>
-                        </a>
-                    </li>
-                    <li class="has-subnav">
-                        <a href="#">
-                            <i class="fa fa-envelope fa-2x"></i>
-                            <span class="nav-text sendJobMessage">
-                                Message
-                            </span>
-                        </a>
-                    </li>
-                }
+                <li class="has-subnav">
+                    <a href="tel:@Model.User.PhoneNumber">
+                        <i class="fa fa-phone fa-2x"></i>
+                        <span class="nav-text ">
+                            Téléphone
+                        </span>
+                    </a>
+                </li>
+                <li class="has-subnav">
+                    <a href="#">
+                        @*<i class="fa fa-exclamation-triangle fa-2x"></i>*@
+                        <span class="nav-text">
+                            @*Dangers*@
+                        </span>
+                    </a>
+                </li>
+                <li class="has-subnav">
+                    <a href="#">
+                        <i class="fa fa-envelope fa-2x"></i>
+                        <span class="nav-text sendJobMessage">
+                            Message
+                        </span>
+                    </a>
+                </li>
 
-                else if (Model.User.PhoneNumberConfirmed == true)
-                {
-                    <li class="has-subnav">
-                        <a href="tel:@Model.User.PhoneNumber">
-                            <i class="fa fa-phone fa-2x"></i>
-                            <span class="nav-text ">
-                                Téléphone
-                            </span>
-                        </a>
-                    </li>
-                }
-                else if (Model.User.EmailConfirmed == true)
-                {
-        <li class="has-subnav">
-            <a href="#">
-                <i class="fa fa-envelope fa-2x"></i>
-                <span class="nav-text sendJobMessage">
-                    Message
-                </span>
-            </a>
-        </li>
-                }
+                
             }
 
         </ul>

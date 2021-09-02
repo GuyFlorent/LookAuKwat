@@ -40,6 +40,15 @@ namespace LookAuKwat.ViewModel
         public string StateHouse { get; set; }
         [DisplayName("J'offre/Je recherche")]
         public string SearchOrAskJob { get; set; }
+        //new
+        [DisplayName("Pays")]
+        public string ProductCountry { get; set; }
+        [DisplayName("Quantité")]
+        public int Stock { get; set; }
+        public int Stock_Initial { get; set; }
+       
+        [DisplayName("Y'a t'il un fournisseur ?")]
+        public string Provider_Id { get; set; }
         public ImageModelView Imageproduct { get; set; }
         public List<ImageProcductModel> listeImage { get; set; }
     }

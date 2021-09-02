@@ -81,6 +81,26 @@ namespace LookAuKwat.Controllers
             {
                 Vehi.SearchOrAskJobVehicule = "J'offre";
             }
+
+            bool isLookAuKwat = false;
+            bool isParticuler = false;
+            bool isPromotion = false;
+            if (User.IsInRole(MyRoleConstant.RoleAdmin) || (User.IsInRole(MyRoleConstant.Role_SuperAgent)))
+            {
+                isLookAuKwat = true;
+                isPromotion = true;
+
+            }
+            else
+            {
+                isParticuler = true;
+            }
+
+            if (Vehi.Stock == 0)
+            {
+                Vehi.Stock = 1;
+            }
+
             VehiculeModel model = new VehiculeModel()
             {
                 id = Vehi.id,
@@ -100,12 +120,21 @@ namespace LookAuKwat.Controllers
                 NumberOfDoorVehicule = Vehi.NumberOfDoorVehicule,
                 ColorVehicule = Vehi.ColorVehicule,
                 GearBoxVehicule = Vehi.GearBoxVehicule,
-                DateAdd = DateTime.Now,
+                DateAdd = DateTime.UtcNow,
                 SearchOrAskJob = Vehi.SearchOrAskJobVehicule,
-                StateVehicule = Vehi.StateVehicule
+                StateVehicule = Vehi.StateVehicule,
+                IsActive = true,
+                ProductCountry = Vehi.ProductCountry,
+                IsLookaukwat = isLookAuKwat,
+                IsParticulier = isParticuler,
+                IsPromotion = isPromotion,
+                VideoUrl = Vehi.VideoUrl,
+                Provider_Id = Vehi.Provider_Id,
+                Stock_Initial = Vehi.Stock,
+                Stock = Vehi.Stock,
 
-             
-    };
+
+            };
             string success = null;
 
             if (ModelState.IsValid)
@@ -294,6 +323,8 @@ namespace LookAuKwat.Controllers
         public async Task< ActionResult> VehiculeDetail(int id)
         {
             VehiculeModel model =  await dal.GetListVehiculeWithNoInclude().FirstOrDefaultAsync(e => e.id == id);
+            model.Coordinate.Lat = model.Coordinate.Lat.Replace(",", ".");
+            model.Coordinate.Lon = model.Coordinate.Lon.Replace(",", ".");
             model.ViewNumber++;
             dal.UpdateNumberView(model);
            
